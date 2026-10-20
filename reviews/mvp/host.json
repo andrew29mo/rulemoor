@@ -1,93 +1,93 @@
 {
   "schema": 1,
-  "run_id": "bef6e4bc43213324",
+  "run_id": "97f20111c14d7117",
   "passed": true,
-  "source_sha256": "6dd4cbdefd9d39d7c6a522441ab139b90f1e5b62e9b7523b5e16cdde0cc2a7fa",
+  "source_sha256": "242a3b7fa7f7ed9418521fc42e1d94b50e60d5738511dad6f036771f9013a75c",
   "source_changed": false,
   "stages": [
     {
       "name": "native-contracts",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.339930333000666
+      "seconds": 2.125421290998929
     },
     {
       "name": "production-mutations",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.8963743749991409
+      "seconds": 1.6331229159986833
     },
     {
       "name": "vm-initial",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.4102021250000689
+      "seconds": 0.19739308299904224
     },
     {
       "name": "vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.047803417000978
+      "seconds": 9.255863165999472
     },
     {
       "name": "image-build",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.6916427079995628
+      "seconds": 1.6635809999934281
     },
     {
       "name": "image-inspect",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.02203166700201109
+      "seconds": 0.021554582999669947
     },
     {
       "name": "container-create",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.029597250002552755
+      "seconds": 0.02910899999551475
     },
     {
       "name": "container-inspect",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.011454625004262198
+      "seconds": 0.011774999999033753
     },
     {
       "name": "linux-run",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 26.848724583003786
+      "seconds": 26.958615791998454
     },
     {
       "name": "container-state",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.012243167002452537
+      "seconds": 0.013256083002488595
     },
     {
       "name": "export",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.01877283400244778
+      "seconds": 0.01741033299913397
     },
     {
       "name": "container-remove",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.021869874995900318
+      "seconds": 0.019002250002813525
     },
     {
       "name": "vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.377160415999242
+      "seconds": 2.2818854580036714
     },
     {
       "name": "vm-final",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.19293520799692487
+      "seconds": 0.2636218330007978
     }
   ],
   "scope": "Native macOS portable contracts + Colima Linux real kernel",
@@ -158,7 +158,7 @@
   ],
   "vm_initial_state": "Stopped",
   "image": {
-    "Id": "sha256:f222e1bf9c5ef6141ee589b5d8f9f8c4b9472276f2fcb96e133c408a8b365f4f",
+    "Id": "sha256:57990b2dfcb8b9442f3b89ae9fd5089f61c1faba9f65351582e27f79e7e95c1a",
     "Architecture": "arm64",
     "Os": "linux"
   },

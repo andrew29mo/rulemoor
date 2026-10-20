@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "run_id": "bef6e4bc43213324",
+  "run_id": "97f20111c14d7117",
   "passed": true,
   "execution": "Colima Linux VM; real nftables/netns/TLS",
   "source": {
     "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
     "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
-    "pyproject.toml": "3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f",
+    "pyproject.toml": "6be68097d0f9be7dc9b693b0e0f17f50669e339897a16da9ea422d583f6170c8",
     "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
     "rulemoor/backend.py": "9848470fad5480931c749e261abf33fb3d20b64b1dfbfaa44860a24f36137e6a",
     "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
@@ -36,7 +36,7 @@
     "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "source_sha256": "6dd4cbdefd9d39d7c6a522441ab139b90f1e5b62e9b7523b5e16cdde0cc2a7fa",
+  "source_sha256": "242a3b7fa7f7ed9418521fc42e1d94b50e60d5738511dad6f036771f9013a75c",
   "cases": [
     {
       "name": "atomic_batches",
@@ -210,7 +210,7 @@
           }
         ]
       },
-      "seconds": 0.22526466699999936,
+      "seconds": 0.2344055419999993,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -228,12 +228,12 @@
           "old_confirm": 409
         },
         "fresh_blocked_connect_errno": 11,
-        "rollback_start_overdue_ms": 23.359876000000668,
-        "rollback_complete_overdue_ms": 68.57054299999987,
+        "rollback_start_overdue_ms": 38.152167999999875,
+        "rollback_complete_overdue_ms": 84.27783499999997,
         "fresh_access_restored": true,
         "confirmed_survives_deadline": true
       },
-      "seconds": 5.516835753000002,
+      "seconds": 5.512113586000002,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -484,8 +484,8 @@
           "fencing": {
             "old_executor_identity": {
               "pid": 200,
-              "start_ticks": 1861,
-              "boot": "4e3a97df-bd00-4e4a-820e-2b1a0b4d1a3e"
+              "start_ticks": 1920,
+              "boot": "d4fe78b3-0be4-4e38-9cf1-3139ab71a5f0"
             },
             "old_executor_exited": true,
             "old_candidate": {
@@ -830,7 +830,7 @@
           "unknown_preserved": true
         }
       ],
-      "seconds": 4.772099377,
+      "seconds": 4.798536002999999,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -848,7 +848,7 @@
         "durably_confirmed_restart_preserved": true,
         "graceful_shutdown_restored": true
       },
-      "seconds": 3.3183145009999997,
+      "seconds": 3.256661126000001,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -866,7 +866,7 @@
         "confirmed_response_lost": true,
         "committed_survived_restart": true
       },
-      "seconds": 0.6844007919999981,
+      "seconds": 0.6836995009999995,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -888,7 +888,7 @@
         "write_limit_bytes": 16842752,
         "test_tmpfs_unmounted": true
       },
-      "seconds": 2.2691064589999996,
+      "seconds": 2.266293001000001,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -903,13 +903,13 @@
         "expired_connections": 16,
         "rollback_while_all_slots_occupied": true,
         "final_phase": "ROLLED_BACK",
-        "seconds": 6.078770711000001,
+        "seconds": 6.088495794,
         "fresh_confirmation_after_slot_recovery": true,
         "baseline_readback_verified": true,
         "connection_lifetime_seconds": 5,
         "header_drip_interval_seconds": 0.1
       },
-      "seconds": 6.514551211999997,
+      "seconds": 6.5379296700000005,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -922,9 +922,9 @@
         "trials": [
           {
             "index": 0,
-            "plan_ms": 16.47512499999948,
-            "apply_ms": 49.33520800000224,
-            "finalize_ms": 32.80208400000362,
+            "plan_ms": 19.922041999997475,
+            "apply_ms": 41.4285829999983,
+            "finalize_ms": 32.155292000005886,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 1,
@@ -949,9 +949,9 @@
           },
           {
             "index": 1,
-            "plan_ms": 18.463001000000645,
-            "apply_ms": 52.731915999999046,
-            "finalize_ms": 3.540417000003515,
+            "plan_ms": 17.04750000000388,
+            "apply_ms": 49.157291999996744,
+            "finalize_ms": 3.7799999999990064,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 2,
@@ -976,9 +976,9 @@
           },
           {
             "index": 2,
-            "plan_ms": 11.371083999996756,
-            "apply_ms": 52.047083000005046,
-            "finalize_ms": 29.272291999994593,
+            "plan_ms": 14.69124999999849,
+            "apply_ms": 48.097165999998026,
+            "finalize_ms": 35.31437499999868,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 3,
@@ -1003,9 +1003,9 @@
           },
           {
             "index": 3,
-            "plan_ms": 15.320375000001718,
-            "apply_ms": 47.12683399999662,
-            "finalize_ms": 4.2295949999981985,
+            "plan_ms": 12.426334000004147,
+            "apply_ms": 49.25485199999713,
+            "finalize_ms": 4.002538000001721,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 4,
@@ -1030,9 +1030,9 @@
           },
           {
             "index": 4,
-            "plan_ms": 20.343834999998478,
-            "apply_ms": 51.85135300000354,
-            "finalize_ms": 29.386058000000048,
+            "plan_ms": 16.445041000004323,
+            "apply_ms": 46.77830299999641,
+            "finalize_ms": 33.54815699999847,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 5,
@@ -1057,9 +1057,9 @@
           },
           {
             "index": 5,
-            "plan_ms": 14.322603000003653,
-            "apply_ms": 44.86308699999597,
-            "finalize_ms": 4.541320999997822,
+            "plan_ms": 11.90896199999969,
+            "apply_ms": 52.93614400000024,
+            "finalize_ms": 3.935549000004812,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 6,
@@ -1084,9 +1084,9 @@
           },
           {
             "index": 6,
-            "plan_ms": 11.362117000004446,
-            "apply_ms": 46.83624399999786,
-            "finalize_ms": 29.583531000000107,
+            "plan_ms": 11.812679999998466,
+            "apply_ms": 48.58588599999791,
+            "finalize_ms": 33.109774000003256,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 7,
@@ -1111,9 +1111,9 @@
           },
           {
             "index": 7,
-            "plan_ms": 11.286152000003824,
-            "apply_ms": 42.43568399999731,
-            "finalize_ms": 3.369435999999837,
+            "plan_ms": 11.92115300000296,
+            "apply_ms": 43.85162599999859,
+            "finalize_ms": 3.8298229999966793,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 8,
@@ -1138,9 +1138,9 @@
           },
           {
             "index": 8,
-            "plan_ms": 13.027583000003062,
-            "apply_ms": 41.92505999999696,
-            "finalize_ms": 31.640029000001846,
+            "plan_ms": 16.02117899999911,
+            "apply_ms": 43.000532000000646,
+            "finalize_ms": 32.382880000000114,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 9,
@@ -1165,9 +1165,9 @@
           },
           {
             "index": 9,
-            "plan_ms": 8.124398999996174,
-            "apply_ms": 45.24282500000254,
-            "finalize_ms": 4.206711999998447,
+            "plan_ms": 11.261081999997202,
+            "apply_ms": 50.96125400000062,
+            "finalize_ms": 5.095584000002873,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 10,
@@ -1193,64 +1193,64 @@
         ],
         "plan": {
           "n": 10,
-          "median_ms": 13.675093000003358,
-          "min_ms": 8.124398999996174,
-          "max_ms": 20.343834999998478,
+          "median_ms": 13.558792000001318,
+          "min_ms": 11.261081999997202,
+          "max_ms": 19.922041999997475,
           "samples_ms": [
-            16.47512499999948,
-            18.463001000000645,
-            11.371083999996756,
-            15.320375000001718,
-            20.343834999998478,
-            14.322603000003653,
-            11.362117000004446,
-            11.286152000003824,
-            13.027583000003062,
-            8.124398999996174
+            19.922041999997475,
+            17.04750000000388,
+            14.69124999999849,
+            12.426334000004147,
+            16.445041000004323,
+            11.90896199999969,
+            11.812679999998466,
+            11.92115300000296,
+            16.02117899999911,
+            11.261081999997202
           ]
         },
         "apply": {
           "n": 10,
-          "median_ms": 46.98153899999724,
-          "min_ms": 41.92505999999696,
-          "max_ms": 52.731915999999046,
+          "median_ms": 48.34152599999797,
+          "min_ms": 41.4285829999983,
+          "max_ms": 52.93614400000024,
           "samples_ms": [
-            49.33520800000224,
-            52.731915999999046,
-            52.047083000005046,
-            47.12683399999662,
-            51.85135300000354,
-            44.86308699999597,
-            46.83624399999786,
-            42.43568399999731,
-            41.92505999999696,
-            45.24282500000254
+            41.4285829999983,
+            49.157291999996744,
+            48.097165999998026,
+            49.25485199999713,
+            46.77830299999641,
+            52.93614400000024,
+            48.58588599999791,
+            43.85162599999859,
+            43.000532000000646,
+            50.96125400000062
           ]
         },
         "confirm": {
           "n": 5,
-          "median_ms": 4.206711999998447,
-          "min_ms": 3.369435999999837,
-          "max_ms": 4.541320999997822,
+          "median_ms": 3.935549000004812,
+          "min_ms": 3.7799999999990064,
+          "max_ms": 5.095584000002873,
           "samples_ms": [
-            3.540417000003515,
-            4.2295949999981985,
-            4.541320999997822,
-            3.369435999999837,
-            4.206711999998447
+            3.7799999999990064,
+            4.002538000001721,
+            3.935549000004812,
+            3.8298229999966793,
+            5.095584000002873
           ]
         },
         "cancel": {
           "n": 5,
-          "median_ms": 29.583531000000107,
-          "min_ms": 29.272291999994593,
-          "max_ms": 32.80208400000362,
+          "median_ms": 33.109774000003256,
+          "min_ms": 32.155292000005886,
+          "max_ms": 35.31437499999868,
           "samples_ms": [
-            32.80208400000362,
-            29.272291999994593,
-            29.386058000000048,
-            29.583531000000107,
-            31.640029000001846
+            32.155292000005886,
+            35.31437499999868,
+            33.54815699999847,
+            33.109774000003256,
+            32.382880000000114
           ]
         },
         "rss": {
@@ -1263,6 +1263,10 @@
           "logical_bytes": 347881,
           "allocated_bytes": 372736,
           "files": {
+            "batch-c1a8e236d95db5f10eb4b20628e5de9e.nft": {
+              "logical_bytes": 178,
+              "allocated_bytes": 4096
+            },
             "key.pem": {
               "logical_bytes": 1704,
               "allocated_bytes": 4096
@@ -1287,20 +1291,16 @@
               "logical_bytes": 0,
               "allocated_bytes": 0
             },
-            "executor-99c6dd3cf4bf74028b389dde368d9ecf.json": {
-              "logical_bytes": 126,
-              "allocated_bytes": 4096
-            },
             "rescue.json": {
               "logical_bytes": 590,
               "allocated_bytes": 4096
             },
-            "token": {
-              "logical_bytes": 64,
+            "executor-c1a8e236d95db5f10eb4b20628e5de9e.json": {
+              "logical_bytes": 126,
               "allocated_bytes": 4096
             },
-            "batch-99c6dd3cf4bf74028b389dde368d9ecf.nft": {
-              "logical_bytes": 178,
+            "token": {
+              "logical_bytes": 64,
               "allocated_bytes": 4096
             }
           },
@@ -1309,7 +1309,7 @@
         "warmup": "Service readiness only; all 10 operation trials retained",
         "timing_scope": "TLS request/response including connection+handshake, checks, nft and durable journal; one client, loopback-veth path in VM; no baseline speedup claim"
       },
-      "seconds": 0.9838005679999995,
+      "seconds": 1.001314176000001,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -1319,7 +1319,7 @@
   "unit_stage": {
     "exit_code": 0,
     "timed_out": false,
-    "seconds": 2.2204763350000007,
+    "seconds": 2.2395964590000013,
     "passed": true
   },
   "unit": {
@@ -1379,11 +1379,11 @@
     "failures": 0,
     "errors": 0,
     "skipped": 0,
-    "seconds": 2.148974042999999,
+    "seconds": 2.1703857089999996,
     "source": {
       "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
       "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
-      "pyproject.toml": "3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f",
+      "pyproject.toml": "6be68097d0f9be7dc9b693b0e0f17f50669e339897a16da9ea422d583f6170c8",
       "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
       "rulemoor/backend.py": "9848470fad5480931c749e261abf33fb3d20b64b1dfbfaa44860a24f36137e6a",
       "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
@@ -1413,12 +1413,12 @@
       "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
       "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
     },
-    "source_sha256": "6dd4cbdefd9d39d7c6a522441ab139b90f1e5b62e9b7523b5e16cdde0cc2a7fa",
-    "run_id": "bef6e4bc43213324",
+    "source_sha256": "242a3b7fa7f7ed9418521fc42e1d94b50e60d5738511dad6f036771f9013a75c",
+    "run_id": "97f20111c14d7117",
     "platform": "Linux",
     "architecture": "aarch64",
     "python": "3.12.14",
-    "test_process_peak_rss_bytes": 37195776,
+    "test_process_peak_rss_bytes": 36933632,
     "scope": "Portable production-core contracts with a memory backend; not real nft or network performance"
   },
   "environment": {

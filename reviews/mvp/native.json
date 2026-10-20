@@ -55,11 +55,11 @@
   "failures": 0,
   "errors": 0,
   "skipped": 0,
-  "seconds": 2.2612989590052166,
+  "seconds": 2.064941958997224,
   "source": {
     "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
     "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
-    "pyproject.toml": "3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f",
+    "pyproject.toml": "6be68097d0f9be7dc9b693b0e0f17f50669e339897a16da9ea422d583f6170c8",
     "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
     "rulemoor/backend.py": "9848470fad5480931c749e261abf33fb3d20b64b1dfbfaa44860a24f36137e6a",
     "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
@@ -89,11 +89,11 @@
     "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "source_sha256": "6dd4cbdefd9d39d7c6a522441ab139b90f1e5b62e9b7523b5e16cdde0cc2a7fa",
-  "run_id": "bef6e4bc43213324",
+  "source_sha256": "242a3b7fa7f7ed9418521fc42e1d94b50e60d5738511dad6f036771f9013a75c",
+  "run_id": "97f20111c14d7117",
   "platform": "Darwin",
   "architecture": "arm64",
   "python": "3.12.14",
-  "test_process_peak_rss_bytes": 39862272,
+  "test_process_peak_rss_bytes": 39944192,
   "scope": "Portable production-core contracts with a memory backend; not real nft or network performance"
 }

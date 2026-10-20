@@ -1,6 +1,6 @@
 # Final pre-publication review — 2026-10-21
 
-Status: code, tests, documentation and current local evidence reconciled. The repository remains **Private**, with **no project license selected**. Publication and licensing remain separate owner decisions; this review does not authorize either.
+Status: code, tests, documentation and current local evidence reconciled. The repository remains **Private**, with the **MIT License adopted by the owner**. Publication remains a separate owner decision; licensing does not authorize a visibility change.
 
 ## Current evidence
 
@@ -9,7 +9,7 @@ Status: code, tests, documentation and current local evidence reconciled. The re
 - **Nine** production mutations are caught by assertion failures; **seventeen** malformed or missing-evidence controls are rejected. Optimized validation is refused rather than silently removing assertions.
 - Source fingerprints, individual test IDs, run IDs, raw trials, summary recomputation and exact HTML/JSON consistency are rechecked by `tools.audit_evidence`.
 - Both test namespaces have zero remaining workers after each case, before subsequent tests or measurements. Final namespace/container cleanup, unchanged container-root firewall and stopped VM are verified.
-- Installed package modules are compared with the validated checkout. Current records are in `reviews/mvp/` and `reviews/package-verification.json`.
+- Built wheel modules are compared with the validated checkout; wheel and source distributions are checked for MIT metadata and matching license/notice files. Current records are in `reviews/mvp/` and `reviews/package-verification.json`.
 
 `docs/MEASUREMENTS.md` reports the current run's endpoint medians/ranges, daemon VmHWM and state-directory allocation. Ten changing-policy trials are retained, split between five confirmations and five cancellations. TLS transport/checks/journal costs are included; Python command startup, preparatory status requests and the CLI confirm command's additional status fetch are excluded. RSS excludes nft children, clients and VM memory. No speedup, tail-latency, throughput, total-deployment-memory or production-SLA claim is made.
 
@@ -29,12 +29,18 @@ No virtual environment, raw host log, generated certificate/key, state database,
 
 ## License and access
 
-README and package metadata consistently have no selected project license; no LICENSE file or open-source grant was added. Third-party tools retain their own licenses as described in `THIRD_PARTY_NOTICES.md`; no image/binary redistribution or legal clearance is asserted.
+README, package metadata and LICENSE consistently identify MIT, copyright (c) 2026 Andrew Yuan. LICENSE and THIRD_PARTY_NOTICES.md are included in Python distributions. Third-party tools retain their own licenses as described in `THIRD_PARTY_NOTICES.md`; no image/binary redistribution or legal clearance is asserted.
 
 GitHub was rechecked: Private, owner-only access, no pending collaborator invitations, read-only Actions tokens, no PR-approval permission, exact pinned-action allowlist and required SHA pinning, disabled external-fork workflows, and enabled Dependabot alerts/security fixes. See `reviews/security-settings.json`. The optional portable workflow remains manual-only; no remote CI pass is claimed.
 
-Prior attempts to enable private main protection and Secret scanning were rejected by GitHub (403/422). Neither is described as enabled. Any future publication requires a separate license/visibility decision and rechecking/enabling available main and secret/push protection. No paid service or public visibility was enabled as a workaround.
+Prior attempts to enable private main protection and Secret scanning were rejected by GitHub (403/422). Neither is described as enabled. Any future publication requires a separate visibility decision and rechecking/enabling available main and secret/push protection. No paid service or public visibility was enabled as a workaround.
 
 ## Remaining limitations
 
 This remains a single-node IPv4 input-table MVP for the documented kernel/nft environment. A stopped agent has no running rollback timer. Whole-host reboot, power loss, systemd boot integration, arbitrary privileged writers, continuous connection-replacement attacks, other architectures and production qualification are not established by these results. Malformed metadata intentionally requires operator recovery, not automatic adoption.
+
+## Owner-authorized MIT adoption — 2026-10-21
+
+The owner selected MIT after the correctness review. README, SECURITY.md, package metadata and third-party notices were updated together; historical review wording is explicitly historical. Setuptools >=77.0.3 is required for SPDX license metadata and explicit license-file inclusion. This packaging-only change receives a fresh same-source macOS/Linux run so the retained evidence fingerprint continues to match the current package inputs. Production Python code and tests are unchanged from commit `3c9f4ae`.
+
+The MIT validation's first attempt failed during fresh dedicated-VM startup with a host PermissionError; the runner reported failure and verified the VM stopped. The successful retained run uses the documented explicit overrides for the previously validated dedicated Colima VM. This run does not establish successful first-time provisioning with the default VM home. Both attempts are recorded in `reviews/mvp/attempts.json`; raw host logs and VM files remain local.

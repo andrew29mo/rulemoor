@@ -2,7 +2,6 @@
   "repository": "andrew29mo/rulemoor",
   "private": true,
   "visibility": "private",
-  "license": null,
   "default_branch": "main",
   "collaborators": [
     {
@@ -45,5 +44,8 @@
     "secret_scanning_and_push_protection": "GitHub PATCH returned 422: secret scanning unavailable for this repository; neither claimed enabled"
   },
   "remote_workflow_dispatched": false,
-  "settings_rechecked_on": "2026-10-21"
+  "settings_rechecked_on": "2026-10-21",
+  "license_at_settings_check": null,
+  "settings_snapshot_commit": "3c9f4aed1efd969625630ecb6794edee29e1ab9b",
+  "license_note": "Security-settings snapshot predates owner-authorized MIT adoption; current project license is recorded in LICENSE and pyproject.toml."
 }

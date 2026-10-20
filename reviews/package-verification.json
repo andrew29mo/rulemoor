@@ -1,6 +1,14 @@
 {
   "version": "0.1.0",
-  "installed_modules_match_validated_source": true,
+  "wheel_modules_match_validated_source": true,
   "cli_and_agent_entrypoints_present": true,
-  "source_sha256": "6dd4cbdefd9d39d7c6a522441ab139b90f1e5b62e9b7523b5e16cdde0cc2a7fa"
+  "source_sha256": "242a3b7fa7f7ed9418521fc42e1d94b50e60d5738511dad6f036771f9013a75c",
+  "license_expression": "MIT",
+  "wheel_and_sdist_include_matching_license_and_notices": true,
+  "third_party_runtime_requirements": [],
+  "artifacts": {
+    "rulemoor-0.1.0-py3-none-any.whl": "cc8d35de442f9b890f86aeeeb8ae808027c2b294006894069e0a052a283256b9",
+    "rulemoor-0.1.0.tar.gz": "c84f5877d078602b8dde4c6da8d8c17677f3e3c00defcca77b5675c4140a571d"
+  },
+  "distribution_privacy_scan_passed": true
 }

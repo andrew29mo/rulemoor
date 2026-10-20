@@ -10,4 +10,4 @@ The owned table is fixed. Policy inputs are constrained and never passed to a sh
 
 No advisory lock protects against an arbitrary root process. Foreign-policy detection blocks unsafe automatic overwrites when observed; it cannot atomically exclude other privileged managers. Unknown state requires operator action. The supplied service unit is untested packaging, not proof of production hardening.
 
-For security issues in the private repository, use its private issue channel and avoid posting tokens, private keys or real operational state. Before any public release, select a license, verify repository access, enable available secret/push scanning and review branch/Actions policies. Do not assume a private repository has paid security features enabled.
+For security issues in the private repository, use its private issue channel and avoid posting tokens, private keys or real operational state. Before any public release, verify repository access, enable available secret/push scanning and review branch/Actions policies. Do not assume a private repository has paid security features enabled.

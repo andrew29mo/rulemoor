@@ -85,6 +85,6 @@ Important boundaries:
 - This is an early controlled-environment MVP, not a production-qualified security appliance. It has no RBAC, SSO, distributed consensus, high availability or automatic repair of foreign policy.
 - Apply IDs are deduplicated within the most recent 64 retained operations. Old generations are rejected even after an ID is evicted. Cancellation/confirmation retries should inspect status after a lost response.
 
-## License status
+## License
 
-**No project license has been selected.** No `LICENSE` file or open-source grant is included. The repository is maintained privately pending a separate release decision. Third-party tools retain their respective licenses; see [third-party notices](THIRD_PARTY_NOTICES.md).
+Rulemoor's authored source and documentation are available under the [MIT License](LICENSE), copyright (c) 2026 Andrew Yuan. Third-party tools retain their own licenses; see [third-party notices](THIRD_PARTY_NOTICES.md). The repository remains Private pending a separate publication decision.

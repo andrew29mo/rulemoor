@@ -67,6 +67,20 @@
     "run_id": "bef6e4bc43213324",
     "passed": true,
     "source_sha256": "6dd4cbdefd9d39d7c6a522441ab139b90f1e5b62e9b7523b5e16cdde0cc2a7fa",
-    "note": "Current pre-publication pass: 49 tests/platform, nine production mutations, seventeen evidence controls, eight Linux groups, zero namespace workers after each case."
+    "note": "Pre-publication pass retained in 3c9f4ae: 49 tests/platform, nine production mutations, seventeen evidence controls, eight Linux groups, zero namespace workers after each case. Superseded by the same implementation with MIT package metadata."
+  },
+  {
+    "attempt": "mit-20261021-initial",
+    "run_id": "0b62b7eb5d7e5522",
+    "passed": false,
+    "source_sha256": "242a3b7fa7f7ed9418521fc42e1d94b50e60d5738511dad6f036771f9013a75c",
+    "note": "Failed during initial VM startup with PermissionError; VM stopped. No Linux test/performance pass claimed; replaced by explicit existing-VM run."
+  },
+  {
+    "attempt": "mit-20261021-existing-vm",
+    "run_id": "97f20111c14d7117",
+    "passed": true,
+    "source_sha256": "242a3b7fa7f7ed9418521fc42e1d94b50e60d5738511dad6f036771f9013a75c",
+    "note": "Current retained pass after MIT package metadata: 49 tests/platform, nine production mutations, seventeen evidence controls, eight real Linux groups. Production/test/tool sources unchanged from 3c9f4ae."
   }
 ]

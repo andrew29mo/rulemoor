@@ -1,6 +1,6 @@
 # Agent-assisted correctness review — 2026-10-21
 
-Two read-only reviewers formed separate first passes from the production source, tests and retained evidence. Findings were reproduced, corrected by the primary authoring agent, and reviewed again. Agreement alone was not used as proof: regression tests, negative controls and a fresh same-source macOS/Linux run support the conclusions below. The repository remains Private; no project license was selected.
+Two read-only reviewers formed separate first passes from the production source, tests and retained evidence. Findings were reproduced, corrected by the primary authoring agent, and reviewed again. Agreement alone was not used as proof: regression tests, negative controls and a fresh same-source macOS/Linux run support the conclusions below. At the time of that review the repository was Private and no project license had been selected; the later owner-authorized MIT adoption is documented in `PUBLICATION_REVIEW.md`.
 
 ## Findings and corrections
 
