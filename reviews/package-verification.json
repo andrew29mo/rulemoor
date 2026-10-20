@@ -2,14 +2,14 @@
   "version": "0.1.0",
   "wheel_modules_match_validated_source": true,
   "cli_and_agent_entrypoints_present": true,
-  "source_sha256": "30c1f7696bde723df46409031d531baf3ebd50aa1f51c36129497dbf71ee6ad4",
+  "source_sha256": "d410c997fe1ac010f40e8880562e328fcaad24ba0b2d446a3530f55899d4fa7f",
   "license_expression": "MIT",
   "wheel_and_sdist_include_matching_license_and_notices": true,
   "third_party_runtime_requirements": [],
   "artifacts": {
-    "rulemoor-0.1.0-py3-none-any.whl": "ba923f0fdedb73b7780957244da3bd83db8c55c50add75aee4113aa216ac77a3",
-    "rulemoor-0.1.0.tar.gz": "76971cb98357088d29d75a33dbd401eff20d2cab7f43cac38d9b06b4c4c2493e"
+    "rulemoor-0.1.0-py3-none-any.whl": "fa879ddb13d98e7a1b7a014ff6d7ce576e7ea532b5bc604022addbd3c18edb82",
+    "rulemoor-0.1.0.tar.gz": "505bd74389ef525d8b6d27856609a6589bfec49ea310b81207bb4627339be532"
   },
   "distribution_privacy_scan_passed": true,
-  "note": "Rebuilt for deployment recovery implementation and systemd third-party notice; wheel modules match current validated production source."
+  "note": "Rebuilt after deployment evidence audit; production code unchanged from 862a6c7. Current VM evidence separately verifies installed site-packages module hashes against this source."
 }

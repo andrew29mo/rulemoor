@@ -17,7 +17,7 @@ import time
 import fcntl
 from .evidence import ROOT, manifest, fingerprint, save
 from .process import run
-from .deployment_report import verify, render
+from .deployment_report import verify, render, negative_controls
 
 
 def main():
@@ -107,10 +107,14 @@ def main():
             uploaded=True
         phase('setup',setup=True)
         phase('crash'); phase('held_writer'); phase('prepare_pending_boot')
-        began=time.monotonic(); call('pending-vm-stop',[colima,'stop',a.profile],timeout=120); start('pending-vm-start')
-        phase('after_pending_boot'); value['pending_vm_restart_control_seconds']=time.monotonic()-began
-        began=time.monotonic(); call('committed-vm-stop',[colima,'stop',a.profile],timeout=120); start('committed-vm-start')
-        phase('after_committed_boot'); value['committed_vm_restart_control_seconds']=time.monotonic()-began
+        began=time.monotonic_ns(); call('pending-vm-stop',[colima,'stop',a.profile],timeout=120); start('pending-vm-start')
+        phase('after_pending_boot'); ended=time.monotonic_ns()
+        value['pending_vm_restart_clock']={'clock':'monotonic_ns','started_ns':began,'finished_ns':ended}
+        value['pending_vm_restart_control_seconds']=(ended-began)/1e9
+        began=time.monotonic_ns(); call('committed-vm-stop',[colima,'stop',a.profile],timeout=120); start('committed-vm-start')
+        phase('after_committed_boot'); ended=time.monotonic_ns()
+        value['committed_vm_restart_clock']={'clock':'monotonic_ns','started_ns':began,'finished_ns':ended}
+        value['committed_vm_restart_control_seconds']=(ended-began)/1e9
         phase('cleanup'); cleanup_done=True
         value['passed']=True
     except BaseException as exc:
@@ -139,19 +143,7 @@ def main():
         if value['passed']:
             try:
                 verify(value,source)
-                controls=[]
-                for name in ('boot-identity','missing-case','stale-kernel','missing-cleanup','timeout','source'):
-                    broken=copy.deepcopy(value)
-                    if name=='boot-identity':broken['cases'][4]['evidence']['boot_id_after']=broken['cases'][4]['evidence']['boot_id_before']
-                    elif name=='missing-case':broken['cases'].pop(2)
-                    elif name=='stale-kernel':broken['cases'][4]['evidence']['kernel_after_stale']=[]
-                    elif name=='missing-cleanup':broken['cases'][-1]['evidence']={}
-                    elif name=='timeout':broken['stages'][0]['timed_out']=True
-                    else:broken['source']={}
-                    try:verify(broken,source)
-                    except (AssertionError,KeyError):controls.append({'name':name,'rejected':True})
-                    else:raise AssertionError('Verifier accepted corrupt evidence')
-                value['evidence_controls']=controls
+                value['evidence_controls']=negative_controls(value,source)
             except BaseException as exc:value.update(passed=False,verification_error=type(exc).__name__)
         persist(); os.close(lockfd)
     print(json.dumps({k:value.get(k) for k in ('passed','run_id','error','cleanup_error','verification_error','vm_final_state')}))

@@ -68,7 +68,7 @@ PYTHON=.venv/bin/python tools/validate-local
 
 The one-command workflow installs checksum-pinned Colima/Lima locally if necessary and reuses an installed Docker CLI. Docker Desktop does not need to run. First-time setup downloads VM/container images. Existing running VMs are refused. See [validation methodology](docs/VALIDATION.md) for explicit toolchain overrides and cleanup behavior.
 
-[Systemd / VM restart validation](docs/DEPLOYMENT_VALIDATION.md) · [Deployment HTML report](reviews/deployment/report.html)
+[Systemd / VM restart validation](docs/DEPLOYMENT_VALIDATION.md) · [Deployment evidence review](docs/DEPLOYMENT_REVIEW.md) · [Deployment HTML report](reviews/deployment/report.html)
 
 [Retained validation](reviews/mvp/combined.json) · [HTML report](reviews/mvp/report.html) · [measurement interpretation](docs/MEASUREMENTS.md)
 

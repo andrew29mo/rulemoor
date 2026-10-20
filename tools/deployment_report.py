@@ -1,4 +1,6 @@
 """Fail-closed deployment evidence checks and standalone HTML rendering."""
+import copy
+import math
 import html
 import json
 from .evidence import fingerprint
@@ -6,6 +8,54 @@ from .deployment_guest import BASE, NEXT, NEW
 from rulemoor.policy import expected
 
 PHASES = ['setup', 'crash', 'held_writer', 'prepare_pending_boot', 'after_pending_boot', 'after_committed_boot', 'cleanup']
+
+STAGES = ['vm-initial','vm-start','preflight','guest-prerequisites','wheel-build','snapshot-upload',
+          'guest-setup','guest-crash','guest-held_writer','guest-prepare_pending_boot',
+          'pending-vm-stop','pending-vm-start','guest-after_pending_boot',
+          'committed-vm-stop','committed-vm-start','guest-after_committed_boot',
+          'guest-cleanup','snapshot-remove','vm-final-stop','vm-final']
+CONTROL_NAMES = ['boot-identity','missing-case','stale-kernel','missing-cleanup','timeout','source',
+                 'missing-stage','wrong-package-origin','wrong-preboot-journal','stale-pending-generation',
+                 'infinite-timing','missing-vm-interval','memory-identity','invalid-memory']
+
+
+def positive(value):
+    assert type(value) in (int, float) and math.isfinite(value) and value > 0
+
+
+def interval(clock, summary_seconds):
+    assert clock['clock'] == 'monotonic_ns'
+    assert type(clock['started_ns']) is int and type(clock['finished_ns']) is int
+    assert 0 < clock['started_ns'] < clock['finished_ns']
+    positive(summary_seconds)
+    assert math.isclose(summary_seconds, (clock['finished_ns']-clock['started_ns'])/1e9, rel_tol=1e-10, abs_tol=1e-9)
+
+
+def memory_sample(m):
+    assert type(m['agent_rss_bytes']) is int and type(m['agent_vmhwm_bytes']) is int
+    positive(m['agent_rss_bytes']); positive(m['agent_vmhwm_bytes'])
+    assert m['agent_vmhwm_bytes'] >= m['agent_rss_bytes']
+    assert type(m['service_cgroup_memory_current_bytes']) is int
+    positive(m['service_cgroup_memory_current_bytes'])
+    i = m['process_identity']
+    assert type(i['pid']) is int and i['pid'] > 1 and type(i['start_ticks']) is int and i['start_ticks'] >= 0
+    assert i['boot'] and m['main_pid_after'] == i['pid']
+    assert m['invocation_id'] and m['invocation_id'] == m['invocation_id_after']
+    assert m['process_namespace_inode'] > 0 and m['process_namespace_inode'] == m['target_namespace_inode']
+    assert m['entrypoint'] == '/opt/rulemoor/venv/bin/rulemoor-agent' and m['cwd'] == '/'
+    assert m['python_path_environment_clean'] is True and m['control_group'] == '/system.slice/rulemoor.service'
+    assert 0 < m['sample_started_ns'] < m['sample_finished_ns']
+
+
+def stale_trace(t, policy, require_confirmation):
+    before, after, committed = t['pending_before'], t['pending_after'], t['committed']
+    assert before == after and after['phase'] == 'AWAITING_CONFIRM'
+    assert t['pending_kernel'] == expected(policy) == t['committed_kernel']
+    assert committed['phase'] == 'COMMITTED' and committed['generation'] == before['generation']
+    assert committed['op'] == before['op'] and committed['current'] == policy
+    paths = (['confirm'] if require_confirmation else []) + ['cancel','apply']
+    assert t['rejected_pending'] == t['rejected_committed'] == paths
+
 
 
 def verify(value, source):
@@ -16,11 +66,17 @@ def verify(value, source):
     assert value['scope']['reboot_method'] == 'Orderly Colima VM stop/start; pending agent stopped using SIGKILL'
     assert [r['name'] for r in value['cases']] == PHASES
     assert all(r['passed'] is True for r in value['cases'])
+    assert not any(k in value for k in ('error','cleanup_error','vm_cleanup_error','verification_error'))
+    assert [s['name'] for s in value['stages']] == STAGES
     assert value['stages'] and all(s['exit_code'] == 0 and not s['timed_out'] for s in value['stages'])
+    for stage in value['stages']: positive(stage['seconds'])
     rows = {r['name']: r['evidence'] for r in value['cases']}
     setup = rows['setup']
     assert setup['pid1'] == 'systemd' and setup['installed_modules_match_source']
     assert setup['production_unit_sha256'] == source['deploy/rulemoor.service']
+    pkg = setup['installed_package']
+    assert pkg['origin'].startswith('/opt/rulemoor/venv/lib/python') and pkg['origin'].endswith('/site-packages/rulemoor')
+    assert pkg['hashes'] == {k:v for k,v in source.items() if k.startswith('rulemoor/')}
     p = setup['unit_properties']
     assert p['Restart'] == 'on-failure' and p['KillMode'] == 'control-group' and p['NoNewPrivileges'] == 'yes'
     assert p['NetworkNamespacePath'] == '/run/netns/rm_deployment'
@@ -30,7 +86,18 @@ def verify(value, source):
     assert crash['pending_baseline_restored'] and crash['stale_requests_rejected_after_new_commit']
     assert crash['new_generation'] > crash['recovered_generation'] > crash['old_generation']
     assert crash['restored_kernel'] == expected(BASE) and crash['kernel_after_stale'] == expected(NEW)
-    assert crash['kill_to_tls_ready_observed_ms'] > 0
+    c = crash['recovery_clock']
+    assert c['clock'] == 'monotonic_ns'
+    interval({'clock':c['clock'],'started_ns':c['kill_started_ns'],'finished_ns':c['tls_observed_ns']}, crash['kill_to_tls_ready_observed_ms']/1000)
+    assert c['baseline_verified_ns'] >= c['tls_observed_ns']
+    stale_trace(crash['stale_trace'], NEW, True)
+    stale_trace(held['stale_trace'], BASE, False)
+    stale_trace(pending['stale_trace'], NEW, True)
+    durations = {x['name']:x['seconds'] for x in value['stages']}
+    for prefix, guest in (('pending','guest-after_pending_boot'),('committed','guest-after_committed_boot')):
+        seconds = value[prefix+'_vm_restart_control_seconds']
+        interval(value[prefix+'_vm_restart_clock'], seconds)
+        assert seconds >= sum(durations[k] for k in (prefix+'-vm-stop',prefix+'-vm-start',guest))
     assert held['test_only_fault_override'] and held['old_executor_retired'] and held['systemd_cgroup_restart_observed']
     assert held['late_release_did_not_overwrite_new_policy'] and held['stale_requests_rejected']
     assert held['old_executor_identity'] and held['old_executor_identity_after'] != held['old_executor_identity']
@@ -39,6 +106,14 @@ def verify(value, source):
     prep = rows['prepare_pending_boot']
     assert prep['journal_pending_after_service_stop'] and prep['graceful_rollback_deliberately_bypassed'] and prep['unit_enabled']
     assert prep['kernel_before_shutdown'] == expected(NEXT)
+    j = prep['journal_after_stop']
+    assert j['phase'] == 'AWAITING_CONFIRM' and j['candidate'] == NEXT and j['current'] == j['baseline'] == BASE
+    assert pending['journal_before_agent'] == j
+    assert j['generation'] == prep['pending_generation'] and j['boot'] == pending['boot_id_before']
+    j = committed['journal_before_agent']
+    assert j['phase'] == 'COMMITTED' and j['current'] == NEW
+    assert j['generation'] == pending['new_generation'] == committed['old_generation']
+    assert j['boot'] == committed['boot_id_before']
     for row in (pending, committed):
         assert row['boot_id_before'] != row['boot_id_after'] and row['pre_agent_table_absent']
         assert row['recovered_generation'] > row['old_generation'] and row['generation_advanced']
@@ -55,8 +130,35 @@ def verify(value, source):
     assert set(rows['cleanup']) == {'namespace_removed', 'service_stopped_and_removed', 'credentials_and_state_removed', 'vm_root_firewall_unchanged'}
     assert all(x is True for x in rows['cleanup'].values()) and value['source_snapshot_removed']
     for row in (setup, crash, pending, committed):
-        m = row['memory']; assert m['agent_vmhwm_bytes'] >= m['agent_rss_bytes'] > 0
-        assert m['service_cgroup_memory_current_bytes'] > 0
+        memory_sample(row['memory'])
+    assert committed['memory_stage'] == 'committed_after_boot_before_foreign_policy_probe'
+    assert setup['memory']['process_identity']['boot'] == crash['memory']['process_identity']['boot'] == setup['boot_id']
+    assert pending['memory']['process_identity']['boot'] == pending['boot_id_after']
+    assert committed['memory']['process_identity']['boot'] == committed['boot_id_after']
+
+
+def negative_controls(value, source):
+    rows=[]
+    for name in CONTROL_NAMES:
+        broken=copy.deepcopy(value)
+        if name=='boot-identity':broken['cases'][4]['evidence']['boot_id_after']=broken['cases'][4]['evidence']['boot_id_before']
+        elif name=='missing-case':broken['cases'].pop(2)
+        elif name=='stale-kernel':broken['cases'][4]['evidence']['kernel_after_stale']=[]
+        elif name=='missing-cleanup':broken['cases'][-1]['evidence']={}
+        elif name=='timeout':broken['stages'][0]['timed_out']=True
+        elif name=='source':broken['source']={}
+        elif name=='missing-stage':broken['stages'].pop(10)
+        elif name=='wrong-package-origin':broken['cases'][0]['evidence']['installed_package']['origin']='/opt/rulemoor-validation/rulemoor'
+        elif name=='wrong-preboot-journal':broken['cases'][4]['evidence']['journal_before_agent']['phase']='ROLLED_BACK'
+        elif name=='stale-pending-generation':broken['cases'][4]['evidence']['stale_trace']['pending_after']['generation']+=1
+        elif name=='infinite-timing':broken['cases'][1]['evidence']['kill_to_tls_ready_observed_ms']=float('inf')
+        elif name=='missing-vm-interval':del broken['pending_vm_restart_control_seconds']
+        elif name=='memory-identity':broken['cases'][1]['evidence']['memory']['main_pid_after']+=1
+        elif name=='invalid-memory':broken['cases'][1]['evidence']['memory']['agent_rss_bytes']=float('nan')
+        try:verify(broken,source)
+        except (AssertionError,KeyError):rows.append({'name':name,'rejected':True})
+        else:raise AssertionError('Verifier accepted '+name)
+    return rows
 
 
 def render(value):
@@ -66,7 +168,9 @@ def render(value):
     if 'crash' in by_name:
         observations += '<p>Observed Agent SIGKILL to fresh TLS ready with restored baseline: ' + f"{by_name['crash']['kill_to_tls_ready_observed_ms']:.1f} ms" + ' (one trial; includes client probes and systemctl overhead).</p>'
     if 'pending_vm_restart_control_seconds' in value:
-        observations += '<p>Orderly VM stop/start plus post-boot validation: ' + f"{value['pending_vm_restart_control_seconds']:.2f} s" + ' pending / ' + f"{value.get('committed_vm_restart_control_seconds', 0):.2f} s" + ' committed (each one trial; includes VM control, SSH and assertions, not boot-time bounds).</p>'
+        committed_seconds = value.get('committed_vm_restart_control_seconds')
+        committed_text = f'{committed_seconds:.2f} s' if committed_seconds is not None else 'not observed'
+        observations += '<p>Orderly VM stop/start plus post-boot validation: ' + f"{value['pending_vm_restart_control_seconds']:.2f} s" + ' pending / ' + committed_text + ' committed (each observed case one trial; includes VM control, SSH and assertions, not boot-time bounds).</p>'
     if by_name:
         observations += '<table><tr><th>Stage</th><th>Agent VmHWM MiB</th><th>Service cgroup MiB</th></tr>'
         for name,row in by_name.items():

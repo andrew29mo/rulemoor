@@ -107,15 +107,16 @@
     "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "tests/test_api.py": "b20e4b98a9c854f46505779ab1651ef0d0177fea9e80247870773a54fe27a5c0",
     "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
+    "tests/test_deployment_audit.py": "ef04c9a52eac64fe524c14193350448ba544fdc038285a4f2ab5115705c85bf4",
     "tests/test_tools.py": "c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5",
     "tools/__init__.py": "eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac",
     "tools/agent_driver.py": "6ab01068cf71fd154041b8faa01043d65778f30bb43ce3e9fe3316a4c6a88c77",
-    "tools/audit_deployment.py": "d7a53bc5d07c2d9aa764417adbb1cfa6c5372de9669b88a0e9dda14b34f71103",
+    "tools/audit_deployment.py": "3030b50941a804ce2b0f1ae74ae415592e9e6075756b34f94535bda9e1f53bed",
     "tools/audit_evidence.py": "20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617",
     "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
     "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
-    "tools/deployment_guest.py": "c605c1d7b779d279bcf66f931f4ffd034bae2b6b5dcb7b991256ddae7b65546c",
-    "tools/deployment_report.py": "515a4d4b7ca43aee09467a56a69f76ddba2fed97a39523624d4ee7cd1eacb4df",
+    "tools/deployment_guest.py": "1296ff84d47dae8484a7a054dff5795aeb199705092b7a1dd6335ed243583186",
+    "tools/deployment_report.py": "ed690ad493ad40180a6bced641d85c6eec2c4e69161d8d4a3e38dc00c9696c78",
     "tools/evidence.py": "d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b",
     "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
     "tools/linux_cases.py": "49500a9697b81d5a1b9ba8651e4c1755474f6a49a213b95fce7ec55672cf0a79",
@@ -128,8 +129,8 @@
     "tools/unit.py": "ade259d94052f2c69685c35210af0444c44a76e81c51640dc5f212da6a5282fd",
     "tools/validate-deployment": "e3995176226e017ff2c6e36fd52c163b6e968ca539737420edfa7d5f9fcbe412",
     "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
-    "tools/validate_deployment.py": "c15a8a3ce5a4381446ff91ab43007e6b55630c6dd7c4b70ee98d8a01501d9543",
+    "tools/validate_deployment.py": "0be34ce0185b40ad819908b74b71699fb03f9e7407968ae4fe64dcf15281fe02",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "run_id": "c166229ecdd5ae61"
+  "run_id": "b4bce6410424dfd2"
 }

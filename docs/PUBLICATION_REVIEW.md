@@ -4,7 +4,7 @@ Status: code, tests, documentation and current local evidence reconciled. The ow
 
 ## Current evidence
 
-- Native macOS and Linux each pass **56** production-core/API/tool tests from the same immutable executable snapshot. Portable kernel behavior is represented by a memory backend; actual nftables/network evidence comes from the Linux VM case groups.
+- Native macOS and Linux each pass **60** production-core/API/tool tests from the same immutable executable snapshot. Portable kernel behavior is represented by a memory backend; actual nftables/network evidence comes from the Linux VM case groups.
 - All **eight** real Linux nft/netns/TLS groups pass: atomicity, management connectivity, six crash boundaries/two foreign-policy cases, process recovery, backlog/response loss, storage faults, finite slow clients and measurement.
 - **Thirteen** production mutations are caught by assertion failures; **seventeen** malformed or missing-evidence controls are rejected. Optimized validation is refused rather than silently removing assertions.
 - Source fingerprints, individual test IDs, run IDs, raw trials, summary recomputation and exact HTML/JSON consistency are rechecked by `tools.audit_evidence`.
@@ -56,4 +56,8 @@ Local macOS/Linux validation run `97f20111c14d7117` was re-audited against the u
 [Deployment validation](DEPLOYMENT_VALIDATION.md) adds installed-unit, automatic restart and orderly VM boot evidence. The earlier MIT/publication run references above are historical; `reviews/mvp/` now retains the latest same-source portable/container run and `reviews/deployment/` retains the separate actual-systemd VM run. Executable changes receive fresh validation; no abrupt power-loss recovery is claimed.
 
 
-The deployment-recovery update passes **56 tests per platform, thirteen production mutations, seventeen original evidence controls, eight container Linux groups and seven actual-systemd deployment groups with six additional evidence controls**. Both suites record executable snapshot `30c1f7696bde723df46409031d531baf3ebd50aa1f51c36129497dbf71ee6ad4`. The deployment run is `dfad2049d204fa28`; the native/container run is `c166229ecdd5ae61`. Failed/superseded deployment attempts remain visible; current cleanup verifies removal and a stopped VM.
+The deployment-recovery update passes **60 tests per platform, thirteen production mutations, seventeen original evidence controls, eight container Linux groups and seven actual-systemd deployment groups with fourteen additional evidence controls**. Both suites record executable snapshot `d410c997fe1ac010f40e8880562e328fcaad24ba0b2d446a3530f55899d4fa7f`. The deployment run is `825cc1126d620a4f`; the native/container run is `b4bce6410424dfd2`. Failed/superseded deployment attempts remain visible; current cleanup verifies removal and a stopped VM.
+
+## Deployment evidence audit
+
+The follow-up [deployment review](DEPLOYMENT_REVIEW.md) reproduced a checkout-shadowed installation check and overly permissive artifact guards. Current records require isolated site-packages origin/module hashes, an unchanged pending journal read before new-boot Agent startup, pending/committed stale-request traces, finite recomputed monotonic intervals and stable process-associated memory. Four new portable regressions bring the per-platform total to sixty. Power-loss recovery remains untested.

@@ -32,6 +32,20 @@
     "run_id": "dfad2049d204fa28",
     "passed": true,
     "source_sha256": "30c1f7696bde723df46409031d531baf3ebd50aa1f51c36129497dbf71ee6ad4",
-    "note": "Current complete same-source deployment pass; seven groups, six evidence controls, automatic systemd restart and two orderly VM stop/start cycles. Power loss not tested."
+    "note": "Historical pass retained in 862a6c7. Later audit found setup package-origin comparison could self-compare and artifact guards were too permissive; superseded by isolated package provenance, pre-agent journal and process/timing attribution evidence."
+  },
+  {
+    "attempt": "audit-intermediate",
+    "run_id": "a43d085b4e01b1f7",
+    "passed": true,
+    "source_sha256": "ca659ec44efd49ebb90ec8f23c6332107ef91e499fdb0be8edde3185f4e32289",
+    "note": "Passed stronger execution/evidence checks; superseded to also reject invented zero durations in incomplete HTML."
+  },
+  {
+    "attempt": "audit-final",
+    "run_id": "825cc1126d620a4f",
+    "passed": true,
+    "source_sha256": "d410c997fe1ac010f40e8880562e328fcaad24ba0b2d446a3530f55899d4fa7f",
+    "note": "Current reviewed pass: installed site-packages hashes, raw pre-agent journal proving no prior shutdown rollback, stale-request traces, stable process-attributed memory, monotonic endpoints, fourteen corruption controls, complete cleanup; no power-loss test."
   }
 ]

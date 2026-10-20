@@ -63,7 +63,7 @@ def wait(fn, timeout=15):
 def props():
     keys = ['MainPID', 'NRestarts', 'InvocationID', 'ActiveState', 'SubState', 'KillMode',
             'Restart', 'NoNewPrivileges', 'ProtectSystem', 'ProtectHome', 'PrivateTmp',
-            'CapabilityBoundingSet', 'NetworkNamespacePath', 'MemoryCurrent']
+            'CapabilityBoundingSet', 'NetworkNamespacePath', 'MemoryCurrent', 'ControlGroup']
     out = cmd(['systemctl', 'show', UNIT, *['--property=' + k for k in keys]]).stdout
     return dict(row.split('=', 1) for row in out.splitlines())
 
@@ -124,27 +124,73 @@ def stale_rejected(old):
         request('/confirm', {k: old[k] for k in ('op', 'generation', 'candidate_digest', 'challenge')}, rejected=True)
     request('/cancel', {'op': old['op'], 'generation': old['generation']}, rejected=True)
     request('/apply', {'op': 'stale-' + old['op'], 'generation': old['generation'], 'policy': NEXT, 'window': 30}, rejected=True)
-    return True
+    return (['confirm'] if old.get('challenge') else []) + ['cancel', 'apply']
 
 
 def commit_under_stale_requests(old, op, policy):
     fresh = apply(op, policy)
-    stale_rejected(old)
+    rejected_pending = stale_rejected(old)
     status = request()
     assert status['phase'] == 'AWAITING_CONFIRM' and status['generation'] == fresh['generation']
-    assert kernel() == expected(policy)
+    pending_kernel = kernel(); assert pending_kernel == expected(policy)
     committed = confirm(fresh)
-    stale_rejected(old)
-    assert committed['phase'] == 'COMMITTED' and kernel() == expected(policy)
-    return committed
+    rejected_committed = stale_rejected(old)
+    committed_kernel = kernel(); assert committed['phase'] == 'COMMITTED' and committed_kernel == expected(policy)
+    return committed, {'pending_before': project(fresh), 'pending_after': project(status),
+                       'pending_kernel': pending_kernel, 'committed': project(committed),
+                       'committed_kernel': committed_kernel, 'rejected_pending': rejected_pending,
+                       'rejected_committed': rejected_committed}
+
+
+def journal_projection():
+    from rulemoor.core import Store
+    if not Store(STATE).path.exists():
+        return None
+    return project(Store(STATE).load())
+
+
+def project(state):
+    return {key: state[key] for key in ('phase', 'generation', 'op', 'boot', 'current', 'baseline', 'candidate') if key in state}
+
+
+def installed_modules():
+    # -I removes cwd/PYTHONPATH influence; cwd=/ also prevents fixture shadowing.
+    code = "import rulemoor,pathlib,json,hashlib;p=pathlib.Path(rulemoor.__file__).parent;print(json.dumps({'origin':str(p),'hashes':{'rulemoor/'+f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in p.glob('*.py')}}))"
+    result = json.loads(cmd([PYTHON, '-I', '-c', code], cwd='/').stdout)
+    origin = Path(result['origin'])
+    assert origin.is_relative_to('/opt/rulemoor/venv/lib') and origin.parent.name == 'site-packages'
+    hashes = {'rulemoor/' + f.name: hashlib.sha256(f.read_bytes()).hexdigest() for f in (SOURCE / 'rulemoor').glob('*.py')}
+    assert result['hashes'] == hashes
+    return result
 
 
 def memory():
-    p = props(); pid = int(p['MainPID'])
-    fields = dict(line.split(':', 1) for line in Path(f'/proc/{pid}/status').read_text().splitlines() if ':' in line)
+    began = time.monotonic_ns()
+    p = props(); pid = int(p['MainPID']); before = identity(pid)
+    assert before is not None and before['boot'] == boot_id()
+    proc = Path('/proc') / str(pid)
+    argv = proc.joinpath('cmdline').read_bytes().decode().split('\0')
+    assert '/opt/rulemoor/venv/bin/rulemoor-agent' in argv
+    cwd = str(proc.joinpath('cwd').resolve()); assert cwd == '/'
+    environment = dict(x.split('=', 1) for x in proc.joinpath('environ').read_bytes().decode().split('\0') if '=' in x)
+    assert not environment.get('PYTHONPATH') and not environment.get('PYTHONHOME')
+    process_namespace = proc.joinpath('ns/net').stat().st_ino
+    target_namespace = Path('/run/netns', NS).stat().st_ino
+    assert process_namespace == target_namespace
+    assert p['ControlGroup'] == '/system.slice/rulemoor.service'
+    assert '0::' + p['ControlGroup'] in proc.joinpath('cgroup').read_text().splitlines()
+    fields = dict(line.split(':', 1) for line in proc.joinpath('status').read_text().splitlines() if ':' in line)
+    after = props()
+    assert before == identity(pid) and p['MainPID'] == after['MainPID'] and p['InvocationID'] == after['InvocationID']
     return {'agent_rss_bytes': int(fields['VmRSS'].split()[0]) * 1024,
             'agent_vmhwm_bytes': int(fields['VmHWM'].split()[0]) * 1024,
             'service_cgroup_memory_current_bytes': int(p['MemoryCurrent']),
+            'process_identity': before, 'main_pid_after': int(after['MainPID']),
+            'invocation_id': p['InvocationID'], 'invocation_id_after': after['InvocationID'],
+            'process_namespace_inode': process_namespace, 'target_namespace_inode': target_namespace,
+            'entrypoint': '/opt/rulemoor/venv/bin/rulemoor-agent', 'cwd': cwd,
+            'python_path_environment_clean': True, 'control_group': p['ControlGroup'],
+            'sample_started_ns': began, 'sample_finished_ns': time.monotonic_ns(),
             'scope': 'Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM'}
 
 
@@ -152,7 +198,7 @@ def topology():
     assert FIXTURE.is_dir()
     cmd(['ip', 'netns', 'add', NS]); cmd(['ip', '-n', NS, 'link', 'set', 'lo', 'up'])
     assert kernel() is None
-    save('pre-agent-boot', {'boot_id': boot_id(), 'owned_table_absent': True})
+    save('pre-agent-boot', {'boot_id': boot_id(), 'owned_table_absent': True, 'journal': journal_projection()})
 
 
 def setup():
@@ -164,11 +210,7 @@ def setup():
     cmd(['python3', '-m', 'venv', '/opt/rulemoor/venv'])
     wheel = next(SOURCE.glob('*.whl'))
     cmd([PYTHON, '-m', 'pip', 'install', '--no-deps', wheel])
-    # Compare every installed module against the immutable source snapshot.
-    code = "import rulemoor,pathlib;print(pathlib.Path(rulemoor.__file__).parent)"
-    installed = Path(cmd([PYTHON, '-c', code]).stdout.strip())
-    for p in (SOURCE / 'rulemoor').glob('*.py'):
-        assert (installed / p.name).read_bytes() == p.read_bytes()
+    provenance = installed_modules()
     CONFIG.mkdir(mode=0o700)
     cmd(['openssl', 'req', '-x509', '-newkey', 'rsa:2048', '-nodes', '-days', '1',
          '-keyout', CONFIG / 'server.key', '-out', CONFIG / 'server.pem',
@@ -208,7 +250,7 @@ MemoryAccounting=yes
     assert set(p['CapabilityBoundingSet'].split()) == {'cap_kill', 'cap_net_admin'}
     return {'pid1': 'systemd', 'systemd': cmd(['systemctl', '--version']).stdout.splitlines()[0],
             'kernel': platform.release(), 'architecture': platform.machine(), 'python': platform.python_version(),
-            'nft': cmd(['nft', '--version']).stdout.strip(), 'installed_modules_match_source': True,
+            'nft': cmd(['nft', '--version']).stdout.strip(), 'installed_modules_match_source': True, 'installed_package': provenance,
             'production_unit_sha256': hashlib.sha256(Path('/etc/systemd/system/rulemoor.service').read_bytes()).hexdigest(),
             'namespace_only_override': True, 'unit_properties': {k:v for k,v in p.items() if k != 'InvocationID'},
             'boot_id': boot_id(), 'memory': memory()}
@@ -217,20 +259,22 @@ MemoryAccounting=yes
 def crash():
     old = apply('crash-pending', NEXT); before = props(); pid = int(before['MainPID'])
     assert kernel() == expected(NEXT)
-    began = time.monotonic()
+    began = time.monotonic_ns()
     cmd(['systemctl', 'kill', '--kill-whom=main', '--signal=SIGKILL', UNIT])
-    s = ready('ROLLED_BACK'); after = props()
+    s = ready('ROLLED_BACK'); tls_observed = time.monotonic_ns(); after = props()
     assert after['InvocationID'] != before['InvocationID'] and int(after['MainPID']) != pid
     assert int(after['NRestarts']) > int(before['NRestarts']) and s['generation'] > old['generation']
     restored_kernel = kernel()
     assert restored_kernel == expected(BASE)
-    observed = (time.monotonic() - began) * 1000
-    newer = commit_under_stale_requests(old, 'after-crash-new', NEW)
+    verified = time.monotonic_ns()
+    observed = (tls_observed - began) / 1_000_000
+    newer, stale_trace = commit_under_stale_requests(old, 'after-crash-new', NEW)
     assert kernel() == expected(NEW) and newer['phase'] == 'COMMITTED'
     return {'automatic_systemd_restart': True, 'restart_count_before': int(before['NRestarts']),
             'restart_count_after': int(after['NRestarts']), 'main_pid_changed': True,
             'pending_baseline_restored': True, 'stale_requests_rejected_during_new_pending': True, 'stale_requests_rejected_after_new_commit': True,
-            'new_policy_preserved': True, 'kill_to_tls_ready_observed_ms': observed, 'memory': memory(),
+            'new_policy_preserved': True, 'stale_trace': stale_trace, 'kill_to_tls_ready_observed_ms': observed,
+            'recovery_clock': {'clock': 'monotonic_ns', 'kill_started_ns': began, 'tls_observed_ns': tls_observed, 'baseline_verified_ns': verified}, 'memory': memory(),
             'old_generation': old['generation'], 'recovered_generation': s['generation'],
             'new_generation': newer['generation'], 'restored_kernel': restored_kernel, 'kernel_after_stale': kernel()}
 
@@ -259,7 +303,7 @@ def held_writer():
         assert restored['generation'] > old['generation']
         assert identity(rec['pid']) != old_identity and props()['InvocationID'] != before['InvocationID']
         assert kernel() == expected(NEW)
-        newer = commit_under_stale_requests(old, 'after-held-new', BASE)
+        newer, stale_trace = commit_under_stale_requests(old, 'after-held-new', BASE)
         (STATE / 'executor-held.go').touch()
         time.sleep(2.1)
         stale_rejected(old)
@@ -267,7 +311,7 @@ def held_writer():
         return {'test_only_fault_override': True, 'old_executor_identity': old_identity,
                 'old_executor_retired': True, 'systemd_cgroup_restart_observed': True,
                 'known_baseline_restored': True, 'late_release_did_not_overwrite_new_policy': True,
-                'stale_requests_rejected_during_new_pending': True, 'stale_requests_rejected': True, 'new_policy_preserved': True,
+                'stale_requests_rejected_during_new_pending': True, 'stale_requests_rejected': True, 'new_policy_preserved': True, 'stale_trace': stale_trace,
                 'old_generation': old['generation'], 'recovered_generation': restored['generation'],
                 'new_generation': newer['generation'], 'kernel_after_late_release': kernel(),
                 'old_executor_identity_after': identity(rec['pid'])}
@@ -288,26 +332,28 @@ def prepare_pending_boot():
     from rulemoor.core import Store
     assert Store(STATE).load()['phase'] == 'AWAITING_CONFIRM'
     assert kernel() == expected(NEXT) and props()['MainPID'] == '0'
-    save('pending-boot-before', {'boot_id': boot_id(), 'generation': old['generation']})
+    stopped_journal = journal_projection()
+    save('pending-boot-before', {'boot_id': boot_id(), 'generation': old['generation'], 'journal': stopped_journal})
     return {'boot_id': boot_id(), 'journal_pending_after_service_stop': True,
             'candidate_still_installed': True, 'graceful_rollback_deliberately_bypassed': True,
-            'pending_generation': old['generation'], 'kernel_before_shutdown': kernel(),
+            'pending_generation': old['generation'], 'kernel_before_shutdown': kernel(), 'journal_after_stop': stopped_journal,
             'unit_enabled': cmd(['systemctl', 'is-enabled', UNIT]).stdout.strip() == 'enabled'}
 
 
 def after_pending_boot():
     old = load('pending-receipt'); before = load('pending-boot-before'); pre = load('pre-agent-boot')
     assert boot_id() != before['boot_id'] and pre['boot_id'] == boot_id() and pre['owned_table_absent']
+    assert pre['journal'] == before['journal'] and pre['journal']['phase'] == 'AWAITING_CONFIRM'
     s = ready('ROLLED_BACK')
     restored_kernel = kernel()
     assert s['boot'] == boot_id() and s['generation'] > before['generation'] and restored_kernel == expected(BASE)
-    fresh = commit_under_stale_requests(old, 'post-boot-new', NEW)
+    fresh, stale_trace = commit_under_stale_requests(old, 'post-boot-new', NEW)
     assert fresh['phase'] == 'COMMITTED' and kernel() == expected(NEW)
-    save('committed-boot-before', {'boot_id': boot_id(), 'generation': fresh['generation']})
+    save('committed-boot-before', {'boot_id': boot_id(), 'generation': fresh['generation'], 'journal': journal_projection()})
     return {'boot_id_before': before['boot_id'], 'boot_id_after': boot_id(),
-            'pre_agent_table_absent': True, 'pending_baseline_restored': True,
+            'pre_agent_table_absent': True, 'journal_before_agent': pre['journal'], 'pending_baseline_restored': True,
             'generation_advanced': True, 'stale_requests_rejected_during_new_pending': True, 'stale_requests_rejected_after_new_commit': True,
-            'new_policy_preserved': True, 'vm_uptime_after_validation_seconds': time.clock_gettime(time.CLOCK_BOOTTIME),
+            'new_policy_preserved': True, 'stale_trace': stale_trace, 'vm_uptime_after_validation_seconds': time.clock_gettime(time.CLOCK_BOOTTIME),
             'memory': memory(), 'old_generation': before['generation'], 'recovered_generation': s['generation'],
             'new_generation': fresh['generation'], 'restored_kernel': restored_kernel, 'kernel_after_stale': kernel()}
 
@@ -315,7 +361,9 @@ def after_pending_boot():
 def after_committed_boot():
     before = load('committed-boot-before'); pre = load('pre-agent-boot')
     assert boot_id() != before['boot_id'] and pre['boot_id'] == boot_id() and pre['owned_table_absent']
+    assert pre['journal'] == before['journal'] and pre['journal']['phase'] == 'COMMITTED'
     s = ready('COMMITTED')
+    boot_memory = memory()
     restored_kernel = kernel()
     assert s['boot'] == boot_id() and s['generation'] > before['generation'] and restored_kernel == expected(NEW)
     request('/apply', {'op': 'old-committed-base', 'generation': before['generation'], 'policy': BASE, 'window': 30}, rejected=True)
@@ -327,9 +375,10 @@ def after_committed_boot():
     assert kernel() == foreign
     request('/apply', {'op':'foreign-change','generation':s['generation'],'policy':BASE,'window':30}, rejected=True)
     return {'boot_id_before': before['boot_id'], 'boot_id_after': boot_id(),
-            'pre_agent_table_absent': True, 'committed_policy_restored': True,
+            'pre_agent_table_absent': True, 'journal_before_agent': pre['journal'], 'committed_policy_restored': True,
             'generation_advanced': True, 'old_base_rejected': True,
-            'same_boot_foreign_policy_preserved': True, 'memory': memory(),
+            'same_boot_foreign_policy_preserved': True, 'memory': boot_memory,
+            'memory_stage': 'committed_after_boot_before_foreign_policy_probe',
             'old_generation': before['generation'], 'recovered_generation': s['generation'],
             'restored_kernel': restored_kernel, 'foreign_kernel': foreign, 'kernel_after_restart': kernel()}
 

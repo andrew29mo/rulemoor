@@ -95,6 +95,13 @@
     "run_id": "c166229ecdd5ae61",
     "passed": true,
     "source_sha256": "30c1f7696bde723df46409031d531baf3ebd50aa1f51c36129497dbf71ee6ad4",
-    "note": "Current same-source native/container pass: 56 tests/platform, thirteen production mutations, seventeen evidence controls, eight Linux case groups. Actual-systemd VM boot evidence is separately retained in reviews/deployment."
+    "note": "Historical same-source native/container pass: 56 tests/platform, thirteen production mutations, seventeen evidence controls, eight Linux case groups. Actual-systemd VM boot evidence is separately retained in reviews/deployment. Superseded by deployment evidence audit and four measurement/report regressions."
+  },
+  {
+    "attempt": "deployment-audit-regression-20261021",
+    "run_id": "b4bce6410424dfd2",
+    "passed": true,
+    "source_sha256": "d410c997fe1ac010f40e8880562e328fcaad24ba0b2d446a3530f55899d4fa7f",
+    "note": "Current audited source: 60 tests/platform, thirteen production mutations, seventeen container evidence controls and eight Linux case groups."
   }
 ]
