@@ -28,4 +28,4 @@ Production invokes `nft` as a separate subprocess using its command-line interfa
 
 The source repository and Python distributions do not bundle the VM, container image, nftables/iproute2 executables, Python/OpenSSL runtime or Docker tooling. Based on this source-only distribution and the observed subprocess boundary, no conflict requiring a different project license was identified. This conclusion does not cover a future combined binary, container or appliance distribution.
 
-The wheel and source distribution include both `LICENSE` and this notice. Licensing grants do not change the repository's Private visibility.
+The wheel and source distribution include both `LICENSE` and this notice. Repository visibility is managed separately from licensing.

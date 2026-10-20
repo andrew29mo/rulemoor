@@ -7,8 +7,9 @@
   "wheel_and_sdist_include_matching_license_and_notices": true,
   "third_party_runtime_requirements": [],
   "artifacts": {
-    "rulemoor-0.1.0-py3-none-any.whl": "cc8d35de442f9b890f86aeeeb8ae808027c2b294006894069e0a052a283256b9",
-    "rulemoor-0.1.0.tar.gz": "c84f5877d078602b8dde4c6da8d8c17677f3e3c00defcca77b5675c4140a571d"
+    "rulemoor-0.1.0-py3-none-any.whl": "abbcc98282131aab9fdfcac6ab04c10318f3a14f60defe002bf6c1b57ccd4790",
+    "rulemoor-0.1.0.tar.gz": "a8d6d45993667d92fb7727ab24be58d14cf652098c93e9fca4fd346609be51c3"
   },
-  "distribution_privacy_scan_passed": true
+  "distribution_privacy_scan_passed": true,
+  "note": "Rebuilt after publication documentation changes; executable snapshot unchanged."
 }

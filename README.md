@@ -87,4 +87,4 @@ Important boundaries:
 
 ## License
 
-Rulemoor's authored source and documentation are available under the [MIT License](LICENSE), copyright (c) 2026 Andrew Yuan. Third-party tools retain their own licenses; see [third-party notices](THIRD_PARTY_NOTICES.md). The repository remains Private pending a separate publication decision.
+Rulemoor's authored source and documentation are available under the [MIT License](LICENSE), copyright (c) 2026 Andrew Yuan. Third-party tools retain their own licenses; see [third-party notices](THIRD_PARTY_NOTICES.md).

@@ -1,6 +1,6 @@
 # Final pre-publication review — 2026-10-21
 
-Status: code, tests, documentation and current local evidence reconciled. The repository remains **Private**, with the **MIT License adopted by the owner**. Publication remains a separate owner decision; licensing does not authorize a visibility change.
+Status: code, tests, documentation and current local evidence reconciled. The owner subsequently authorized publication: the repository is now **Public**, with the **MIT License adopted by the owner**. The pre-publication findings below remain applicable; post-publication checks are recorded at the end.
 
 ## Current evidence
 
@@ -31,9 +31,9 @@ No virtual environment, raw host log, generated certificate/key, state database,
 
 README, package metadata and LICENSE consistently identify MIT, copyright (c) 2026 Andrew Yuan. LICENSE and THIRD_PARTY_NOTICES.md are included in Python distributions. Third-party tools retain their own licenses as described in `THIRD_PARTY_NOTICES.md`; no image/binary redistribution or legal clearance is asserted.
 
-GitHub was rechecked: Private, owner-only access, no pending collaborator invitations, read-only Actions tokens, no PR-approval permission, exact pinned-action allowlist and required SHA pinning, disabled external-fork workflows, and enabled Dependabot alerts/security fixes. See `reviews/security-settings.json`. The optional portable workflow remains manual-only; no remote CI pass is claimed.
+GitHub was rechecked after publication: Public, owner-only write/admin access, no pending collaborator invitations, read-only Actions tokens, no PR-approval permission, an exact pinned-action allowlist and required SHA pinning, approval required for all external contributors, and enabled Dependabot alerts/security fixes. See `reviews/security-settings.json`. The optional portable workflow remains manual-only; no remote CI pass is claimed.
 
-Prior attempts to enable private main protection and Secret scanning were rejected by GitHub (403/422). Neither is described as enabled. Any future publication requires a separate visibility decision and rechecking/enabling available main and secret/push protection. No paid service or public visibility was enabled as a workaround.
+Earlier Private-plan attempts to enable main protection and Secret scanning were rejected by GitHub (403/422). Following explicit owner authorization to publish, main protection, Secret scanning and push protection were enabled and read back successfully. No paid service was enabled.
 
 ## Remaining limitations
 
@@ -44,3 +44,9 @@ This remains a single-node IPv4 input-table MVP for the documented kernel/nft en
 The owner selected MIT after the correctness review. README, SECURITY.md, package metadata and third-party notices were updated together; historical review wording is explicitly historical. Setuptools >=77.0.3 is required for SPDX license metadata and explicit license-file inclusion. This packaging-only change receives a fresh same-source macOS/Linux run so the retained evidence fingerprint continues to match the current package inputs. Production Python code and tests are unchanged from commit `3c9f4ae`.
 
 The MIT validation's first attempt failed during fresh dedicated-VM startup with a host PermissionError; the runner reported failure and verified the VM stopped. The successful retained run uses the documented explicit overrides for the previously validated dedicated Colima VM. This run does not establish successful first-time provisioning with the default VM home. Both attempts are recorded in `reviews/mvp/attempts.json`; raw host logs and VM files remain local.
+
+## Owner-authorized publication — 2026-10-21
+
+The repository is Public and GitHub identifies the license as MIT. Main protection applies to admins, prohibits force pushes/deletion, and retains owner direct pushes without mandatory PR reviews or required checks from the manual-only workflow. Private vulnerability reporting, Secret scanning, push protection and Dependabot are enabled. Actions allow only the two explicitly pinned actions, use read-only tokens and cannot approve PRs; all external contributors require approval for eligible fork PR workflows. Current settings and point-in-time alert observations are retained in `reviews/security-settings.json`. A zero alert count does not establish completion of asynchronous background scans.
+
+Local macOS/Linux validation run `97f20111c14d7117` was re-audited against the unchanged executable snapshot. Publication updates documentation/security records only; no new performance result or remote CI pass is claimed. The earlier failed fresh-VM startup and successful explicit-existing-VM run remain disclosed above.
