@@ -77,6 +77,16 @@ class APITests(unittest.TestCase):
         c = http.client.HTTPSConnection('localhost', self.server.server_port, timeout=2)
         self.connections.append(c)
         with self.assertRaises(ssl.SSLCertVerificationError): c.request('GET', '/status')
+    def test_cli_reads_max_policy_bounded_history(self):
+        from rulemoor.cli import request
+        full_policy = {'default': 'accept', 'rules': [{'port': 10000 + i, 'verdict': 'drop'} for i in range(32)]}
+        for i in range(20):
+            s = self.c.apply('large-' + str(i), self.c.s['generation'], full_policy, 5)
+            self.c.cancel(s['op'], s['generation'])
+        history = self.c.store.history()
+        self.assertGreater(len(json.dumps({'events': history})), 65537)
+        response = request('https://localhost:' + str(self.server.server_port), str(self.path / 'cert'), 'x' * 64, '/history')
+        self.assertEqual(response['events'], history)
     def test_private_token_file(self):
         f = Path(self.state.name, 'token'); f.write_text('x' * 64); f.chmod(0o644)
         with self.assertRaises(ValueError): secret_file(f)

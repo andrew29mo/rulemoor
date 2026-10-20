@@ -32,6 +32,13 @@
     "run_id": "4f1e93769abbc384",
     "passed": true,
     "source_sha256": "9b638019a720f1f872c18b8d04d1ed2519df99535748159f397bd24d90efe7db",
-    "note": "Current retained complete pass."
+    "note": "Passed stronger kernel/storage validation; superseded by maximum-history CLI regression fix."
+  },
+  {
+    "attempt": 6,
+    "run_id": "90a6c11375432d5f",
+    "passed": true,
+    "source_sha256": "cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d",
+    "note": "Current complete pass, including large bounded-history CLI transport regression."
   }
 ]

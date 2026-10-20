@@ -19,7 +19,10 @@ def request(url, ca, token, path, payload=None):
         conn.request('POST' if payload is not None else 'GET', path,
                      body=json.dumps(payload) if payload is not None else None, headers=headers)
         response = conn.getresponse()
-        value = json.loads(response.read(65537))
+        raw = response.read(1024 * 1024 + 1)
+        if len(raw) > 1024 * 1024:
+            raise RuntimeError('Response exceeds the 1 MiB budget')
+        value = json.loads(raw)
         if response.status != 200:
             raise RuntimeError(str(response.status) + ': ' + value.get('error', 'Request failed'))
         return value

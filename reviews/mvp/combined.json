@@ -173,7 +173,7 @@
           }
         ]
       },
-      "seconds": 0.24270308300000032
+      "seconds": 0.21915383300000002
     },
     {
       "name": "management_path",
@@ -187,12 +187,12 @@
           "old_confirm": 409
         },
         "fresh_blocked_connect_errno": 11,
-        "rollback_start_overdue_ms": 57.6516680000001,
-        "rollback_complete_overdue_ms": 104.55046000000046,
+        "rollback_start_overdue_ms": 53.00812599999993,
+        "rollback_complete_overdue_ms": 100.30245999999998,
         "fresh_access_restored": true,
         "confirmed_survives_deadline": true
       },
-      "seconds": 5.506718919999999
+      "seconds": 5.502628627
     },
     {
       "name": "crash_matrix",
@@ -683,7 +683,7 @@
           "unknown_preserved": true
         }
       ],
-      "seconds": 4.782671585999999
+      "seconds": 4.804435293999999
     },
     {
       "name": "service_recovery",
@@ -695,7 +695,7 @@
         "durably_confirmed_restart_preserved": true,
         "graceful_shutdown_restored": true
       },
-      "seconds": 2.9487827089999996
+      "seconds": 2.968526335
     },
     {
       "name": "queued_connection_and_response_loss",
@@ -709,7 +709,7 @@
         "confirmed_response_lost": true,
         "committed_survived_restart": true
       },
-      "seconds": 0.7241443750000016
+      "seconds": 0.7108021250000007
     },
     {
       "name": "storage_faults",
@@ -726,7 +726,7 @@
         "write_limit_bytes": 16842752,
         "test_tmpfs_unmounted": true
       },
-      "seconds": 1.142181376
+      "seconds": 1.1438385419999975
     },
     {
       "name": "measurement",
@@ -735,9 +735,9 @@
         "trials": [
           {
             "index": 0,
-            "plan_ms": 10.697083000000163,
-            "apply_ms": 45.38612500000028,
-            "finalize_ms": 36.087458000000794,
+            "plan_ms": 11.077291999999517,
+            "apply_ms": 48.12008300000059,
+            "finalize_ms": 31.563750000000113,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 1,
@@ -762,9 +762,9 @@
           },
           {
             "index": 1,
-            "plan_ms": 12.013667000001504,
-            "apply_ms": 45.08870800000153,
-            "finalize_ms": 3.4737499999977217,
+            "plan_ms": 18.730458000000283,
+            "apply_ms": 51.106707999998946,
+            "finalize_ms": 3.673292000001993,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 2,
@@ -789,9 +789,9 @@
           },
           {
             "index": 2,
-            "plan_ms": 16.31125000000111,
-            "apply_ms": 39.061541999998894,
-            "finalize_ms": 29.250749999999215,
+            "plan_ms": 8.116375000000176,
+            "apply_ms": 43.07212499999835,
+            "finalize_ms": 30.028999999998973,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 3,
@@ -816,9 +816,9 @@
           },
           {
             "index": 3,
-            "plan_ms": 16.31054099999929,
-            "apply_ms": 40.700749999999175,
-            "finalize_ms": 3.945292000000933,
+            "plan_ms": 13.698167000001149,
+            "apply_ms": 56.51712499999917,
+            "finalize_ms": 4.074291999998536,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 4,
@@ -843,9 +843,9 @@
           },
           {
             "index": 4,
-            "plan_ms": 11.063875000001389,
-            "apply_ms": 43.74912599999803,
-            "finalize_ms": 29.396790999999922,
+            "plan_ms": 15.974416999998908,
+            "apply_ms": 53.99408299999919,
+            "finalize_ms": 32.37999999999985,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 5,
@@ -870,9 +870,9 @@
           },
           {
             "index": 5,
-            "plan_ms": 13.64816699999949,
-            "apply_ms": 40.584290999998274,
-            "finalize_ms": 3.572459000000805,
+            "plan_ms": 14.230209000000826,
+            "apply_ms": 46.75770799999768,
+            "finalize_ms": 3.6405419999994137,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 6,
@@ -897,9 +897,9 @@
           },
           {
             "index": 6,
-            "plan_ms": 12.599707999999765,
-            "apply_ms": 45.700874999997865,
-            "finalize_ms": 25.696083999999786,
+            "plan_ms": 16.303000000000623,
+            "apply_ms": 44.547500000000184,
+            "finalize_ms": 33.33058300000147,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 7,
@@ -924,9 +924,9 @@
           },
           {
             "index": 7,
-            "plan_ms": 7.212374999998161,
-            "apply_ms": 48.61691600000029,
-            "finalize_ms": 3.8070420000018146,
+            "plan_ms": 9.859583000000782,
+            "apply_ms": 51.33629199999845,
+            "finalize_ms": 4.530041000002427,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 8,
@@ -951,9 +951,9 @@
           },
           {
             "index": 8,
-            "plan_ms": 17.48391699999985,
-            "apply_ms": 42.65554100000202,
-            "finalize_ms": 28.574124999998674,
+            "plan_ms": 10.983958000000626,
+            "apply_ms": 44.68999999999923,
+            "finalize_ms": 31.30974999999836,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 9,
@@ -978,9 +978,9 @@
           },
           {
             "index": 9,
-            "plan_ms": 10.482249999999027,
-            "apply_ms": 45.60895799999898,
-            "finalize_ms": 3.560333000002913,
+            "plan_ms": 9.46345800000259,
+            "apply_ms": 45.441916999998,
+            "finalize_ms": 3.4200420000018994,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 10,
@@ -1006,64 +1006,64 @@
         ],
         "plan": {
           "n": 10,
-          "median_ms": 12.306687500000635,
-          "min_ms": 7.212374999998161,
-          "max_ms": 17.48391699999985,
+          "median_ms": 12.387729500000333,
+          "min_ms": 8.116375000000176,
+          "max_ms": 18.730458000000283,
           "samples_ms": [
-            10.697083000000163,
-            12.013667000001504,
-            16.31125000000111,
-            16.31054099999929,
-            11.063875000001389,
-            13.64816699999949,
-            12.599707999999765,
-            7.212374999998161,
-            17.48391699999985,
-            10.482249999999027
+            11.077291999999517,
+            18.730458000000283,
+            8.116375000000176,
+            13.698167000001149,
+            15.974416999998908,
+            14.230209000000826,
+            16.303000000000623,
+            9.859583000000782,
+            10.983958000000626,
+            9.46345800000259
           ]
         },
         "apply": {
           "n": 10,
-          "median_ms": 44.41891699999978,
-          "min_ms": 39.061541999998894,
-          "max_ms": 48.61691600000029,
+          "median_ms": 47.438895499999134,
+          "min_ms": 43.07212499999835,
+          "max_ms": 56.51712499999917,
           "samples_ms": [
-            45.38612500000028,
-            45.08870800000153,
-            39.061541999998894,
-            40.700749999999175,
-            43.74912599999803,
-            40.584290999998274,
-            45.700874999997865,
-            48.61691600000029,
-            42.65554100000202,
-            45.60895799999898
+            48.12008300000059,
+            51.106707999998946,
+            43.07212499999835,
+            56.51712499999917,
+            53.99408299999919,
+            46.75770799999768,
+            44.547500000000184,
+            51.33629199999845,
+            44.68999999999923,
+            45.441916999998
           ]
         },
         "confirm": {
           "n": 5,
-          "median_ms": 3.572459000000805,
-          "min_ms": 3.4737499999977217,
-          "max_ms": 3.945292000000933,
+          "median_ms": 3.673292000001993,
+          "min_ms": 3.4200420000018994,
+          "max_ms": 4.530041000002427,
           "samples_ms": [
-            3.4737499999977217,
-            3.945292000000933,
-            3.572459000000805,
-            3.8070420000018146,
-            3.560333000002913
+            3.673292000001993,
+            4.074291999998536,
+            3.6405419999994137,
+            4.530041000002427,
+            3.4200420000018994
           ]
         },
         "cancel": {
           "n": 5,
-          "median_ms": 29.250749999999215,
-          "min_ms": 25.696083999999786,
-          "max_ms": 36.087458000000794,
+          "median_ms": 31.563750000000113,
+          "min_ms": 30.028999999998973,
+          "max_ms": 33.33058300000147,
           "samples_ms": [
-            36.087458000000794,
-            29.250749999999215,
-            29.396790999999922,
-            25.696083999999786,
-            28.574124999998674
+            31.563750000000113,
+            30.028999999998973,
+            32.37999999999985,
+            33.33058300000147,
+            31.30974999999836
           ]
         },
         "rss": {
@@ -1076,6 +1076,10 @@
           "logical_bytes": 347881,
           "allocated_bytes": 372736,
           "files": {
+            "batch-d7a367f2cc4a4d58a609860258abf5b5.nft": {
+              "logical_bytes": 178,
+              "allocated_bytes": 4096
+            },
             "key.pem": {
               "logical_bytes": 1704,
               "allocated_bytes": 4096
@@ -1083,10 +1087,6 @@
             "reserve": {
               "logical_bytes": 262144,
               "allocated_bytes": 262144
-            },
-            "executor-f3f49fa7a5abbafd5ffd9553b7e29ebd.json": {
-              "logical_bytes": 126,
-              "allocated_bytes": 4096
             },
             "agent.lock": {
               "logical_bytes": 0,
@@ -1104,8 +1104,8 @@
               "logical_bytes": 0,
               "allocated_bytes": 0
             },
-            "batch-f3f49fa7a5abbafd5ffd9553b7e29ebd.nft": {
-              "logical_bytes": 178,
+            "executor-d7a367f2cc4a4d58a609860258abf5b5.json": {
+              "logical_bytes": 126,
               "allocated_bytes": 4096
             },
             "rescue.json": {
@@ -1122,99 +1122,99 @@
         "warmup": "Service readiness only; all 10 operation trials retained",
         "timing_scope": "TLS request/response including connection+handshake, checks, nft and durable journal; one client, loopback-veth path in VM; no baseline speedup claim"
       },
-      "seconds": 0.9337990420000004
+      "seconds": 0.9912395419999989
     }
   ],
   "host": {
     "schema": 1,
-    "run_id": "4f1e93769abbc384",
+    "run_id": "90a6c11375432d5f",
     "passed": true,
-    "source_sha256": "9b638019a720f1f872c18b8d04d1ed2519df99535748159f397bd24d90efe7db",
+    "source_sha256": "cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d",
     "source_changed": false,
     "stages": [
       {
         "name": "native-contracts",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 1.0469407499986119
+        "seconds": 1.3570039170008386
       },
       {
         "name": "production-mutations",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.44558066700119525
+        "seconds": 0.4849542080046376
       },
       {
         "name": "vm-initial",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.18551912499970058
+        "seconds": 0.2711556249996647
       },
       {
         "name": "vm-start",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 9.516178917001525
+        "seconds": 9.495726291999745
       },
       {
         "name": "image-build",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 1.6873180830007186
+        "seconds": 1.6608093329996336
       },
       {
         "name": "image-inspect",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.02124641700356733
+        "seconds": 0.02146066600107588
       },
       {
         "name": "container-create",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.03312737499800278
+        "seconds": 0.02944170900445897
       },
       {
         "name": "container-inspect",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.011026957996364217
+        "seconds": 0.01164341600087937
       },
       {
         "name": "linux-run",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 17.768164542001614
+        "seconds": 18.003559165998013
       },
       {
         "name": "container-state",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.012572374995215796
+        "seconds": 0.013072875000943895
       },
       {
         "name": "export",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.018471499999577645
+        "seconds": 0.017778874993382487
       },
       {
         "name": "container-remove",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.018265541999426205
+        "seconds": 0.017542834000778385
       },
       {
         "name": "vm-stop",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 2.243392208998557
+        "seconds": 2.408577999995032
       },
       {
         "name": "vm-final",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.19477999999799067
+        "seconds": 0.19557962500402937
       }
     ],
     "scope": "Native macOS portable contracts + Colima Linux real kernel",
@@ -1257,7 +1257,7 @@
     ],
     "vm_initial_state": "Stopped",
     "image": {
-      "Id": "sha256:cd0c7eb8a11c3e98a1ff6c839652c5c710f5b64c6450892c35227afc2f806783",
+      "Id": "sha256:ca8ca4022a349fe9945e9932832d47e70eed3555385663b970cd4ae083fe373b",
       "Architecture": "arm64",
       "Os": "linux"
     },
@@ -1313,24 +1313,24 @@
   },
   "native": {
     "passed": true,
-    "tests": 40,
+    "tests": 41,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
-    "seconds": 0.9936782919976395,
+    "seconds": 1.300001625000732,
     "source": {
       "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
       "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
       "pyproject.toml": "3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f",
       "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
       "rulemoor/backend.py": "3b803f2ec05080bb8c3cf754e55d1e4c0d2e62a2b5f899d46b770cddf8670789",
-      "rulemoor/cli.py": "eda8891f09abeadeb92bbfda88e2cdf70c633a72aadcf3e3473c8d8edf8f3e8f",
+      "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
       "rulemoor/core.py": "5da5904b45fc08c814dcd52ea9a695613189464367cadd1cde676fda4e3d6df4",
       "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
       "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
       "rulemoor/service.py": "15e03f11fd968d200ea0e33e9f9e43b9925dca8952cf5a22c465e0e7e1a12a18",
       "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "tests/test_api.py": "36fc0620f8f5688c27edd1f4667a94e1e048186d0f8b15ba48eef4453476f191",
+      "tests/test_api.py": "111218bcdb768cdb6ace5c31130e806e59181a7f2bac88529889d902372ad47a",
       "tests/test_core.py": "71e5647b614569c9ee9ad2695a76f4590f086b1a65fd05f17fbb7a82b30eb94c",
       "tests/test_tools.py": "5dbf39a0e755eafae3e0574d58a38653b843e3c0a4a0e9404fce7d42039ba520",
       "tools/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -1351,17 +1351,17 @@
       "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
       "tools/validate_local.py": "06a2af4e00468a1529b3c837235c63fb7f86468d47ed3c4ff2949d08b297b084"
     },
-    "source_sha256": "9b638019a720f1f872c18b8d04d1ed2519df99535748159f397bd24d90efe7db",
-    "run_id": "4f1e93769abbc384",
+    "source_sha256": "cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d",
+    "run_id": "90a6c11375432d5f",
     "platform": "Darwin",
     "architecture": "arm64",
     "python": "3.12.14",
-    "test_process_peak_rss_bytes": 37535744,
+    "test_process_peak_rss_bytes": 39452672,
     "scope": "Portable production-core contracts with a memory backend; not real nft or network performance"
   },
   "linux": {
     "schema": 1,
-    "run_id": "4f1e93769abbc384",
+    "run_id": "90a6c11375432d5f",
     "passed": true,
     "execution": "Colima Linux VM; real nftables/netns/TLS",
     "source": {
@@ -1370,13 +1370,13 @@
       "pyproject.toml": "3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f",
       "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
       "rulemoor/backend.py": "3b803f2ec05080bb8c3cf754e55d1e4c0d2e62a2b5f899d46b770cddf8670789",
-      "rulemoor/cli.py": "eda8891f09abeadeb92bbfda88e2cdf70c633a72aadcf3e3473c8d8edf8f3e8f",
+      "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
       "rulemoor/core.py": "5da5904b45fc08c814dcd52ea9a695613189464367cadd1cde676fda4e3d6df4",
       "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
       "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
       "rulemoor/service.py": "15e03f11fd968d200ea0e33e9f9e43b9925dca8952cf5a22c465e0e7e1a12a18",
       "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "tests/test_api.py": "36fc0620f8f5688c27edd1f4667a94e1e048186d0f8b15ba48eef4453476f191",
+      "tests/test_api.py": "111218bcdb768cdb6ace5c31130e806e59181a7f2bac88529889d902372ad47a",
       "tests/test_core.py": "71e5647b614569c9ee9ad2695a76f4590f086b1a65fd05f17fbb7a82b30eb94c",
       "tests/test_tools.py": "5dbf39a0e755eafae3e0574d58a38653b843e3c0a4a0e9404fce7d42039ba520",
       "tools/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -1397,7 +1397,7 @@
       "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
       "tools/validate_local.py": "06a2af4e00468a1529b3c837235c63fb7f86468d47ed3c4ff2949d08b297b084"
     },
-    "source_sha256": "9b638019a720f1f872c18b8d04d1ed2519df99535748159f397bd24d90efe7db",
+    "source_sha256": "cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d",
     "cases": [
       {
         "name": "atomic_batches",
@@ -1571,7 +1571,7 @@
             }
           ]
         },
-        "seconds": 0.24270308300000032
+        "seconds": 0.21915383300000002
       },
       {
         "name": "management_path",
@@ -1585,12 +1585,12 @@
             "old_confirm": 409
           },
           "fresh_blocked_connect_errno": 11,
-          "rollback_start_overdue_ms": 57.6516680000001,
-          "rollback_complete_overdue_ms": 104.55046000000046,
+          "rollback_start_overdue_ms": 53.00812599999993,
+          "rollback_complete_overdue_ms": 100.30245999999998,
           "fresh_access_restored": true,
           "confirmed_survives_deadline": true
         },
-        "seconds": 5.506718919999999
+        "seconds": 5.502628627
       },
       {
         "name": "crash_matrix",
@@ -2081,7 +2081,7 @@
             "unknown_preserved": true
           }
         ],
-        "seconds": 4.782671585999999
+        "seconds": 4.804435293999999
       },
       {
         "name": "service_recovery",
@@ -2093,7 +2093,7 @@
           "durably_confirmed_restart_preserved": true,
           "graceful_shutdown_restored": true
         },
-        "seconds": 2.9487827089999996
+        "seconds": 2.968526335
       },
       {
         "name": "queued_connection_and_response_loss",
@@ -2107,7 +2107,7 @@
           "confirmed_response_lost": true,
           "committed_survived_restart": true
         },
-        "seconds": 0.7241443750000016
+        "seconds": 0.7108021250000007
       },
       {
         "name": "storage_faults",
@@ -2124,7 +2124,7 @@
           "write_limit_bytes": 16842752,
           "test_tmpfs_unmounted": true
         },
-        "seconds": 1.142181376
+        "seconds": 1.1438385419999975
       },
       {
         "name": "measurement",
@@ -2133,9 +2133,9 @@
           "trials": [
             {
               "index": 0,
-              "plan_ms": 10.697083000000163,
-              "apply_ms": 45.38612500000028,
-              "finalize_ms": 36.087458000000794,
+              "plan_ms": 11.077291999999517,
+              "apply_ms": 48.12008300000059,
+              "finalize_ms": 31.563750000000113,
               "action": "cancel",
               "phase": "ROLLED_BACK",
               "generation": 1,
@@ -2160,9 +2160,9 @@
             },
             {
               "index": 1,
-              "plan_ms": 12.013667000001504,
-              "apply_ms": 45.08870800000153,
-              "finalize_ms": 3.4737499999977217,
+              "plan_ms": 18.730458000000283,
+              "apply_ms": 51.106707999998946,
+              "finalize_ms": 3.673292000001993,
               "action": "confirm",
               "phase": "COMMITTED",
               "generation": 2,
@@ -2187,9 +2187,9 @@
             },
             {
               "index": 2,
-              "plan_ms": 16.31125000000111,
-              "apply_ms": 39.061541999998894,
-              "finalize_ms": 29.250749999999215,
+              "plan_ms": 8.116375000000176,
+              "apply_ms": 43.07212499999835,
+              "finalize_ms": 30.028999999998973,
               "action": "cancel",
               "phase": "ROLLED_BACK",
               "generation": 3,
@@ -2214,9 +2214,9 @@
             },
             {
               "index": 3,
-              "plan_ms": 16.31054099999929,
-              "apply_ms": 40.700749999999175,
-              "finalize_ms": 3.945292000000933,
+              "plan_ms": 13.698167000001149,
+              "apply_ms": 56.51712499999917,
+              "finalize_ms": 4.074291999998536,
               "action": "confirm",
               "phase": "COMMITTED",
               "generation": 4,
@@ -2241,9 +2241,9 @@
             },
             {
               "index": 4,
-              "plan_ms": 11.063875000001389,
-              "apply_ms": 43.74912599999803,
-              "finalize_ms": 29.396790999999922,
+              "plan_ms": 15.974416999998908,
+              "apply_ms": 53.99408299999919,
+              "finalize_ms": 32.37999999999985,
               "action": "cancel",
               "phase": "ROLLED_BACK",
               "generation": 5,
@@ -2268,9 +2268,9 @@
             },
             {
               "index": 5,
-              "plan_ms": 13.64816699999949,
-              "apply_ms": 40.584290999998274,
-              "finalize_ms": 3.572459000000805,
+              "plan_ms": 14.230209000000826,
+              "apply_ms": 46.75770799999768,
+              "finalize_ms": 3.6405419999994137,
               "action": "confirm",
               "phase": "COMMITTED",
               "generation": 6,
@@ -2295,9 +2295,9 @@
             },
             {
               "index": 6,
-              "plan_ms": 12.599707999999765,
-              "apply_ms": 45.700874999997865,
-              "finalize_ms": 25.696083999999786,
+              "plan_ms": 16.303000000000623,
+              "apply_ms": 44.547500000000184,
+              "finalize_ms": 33.33058300000147,
               "action": "cancel",
               "phase": "ROLLED_BACK",
               "generation": 7,
@@ -2322,9 +2322,9 @@
             },
             {
               "index": 7,
-              "plan_ms": 7.212374999998161,
-              "apply_ms": 48.61691600000029,
-              "finalize_ms": 3.8070420000018146,
+              "plan_ms": 9.859583000000782,
+              "apply_ms": 51.33629199999845,
+              "finalize_ms": 4.530041000002427,
               "action": "confirm",
               "phase": "COMMITTED",
               "generation": 8,
@@ -2349,9 +2349,9 @@
             },
             {
               "index": 8,
-              "plan_ms": 17.48391699999985,
-              "apply_ms": 42.65554100000202,
-              "finalize_ms": 28.574124999998674,
+              "plan_ms": 10.983958000000626,
+              "apply_ms": 44.68999999999923,
+              "finalize_ms": 31.30974999999836,
               "action": "cancel",
               "phase": "ROLLED_BACK",
               "generation": 9,
@@ -2376,9 +2376,9 @@
             },
             {
               "index": 9,
-              "plan_ms": 10.482249999999027,
-              "apply_ms": 45.60895799999898,
-              "finalize_ms": 3.560333000002913,
+              "plan_ms": 9.46345800000259,
+              "apply_ms": 45.441916999998,
+              "finalize_ms": 3.4200420000018994,
               "action": "confirm",
               "phase": "COMMITTED",
               "generation": 10,
@@ -2404,64 +2404,64 @@
           ],
           "plan": {
             "n": 10,
-            "median_ms": 12.306687500000635,
-            "min_ms": 7.212374999998161,
-            "max_ms": 17.48391699999985,
+            "median_ms": 12.387729500000333,
+            "min_ms": 8.116375000000176,
+            "max_ms": 18.730458000000283,
             "samples_ms": [
-              10.697083000000163,
-              12.013667000001504,
-              16.31125000000111,
-              16.31054099999929,
-              11.063875000001389,
-              13.64816699999949,
-              12.599707999999765,
-              7.212374999998161,
-              17.48391699999985,
-              10.482249999999027
+              11.077291999999517,
+              18.730458000000283,
+              8.116375000000176,
+              13.698167000001149,
+              15.974416999998908,
+              14.230209000000826,
+              16.303000000000623,
+              9.859583000000782,
+              10.983958000000626,
+              9.46345800000259
             ]
           },
           "apply": {
             "n": 10,
-            "median_ms": 44.41891699999978,
-            "min_ms": 39.061541999998894,
-            "max_ms": 48.61691600000029,
+            "median_ms": 47.438895499999134,
+            "min_ms": 43.07212499999835,
+            "max_ms": 56.51712499999917,
             "samples_ms": [
-              45.38612500000028,
-              45.08870800000153,
-              39.061541999998894,
-              40.700749999999175,
-              43.74912599999803,
-              40.584290999998274,
-              45.700874999997865,
-              48.61691600000029,
-              42.65554100000202,
-              45.60895799999898
+              48.12008300000059,
+              51.106707999998946,
+              43.07212499999835,
+              56.51712499999917,
+              53.99408299999919,
+              46.75770799999768,
+              44.547500000000184,
+              51.33629199999845,
+              44.68999999999923,
+              45.441916999998
             ]
           },
           "confirm": {
             "n": 5,
-            "median_ms": 3.572459000000805,
-            "min_ms": 3.4737499999977217,
-            "max_ms": 3.945292000000933,
+            "median_ms": 3.673292000001993,
+            "min_ms": 3.4200420000018994,
+            "max_ms": 4.530041000002427,
             "samples_ms": [
-              3.4737499999977217,
-              3.945292000000933,
-              3.572459000000805,
-              3.8070420000018146,
-              3.560333000002913
+              3.673292000001993,
+              4.074291999998536,
+              3.6405419999994137,
+              4.530041000002427,
+              3.4200420000018994
             ]
           },
           "cancel": {
             "n": 5,
-            "median_ms": 29.250749999999215,
-            "min_ms": 25.696083999999786,
-            "max_ms": 36.087458000000794,
+            "median_ms": 31.563750000000113,
+            "min_ms": 30.028999999998973,
+            "max_ms": 33.33058300000147,
             "samples_ms": [
-              36.087458000000794,
-              29.250749999999215,
-              29.396790999999922,
-              25.696083999999786,
-              28.574124999998674
+              31.563750000000113,
+              30.028999999998973,
+              32.37999999999985,
+              33.33058300000147,
+              31.30974999999836
             ]
           },
           "rss": {
@@ -2474,6 +2474,10 @@
             "logical_bytes": 347881,
             "allocated_bytes": 372736,
             "files": {
+              "batch-d7a367f2cc4a4d58a609860258abf5b5.nft": {
+                "logical_bytes": 178,
+                "allocated_bytes": 4096
+              },
               "key.pem": {
                 "logical_bytes": 1704,
                 "allocated_bytes": 4096
@@ -2481,10 +2485,6 @@
               "reserve": {
                 "logical_bytes": 262144,
                 "allocated_bytes": 262144
-              },
-              "executor-f3f49fa7a5abbafd5ffd9553b7e29ebd.json": {
-                "logical_bytes": 126,
-                "allocated_bytes": 4096
               },
               "agent.lock": {
                 "logical_bytes": 0,
@@ -2502,8 +2502,8 @@
                 "logical_bytes": 0,
                 "allocated_bytes": 0
               },
-              "batch-f3f49fa7a5abbafd5ffd9553b7e29ebd.nft": {
-                "logical_bytes": 178,
+              "executor-d7a367f2cc4a4d58a609860258abf5b5.json": {
+                "logical_bytes": 126,
                 "allocated_bytes": 4096
               },
               "rescue.json": {
@@ -2520,35 +2520,35 @@
           "warmup": "Service readiness only; all 10 operation trials retained",
           "timing_scope": "TLS request/response including connection+handshake, checks, nft and durable journal; one client, loopback-veth path in VM; no baseline speedup claim"
         },
-        "seconds": 0.9337990420000004
+        "seconds": 0.9912395419999989
       }
     ],
     "unit_stage": {
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.0690036250000006,
+      "seconds": 1.2473293330000015,
       "passed": true
     },
     "unit": {
       "passed": true,
-      "tests": 40,
+      "tests": 41,
       "failures": 0,
       "errors": 0,
       "skipped": 0,
-      "seconds": 0.9959920840000009,
+      "seconds": 1.1764127500000008,
       "source": {
         "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
         "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
         "pyproject.toml": "3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f",
         "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
         "rulemoor/backend.py": "3b803f2ec05080bb8c3cf754e55d1e4c0d2e62a2b5f899d46b770cddf8670789",
-        "rulemoor/cli.py": "eda8891f09abeadeb92bbfda88e2cdf70c633a72aadcf3e3473c8d8edf8f3e8f",
+        "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
         "rulemoor/core.py": "5da5904b45fc08c814dcd52ea9a695613189464367cadd1cde676fda4e3d6df4",
         "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
         "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
         "rulemoor/service.py": "15e03f11fd968d200ea0e33e9f9e43b9925dca8952cf5a22c465e0e7e1a12a18",
         "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "tests/test_api.py": "36fc0620f8f5688c27edd1f4667a94e1e048186d0f8b15ba48eef4453476f191",
+        "tests/test_api.py": "111218bcdb768cdb6ace5c31130e806e59181a7f2bac88529889d902372ad47a",
         "tests/test_core.py": "71e5647b614569c9ee9ad2695a76f4590f086b1a65fd05f17fbb7a82b30eb94c",
         "tests/test_tools.py": "5dbf39a0e755eafae3e0574d58a38653b843e3c0a4a0e9404fce7d42039ba520",
         "tools/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -2569,12 +2569,12 @@
         "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
         "tools/validate_local.py": "06a2af4e00468a1529b3c837235c63fb7f86468d47ed3c4ff2949d08b297b084"
       },
-      "source_sha256": "9b638019a720f1f872c18b8d04d1ed2519df99535748159f397bd24d90efe7db",
-      "run_id": "4f1e93769abbc384",
+      "source_sha256": "cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d",
+      "run_id": "90a6c11375432d5f",
       "platform": "Linux",
       "architecture": "aarch64",
       "python": "3.12.14",
-      "test_process_peak_rss_bytes": 35876864,
+      "test_process_peak_rss_bytes": 36581376,
       "scope": "Portable production-core contracts with a memory backend; not real nft or network performance"
     },
     "environment": {
