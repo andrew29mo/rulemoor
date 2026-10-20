@@ -173,7 +173,7 @@
           }
         ]
       },
-      "seconds": 0.21915383300000002
+      "seconds": 0.21991608400000118
     },
     {
       "name": "management_path",
@@ -187,12 +187,12 @@
           "old_confirm": 409
         },
         "fresh_blocked_connect_errno": 11,
-        "rollback_start_overdue_ms": 53.00812599999993,
-        "rollback_complete_overdue_ms": 100.30245999999998,
+        "rollback_start_overdue_ms": 52.775251999999995,
+        "rollback_complete_overdue_ms": 102.30187700000037,
         "fresh_access_restored": true,
         "confirmed_survives_deadline": true
       },
-      "seconds": 5.502628627
+      "seconds": 5.538197295
     },
     {
       "name": "crash_matrix",
@@ -275,7 +275,8 @@
           ],
           "baseline_verified": true,
           "idempotent": true,
-          "newer_commit_survived_old_release": false
+          "newer_commit_survived_old_release": false,
+          "fencing": null
         },
         {
           "point": "executor-intent",
@@ -354,7 +355,8 @@
           ],
           "baseline_verified": true,
           "idempotent": true,
-          "newer_commit_survived_old_release": false
+          "newer_commit_survived_old_release": false,
+          "fencing": null
         },
         {
           "point": "executor-held",
@@ -433,7 +435,104 @@
           ],
           "baseline_verified": true,
           "idempotent": true,
-          "newer_commit_survived_old_release": true
+          "newer_commit_survived_old_release": true,
+          "fencing": {
+            "old_executor_identity": {
+              "pid": 196,
+              "start_ticks": 1916,
+              "boot": "68c600c3-acc5-4e8e-931b-af140fbe7704"
+            },
+            "old_executor_exited": true,
+            "old_candidate": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "new_candidate": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59993,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "new_generation": 3,
+            "kernel_after_release": [
+              {
+                "table": {
+                  "family": "ip",
+                  "name": "rulemoor"
+                }
+              },
+              {
+                "chain": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "name": "input",
+                  "type": "filter",
+                  "hook": "input",
+                  "prio": 0,
+                  "policy": "accept"
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "in",
+                        "left": {
+                          "ct": {
+                            "key": "state"
+                          }
+                        },
+                        "right": [
+                          "established",
+                          "related"
+                        ]
+                      }
+                    },
+                    {
+                      "accept": null
+                    }
+                  ]
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "==",
+                        "left": {
+                          "payload": {
+                            "protocol": "tcp",
+                            "field": "dport"
+                          }
+                        },
+                        "right": 59993
+                      }
+                    },
+                    {
+                      "drop": null
+                    }
+                  ]
+                }
+              }
+            ],
+            "final_phase": "COMMITTED"
+          }
         },
         {
           "point": "kernel-applied",
@@ -512,7 +611,8 @@
           ],
           "baseline_verified": true,
           "idempotent": true,
-          "newer_commit_survived_old_release": false
+          "newer_commit_survived_old_release": false,
+          "fencing": null
         },
         {
           "point": "awaiting-confirm",
@@ -591,7 +691,8 @@
           ],
           "baseline_verified": true,
           "idempotent": true,
-          "newer_commit_survived_old_release": false
+          "newer_commit_survived_old_release": false,
+          "fencing": null
         },
         {
           "point": "rollback-applied",
@@ -670,7 +771,8 @@
           ],
           "baseline_verified": true,
           "idempotent": true,
-          "newer_commit_survived_old_release": false
+          "newer_commit_survived_old_release": false,
+          "fencing": null
         },
         {
           "point": "foreign-kernel-applied",
@@ -683,7 +785,7 @@
           "unknown_preserved": true
         }
       ],
-      "seconds": 4.804435293999999
+      "seconds": 4.908035419000001
     },
     {
       "name": "service_recovery",
@@ -695,7 +797,7 @@
         "durably_confirmed_restart_preserved": true,
         "graceful_shutdown_restored": true
       },
-      "seconds": 2.968526335
+      "seconds": 2.9920105850000027
     },
     {
       "name": "queued_connection_and_response_loss",
@@ -709,12 +811,13 @@
         "confirmed_response_lost": true,
         "committed_survived_restart": true
       },
-      "seconds": 0.7108021250000007
+      "seconds": 0.7342865839999995
     },
     {
       "name": "storage_faults",
       "passed": true,
       "evidence": {
+        "post_commit_checkpoint_failure_preserved": true,
         "enospc_observed": true,
         "reserve_released": true,
         "baseline_restored": true,
@@ -726,7 +829,24 @@
         "write_limit_bytes": 16842752,
         "test_tmpfs_unmounted": true
       },
-      "seconds": 1.1438385419999975
+      "seconds": 2.2563681680000016
+    },
+    {
+      "name": "slow_clients_and_deadline",
+      "passed": true,
+      "evidence": {
+        "ok": true,
+        "connections": 16,
+        "expired_connections": 16,
+        "rollback_while_all_slots_occupied": true,
+        "final_phase": "ROLLED_BACK",
+        "seconds": 6.083956167000004,
+        "fresh_confirmation_after_slot_recovery": true,
+        "baseline_readback_verified": true,
+        "connection_lifetime_seconds": 5,
+        "header_drip_interval_seconds": 0.1
+      },
+      "seconds": 6.550385173999999
     },
     {
       "name": "measurement",
@@ -735,9 +855,9 @@
         "trials": [
           {
             "index": 0,
-            "plan_ms": 11.077291999999517,
-            "apply_ms": 48.12008300000059,
-            "finalize_ms": 31.563750000000113,
+            "plan_ms": 21.15847900000034,
+            "apply_ms": 47.48185300000074,
+            "finalize_ms": 34.78780800000436,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 1,
@@ -762,9 +882,9 @@
           },
           {
             "index": 1,
-            "plan_ms": 18.730458000000283,
-            "apply_ms": 51.106707999998946,
-            "finalize_ms": 3.673292000001993,
+            "plan_ms": 12.078385000002356,
+            "apply_ms": 45.01950400000254,
+            "finalize_ms": 4.321706999995456,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 2,
@@ -789,9 +909,9 @@
           },
           {
             "index": 2,
-            "plan_ms": 8.116375000000176,
-            "apply_ms": 43.07212499999835,
-            "finalize_ms": 30.028999999998973,
+            "plan_ms": 16.181274000004464,
+            "apply_ms": 46.84914899999626,
+            "finalize_ms": 33.37246400000282,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 3,
@@ -816,9 +936,9 @@
           },
           {
             "index": 3,
-            "plan_ms": 13.698167000001149,
-            "apply_ms": 56.51712499999917,
-            "finalize_ms": 4.074291999998536,
+            "plan_ms": 12.283160999999154,
+            "apply_ms": 50.1243510000009,
+            "finalize_ms": 3.9524520000000507,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 4,
@@ -843,9 +963,9 @@
           },
           {
             "index": 4,
-            "plan_ms": 15.974416999998908,
-            "apply_ms": 53.99408299999919,
-            "finalize_ms": 32.37999999999985,
+            "plan_ms": 8.702754000005086,
+            "apply_ms": 49.34350299999579,
+            "finalize_ms": 31.115890999998896,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 5,
@@ -870,9 +990,9 @@
           },
           {
             "index": 5,
-            "plan_ms": 14.230209000000826,
-            "apply_ms": 46.75770799999768,
-            "finalize_ms": 3.6405419999994137,
+            "plan_ms": 12.486518999999419,
+            "apply_ms": 44.69963700000079,
+            "finalize_ms": 3.800695000002463,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 6,
@@ -897,9 +1017,9 @@
           },
           {
             "index": 6,
-            "plan_ms": 16.303000000000623,
-            "apply_ms": 44.547500000000184,
-            "finalize_ms": 33.33058300000147,
+            "plan_ms": 12.865341000001251,
+            "apply_ms": 49.724744999998904,
+            "finalize_ms": 33.46346499999697,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 7,
@@ -924,9 +1044,9 @@
           },
           {
             "index": 7,
-            "plan_ms": 9.859583000000782,
-            "apply_ms": 51.33629199999845,
-            "finalize_ms": 4.530041000002427,
+            "plan_ms": 12.316777999998862,
+            "apply_ms": 51.93929600000047,
+            "finalize_ms": 3.9303359999962595,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 8,
@@ -951,9 +1071,9 @@
           },
           {
             "index": 8,
-            "plan_ms": 10.983958000000626,
-            "apply_ms": 44.68999999999923,
-            "finalize_ms": 31.30974999999836,
+            "plan_ms": 11.101759999995409,
+            "apply_ms": 38.52635000000504,
+            "finalize_ms": 31.94691099999858,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 9,
@@ -978,9 +1098,9 @@
           },
           {
             "index": 9,
-            "plan_ms": 9.46345800000259,
-            "apply_ms": 45.441916999998,
-            "finalize_ms": 3.4200420000018994,
+            "plan_ms": 12.911805000001664,
+            "apply_ms": 75.24094499999734,
+            "finalize_ms": 4.94724700000404,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 10,
@@ -1006,82 +1126,86 @@
         ],
         "plan": {
           "n": 10,
-          "median_ms": 12.387729500000333,
-          "min_ms": 8.116375000000176,
-          "max_ms": 18.730458000000283,
+          "median_ms": 12.40164849999914,
+          "min_ms": 8.702754000005086,
+          "max_ms": 21.15847900000034,
           "samples_ms": [
-            11.077291999999517,
-            18.730458000000283,
-            8.116375000000176,
-            13.698167000001149,
-            15.974416999998908,
-            14.230209000000826,
-            16.303000000000623,
-            9.859583000000782,
-            10.983958000000626,
-            9.46345800000259
+            21.15847900000034,
+            12.078385000002356,
+            16.181274000004464,
+            12.283160999999154,
+            8.702754000005086,
+            12.486518999999419,
+            12.865341000001251,
+            12.316777999998862,
+            11.101759999995409,
+            12.911805000001664
           ]
         },
         "apply": {
           "n": 10,
-          "median_ms": 47.438895499999134,
-          "min_ms": 43.07212499999835,
-          "max_ms": 56.51712499999917,
+          "median_ms": 48.412677999998266,
+          "min_ms": 38.52635000000504,
+          "max_ms": 75.24094499999734,
           "samples_ms": [
-            48.12008300000059,
-            51.106707999998946,
-            43.07212499999835,
-            56.51712499999917,
-            53.99408299999919,
-            46.75770799999768,
-            44.547500000000184,
-            51.33629199999845,
-            44.68999999999923,
-            45.441916999998
+            47.48185300000074,
+            45.01950400000254,
+            46.84914899999626,
+            50.1243510000009,
+            49.34350299999579,
+            44.69963700000079,
+            49.724744999998904,
+            51.93929600000047,
+            38.52635000000504,
+            75.24094499999734
           ]
         },
         "confirm": {
           "n": 5,
-          "median_ms": 3.673292000001993,
-          "min_ms": 3.4200420000018994,
-          "max_ms": 4.530041000002427,
+          "median_ms": 3.9524520000000507,
+          "min_ms": 3.800695000002463,
+          "max_ms": 4.94724700000404,
           "samples_ms": [
-            3.673292000001993,
-            4.074291999998536,
-            3.6405419999994137,
-            4.530041000002427,
-            3.4200420000018994
+            4.321706999995456,
+            3.9524520000000507,
+            3.800695000002463,
+            3.9303359999962595,
+            4.94724700000404
           ]
         },
         "cancel": {
           "n": 5,
-          "median_ms": 31.563750000000113,
-          "min_ms": 30.028999999998973,
-          "max_ms": 33.33058300000147,
+          "median_ms": 33.37246400000282,
+          "min_ms": 31.115890999998896,
+          "max_ms": 34.78780800000436,
           "samples_ms": [
-            31.563750000000113,
-            30.028999999998973,
-            32.37999999999985,
-            33.33058300000147,
-            31.30974999999836
+            34.78780800000436,
+            33.37246400000282,
+            31.115890999998896,
+            33.46346499999697,
+            31.94691099999858
           ]
         },
         "rss": {
-          "initial_bytes": 23863296,
-          "final_bytes": 24231936,
-          "worker_high_water_bytes": 24231936,
+          "initial_bytes": 23896064,
+          "final_bytes": 24645632,
+          "worker_high_water_bytes": 24645632,
           "scope": "Agent process only; excludes transient nft children, clients and VM; kernel-reported VmHWM"
         },
         "disk": {
-          "logical_bytes": 347881,
+          "logical_bytes": 347885,
           "allocated_bytes": 372736,
           "files": {
-            "batch-d7a367f2cc4a4d58a609860258abf5b5.nft": {
+            "executor-8c36d2fef5a1b97f3bd6186a89d35c8a.json": {
+              "logical_bytes": 126,
+              "allocated_bytes": 4096
+            },
+            "batch-8c36d2fef5a1b97f3bd6186a89d35c8a.nft": {
               "logical_bytes": 178,
               "allocated_bytes": 4096
             },
             "key.pem": {
-              "logical_bytes": 1704,
+              "logical_bytes": 1708,
               "allocated_bytes": 4096
             },
             "reserve": {
@@ -1104,10 +1228,6 @@
               "logical_bytes": 0,
               "allocated_bytes": 0
             },
-            "executor-d7a367f2cc4a4d58a609860258abf5b5.json": {
-              "logical_bytes": 126,
-              "allocated_bytes": 4096
-            },
             "rescue.json": {
               "logical_bytes": 590,
               "allocated_bytes": 4096
@@ -1122,99 +1242,99 @@
         "warmup": "Service readiness only; all 10 operation trials retained",
         "timing_scope": "TLS request/response including connection+handshake, checks, nft and durable journal; one client, loopback-veth path in VM; no baseline speedup claim"
       },
-      "seconds": 0.9912395419999989
+      "seconds": 1.024487391000001
     }
   ],
   "host": {
     "schema": 1,
-    "run_id": "90a6c11375432d5f",
+    "run_id": "04dc27f97d65586b",
     "passed": true,
-    "source_sha256": "cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d",
+    "source_sha256": "cf9055fb22968517608759f2b024b7b701ace9568e6ea736c49c481a06b679ca",
     "source_changed": false,
     "stages": [
       {
         "name": "native-contracts",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 1.3570039170008386
+        "seconds": 2.338208499997563
       },
       {
         "name": "production-mutations",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.4849542080046376
+        "seconds": 1.7408303749980405
       },
       {
         "name": "vm-initial",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.2711556249996647
+        "seconds": 0.2590191249983036
       },
       {
         "name": "vm-start",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 9.495726291999745
+        "seconds": 9.56548012499843
       },
       {
         "name": "image-build",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 1.6608093329996336
+        "seconds": 1.6877983330050483
       },
       {
         "name": "image-inspect",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.02146066600107588
+        "seconds": 0.021223624993581325
       },
       {
         "name": "container-create",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.02944170900445897
+        "seconds": 0.029499292002583388
       },
       {
         "name": "container-inspect",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.01164341600087937
+        "seconds": 0.01112200000352459
       },
       {
         "name": "linux-run",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 18.003559165998013
+        "seconds": 26.704230750001443
       },
       {
         "name": "container-state",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.013072875000943895
+        "seconds": 0.013276291996589862
       },
       {
         "name": "export",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.017778874993382487
+        "seconds": 0.017180583003209904
       },
       {
         "name": "container-remove",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.017542834000778385
+        "seconds": 0.020464082997932564
       },
       {
         "name": "vm-stop",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 2.408577999995032
+        "seconds": 2.260081166001328
       },
       {
         "name": "vm-final",
         "exit_code": 0,
         "timed_out": false,
-        "seconds": 0.19557962500402937
+        "seconds": 0.20152341700304532
       }
     ],
     "scope": "Native macOS portable contracts + Colima Linux real kernel",
@@ -1253,11 +1373,32 @@
         "caught_by_assertion": true,
         "exit_code": 1,
         "timed_out": false
+      },
+      {
+        "name": "misreport-post-commit-checkpoint",
+        "test": "tests.test_core.CoreTests.test_post_commit_checkpoint_failure_preserves_confirmation",
+        "caught_by_assertion": true,
+        "exit_code": 1,
+        "timed_out": false
+      },
+      {
+        "name": "fail-recovery-on-natural-exit",
+        "test": "tests.test_core.CoreTests.test_executor_exit_before_pidfd_open_recovers",
+        "caught_by_assertion": true,
+        "exit_code": 1,
+        "timed_out": false
+      },
+      {
+        "name": "unbounded-header-trickle",
+        "test": "tests.test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections",
+        "caught_by_assertion": true,
+        "exit_code": 1,
+        "timed_out": false
       }
     ],
     "vm_initial_state": "Stopped",
     "image": {
-      "Id": "sha256:ca8ca4022a349fe9945e9932832d47e70eed3555385663b970cd4ae083fe373b",
+      "Id": "sha256:4f803981c128cb9f855cbf41f1805a9dcc663ed569ad41c55bc510c52762948d",
       "Architecture": "arm64",
       "Os": "linux"
     },
@@ -1273,7 +1414,13 @@
       ],
       "Memory": 805306368,
       "NanoCpus": 2000000000,
-      "PidsLimit": 128
+      "PidsLimit": 128,
+      "SecurityOpt": [
+        "apparmor=unconfined",
+        "no-new-privileges"
+      ],
+      "Init": true,
+      "mount_count": 0
     },
     "container_exit": {
       "ExitCode": 0,
@@ -1308,60 +1455,170 @@
         "target": "host",
         "field": "container_removed",
         "rejected": true
+      },
+      {
+        "target": "host",
+        "field": "stages",
+        "rejected": true
+      },
+      {
+        "target": "linux",
+        "field": "cases",
+        "rejected": true
+      },
+      {
+        "target": "native",
+        "field": "test_ids",
+        "rejected": true
+      },
+      {
+        "target": "host",
+        "field": "production_mutations",
+        "rejected": true
+      },
+      {
+        "target": "linux",
+        "field": "source_sha256",
+        "rejected": true
+      },
+      {
+        "target": "linux",
+        "field": "fencing-retirement",
+        "rejected": true
+      },
+      {
+        "target": "linux",
+        "field": "fencing-identical-policies",
+        "rejected": true
+      },
+      {
+        "target": "linux",
+        "field": "recovery-omitted",
+        "rejected": true
+      },
+      {
+        "target": "linux",
+        "field": "timing-summary",
+        "rejected": true
+      },
+      {
+        "target": "linux",
+        "field": "fencing-missing-identity",
+        "rejected": true
+      },
+      {
+        "target": "linux",
+        "field": "fencing-empty-identity",
+        "rejected": true
+      },
+      {
+        "target": "linux",
+        "field": "fencing-missing-policy",
+        "rejected": true
       }
     ]
   },
   "native": {
     "passed": true,
-    "tests": 41,
+    "tests": 48,
+    "test_ids": [
+      "test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections",
+      "test_api.APITests.test_authentication",
+      "test_api.APITests.test_backlog_peer_rejected",
+      "test_api.APITests.test_bad_request_does_not_apply",
+      "test_api.APITests.test_certificate_verification_enforced",
+      "test_api.APITests.test_cli_reads_max_policy_bounded_history",
+      "test_api.APITests.test_content_type_and_transfer_encoding",
+      "test_api.APITests.test_full_api_and_keepalive_freshness",
+      "test_api.APITests.test_history_network_output_does_not_hold_controller_lock",
+      "test_api.APITests.test_private_token_file",
+      "test_core.CoreTests.test_apply_idempotence",
+      "test_core.CoreTests.test_bounded_history_and_receipts",
+      "test_core.CoreTests.test_cancel_and_stale_cancel",
+      "test_core.CoreTests.test_commit_and_restart",
+      "test_core.CoreTests.test_confirmation_persistence_failure",
+      "test_core.CoreTests.test_confirmed_not_cancelled",
+      "test_core.CoreTests.test_corrupt_journal_no_write",
+      "test_core.CoreTests.test_drift_blocks_apply",
+      "test_core.CoreTests.test_executor_exit_before_pidfd_open_recovers",
+      "test_core.CoreTests.test_executor_exit_before_pidfd_signal_recovers",
+      "test_core.CoreTests.test_executor_permission_failure_still_blocks_recovery",
+      "test_core.CoreTests.test_expired_confirm_without_timer",
+      "test_core.CoreTests.test_foreign_boot_rejects_confirm",
+      "test_core.CoreTests.test_invalid_requests_do_not_write",
+      "test_core.CoreTests.test_journal_open_error_closes_connection",
+      "test_core.CoreTests.test_old_connection",
+      "test_core.CoreTests.test_one_owner",
+      "test_core.CoreTests.test_pending_restart_restores",
+      "test_core.CoreTests.test_post_commit_checkpoint_failure_preserves_confirmation",
+      "test_core.CoreTests.test_readback_time_cannot_extend_confirmation",
+      "test_core.CoreTests.test_rollback_despite_journal_write_failure",
+      "test_core.CoreTests.test_shutdown_rolls_back",
+      "test_core.CoreTests.test_space_guard_precedes_kernel_write",
+      "test_core.CoreTests.test_stale_apply",
+      "test_core.CoreTests.test_timeout",
+      "test_core.CoreTests.test_unknown_before_confirm",
+      "test_core.CoreTests.test_unknown_before_readback_not_blessed",
+      "test_core.CoreTests.test_unknown_during_pending_not_overwritten",
+      "test_core.CoreTests.test_wrong_challenge_generation_and_digest",
+      "test_core.PolicyTests.test_canonical_retains_unknowns",
+      "test_core.PolicyTests.test_expected_matches_contract",
+      "test_core.PolicyTests.test_injection_unknown_keys_and_types",
+      "test_core.PolicyTests.test_order_and_default_are_policy",
+      "test_tools.ProcessTests.test_cli_refuses_plaintext",
+      "test_tools.ProcessTests.test_nonzero_is_failure",
+      "test_tools.ProcessTests.test_optimized_validation_cannot_claim_success",
+      "test_tools.ProcessTests.test_success",
+      "test_tools.ProcessTests.test_timeout_is_failure"
+    ],
     "failures": 0,
     "errors": 0,
     "skipped": 0,
-    "seconds": 1.300001625000732,
+    "seconds": 2.276841124999919,
     "source": {
       "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
       "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
       "pyproject.toml": "3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f",
       "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
-      "rulemoor/backend.py": "3b803f2ec05080bb8c3cf754e55d1e4c0d2e62a2b5f899d46b770cddf8670789",
+      "rulemoor/backend.py": "7dafe901109da30aab43501b031f8c5c1b97db77486b0de4ffbe045b7d8d9dd4",
       "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
-      "rulemoor/core.py": "5da5904b45fc08c814dcd52ea9a695613189464367cadd1cde676fda4e3d6df4",
+      "rulemoor/core.py": "08c8f68deb8b67b5d501728792d81770ffaa9280bafd03fee6bd3b1c19e8a290",
       "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
       "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
-      "rulemoor/service.py": "15e03f11fd968d200ea0e33e9f9e43b9925dca8952cf5a22c465e0e7e1a12a18",
+      "rulemoor/service.py": "647f19c019a6b20065f547eff4bca63aa6ff380f6d0bcaac71808bc1c3a2dba9",
       "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "tests/test_api.py": "111218bcdb768cdb6ace5c31130e806e59181a7f2bac88529889d902372ad47a",
-      "tests/test_core.py": "71e5647b614569c9ee9ad2695a76f4590f086b1a65fd05f17fbb7a82b30eb94c",
-      "tests/test_tools.py": "5dbf39a0e755eafae3e0574d58a38653b843e3c0a4a0e9404fce7d42039ba520",
-      "tools/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tests/test_api.py": "b20e4b98a9c854f46505779ab1651ef0d0177fea9e80247870773a54fe27a5c0",
+      "tests/test_core.py": "62f6e08da431935d26cdf6c0ea22d80b37267400502fcbf6b289a4b8d57b1b5f",
+      "tests/test_tools.py": "c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5",
+      "tools/__init__.py": "eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac",
       "tools/agent_driver.py": "6ab01068cf71fd154041b8faa01043d65778f30bb43ce3e9fe3316a4c6a88c77",
-      "tools/audit_evidence.py": "210dc9b94f4f1082c2ce2c1485a85b6c5512db65c91900d2a7582998ed761114",
-      "tools/client_driver.py": "121e39d0b69a3a96c954280fd08c9a9675d294439e922a6131b678539d82d815",
+      "tools/audit_evidence.py": "20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617",
+      "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
       "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
       "tools/evidence.py": "5d5ce2066f0267f8d563c0cd9afd3dca478aa65cd99dc378d67c972faddf6c25",
       "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
-      "tools/linux_cases.py": "8866e6aa7b3ef69dfd4edba27812fc52efbcf30c9aaa967ad014b15c4cabbb49",
-      "tools/linux_validate.py": "f60c964132f43b028cf4f0329982e838db5f01ffecee314bce1340a858efcdfe",
+      "tools/linux_cases.py": "ef18ff9e6527effe51b01e589faba89a575cf9f3df6ee0eaa1883555eacb818c",
+      "tools/linux_validate.py": "faea3d94e684e3bcbea145109f6c9319b6858deca5ea4ab5c5c6f16ef5aab067",
       "tools/local_entry.py": "f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911",
-      "tools/mutations.py": "e3330c9c85d076853588ef126bf429373ddc1cf0da3b07671548051df6801cf8",
+      "tools/mutations.py": "9783c3f53f50fca3e5d1abb831183e8ac9970b9c68768b65bb730ee62f316c71",
       "tools/process.py": "6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f",
-      "tools/report.py": "82f54562e2d645d2d784f69d2574c0cb974bfcc5f3ffdd21757a2d0de9dbaea3",
-      "tools/storage_fault.py": "98029c3c32ab075418ac99ba77055cafa0f61d9c4d399f5f6399bfc32009a300",
-      "tools/unit.py": "6b7928c487211651bbb8fa7991efc04949ce255474f8dd91c44efa4e5a1e1013",
+      "tools/report.py": "bd06975b06d28411cc2710c273f011125184b5a1041b568eff628ff4869c29f5",
+      "tools/storage_fault.py": "0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0",
+      "tools/unit.py": "ade259d94052f2c69685c35210af0444c44a76e81c51640dc5f212da6a5282fd",
       "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
-      "tools/validate_local.py": "06a2af4e00468a1529b3c837235c63fb7f86468d47ed3c4ff2949d08b297b084"
+      "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
     },
-    "source_sha256": "cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d",
-    "run_id": "90a6c11375432d5f",
+    "source_sha256": "cf9055fb22968517608759f2b024b7b701ace9568e6ea736c49c481a06b679ca",
+    "run_id": "04dc27f97d65586b",
     "platform": "Darwin",
     "architecture": "arm64",
     "python": "3.12.14",
-    "test_process_peak_rss_bytes": 39452672,
+    "test_process_peak_rss_bytes": 39993344,
     "scope": "Portable production-core contracts with a memory backend; not real nft or network performance"
   },
   "linux": {
     "schema": 1,
-    "run_id": "90a6c11375432d5f",
+    "run_id": "04dc27f97d65586b",
     "passed": true,
     "execution": "Colima Linux VM; real nftables/netns/TLS",
     "source": {
@@ -1369,35 +1626,35 @@
       "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
       "pyproject.toml": "3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f",
       "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
-      "rulemoor/backend.py": "3b803f2ec05080bb8c3cf754e55d1e4c0d2e62a2b5f899d46b770cddf8670789",
+      "rulemoor/backend.py": "7dafe901109da30aab43501b031f8c5c1b97db77486b0de4ffbe045b7d8d9dd4",
       "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
-      "rulemoor/core.py": "5da5904b45fc08c814dcd52ea9a695613189464367cadd1cde676fda4e3d6df4",
+      "rulemoor/core.py": "08c8f68deb8b67b5d501728792d81770ffaa9280bafd03fee6bd3b1c19e8a290",
       "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
       "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
-      "rulemoor/service.py": "15e03f11fd968d200ea0e33e9f9e43b9925dca8952cf5a22c465e0e7e1a12a18",
+      "rulemoor/service.py": "647f19c019a6b20065f547eff4bca63aa6ff380f6d0bcaac71808bc1c3a2dba9",
       "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "tests/test_api.py": "111218bcdb768cdb6ace5c31130e806e59181a7f2bac88529889d902372ad47a",
-      "tests/test_core.py": "71e5647b614569c9ee9ad2695a76f4590f086b1a65fd05f17fbb7a82b30eb94c",
-      "tests/test_tools.py": "5dbf39a0e755eafae3e0574d58a38653b843e3c0a4a0e9404fce7d42039ba520",
-      "tools/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tests/test_api.py": "b20e4b98a9c854f46505779ab1651ef0d0177fea9e80247870773a54fe27a5c0",
+      "tests/test_core.py": "62f6e08da431935d26cdf6c0ea22d80b37267400502fcbf6b289a4b8d57b1b5f",
+      "tests/test_tools.py": "c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5",
+      "tools/__init__.py": "eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac",
       "tools/agent_driver.py": "6ab01068cf71fd154041b8faa01043d65778f30bb43ce3e9fe3316a4c6a88c77",
-      "tools/audit_evidence.py": "210dc9b94f4f1082c2ce2c1485a85b6c5512db65c91900d2a7582998ed761114",
-      "tools/client_driver.py": "121e39d0b69a3a96c954280fd08c9a9675d294439e922a6131b678539d82d815",
+      "tools/audit_evidence.py": "20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617",
+      "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
       "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
       "tools/evidence.py": "5d5ce2066f0267f8d563c0cd9afd3dca478aa65cd99dc378d67c972faddf6c25",
       "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
-      "tools/linux_cases.py": "8866e6aa7b3ef69dfd4edba27812fc52efbcf30c9aaa967ad014b15c4cabbb49",
-      "tools/linux_validate.py": "f60c964132f43b028cf4f0329982e838db5f01ffecee314bce1340a858efcdfe",
+      "tools/linux_cases.py": "ef18ff9e6527effe51b01e589faba89a575cf9f3df6ee0eaa1883555eacb818c",
+      "tools/linux_validate.py": "faea3d94e684e3bcbea145109f6c9319b6858deca5ea4ab5c5c6f16ef5aab067",
       "tools/local_entry.py": "f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911",
-      "tools/mutations.py": "e3330c9c85d076853588ef126bf429373ddc1cf0da3b07671548051df6801cf8",
+      "tools/mutations.py": "9783c3f53f50fca3e5d1abb831183e8ac9970b9c68768b65bb730ee62f316c71",
       "tools/process.py": "6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f",
-      "tools/report.py": "82f54562e2d645d2d784f69d2574c0cb974bfcc5f3ffdd21757a2d0de9dbaea3",
-      "tools/storage_fault.py": "98029c3c32ab075418ac99ba77055cafa0f61d9c4d399f5f6399bfc32009a300",
-      "tools/unit.py": "6b7928c487211651bbb8fa7991efc04949ce255474f8dd91c44efa4e5a1e1013",
+      "tools/report.py": "bd06975b06d28411cc2710c273f011125184b5a1041b568eff628ff4869c29f5",
+      "tools/storage_fault.py": "0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0",
+      "tools/unit.py": "ade259d94052f2c69685c35210af0444c44a76e81c51640dc5f212da6a5282fd",
       "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
-      "tools/validate_local.py": "06a2af4e00468a1529b3c837235c63fb7f86468d47ed3c4ff2949d08b297b084"
+      "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
     },
-    "source_sha256": "cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d",
+    "source_sha256": "cf9055fb22968517608759f2b024b7b701ace9568e6ea736c49c481a06b679ca",
     "cases": [
       {
         "name": "atomic_batches",
@@ -1571,7 +1828,7 @@
             }
           ]
         },
-        "seconds": 0.21915383300000002
+        "seconds": 0.21991608400000118
       },
       {
         "name": "management_path",
@@ -1585,12 +1842,12 @@
             "old_confirm": 409
           },
           "fresh_blocked_connect_errno": 11,
-          "rollback_start_overdue_ms": 53.00812599999993,
-          "rollback_complete_overdue_ms": 100.30245999999998,
+          "rollback_start_overdue_ms": 52.775251999999995,
+          "rollback_complete_overdue_ms": 102.30187700000037,
           "fresh_access_restored": true,
           "confirmed_survives_deadline": true
         },
-        "seconds": 5.502628627
+        "seconds": 5.538197295
       },
       {
         "name": "crash_matrix",
@@ -1673,7 +1930,8 @@
             ],
             "baseline_verified": true,
             "idempotent": true,
-            "newer_commit_survived_old_release": false
+            "newer_commit_survived_old_release": false,
+            "fencing": null
           },
           {
             "point": "executor-intent",
@@ -1752,7 +2010,8 @@
             ],
             "baseline_verified": true,
             "idempotent": true,
-            "newer_commit_survived_old_release": false
+            "newer_commit_survived_old_release": false,
+            "fencing": null
           },
           {
             "point": "executor-held",
@@ -1831,7 +2090,104 @@
             ],
             "baseline_verified": true,
             "idempotent": true,
-            "newer_commit_survived_old_release": true
+            "newer_commit_survived_old_release": true,
+            "fencing": {
+              "old_executor_identity": {
+                "pid": 196,
+                "start_ticks": 1916,
+                "boot": "68c600c3-acc5-4e8e-931b-af140fbe7704"
+              },
+              "old_executor_exited": true,
+              "old_candidate": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "new_candidate": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59993,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "new_generation": 3,
+              "kernel_after_release": [
+                {
+                  "table": {
+                    "family": "ip",
+                    "name": "rulemoor"
+                  }
+                },
+                {
+                  "chain": {
+                    "family": "ip",
+                    "table": "rulemoor",
+                    "name": "input",
+                    "type": "filter",
+                    "hook": "input",
+                    "prio": 0,
+                    "policy": "accept"
+                  }
+                },
+                {
+                  "rule": {
+                    "family": "ip",
+                    "table": "rulemoor",
+                    "chain": "input",
+                    "expr": [
+                      {
+                        "match": {
+                          "op": "in",
+                          "left": {
+                            "ct": {
+                              "key": "state"
+                            }
+                          },
+                          "right": [
+                            "established",
+                            "related"
+                          ]
+                        }
+                      },
+                      {
+                        "accept": null
+                      }
+                    ]
+                  }
+                },
+                {
+                  "rule": {
+                    "family": "ip",
+                    "table": "rulemoor",
+                    "chain": "input",
+                    "expr": [
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "tcp",
+                              "field": "dport"
+                            }
+                          },
+                          "right": 59993
+                        }
+                      },
+                      {
+                        "drop": null
+                      }
+                    ]
+                  }
+                }
+              ],
+              "final_phase": "COMMITTED"
+            }
           },
           {
             "point": "kernel-applied",
@@ -1910,7 +2266,8 @@
             ],
             "baseline_verified": true,
             "idempotent": true,
-            "newer_commit_survived_old_release": false
+            "newer_commit_survived_old_release": false,
+            "fencing": null
           },
           {
             "point": "awaiting-confirm",
@@ -1989,7 +2346,8 @@
             ],
             "baseline_verified": true,
             "idempotent": true,
-            "newer_commit_survived_old_release": false
+            "newer_commit_survived_old_release": false,
+            "fencing": null
           },
           {
             "point": "rollback-applied",
@@ -2068,7 +2426,8 @@
             ],
             "baseline_verified": true,
             "idempotent": true,
-            "newer_commit_survived_old_release": false
+            "newer_commit_survived_old_release": false,
+            "fencing": null
           },
           {
             "point": "foreign-kernel-applied",
@@ -2081,7 +2440,7 @@
             "unknown_preserved": true
           }
         ],
-        "seconds": 4.804435293999999
+        "seconds": 4.908035419000001
       },
       {
         "name": "service_recovery",
@@ -2093,7 +2452,7 @@
           "durably_confirmed_restart_preserved": true,
           "graceful_shutdown_restored": true
         },
-        "seconds": 2.968526335
+        "seconds": 2.9920105850000027
       },
       {
         "name": "queued_connection_and_response_loss",
@@ -2107,12 +2466,13 @@
           "confirmed_response_lost": true,
           "committed_survived_restart": true
         },
-        "seconds": 0.7108021250000007
+        "seconds": 0.7342865839999995
       },
       {
         "name": "storage_faults",
         "passed": true,
         "evidence": {
+          "post_commit_checkpoint_failure_preserved": true,
           "enospc_observed": true,
           "reserve_released": true,
           "baseline_restored": true,
@@ -2124,7 +2484,24 @@
           "write_limit_bytes": 16842752,
           "test_tmpfs_unmounted": true
         },
-        "seconds": 1.1438385419999975
+        "seconds": 2.2563681680000016
+      },
+      {
+        "name": "slow_clients_and_deadline",
+        "passed": true,
+        "evidence": {
+          "ok": true,
+          "connections": 16,
+          "expired_connections": 16,
+          "rollback_while_all_slots_occupied": true,
+          "final_phase": "ROLLED_BACK",
+          "seconds": 6.083956167000004,
+          "fresh_confirmation_after_slot_recovery": true,
+          "baseline_readback_verified": true,
+          "connection_lifetime_seconds": 5,
+          "header_drip_interval_seconds": 0.1
+        },
+        "seconds": 6.550385173999999
       },
       {
         "name": "measurement",
@@ -2133,9 +2510,9 @@
           "trials": [
             {
               "index": 0,
-              "plan_ms": 11.077291999999517,
-              "apply_ms": 48.12008300000059,
-              "finalize_ms": 31.563750000000113,
+              "plan_ms": 21.15847900000034,
+              "apply_ms": 47.48185300000074,
+              "finalize_ms": 34.78780800000436,
               "action": "cancel",
               "phase": "ROLLED_BACK",
               "generation": 1,
@@ -2160,9 +2537,9 @@
             },
             {
               "index": 1,
-              "plan_ms": 18.730458000000283,
-              "apply_ms": 51.106707999998946,
-              "finalize_ms": 3.673292000001993,
+              "plan_ms": 12.078385000002356,
+              "apply_ms": 45.01950400000254,
+              "finalize_ms": 4.321706999995456,
               "action": "confirm",
               "phase": "COMMITTED",
               "generation": 2,
@@ -2187,9 +2564,9 @@
             },
             {
               "index": 2,
-              "plan_ms": 8.116375000000176,
-              "apply_ms": 43.07212499999835,
-              "finalize_ms": 30.028999999998973,
+              "plan_ms": 16.181274000004464,
+              "apply_ms": 46.84914899999626,
+              "finalize_ms": 33.37246400000282,
               "action": "cancel",
               "phase": "ROLLED_BACK",
               "generation": 3,
@@ -2214,9 +2591,9 @@
             },
             {
               "index": 3,
-              "plan_ms": 13.698167000001149,
-              "apply_ms": 56.51712499999917,
-              "finalize_ms": 4.074291999998536,
+              "plan_ms": 12.283160999999154,
+              "apply_ms": 50.1243510000009,
+              "finalize_ms": 3.9524520000000507,
               "action": "confirm",
               "phase": "COMMITTED",
               "generation": 4,
@@ -2241,9 +2618,9 @@
             },
             {
               "index": 4,
-              "plan_ms": 15.974416999998908,
-              "apply_ms": 53.99408299999919,
-              "finalize_ms": 32.37999999999985,
+              "plan_ms": 8.702754000005086,
+              "apply_ms": 49.34350299999579,
+              "finalize_ms": 31.115890999998896,
               "action": "cancel",
               "phase": "ROLLED_BACK",
               "generation": 5,
@@ -2268,9 +2645,9 @@
             },
             {
               "index": 5,
-              "plan_ms": 14.230209000000826,
-              "apply_ms": 46.75770799999768,
-              "finalize_ms": 3.6405419999994137,
+              "plan_ms": 12.486518999999419,
+              "apply_ms": 44.69963700000079,
+              "finalize_ms": 3.800695000002463,
               "action": "confirm",
               "phase": "COMMITTED",
               "generation": 6,
@@ -2295,9 +2672,9 @@
             },
             {
               "index": 6,
-              "plan_ms": 16.303000000000623,
-              "apply_ms": 44.547500000000184,
-              "finalize_ms": 33.33058300000147,
+              "plan_ms": 12.865341000001251,
+              "apply_ms": 49.724744999998904,
+              "finalize_ms": 33.46346499999697,
               "action": "cancel",
               "phase": "ROLLED_BACK",
               "generation": 7,
@@ -2322,9 +2699,9 @@
             },
             {
               "index": 7,
-              "plan_ms": 9.859583000000782,
-              "apply_ms": 51.33629199999845,
-              "finalize_ms": 4.530041000002427,
+              "plan_ms": 12.316777999998862,
+              "apply_ms": 51.93929600000047,
+              "finalize_ms": 3.9303359999962595,
               "action": "confirm",
               "phase": "COMMITTED",
               "generation": 8,
@@ -2349,9 +2726,9 @@
             },
             {
               "index": 8,
-              "plan_ms": 10.983958000000626,
-              "apply_ms": 44.68999999999923,
-              "finalize_ms": 31.30974999999836,
+              "plan_ms": 11.101759999995409,
+              "apply_ms": 38.52635000000504,
+              "finalize_ms": 31.94691099999858,
               "action": "cancel",
               "phase": "ROLLED_BACK",
               "generation": 9,
@@ -2376,9 +2753,9 @@
             },
             {
               "index": 9,
-              "plan_ms": 9.46345800000259,
-              "apply_ms": 45.441916999998,
-              "finalize_ms": 3.4200420000018994,
+              "plan_ms": 12.911805000001664,
+              "apply_ms": 75.24094499999734,
+              "finalize_ms": 4.94724700000404,
               "action": "confirm",
               "phase": "COMMITTED",
               "generation": 10,
@@ -2404,82 +2781,86 @@
           ],
           "plan": {
             "n": 10,
-            "median_ms": 12.387729500000333,
-            "min_ms": 8.116375000000176,
-            "max_ms": 18.730458000000283,
+            "median_ms": 12.40164849999914,
+            "min_ms": 8.702754000005086,
+            "max_ms": 21.15847900000034,
             "samples_ms": [
-              11.077291999999517,
-              18.730458000000283,
-              8.116375000000176,
-              13.698167000001149,
-              15.974416999998908,
-              14.230209000000826,
-              16.303000000000623,
-              9.859583000000782,
-              10.983958000000626,
-              9.46345800000259
+              21.15847900000034,
+              12.078385000002356,
+              16.181274000004464,
+              12.283160999999154,
+              8.702754000005086,
+              12.486518999999419,
+              12.865341000001251,
+              12.316777999998862,
+              11.101759999995409,
+              12.911805000001664
             ]
           },
           "apply": {
             "n": 10,
-            "median_ms": 47.438895499999134,
-            "min_ms": 43.07212499999835,
-            "max_ms": 56.51712499999917,
+            "median_ms": 48.412677999998266,
+            "min_ms": 38.52635000000504,
+            "max_ms": 75.24094499999734,
             "samples_ms": [
-              48.12008300000059,
-              51.106707999998946,
-              43.07212499999835,
-              56.51712499999917,
-              53.99408299999919,
-              46.75770799999768,
-              44.547500000000184,
-              51.33629199999845,
-              44.68999999999923,
-              45.441916999998
+              47.48185300000074,
+              45.01950400000254,
+              46.84914899999626,
+              50.1243510000009,
+              49.34350299999579,
+              44.69963700000079,
+              49.724744999998904,
+              51.93929600000047,
+              38.52635000000504,
+              75.24094499999734
             ]
           },
           "confirm": {
             "n": 5,
-            "median_ms": 3.673292000001993,
-            "min_ms": 3.4200420000018994,
-            "max_ms": 4.530041000002427,
+            "median_ms": 3.9524520000000507,
+            "min_ms": 3.800695000002463,
+            "max_ms": 4.94724700000404,
             "samples_ms": [
-              3.673292000001993,
-              4.074291999998536,
-              3.6405419999994137,
-              4.530041000002427,
-              3.4200420000018994
+              4.321706999995456,
+              3.9524520000000507,
+              3.800695000002463,
+              3.9303359999962595,
+              4.94724700000404
             ]
           },
           "cancel": {
             "n": 5,
-            "median_ms": 31.563750000000113,
-            "min_ms": 30.028999999998973,
-            "max_ms": 33.33058300000147,
+            "median_ms": 33.37246400000282,
+            "min_ms": 31.115890999998896,
+            "max_ms": 34.78780800000436,
             "samples_ms": [
-              31.563750000000113,
-              30.028999999998973,
-              32.37999999999985,
-              33.33058300000147,
-              31.30974999999836
+              34.78780800000436,
+              33.37246400000282,
+              31.115890999998896,
+              33.46346499999697,
+              31.94691099999858
             ]
           },
           "rss": {
-            "initial_bytes": 23863296,
-            "final_bytes": 24231936,
-            "worker_high_water_bytes": 24231936,
+            "initial_bytes": 23896064,
+            "final_bytes": 24645632,
+            "worker_high_water_bytes": 24645632,
             "scope": "Agent process only; excludes transient nft children, clients and VM; kernel-reported VmHWM"
           },
           "disk": {
-            "logical_bytes": 347881,
+            "logical_bytes": 347885,
             "allocated_bytes": 372736,
             "files": {
-              "batch-d7a367f2cc4a4d58a609860258abf5b5.nft": {
+              "executor-8c36d2fef5a1b97f3bd6186a89d35c8a.json": {
+                "logical_bytes": 126,
+                "allocated_bytes": 4096
+              },
+              "batch-8c36d2fef5a1b97f3bd6186a89d35c8a.nft": {
                 "logical_bytes": 178,
                 "allocated_bytes": 4096
               },
               "key.pem": {
-                "logical_bytes": 1704,
+                "logical_bytes": 1708,
                 "allocated_bytes": 4096
               },
               "reserve": {
@@ -2502,10 +2883,6 @@
                 "logical_bytes": 0,
                 "allocated_bytes": 0
               },
-              "executor-d7a367f2cc4a4d58a609860258abf5b5.json": {
-                "logical_bytes": 126,
-                "allocated_bytes": 4096
-              },
               "rescue.json": {
                 "logical_bytes": 590,
                 "allocated_bytes": 4096
@@ -2520,61 +2897,111 @@
           "warmup": "Service readiness only; all 10 operation trials retained",
           "timing_scope": "TLS request/response including connection+handshake, checks, nft and durable journal; one client, loopback-veth path in VM; no baseline speedup claim"
         },
-        "seconds": 0.9912395419999989
+        "seconds": 1.024487391000001
       }
     ],
     "unit_stage": {
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.2473293330000015,
+      "seconds": 2.061630167999999,
       "passed": true
     },
     "unit": {
       "passed": true,
-      "tests": 41,
+      "tests": 48,
+      "test_ids": [
+        "test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections",
+        "test_api.APITests.test_authentication",
+        "test_api.APITests.test_backlog_peer_rejected",
+        "test_api.APITests.test_bad_request_does_not_apply",
+        "test_api.APITests.test_certificate_verification_enforced",
+        "test_api.APITests.test_cli_reads_max_policy_bounded_history",
+        "test_api.APITests.test_content_type_and_transfer_encoding",
+        "test_api.APITests.test_full_api_and_keepalive_freshness",
+        "test_api.APITests.test_history_network_output_does_not_hold_controller_lock",
+        "test_api.APITests.test_private_token_file",
+        "test_core.CoreTests.test_apply_idempotence",
+        "test_core.CoreTests.test_bounded_history_and_receipts",
+        "test_core.CoreTests.test_cancel_and_stale_cancel",
+        "test_core.CoreTests.test_commit_and_restart",
+        "test_core.CoreTests.test_confirmation_persistence_failure",
+        "test_core.CoreTests.test_confirmed_not_cancelled",
+        "test_core.CoreTests.test_corrupt_journal_no_write",
+        "test_core.CoreTests.test_drift_blocks_apply",
+        "test_core.CoreTests.test_executor_exit_before_pidfd_open_recovers",
+        "test_core.CoreTests.test_executor_exit_before_pidfd_signal_recovers",
+        "test_core.CoreTests.test_executor_permission_failure_still_blocks_recovery",
+        "test_core.CoreTests.test_expired_confirm_without_timer",
+        "test_core.CoreTests.test_foreign_boot_rejects_confirm",
+        "test_core.CoreTests.test_invalid_requests_do_not_write",
+        "test_core.CoreTests.test_journal_open_error_closes_connection",
+        "test_core.CoreTests.test_old_connection",
+        "test_core.CoreTests.test_one_owner",
+        "test_core.CoreTests.test_pending_restart_restores",
+        "test_core.CoreTests.test_post_commit_checkpoint_failure_preserves_confirmation",
+        "test_core.CoreTests.test_readback_time_cannot_extend_confirmation",
+        "test_core.CoreTests.test_rollback_despite_journal_write_failure",
+        "test_core.CoreTests.test_shutdown_rolls_back",
+        "test_core.CoreTests.test_space_guard_precedes_kernel_write",
+        "test_core.CoreTests.test_stale_apply",
+        "test_core.CoreTests.test_timeout",
+        "test_core.CoreTests.test_unknown_before_confirm",
+        "test_core.CoreTests.test_unknown_before_readback_not_blessed",
+        "test_core.CoreTests.test_unknown_during_pending_not_overwritten",
+        "test_core.CoreTests.test_wrong_challenge_generation_and_digest",
+        "test_core.PolicyTests.test_canonical_retains_unknowns",
+        "test_core.PolicyTests.test_expected_matches_contract",
+        "test_core.PolicyTests.test_injection_unknown_keys_and_types",
+        "test_core.PolicyTests.test_order_and_default_are_policy",
+        "test_tools.ProcessTests.test_cli_refuses_plaintext",
+        "test_tools.ProcessTests.test_nonzero_is_failure",
+        "test_tools.ProcessTests.test_optimized_validation_cannot_claim_success",
+        "test_tools.ProcessTests.test_success",
+        "test_tools.ProcessTests.test_timeout_is_failure"
+      ],
       "failures": 0,
       "errors": 0,
       "skipped": 0,
-      "seconds": 1.1764127500000008,
+      "seconds": 1.9896107929999989,
       "source": {
         "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
         "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
         "pyproject.toml": "3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f",
         "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
-        "rulemoor/backend.py": "3b803f2ec05080bb8c3cf754e55d1e4c0d2e62a2b5f899d46b770cddf8670789",
+        "rulemoor/backend.py": "7dafe901109da30aab43501b031f8c5c1b97db77486b0de4ffbe045b7d8d9dd4",
         "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
-        "rulemoor/core.py": "5da5904b45fc08c814dcd52ea9a695613189464367cadd1cde676fda4e3d6df4",
+        "rulemoor/core.py": "08c8f68deb8b67b5d501728792d81770ffaa9280bafd03fee6bd3b1c19e8a290",
         "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
         "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
-        "rulemoor/service.py": "15e03f11fd968d200ea0e33e9f9e43b9925dca8952cf5a22c465e0e7e1a12a18",
+        "rulemoor/service.py": "647f19c019a6b20065f547eff4bca63aa6ff380f6d0bcaac71808bc1c3a2dba9",
         "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "tests/test_api.py": "111218bcdb768cdb6ace5c31130e806e59181a7f2bac88529889d902372ad47a",
-        "tests/test_core.py": "71e5647b614569c9ee9ad2695a76f4590f086b1a65fd05f17fbb7a82b30eb94c",
-        "tests/test_tools.py": "5dbf39a0e755eafae3e0574d58a38653b843e3c0a4a0e9404fce7d42039ba520",
-        "tools/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tests/test_api.py": "b20e4b98a9c854f46505779ab1651ef0d0177fea9e80247870773a54fe27a5c0",
+        "tests/test_core.py": "62f6e08da431935d26cdf6c0ea22d80b37267400502fcbf6b289a4b8d57b1b5f",
+        "tests/test_tools.py": "c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5",
+        "tools/__init__.py": "eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac",
         "tools/agent_driver.py": "6ab01068cf71fd154041b8faa01043d65778f30bb43ce3e9fe3316a4c6a88c77",
-        "tools/audit_evidence.py": "210dc9b94f4f1082c2ce2c1485a85b6c5512db65c91900d2a7582998ed761114",
-        "tools/client_driver.py": "121e39d0b69a3a96c954280fd08c9a9675d294439e922a6131b678539d82d815",
+        "tools/audit_evidence.py": "20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617",
+        "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
         "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
         "tools/evidence.py": "5d5ce2066f0267f8d563c0cd9afd3dca478aa65cd99dc378d67c972faddf6c25",
         "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
-        "tools/linux_cases.py": "8866e6aa7b3ef69dfd4edba27812fc52efbcf30c9aaa967ad014b15c4cabbb49",
-        "tools/linux_validate.py": "f60c964132f43b028cf4f0329982e838db5f01ffecee314bce1340a858efcdfe",
+        "tools/linux_cases.py": "ef18ff9e6527effe51b01e589faba89a575cf9f3df6ee0eaa1883555eacb818c",
+        "tools/linux_validate.py": "faea3d94e684e3bcbea145109f6c9319b6858deca5ea4ab5c5c6f16ef5aab067",
         "tools/local_entry.py": "f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911",
-        "tools/mutations.py": "e3330c9c85d076853588ef126bf429373ddc1cf0da3b07671548051df6801cf8",
+        "tools/mutations.py": "9783c3f53f50fca3e5d1abb831183e8ac9970b9c68768b65bb730ee62f316c71",
         "tools/process.py": "6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f",
-        "tools/report.py": "82f54562e2d645d2d784f69d2574c0cb974bfcc5f3ffdd21757a2d0de9dbaea3",
-        "tools/storage_fault.py": "98029c3c32ab075418ac99ba77055cafa0f61d9c4d399f5f6399bfc32009a300",
-        "tools/unit.py": "6b7928c487211651bbb8fa7991efc04949ce255474f8dd91c44efa4e5a1e1013",
+        "tools/report.py": "bd06975b06d28411cc2710c273f011125184b5a1041b568eff628ff4869c29f5",
+        "tools/storage_fault.py": "0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0",
+        "tools/unit.py": "ade259d94052f2c69685c35210af0444c44a76e81c51640dc5f212da6a5282fd",
         "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
-        "tools/validate_local.py": "06a2af4e00468a1529b3c837235c63fb7f86468d47ed3c4ff2949d08b297b084"
+        "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
       },
-      "source_sha256": "cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d",
-      "run_id": "90a6c11375432d5f",
+      "source_sha256": "cf9055fb22968517608759f2b024b7b701ace9568e6ea736c49c481a06b679ca",
+      "run_id": "04dc27f97d65586b",
       "platform": "Linux",
       "architecture": "aarch64",
       "python": "3.12.14",
-      "test_process_peak_rss_bytes": 36581376,
+      "test_process_peak_rss_bytes": 36802560,
       "scope": "Portable production-core contracts with a memory backend; not real nft or network performance"
     },
     "environment": {

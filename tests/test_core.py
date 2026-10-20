@@ -1,6 +1,8 @@
 """Portable contract tests call the production Controller; kernel behavior is tested separately."""
 import copy
 import json
+import os
+from contextlib import contextmanager
 from pathlib import Path
 import sqlite3
 import tempfile
@@ -131,6 +133,71 @@ class CoreTests(unittest.TestCase):
             with self.assertRaises(sqlite3.Error): self.confirm()
         self.assertEqual(self.c.s['phase'], 'AWAITING_CONFIRM')
         self.assertEqual(self.restart()['phase'], 'ROLLED_BACK')
+    def test_post_commit_checkpoint_failure_preserves_confirmation(self):
+        self.apply()
+        original = self.c.store.connect
+        calls = 0
+        @contextmanager
+        def failed_checkpoint_connection():
+            nonlocal calls
+            calls += 1
+            if calls == 2:
+                raise sqlite3.OperationalError('injected post-commit checkpoint failure')
+            with original() as connection:
+                yield connection
+        error = None
+        with patch.object(self.c.store, 'connect', failed_checkpoint_connection):
+            try:
+                result = self.confirm()
+            except sqlite3.Error as exc:
+                error = type(exc).__name__
+        self.assertIsNone(error, 'Post-commit maintenance was misreported as a failed confirmation')
+        self.assertEqual(result['phase'], 'COMMITTED')
+        self.assertEqual(self.c.store.load()['phase'], 'COMMITTED')
+        self.assertIn('journal_maintenance_warning', result)
+        self.b.t = 111.
+        self.c.tick()
+        self.assertEqual(self.c.s['phase'], 'COMMITTED')
+        self.assertEqual(self.b.read(), expected(NEXT))
+        self.assertEqual(self.restart()['phase'], 'COMMITTED')
+
+    def executor_exit_recovery(self, boundary):
+        from rulemoor.backend import NftBackend
+        self.apply(op='exit-' + boundary)
+        token = 'exited-' + boundary
+        record = {'pid': 12345678, 'start_ticks': 1, 'boot': 'test-boot', 'token': token}
+        Path(self.temp.name, 'executor-' + token + '.json').write_text(json.dumps(record))
+        self.c.s['executor_token'] = token
+        self.c._save('simulated_executor_record')
+        self.b.retire = NftBackend().retire
+        identity = {k: record[k] for k in ('pid', 'start_ticks', 'boot')}
+        descriptor = os.open(os.devnull, os.O_RDONLY) if boundary == 'pidfd_send_signal' else None
+        with patch('rulemoor.backend.clock', return_value=100.), patch('rulemoor.backend.identity', return_value=identity), \
+             patch('rulemoor.backend.os.pidfd_open', create=True, side_effect=ProcessLookupError() if boundary == 'pidfd_open' else None, return_value=descriptor), \
+             patch('rulemoor.backend.signal.pidfd_send_signal', create=True, side_effect=ProcessLookupError()):
+            self.assertEqual(self.restart()['phase'], 'ROLLED_BACK')
+        self.assertEqual(self.b.read(), expected(BASE))
+
+    def test_executor_exit_before_pidfd_open_recovers(self):
+        self.executor_exit_recovery('pidfd_open')
+
+    def test_executor_exit_before_pidfd_signal_recovers(self):
+        self.executor_exit_recovery('pidfd_send_signal')
+
+    def test_executor_permission_failure_still_blocks_recovery(self):
+        from rulemoor.backend import NftBackend
+        self.apply()
+        token = 'permission-failure'
+        record = {'pid': 12345678, 'start_ticks': 1, 'boot': 'test-boot', 'token': token}
+        Path(self.temp.name, 'executor-' + token + '.json').write_text(json.dumps(record))
+        self.c.s['executor_token'] = token; self.c._save('simulated_executor_record')
+        self.b.retire = NftBackend().retire
+        identity = {k: record[k] for k in ('pid', 'start_ticks', 'boot')}
+        with patch('rulemoor.backend.clock', return_value=100.), patch('rulemoor.backend.identity', return_value=identity), \
+             patch('rulemoor.backend.os.pidfd_open', create=True, side_effect=PermissionError()):
+            self.assertEqual(self.restart()['phase'], 'DEGRADED')
+        self.assertEqual(self.b.read(), expected(NEXT))
+
     def test_rollback_despite_journal_write_failure(self):
         self.apply(); self.b.t = 111.
         with patch.object(self.c.store, 'save', side_effect=sqlite3.OperationalError('disk full')):

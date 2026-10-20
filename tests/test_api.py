@@ -8,6 +8,8 @@ import tempfile
 import threading
 import time
 import unittest
+from unittest.mock import patch
+from rulemoor.service import Handler
 from rulemoor.core import Controller
 from rulemoor.service import Server, secret_file
 from tests.test_core import MemoryBackend, BASE, NEXT
@@ -91,3 +93,40 @@ class APITests(unittest.TestCase):
         f = Path(self.state.name, 'token'); f.write_text('x' * 64); f.chmod(0o644)
         with self.assertRaises(ValueError): secret_file(f)
         f.chmod(0o600); self.assertEqual(secret_file(f), 'x' * 64)
+
+    def test_absolute_lifetime_expires_dripping_unauthenticated_connections(self):
+        sockets = []
+        with patch('rulemoor.service.MAX_CONNECTION_SECONDS', .3, create=True):
+            for _ in range(2):
+                c = self.conn(); c.connect(); sockets.append(c.sock)
+                c.sock.sendall(b'GET /status HTTP/1.1\r\nX-Slow: ')
+            end = time.monotonic() + .7
+            while time.monotonic() < end:
+                for sock in sockets:
+                    try: sock.sendall(b'x')
+                    except OSError: pass
+                time.sleep(.04)
+            with self.server.accepted_lock:
+                remaining = len(self.server.accepted)
+        self.assertEqual(remaining, 0, 'Header trickle retained slots beyond absolute deadline')
+        self.assertEqual(self.call('/status')[0], 200)
+
+    def test_history_network_output_does_not_hold_controller_lock(self):
+        entered, release = threading.Event(), threading.Event()
+        original = Handler.answer
+        def delayed_answer(handler, code, value):
+            if handler.path == '/history':
+                entered.set(); release.wait(2)
+            return original(handler, code, value)
+        errors = []
+        def reader():
+            try: self.call('/history')
+            except Exception as exc: errors.append(type(exc).__name__)
+        with patch.object(Handler, 'answer', delayed_answer):
+            worker = threading.Thread(target=reader); worker.start()
+            self.assertTrue(entered.wait(1))
+            acquired = self.c.mutex.acquire(timeout=.05)
+            if acquired: self.c.mutex.release()
+            release.set(); worker.join(2)
+        self.assertTrue(acquired, 'A blocked HTTP write stalled controller decisions')
+        self.assertFalse(errors)

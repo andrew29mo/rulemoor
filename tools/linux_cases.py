@@ -9,13 +9,14 @@ import statistics
 import subprocess
 import sys
 import time
-from rulemoor.backend import NftBackend
+from rulemoor.backend import NftBackend, identity
 from rulemoor.core import Controller
 from rulemoor.policy import TABLE, expected, compile_policy, canonical
 
 CTL, TARGET = 'rm_control', 'rm_target'
 BASE = {'default': 'accept', 'rules': [{'port': 59991, 'verdict': 'drop'}]}
 NEXT = {'default': 'accept', 'rules': [{'port': 59992, 'verdict': 'drop'}]}
+THIRD = {'default': 'accept', 'rules': [{'port': 59993, 'verdict': 'drop'}]}
 BLOCK = {'default': 'accept', 'rules': [{'port': 18443, 'verdict': 'drop'}]}
 PROCESSES = []
 
@@ -65,7 +66,7 @@ def state(root):
 def reset(root):
     call(['nft', 'delete', 'table', 'ip', TABLE], ns=TARGET, check=False)
     root.mkdir(mode=0o700)
-    script = 'from rulemoor.core import Controller; from rulemoor.backend import NftBackend; import json,sys; c=Controller(sys.argv[1],NftBackend()); print(json.dumps(c.initialize(json.loads(sys.argv[2])))); c.close()'
+    script = 'from rulemoor.core import Controller; from rulemoor.backend import NftBackend, identity; import json,sys; c=Controller(sys.argv[1],NftBackend()); print(json.dumps(c.initialize(json.loads(sys.argv[2])))); c.close()'
     call([sys.executable, '-c', script, root, json.dumps(BASE)], ns=TARGET)
 
 
@@ -203,7 +204,10 @@ def crash_matrix(parent):
         before = state(root); actual = kernel()
         # Kill the controller only. Orphan executor must retain its inherited lock.
         p.kill(); p.communicate(timeout=3)
+        retired = None
         if point == 'executor-held':
+            receipt = json.loads((root / ('executor-' + before['executor_token'] + '.json')).read_text())
+            old_identity = {k: receipt[k] for k in ('pid', 'start_ticks', 'boot')}
             code = 'from rulemoor.backend import lock; import sys; lock(sys.argv[1]+"/writer.lock")'
             assert call([sys.executable, '-c', code, root], ns=TARGET, check=False).returncode != 0
         result = json.loads(call([sys.executable, '-m', 'tools.agent_driver', 'recover', root], ns=TARGET).stdout)
@@ -211,11 +215,19 @@ def crash_matrix(parent):
         again = json.loads(call([sys.executable, '-m', 'tools.agent_driver', 'recover', root], ns=TARGET).stdout)
         assert again['phase'] == 'ROLLED_BACK'
         if point == 'executor-held':
+            assert identity(old_identity['pid']) != old_identity, 'Old executor still alive after recovery'
             new_agent = serve(root)
-            new_state = apply(root, 'new-generation', window=3)
+            new_state = apply(root, 'new-generation', policy=THIRD, window=3)
             assert confirm(root, new_state)['ok']
             (root / (point + '.go')).touch(); time.sleep(.1)
-            assert kernel() == expected(NEXT), 'Old writer overwrote newer committed rules'
+            after_release = kernel()
+            assert NEXT != THIRD and after_release == expected(THIRD), 'Old writer overwrote newer committed rules'
+            assert identity(old_identity['pid']) != old_identity
+            retired = {'old_executor_identity': old_identity, 'old_executor_exited': True,
+                       'old_candidate': NEXT, 'new_candidate': THIRD,
+                       'new_generation': new_state['generation'], 'kernel_after_release': after_release,
+                       'final_phase': state(root)['phase']}
+            assert retired['final_phase'] == 'COMMITTED'
             new_agent.send_signal(signal.SIGTERM); new_agent.communicate(timeout=4)
         else:
             (root / (point + '.go')).touch(); time.sleep(.03)
@@ -223,7 +235,7 @@ def crash_matrix(parent):
         rows.append({'point': point, 'before_phase': before['phase'], 'after_phase': result['phase'],
                      'generation_before': before['generation'], 'generation_after': result['generation'],
                      'kernel_before': actual, 'baseline_verified': True, 'idempotent': True,
-                     'newer_commit_survived_old_release': point == 'executor-held'})
+                     'newer_commit_survived_old_release': point == 'executor-held', 'fencing': retired})
     # Foreign policy at each meaningful interval must remain untouched.
     for point in ('kernel-applied', 'awaiting-confirm'):
         root = parent / ('drift-' + point); reset(root)
@@ -304,6 +316,21 @@ def storage_faults(parent):
     assert all(result[k] for k in ('enospc_observed', 'reserve_released', 'baseline_restored',
                                    'rollback_journal_verified', 'directory_budget_rejected', 'corrupt_journal_blocked', 'test_tmpfs_unmounted'))
     return result
+
+
+
+def slow_clients_and_deadline(parent):
+    root = parent / 'slow-headers'; reset(root); p = serve(root)
+    pending = apply(root, 'slow-reader-window', policy=NEXT, window=2)
+    out = json.loads(call([sys.executable, '-m', 'tools.client_driver', 'slow-headers', root], ns=CTL, timeout=12).stdout)
+    assert out['ok'] and out['connections'] == out['expired_connections'] == 16, out
+    assert out['rollback_while_all_slots_occupied'] and out['final_phase'] == 'ROLLED_BACK', out
+    assert kernel() == expected(BASE)
+    positive = apply(root, 'after-slow-headers', policy=THIRD, window=3)
+    assert confirm(root, positive)['ok'] and kernel() == expected(THIRD)
+    p.send_signal(signal.SIGTERM); _, err = p.communicate(timeout=4); assert p.returncode == 0, err
+    return {**out, 'fresh_confirmation_after_slot_recovery': True, 'baseline_readback_verified': True,
+            'connection_lifetime_seconds': 5, 'header_drip_interval_seconds': .1}
 
 
 def summary(samples):

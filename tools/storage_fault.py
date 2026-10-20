@@ -6,6 +6,9 @@ import sys
 import os
 import subprocess
 import time
+import sqlite3
+from contextlib import contextmanager
+from unittest.mock import patch
 from rulemoor.backend import NftBackend
 from rulemoor.core import Controller, Store, Conflict
 from rulemoor.policy import expected
@@ -22,7 +25,30 @@ def main():
     result = None
     try:
         c.initialize(BASE)
-        c.apply('storage-full', 0, NEXT, 1)
+        pending = c.apply('checkpoint-maintenance', c.s['generation'], NEXT, 1)
+        original = c.store.connect
+        calls = 0
+        @contextmanager
+        def fail_after_commit():
+            nonlocal calls
+            calls += 1
+            if calls == 2:
+                raise sqlite3.OperationalError('injected post-commit checkpoint failure')
+            with original() as connection:
+                yield connection
+        with patch.object(c.store, 'connect', fail_after_commit):
+            committed = c.confirm(pending['op'], pending['generation'], pending['candidate_digest'],
+                                  pending['challenge'], c.backend.clock())
+        assert committed['phase'] == Store(root).load()['phase'] == 'COMMITTED'
+        assert committed.get('journal_maintenance_warning')
+        time.sleep(max(0, pending['deadline'] - c.backend.clock()) + .02)
+        c.tick()
+        assert c.backend.read() == expected(NEXT) and c.s['phase'] == 'COMMITTED'
+        c.close(); c = Controller(root, NftBackend())
+        assert c.start()['phase'] == 'COMMITTED' and c.backend.read() == expected(NEXT)
+        reset = c.apply('restore-before-enospc', c.s['generation'], BASE, 2)
+        c.confirm(reset['op'], reset['generation'], reset['candidate_digest'], reset['challenge'], c.backend.clock())
+        c.apply('storage-full', c.s['generation'], NEXT, 1)
         filler = root / 'fill'
         full = False
         with filler.open('wb', buffering=0) as stream:
@@ -55,7 +81,7 @@ def main():
         (root / 'state.sqlite').write_bytes(b'corrupt database')
         c = Controller(root, NftBackend())
         assert c.start()['phase'] == 'DEGRADED' and c.backend.read() == expected(BASE)
-        result = {'enospc_observed': True, 'reserve_released': not (root / 'reserve').exists(),
+        result = {'post_commit_checkpoint_failure_preserved': True, 'enospc_observed': True, 'reserve_released': not (root / 'reserve').exists(),
                           'baseline_restored': True, 'rollback_journal_verified': True,
                           'directory_budget_rejected': True, 'corrupt_journal_blocked': True,
                           'scope': 'Actual 16 MiB tmpfs exhaustion; no power-loss or filesystem-corruption recovery claim',

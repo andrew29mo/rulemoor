@@ -124,10 +124,16 @@ class NftBackend:
             raise RuntimeError('Executor identity token mismatch')
         if identity(rec['pid']) != expected:
             return
-        fd = os.pidfd_open(rec['pid'])
+        try:
+            fd = os.pidfd_open(rec['pid'])
+        except ProcessLookupError:
+            return  # Natural exit after identity check; caller still verifies writer.lock.
         try:
             if identity(rec['pid']) == expected:
-                signal.pidfd_send_signal(fd, signal.SIGKILL)
+                try:
+                    signal.pidfd_send_signal(fd, signal.SIGKILL)
+                except ProcessLookupError:
+                    return  # The identified process exited before signaling.
         finally:
             os.close(fd)
         end = clock() + 2

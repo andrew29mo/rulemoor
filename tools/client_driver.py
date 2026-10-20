@@ -10,7 +10,7 @@ from rulemoor.cli import request
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument('mode', choices=['request', 'persistent', 'queued'])
+    p.add_argument('mode', choices=['request', 'persistent', 'queued', 'slow-headers'])
     p.add_argument('root')
     p.add_argument('--path', default='/status')
     p.add_argument('--payload')
@@ -19,6 +19,34 @@ def main():
     root = Path(a.root)
     token = 'incorrect' if a.wrong_token else (root / 'token').read_text().strip()
     try:
+        if a.mode == 'slow-headers':
+            from rulemoor.core import Store
+            context = ssl.create_default_context(cafile=str(root / 'cert.pem'))
+            connections = []
+            expired = set()
+            observed_rollback = False
+            began = time.monotonic()
+            try:
+                for _ in range(16):
+                    c = http.client.HTTPSConnection('192.0.2.2', 18443, context=context, timeout=1)
+                    c.connect(); connections.append(c)
+                    c.sock.sendall(b'GET /status HTTP/1.1\r\nX-Slow: ')
+                end = time.monotonic() + 6
+                while time.monotonic() < end:
+                    for i, c in enumerate(connections):
+                        if i not in expired:
+                            try: c.sock.sendall(b'x')
+                            except OSError: expired.add(i)
+                    if len(expired) == 0 and Store(root).load()['phase'] == 'ROLLED_BACK':
+                        observed_rollback = True
+                    time.sleep(.1)
+            finally:
+                for c in connections: c.close()
+            value = request('https://192.0.2.2:18443', str(root / 'cert.pem'), token, '/status')
+            print(json.dumps({'ok': True, 'connections': len(connections),
+                              'expired_connections': len(expired), 'rollback_while_all_slots_occupied': observed_rollback,
+                              'final_phase': value['phase'], 'seconds': time.monotonic() - began}), flush=True)
+            return
         if a.mode == 'request':
             value = request('https://192.0.2.2:18443', str(root / 'cert.pem'), token,
                             a.path, json.loads(a.payload) if a.payload else None)

@@ -74,7 +74,7 @@ macOS evidence covers portable contracts and real local TLS, using a memory back
 
 ## Design and limits
 
-[Pre-publication review](docs/PUBLICATION_REVIEW.md) · [Architecture](docs/ARCHITECTURE.md) · [Operations and recovery](docs/OPERATIONS.md) · [Security](SECURITY.md)
+[Agent-assisted review](docs/AGENT_REVIEW.md) · [Pre-publication review](docs/PUBLICATION_REVIEW.md) · [Architecture](docs/ARCHITECTURE.md) · [Operations and recovery](docs/OPERATIONS.md) · [Security](SECURITY.md)
 
 Important boundaries:
 

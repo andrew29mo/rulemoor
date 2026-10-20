@@ -4,9 +4,9 @@
 
 The CLI uses the same TLS request implementation exercised in real-network tests. The HTTP service calls `Controller`, the production state machine shared by portable tests and Linux fault tests. `NftBackend` checks, applies and reads actual kernel policy. There is no test-only second state machine.
 
-SQLite uses WAL and FULL synchronous mode. Each state transition and operation-history update commits before dependent side effects. Events and operation receipts retain at most 64 rows each. The state directory has a 4 MiB admission budget and requires 8 MiB free space before accepting a change; these are admission checks, not a filesystem quota. A 256 KiB reserve is released before rollback, and an independent rescue record holds the known policy context. ENOSPC is not guaranteed recoverable: restoration is attempted even if journal updates fail, and failed persistence blocks new changes.
+SQLite uses WAL and FULL synchronous mode. Each state transition and operation-history update commits before dependent side effects. Checkpointing happens after that commit and is maintenance, not the commit decision: a failed/busy checkpoint produces a status warning and cannot turn a committed confirmation back into a pending one. Normal later checkpointing clears the transient warning. Events and operation receipts retain at most 64 rows each. The state directory has a 4 MiB admission budget and requires 8 MiB free space before accepting a change; these are admission checks, not a filesystem quota. A 256 KiB reserve is released before rollback, and an independent rescue record holds the known policy context. ENOSPC is not guaranteed recoverable: restoration is attempted even if journal updates fail, and failed persistence blocks new changes.
 
-`agent.lock` excludes a second live controller. `writer.lock` is held around writes and inherited across executor birth and its same-PID `exec(nft)`. Recovery verifies executor token, PID, start ticks and boot ID, signals through pidfd, waits for exit, then acquires ownership. If an executor-intent record exists but its identity record does not, recovery can proceed only when the inherited writer lock is demonstrably free. Otherwise it fails closed.
+`agent.lock` excludes a second live controller. `writer.lock` is held around writes and inherited across executor birth and its same-PID `exec(nft)`. Recovery verifies executor token, PID, start ticks and boot ID, signals through pidfd, waits for exit, then acquires ownership. ESRCH during pidfd open/signaling means the identified process naturally exited; recovery continues to the writer-lock and kernel checks. Other permission/syscall failures still fail closed. If an executor-intent record exists but its identity record does not, recovery can proceed only when the inherited writer lock is demonstrably free. Otherwise it fails closed.
 
 ## State machine
 
@@ -34,7 +34,7 @@ Confirmation decisions are serialized with mutations, check CLOCK_BOOTTIME befor
 
 ## Transport and admission
 
-The service permits at most 16 accepted connections with 2-second socket timeouts and a 16 KiB request-body cap. Kernel calls/executors have 2-second bounds. Application is serialized; there is no unbounded application job queue. HTTP overload closes excess connections. Confirmation windows are 1–300 seconds. TLS and an externally provisioned shared bearer credential identify a trusted operator, without per-user roles.
+The service permits at most 16 accepted connections with 2-second inactivity timeouts, a 5-second absolute accepted-connection lifetime, and a 16 KiB request-body cap. TLS, headers, bodies and keepalive share that absolute lifetime; trickling bytes cannot renew it. History is read under the decision lock but network output occurs after releasing it. Kernel calls/executors have 2-second bounds. Application is serialized; there is no unbounded application job queue. HTTP overload closes excess connections. Confirmation windows are 1–300 seconds. TLS and an externally provisioned shared bearer credential identify a trusted operator, without per-user roles.
 
 ## Recovery guarantees and exclusions
 

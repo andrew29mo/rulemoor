@@ -20,3 +20,8 @@ class ProcessTests(unittest.TestCase):
         self.assertTrue(run([sys.executable, '-c', 'print(1)'], timeout=2)['passed'])
     def test_cli_refuses_plaintext(self):
         with self.assertRaises(ValueError): request('http://localhost', 'unused', 'unused', '/status')
+
+    def test_optimized_validation_cannot_claim_success(self):
+        result = run([sys.executable, '-O', '-c', 'import tools.report'], timeout=2)
+        self.assertFalse(result['passed'])
+        self.assertIn('Validation requires assertions enabled', result['stderr'])

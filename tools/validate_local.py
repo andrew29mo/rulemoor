@@ -102,7 +102,8 @@ def main():
               '--cpus', '2', '--memory', '768m', '--pids-limit', '128', image['Id']])
         inspection = json.loads(call('container-inspect', [docker, 'inspect', name])['stdout'])[0]
         cfg = inspection['HostConfig']
-        host['container'] = {k: cfg[k] for k in ('Privileged', 'NetworkMode', 'CapDrop', 'CapAdd', 'Memory', 'NanoCpus', 'PidsLimit')}
+        host['container'] = {k: cfg[k] for k in ('Privileged', 'NetworkMode', 'CapDrop', 'CapAdd', 'Memory', 'NanoCpus', 'PidsLimit', 'SecurityOpt', 'Init')}
+        host['container']['mount_count'] = len(inspection['Mounts'])
         assert not inspection['Mounts'] and not cfg['Privileged'] and cfg['NetworkMode'] == 'none'
         result = call('linux-run', [docker, 'start', '-a', name], timeout=180, check=False)
         state = json.loads(call('container-state', [docker, 'inspect', name])['stdout'])[0]['State']
@@ -136,7 +137,9 @@ def main():
                 mutations = []
                 for target, key, changed in [('linux', 'run_id', 'stale'), ('linux', 'passed', False),
                                              ('linux', 'source', {}), ('native', 'tests', 0),
-                                             ('host', 'container_removed', False)]:
+                                             ('host', 'container_removed', False), ('host', 'stages', []),
+                                             ('linux', 'cases', []), ('native', 'test_ids', []),
+                                             ('host', 'production_mutations', []), ('linux', 'source_sha256', 'wrong')]:
                     l, n, h = copy.deepcopy((linux, native, host))
                     {'linux': l, 'native': n, 'host': h}[target][key] = changed
                     try:
@@ -145,6 +148,33 @@ def main():
                         mutations.append({'target': target, 'field': key, 'rejected': True})
                     else:
                         raise RuntimeError('Verifier accepted corrupted evidence')
+                for name in ('fencing-retirement', 'fencing-identical-policies', 'recovery-omitted', 'timing-summary',
+                             'fencing-missing-identity', 'fencing-empty-identity', 'fencing-missing-policy'):
+                    l, n, h = copy.deepcopy((linux, native, host))
+                    if name.startswith('fencing'):
+                        f = l['cases'][2]['evidence'][2]['fencing']
+                        if name == 'fencing-missing-identity':
+                            del f['old_executor_identity']
+                        elif name == 'fencing-empty-identity':
+                            f['old_executor_identity'] = {}
+                        elif name == 'fencing-missing-policy':
+                            f['old_candidate'] = None
+                        elif name == 'fencing-retirement':
+                            f['old_executor_exited'] = False
+                        else:
+                            from rulemoor.policy import expected
+                            f['new_candidate'] = f['old_candidate']
+                            f['kernel_after_release'] = expected(f['old_candidate'])
+                    elif name == 'recovery-omitted':
+                        l['cases'][3]['evidence'] = {}
+                    else:
+                        l['cases'][-1]['evidence']['apply']['median_ms'] += 1
+                    try:
+                        verify(l, n, h, source)
+                    except AssertionError:
+                        mutations.append({'target': 'linux', 'field': name, 'rejected': True})
+                    else:
+                        raise RuntimeError('Verifier accepted corrupted ' + name)
                 host['evidence_mutations'] = mutations
             except Exception as exc:
                 host.update(passed=False, verification_error=type(exc).__name__ + ': ' + str(exc))

@@ -29,7 +29,7 @@ def main():
             value['environment'] = cases.topology(parent)
             for name, fn in [('atomic_batches', cases.atomicity), ('management_path', cases.management),
                              ('crash_matrix', cases.crash_matrix), ('service_recovery', cases.service_recovery),
-                             ('queued_connection_and_response_loss', cases.queued_connection_and_lost_response), ('storage_faults', cases.storage_faults), ('measurement', cases.measurement)]:
+                             ('queued_connection_and_response_loss', cases.queued_connection_and_lost_response), ('storage_faults', cases.storage_faults), ('slow_clients_and_deadline', cases.slow_clients_and_deadline), ('measurement', cases.measurement)]:
                 began = time.monotonic(); row = {'name': name, 'passed': False}
                 try:
                     row.update(evidence=fn(parent), passed=True)
@@ -52,7 +52,7 @@ def main():
         except Exception as exc:
             value['cleanup'] = {'passed': False, 'error': type(exc).__name__}
         value['source_changed'] = manifest() != source
-        value['passed'] = (len(value['cases']) == 7 and all(r['passed'] for r in value['cases'])
+        value['passed'] = (len(value['cases']) == 8 and all(r['passed'] for r in value['cases'])
                            and value.get('unit_stage', {}).get('passed', False)
                            and value['cleanup']['passed'] and value['cleanup'].get('container_root_rules_unchanged', False)
                            and not value['source_changed'] and 'error' not in value)

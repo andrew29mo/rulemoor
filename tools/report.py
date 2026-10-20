@@ -3,7 +3,9 @@ import html
 import json
 import statistics
 from pathlib import Path
-from .evidence import save
+from .evidence import save, fingerprint
+from .mutations import MUTATIONS
+from rulemoor.policy import expected
 
 
 def render(value):
@@ -30,27 +32,54 @@ Rule restoration and management reachability are separate observations. No produ
 def verify(linux, native, host, source):
     assert linux['passed'] is True and native['passed'] is True and host['passed'] is True
     assert linux['source'] == native['source'] == source
+    assert linux['source_sha256'] == native['source_sha256'] == host['source_sha256'] == fingerprint(source)
     assert linux['unit']['source'] == source and linux['unit']['passed'] is True
     assert linux['unit']['run_id'] == host['run_id']
     assert linux['unit']['tests'] == native['tests'] and linux['unit']['errors'] == linux['unit']['failures'] == linux['unit']['skipped'] == 0
     assert linux['run_id'] == native['run_id'] == host['run_id']
-    assert len(host['production_mutations']) == 5 and all(r['caught_by_assertion'] for r in host['production_mutations'])
-    assert native['tests'] >= 39 and native['errors'] == native['failures'] == native['skipped'] == 0
-    assert [r['name'] for r in linux['cases']] == ['atomic_batches', 'management_path', 'crash_matrix', 'service_recovery', 'queued_connection_and_response_loss', 'storage_faults', 'measurement']
+    assert [r['name'] for r in host['production_mutations']] == [row[1] for row in MUTATIONS]
+    assert all(r['caught_by_assertion'] is True and r['exit_code'] == 1 and r['timed_out'] is False for r in host['production_mutations'])
+    assert native['test_ids'] == linux['unit']['test_ids'] and len(native['test_ids']) == len(set(native['test_ids'])) == native['tests']
+    assert {'test_core.CoreTests.test_post_commit_checkpoint_failure_preserves_confirmation',
+            'test_core.CoreTests.test_executor_exit_before_pidfd_open_recovers',
+            'test_core.CoreTests.test_executor_exit_before_pidfd_signal_recovers',
+            'test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections',
+            'test_tools.ProcessTests.test_optimized_validation_cannot_claim_success'} <= set(native['test_ids'])
+    assert native['tests'] >= 48 and native['errors'] == native['failures'] == native['skipped'] == 0
+    assert [r['name'] for r in linux['cases']] == ['atomic_batches', 'management_path', 'crash_matrix', 'service_recovery', 'queued_connection_and_response_loss', 'storage_faults', 'slow_clients_and_deadline', 'measurement']
     assert all(r['passed'] is True and 'evidence' in r for r in linux['cases'])
-    atomic, network, crash, recovery, queued, storage, measured = [r['evidence'] for r in linux['cases']]
+    atomic, network, crash, recovery, queued, storage, slow, measured = [r['evidence'] for r in linux['cases']]
     assert atomic['unrelated_table_unchanged']
     assert atomic['nft_exec_lock_inherited']
     assert atomic['check_nonmutating'] and atomic['invalid_batch_atomic'] and atomic['invalid_batch_exit'] != 0
     assert network['old_connection']['old_confirm'] == 409 and network['fresh_access_restored']
     assert network['fresh_blocked_connect_errno'] != 0 and network['confirmed_survives_deadline']
     assert len(crash) == 8 and all(r['after_phase'] == 'ROLLED_BACK' and r['baseline_verified'] and r['idempotent'] for r in crash[:6])
+    assert [r['point'] for r in crash[:6]] == ['prepared', 'executor-intent', 'executor-held', 'kernel-applied', 'awaiting-confirm', 'rollback-applied']
+    assert [r['point'] for r in crash[6:]] == ['foreign-kernel-applied', 'foreign-awaiting-confirm']
+    fenced = crash[2]['fencing']
+    assert crash[2]['newer_commit_survived_old_release'] is True and fenced['old_executor_exited'] is True
+    assert 'old_executor_identity' in fenced and isinstance(fenced['old_executor_identity'], dict)
+    who = fenced['old_executor_identity']
+    assert set(who) == {'pid', 'start_ticks', 'boot'}
+    assert type(who['pid']) is int and who['pid'] > 0 and type(who['start_ticks']) is int and who['start_ticks'] > 0
+    assert isinstance(who['boot'], str) and who['boot']
+    assert isinstance(fenced['old_candidate'], dict) and set(fenced['old_candidate']) == {'default', 'rules'}
+    assert expected(fenced['old_candidate']) != expected(fenced['new_candidate'])
+    assert fenced['old_candidate'] != fenced['new_candidate'] and fenced['kernel_after_release'] == expected(fenced['new_candidate'])
+    assert fenced['new_generation'] > crash[2]['generation_after'] > crash[2]['generation_before']
+    assert fenced['final_phase'] == 'COMMITTED'
     assert all(r['after_phase'] == 'DEGRADED' and r['unknown_preserved'] for r in crash[6:])
-    assert all(recovery.values())
+    assert set(recovery) == {'executor_timeout_reported_failure_and_restored', 'pending_restart_restored', 'stale_confirmation_rejected', 'durably_confirmed_restart_preserved', 'graceful_shutdown_restored'}
+    assert all(v is True for v in recovery.values())
     assert queued['queued_before_apply_accepted_later']['confirm_status'] == 409
     assert queued['confirmed_response_lost'] and queued['committed_survived_restart']
     assert storage['verified_filesystem_bytes'] == 16 * 1024 * 1024 and storage['write_limit_bytes'] == 257 * 65536
-    assert all(storage[k] for k in ('enospc_observed', 'reserve_released', 'baseline_restored', 'rollback_journal_verified', 'directory_budget_rejected', 'corrupt_journal_blocked', 'test_tmpfs_unmounted'))
+    assert all(storage[k] for k in ('post_commit_checkpoint_failure_preserved', 'enospc_observed', 'reserve_released', 'baseline_restored', 'rollback_journal_verified', 'directory_budget_rejected', 'corrupt_journal_blocked', 'test_tmpfs_unmounted'))
+    assert slow['ok'] and slow['connections'] == slow['expired_connections'] == 16
+    assert slow['rollback_while_all_slots_occupied'] and slow['final_phase'] == 'ROLLED_BACK'
+    assert slow['fresh_confirmation_after_slot_recovery'] and slow['baseline_readback_verified']
+    assert slow['connection_lifetime_seconds'] == 5 and slow['seconds'] > 5
     assert len(measured['trials']) == 10
     assert [r['index'] for r in measured['trials']] == list(range(10))
     for row in measured['trials']:
@@ -67,6 +96,12 @@ def verify(linux, native, host, source):
     assert measured['disk']['logical_bytes'] > 0 and measured['disk']['allocated_bytes'] > 0
     assert linux['cleanup']['passed'] and not linux['cleanup']['remaining_processes'] and not linux['cleanup']['remaining_namespaces']
     assert linux['cleanup']['container_root_rules_unchanged'] and not linux['source_changed']
+    assert [s['name'] for s in host['stages']] == ['native-contracts', 'production-mutations', 'vm-initial', 'vm-start', 'image-build', 'image-inspect', 'container-create', 'container-inspect', 'linux-run', 'container-state', 'export', 'container-remove', 'vm-stop', 'vm-final']
+    cfg = host['container']
+    assert cfg['Privileged'] is False and cfg['NetworkMode'] == 'none' and cfg['mount_count'] == 0 and cfg['Init'] is True
+    assert cfg['Memory'] == 768 * 1024 * 1024 and cfg['NanoCpus'] == 2000000000 and cfg['PidsLimit'] == 128
+    assert set(cfg['CapDrop']) == {'ALL'} and set(cfg['CapAdd']) == {'CAP_NET_ADMIN', 'CAP_SYS_ADMIN'}
+    assert host['container_exit']['Running'] is False and not host['container_exit']['Error']
     assert host['container_removed'] and host['vm_final_state'] == 'Stopped' and not host['source_changed']
     assert host['container_exit']['ExitCode'] == 0 and not host['container_exit']['OOMKilled']
     assert all(s['exit_code'] == 0 and not s['timed_out'] for s in host['stages'])

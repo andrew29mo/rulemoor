@@ -24,6 +24,7 @@ class Conflict(RuntimeError):
 class Store:
     def __init__(self, root):
         self.path = Path(root) / 'state.sqlite'
+        self.checkpoint_warning = None
 
     @contextmanager
     def connect(self):
@@ -58,8 +59,14 @@ class Store:
             c.execute('DELETE FROM events WHERE id NOT IN (SELECT id FROM events ORDER BY id DESC LIMIT ?)', (MAX_HISTORY,))
             # IDs are deduplicated for the retained bounded history only.
             c.execute('DELETE FROM operations WHERE rowid NOT IN (SELECT rowid FROM operations ORDER BY rowid DESC LIMIT ?)', (MAX_HISTORY,))
-        with self.connect() as c:
-            c.execute('PRAGMA wal_checkpoint(TRUNCATE)')
+        # The transaction is already committed. Maintenance failure must not be
+        # reported as a failed state transition (notably for confirmation).
+        try:
+            with self.connect() as c:
+                result = c.execute('PRAGMA wal_checkpoint(TRUNCATE)').fetchone()
+            self.checkpoint_warning = ('Journal checkpoint busy; transaction committed' if result[0] else None)
+        except (sqlite3.Error, OSError):
+            self.checkpoint_warning = 'Journal checkpoint failed; transaction committed'
 
     def prior(self, op):
         with self.connect() as c:
@@ -156,7 +163,10 @@ class Controller:
 
     def status(self):
         with self.mutex:
-            return json.loads(json.dumps(self.s))
+            result = json.loads(json.dumps(self.s))
+            if self.store.checkpoint_warning:
+                result['journal_maintenance_warning'] = self.store.checkpoint_warning
+            return result
 
     def plan(self, policy):
         p = validate(policy)
@@ -250,7 +260,7 @@ class Controller:
             if self.backend.clock() >= s['deadline']:
                 raise Conflict('Confirmation expired during readback')
             # A disk failure must not expose an unpersisted COMMITTED in-memory decision.
-            before = self.status()
+            before = json.loads(json.dumps(self.s))
             self.s.update(phase='COMMITTED', current=s['candidate'], confirmed_at=self.backend.clock())
             try:
                 self._save('confirmed')

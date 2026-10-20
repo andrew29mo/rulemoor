@@ -4,14 +4,16 @@ Status: MVP implemented and locally validated; repository remains Private. No pr
 
 ## Evidence reviewed
 
-- Native macOS and Linux each pass 41 portable/core/API tests using the same executable snapshot.
-- Real Linux nft/netns/TLS validation passes all seven case groups, including six SIGKILL boundaries, two foreign-policy boundaries, old/queued TCP connection rejection, executor timeout, lost confirmation response, restart and graceful shutdown.
+- Native macOS and Linux each pass 48 portable/core/API tests using the same executable snapshot.
+- Real Linux nft/netns/TLS validation passes all eight case groups, including six SIGKILL boundaries, two foreign-policy boundaries, old/queued TCP connection rejection, executor timeout, lost confirmation response, restart and graceful shutdown.
 - Actual ENOSPC is reproduced in a proven 16 MiB tmpfs with a hard write ceiling; baseline and durable rollback are verified, and the mount is removed.
-- Five production mutations are caught by assertions. Five corrupted evidence controls are rejected. Independent evidence audit checks source/run identities, trial statistics, cleanup and HTML consistency.
+- Eight production mutations are caught by assertions. Seventeen corrupted evidence controls are rejected. Independent evidence audit checks source/run identities, trial statistics, cleanup and HTML consistency.
 - Every timed application changes its policy; all ten trials are retained. RSS scope, VM scope, state allocation and single-observation recovery timings are explicit.
 - The installed package is compared module-for-module against the validated checkout, not inferred from source tests.
 
 See `reviews/mvp/`, `reviews/package-verification.json` and `docs/MEASUREMENTS.md`. Recorded source hashes, rather than a self-referential commit hash, identify tested executable inputs. `reviews/mvp/attempts.json` retains the history of failed/superseded attempts without treating them as current evidence.
+
+See [agent-assisted review](AGENT_REVIEW.md) for the subsequent defects, corrections, negative controls and evidence scope.
 
 ## Problems corrected before release preparation
 

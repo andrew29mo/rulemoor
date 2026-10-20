@@ -14,6 +14,7 @@ from .backend import NftBackend
 from .core import Controller, Conflict
 
 MAX_BODY = 16384
+MAX_CONNECTION_SECONDS = 5.0
 
 
 def secret_file(path):
@@ -34,6 +35,7 @@ class Server(ThreadingHTTPServer):
         self.controller, self.token, self.context = controller, token, context
         self.slots = threading.BoundedSemaphore(16)
         self.accepted = {}
+        self.deadlines = {}
         self.blocked_peers = set()
         self.accepted_lock = threading.Lock()
         super().__init__(address, Handler)
@@ -56,6 +58,15 @@ class Server(ThreadingHTTPServer):
         # Deliberately avoid default traceback logging of operator addresses.
         pass
 
+    @staticmethod
+    def expire_connection(sock):
+        try:
+            sock.shutdown(socket.SHUT_RDWR)
+        except OSError:
+            pass
+        # The handler owns close/releasing the slot. Keeping its fd valid until
+        # shutdown_request also prevents an expired socket from deleting a reused fd.
+
     def get_request(self):
         sock, addr = self.socket.accept()
         sock.settimeout(2)
@@ -69,6 +80,10 @@ class Server(ThreadingHTTPServer):
             sock = self.context.wrap_socket(sock, server_side=True, do_handshake_on_connect=False)
             with self.accepted_lock:
                 self.accepted[sock.fileno()] = at
+                timer = threading.Timer(MAX_CONNECTION_SECONDS, self.expire_connection, args=(sock,))
+                timer.daemon = True
+                self.deadlines[sock.fileno()] = timer
+            timer.start()
             return sock, addr
         except BaseException:
             self.slots.release()
@@ -78,6 +93,9 @@ class Server(ThreadingHTTPServer):
     def shutdown_request(self, request):
         with self.accepted_lock:
             self.accepted.pop(request.fileno(), None)
+            timer = self.deadlines.pop(request.fileno(), None)
+            if timer:
+                timer.cancel()
         try:
             super().shutdown_request(request)
         finally:
@@ -123,7 +141,8 @@ class Handler(BaseHTTPRequestHandler):
                     return self.answer(200, c.status())
                 if self.path == '/history':
                     with c.mutex:
-                        return self.answer(200, {'events': c.store.history()})
+                        events = c.store.history()
+                    return self.answer(200, {'events': events})
                 return self.answer(404, {'error': 'Not found'})
             if self.headers.get('Transfer-Encoding') is not None:
                 raise ValueError('Chunked bodies are not supported')

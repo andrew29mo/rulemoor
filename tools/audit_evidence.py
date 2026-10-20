@@ -12,6 +12,7 @@ def main():
     root = Path(a.directory)
     host, native, linux, combined = [json.loads((root / n).read_text()) for n in ('host.json', 'native.json', 'linux.json', 'combined.json')]
     verify(linux, native, host, manifest())
+    assert len(host['evidence_mutations']) == 17 and all(r['rejected'] is True for r in host['evidence_mutations'])
     assert combined == {'passed': host['passed'], 'cases': linux['cases'], 'host': host, 'native': native, 'linux': linux}
     assert (root / 'report.html').read_text() == render(combined)
     receipts = json.loads((root / 'mutations.json').read_text())

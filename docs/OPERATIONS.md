@@ -20,11 +20,11 @@ The supplied `deploy/rulemoor.service` binds loopback by default. Review its man
 4. Reconnect using the intended management path, then `confirm --op ID --generation NEW`.
 5. If uncertain, do not confirm. Inspect status after the deadline or explicitly `cancel` the matching pending operation.
 
-The service allows one unfinished change. Stale bases, stale challenges, old connections and conflicting ID reuse receive HTTP 409. A retry with the same retained apply ID and identical payload returns its existing receipt rather than reapplying. A lost confirm/cancel response requires `status`; an already terminal operation is not confirmed/cancelled a second time.
+The service allows one unfinished change. Each accepted connection has a 5-second absolute lifetime; reconnect rather than assuming an indefinitely persistent keepalive. If a long operation outlives its response connection, inspect status before retrying. Stale bases, stale challenges, old connections and conflicting ID reuse receive HTTP 409. A retry with the same retained apply ID and identical payload returns its existing receipt rather than reapplying. A lost confirm/cancel response requires `status`; an already terminal operation is not confirmed/cancelled a second time.
 
 ## Restart and shutdown
 
-Process SIGTERM/SIGINT stops acceptance and attempts rollback of a pending change. SIGKILL skips graceful cleanup; on the next start, the controller fences any identified orphan writer and reconciles the journal with actual rules. Known unfinished candidates are restored to their baseline. Known committed policy remains committed. A generation increase prevents old pending operations from being confirmed after recovery.
+Process SIGTERM/SIGINT stops acceptance and attempts rollback of a pending change. SIGKILL skips graceful cleanup; on the next start, the controller fences any identified orphan writer and reconciles the journal with actual rules. Known unfinished candidates are restored to their baseline. Known committed policy remains committed. A post-commit checkpoint error is a maintenance warning in status, not a reversal of the durable confirmation. A generation increase prevents old pending operations from being confirmed after recovery.
 
 A stopped process has no active deadline timer. Service-manager restart speed and availability matter; there is no guarantee of a rollback at the deadline while the service is down. Host reboot, disk power loss and service-manager integration are not covered by the retained results.
 

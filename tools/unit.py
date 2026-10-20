@@ -11,10 +11,17 @@ from .evidence import manifest, fingerprint, save
 def main():
     began = time.monotonic()
     suite = unittest.defaultTestLoader.discover('tests', pattern='test_*.py')
+    def ids(group):
+        for item in group:
+            if isinstance(item, unittest.TestSuite):
+                yield from ids(item)
+            else:
+                yield item.id()
+    test_ids = list(ids(suite))
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     usage = resource.getrusage(resource.RUSAGE_SELF)
     out = {'passed': result.wasSuccessful() and result.testsRun > 0, 'tests': result.testsRun,
-           'failures': len(result.failures), 'errors': len(result.errors),
+           'test_ids': test_ids, 'failures': len(result.failures), 'errors': len(result.errors),
            'skipped': len(result.skipped), 'seconds': time.monotonic() - began,
            'source': manifest(), 'source_sha256': fingerprint(manifest()),
            'run_id': os.environ.get('RULEMOOR_RUN_ID'), 'platform': platform.system(),

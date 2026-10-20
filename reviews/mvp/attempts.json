@@ -39,6 +39,20 @@
     "run_id": "90a6c11375432d5f",
     "passed": true,
     "source_sha256": "cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d",
-    "note": "Current complete pass, including large bounded-history CLI transport regression."
+    "note": "Pre-agent-review MVP pass, superseded by audited production fixes and stronger evidence checks."
+  },
+  {
+    "attempt": "agent-review-01",
+    "run_id": "25af5d35f268153f",
+    "passed": true,
+    "source_sha256": "6aa161abc14ae70e47226b3a8ad31dbfdf15ebf63ba126f4b1c9caa614044162",
+    "note": "Passed production fixes; superseded by stricter missing-identity/invalid-policy evidence rejection."
+  },
+  {
+    "attempt": "agent-review-02",
+    "run_id": "04dc27f97d65586b",
+    "passed": true,
+    "source_sha256": "cf9055fb22968517608759f2b024b7b701ace9568e6ea736c49c481a06b679ca",
+    "note": "Current reviewed pass: 48 tests per platform, eight production mutations, seventeen evidence controls, eight Linux groups."
   }
 ]

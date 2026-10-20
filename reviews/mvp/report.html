@@ -3,8 +3,8 @@
 <h1>Rulemoor validation: PASS</h1>
 <p>Linux measurements are from a Colima VM. Native macOS validates portable contracts only.
 Rule restoration and management reachability are separate observations. No production SLA or speedup is claimed.</p>
-<h2>Observed Linux VM operations</h2><table><tr><th>TLS operation</th><th>Trials</th><th>Median ms</th><th>Range ms</th></tr><tr><td>plan</td><td>10</td><td>12.39</td><td>8.12–18.73</td></tr><tr><td>apply</td><td>10</td><td>47.44</td><td>43.07–56.52</td></tr><tr><td>confirm</td><td>5</td><td>3.67</td><td>3.42–4.53</td></tr><tr><td>cancel</td><td>5</td><td>31.56</td><td>30.03–33.33</td></tr></table><p>Agent VmHWM: 23.11 MiB. Excludes nft children, clients and VM memory. State directory allocated: 372736 bytes.</p>
-<table><tr><th>Case</th><th>Outcome</th></tr><tr><td>atomic_batches</td><td>PASS</td></tr><tr><td>management_path</td><td>PASS</td></tr><tr><td>crash_matrix</td><td>PASS</td></tr><tr><td>service_recovery</td><td>PASS</td></tr><tr><td>queued_connection_and_response_loss</td><td>PASS</td></tr><tr><td>storage_faults</td><td>PASS</td></tr><tr><td>measurement</td><td>PASS</td></tr></table>
+<h2>Observed Linux VM operations</h2><table><tr><th>TLS operation</th><th>Trials</th><th>Median ms</th><th>Range ms</th></tr><tr><td>plan</td><td>10</td><td>12.40</td><td>8.70–21.16</td></tr><tr><td>apply</td><td>10</td><td>48.41</td><td>38.53–75.24</td></tr><tr><td>confirm</td><td>5</td><td>3.95</td><td>3.80–4.95</td></tr><tr><td>cancel</td><td>5</td><td>33.37</td><td>31.12–34.79</td></tr></table><p>Agent VmHWM: 23.50 MiB. Excludes nft children, clients and VM memory. State directory allocated: 372736 bytes.</p>
+<table><tr><th>Case</th><th>Outcome</th></tr><tr><td>atomic_batches</td><td>PASS</td></tr><tr><td>management_path</td><td>PASS</td></tr><tr><td>crash_matrix</td><td>PASS</td></tr><tr><td>service_recovery</td><td>PASS</td></tr><tr><td>queued_connection_and_response_loss</td><td>PASS</td></tr><tr><td>storage_faults</td><td>PASS</td></tr><tr><td>slow_clients_and_deadline</td><td>PASS</td></tr><tr><td>measurement</td><td>PASS</td></tr></table>
 <p>Complete observations, samples, memory scope and failure details:</p><pre>{
   &quot;passed&quot;: true,
   &quot;cases&quot;: [
@@ -180,7 +180,7 @@ Rule restoration and management reachability are separate observations. No produ
           }
         ]
       },
-      &quot;seconds&quot;: 0.21915383300000002
+      &quot;seconds&quot;: 0.21991608400000118
     },
     {
       &quot;name&quot;: &quot;management_path&quot;,
@@ -194,12 +194,12 @@ Rule restoration and management reachability are separate observations. No produ
           &quot;old_confirm&quot;: 409
         },
         &quot;fresh_blocked_connect_errno&quot;: 11,
-        &quot;rollback_start_overdue_ms&quot;: 53.00812599999993,
-        &quot;rollback_complete_overdue_ms&quot;: 100.30245999999998,
+        &quot;rollback_start_overdue_ms&quot;: 52.775251999999995,
+        &quot;rollback_complete_overdue_ms&quot;: 102.30187700000037,
         &quot;fresh_access_restored&quot;: true,
         &quot;confirmed_survives_deadline&quot;: true
       },
-      &quot;seconds&quot;: 5.502628627
+      &quot;seconds&quot;: 5.538197295
     },
     {
       &quot;name&quot;: &quot;crash_matrix&quot;,
@@ -282,7 +282,8 @@ Rule restoration and management reachability are separate observations. No produ
           ],
           &quot;baseline_verified&quot;: true,
           &quot;idempotent&quot;: true,
-          &quot;newer_commit_survived_old_release&quot;: false
+          &quot;newer_commit_survived_old_release&quot;: false,
+          &quot;fencing&quot;: null
         },
         {
           &quot;point&quot;: &quot;executor-intent&quot;,
@@ -361,7 +362,8 @@ Rule restoration and management reachability are separate observations. No produ
           ],
           &quot;baseline_verified&quot;: true,
           &quot;idempotent&quot;: true,
-          &quot;newer_commit_survived_old_release&quot;: false
+          &quot;newer_commit_survived_old_release&quot;: false,
+          &quot;fencing&quot;: null
         },
         {
           &quot;point&quot;: &quot;executor-held&quot;,
@@ -440,7 +442,104 @@ Rule restoration and management reachability are separate observations. No produ
           ],
           &quot;baseline_verified&quot;: true,
           &quot;idempotent&quot;: true,
-          &quot;newer_commit_survived_old_release&quot;: true
+          &quot;newer_commit_survived_old_release&quot;: true,
+          &quot;fencing&quot;: {
+            &quot;old_executor_identity&quot;: {
+              &quot;pid&quot;: 196,
+              &quot;start_ticks&quot;: 1916,
+              &quot;boot&quot;: &quot;68c600c3-acc5-4e8e-931b-af140fbe7704&quot;
+            },
+            &quot;old_executor_exited&quot;: true,
+            &quot;old_candidate&quot;: {
+              &quot;default&quot;: &quot;accept&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 59992,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;new_candidate&quot;: {
+              &quot;default&quot;: &quot;accept&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 59993,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;new_generation&quot;: 3,
+            &quot;kernel_after_release&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;accept&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59993
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ],
+            &quot;final_phase&quot;: &quot;COMMITTED&quot;
+          }
         },
         {
           &quot;point&quot;: &quot;kernel-applied&quot;,
@@ -519,7 +618,8 @@ Rule restoration and management reachability are separate observations. No produ
           ],
           &quot;baseline_verified&quot;: true,
           &quot;idempotent&quot;: true,
-          &quot;newer_commit_survived_old_release&quot;: false
+          &quot;newer_commit_survived_old_release&quot;: false,
+          &quot;fencing&quot;: null
         },
         {
           &quot;point&quot;: &quot;awaiting-confirm&quot;,
@@ -598,7 +698,8 @@ Rule restoration and management reachability are separate observations. No produ
           ],
           &quot;baseline_verified&quot;: true,
           &quot;idempotent&quot;: true,
-          &quot;newer_commit_survived_old_release&quot;: false
+          &quot;newer_commit_survived_old_release&quot;: false,
+          &quot;fencing&quot;: null
         },
         {
           &quot;point&quot;: &quot;rollback-applied&quot;,
@@ -677,7 +778,8 @@ Rule restoration and management reachability are separate observations. No produ
           ],
           &quot;baseline_verified&quot;: true,
           &quot;idempotent&quot;: true,
-          &quot;newer_commit_survived_old_release&quot;: false
+          &quot;newer_commit_survived_old_release&quot;: false,
+          &quot;fencing&quot;: null
         },
         {
           &quot;point&quot;: &quot;foreign-kernel-applied&quot;,
@@ -690,7 +792,7 @@ Rule restoration and management reachability are separate observations. No produ
           &quot;unknown_preserved&quot;: true
         }
       ],
-      &quot;seconds&quot;: 4.804435293999999
+      &quot;seconds&quot;: 4.908035419000001
     },
     {
       &quot;name&quot;: &quot;service_recovery&quot;,
@@ -702,7 +804,7 @@ Rule restoration and management reachability are separate observations. No produ
         &quot;durably_confirmed_restart_preserved&quot;: true,
         &quot;graceful_shutdown_restored&quot;: true
       },
-      &quot;seconds&quot;: 2.968526335
+      &quot;seconds&quot;: 2.9920105850000027
     },
     {
       &quot;name&quot;: &quot;queued_connection_and_response_loss&quot;,
@@ -716,12 +818,13 @@ Rule restoration and management reachability are separate observations. No produ
         &quot;confirmed_response_lost&quot;: true,
         &quot;committed_survived_restart&quot;: true
       },
-      &quot;seconds&quot;: 0.7108021250000007
+      &quot;seconds&quot;: 0.7342865839999995
     },
     {
       &quot;name&quot;: &quot;storage_faults&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
+        &quot;post_commit_checkpoint_failure_preserved&quot;: true,
         &quot;enospc_observed&quot;: true,
         &quot;reserve_released&quot;: true,
         &quot;baseline_restored&quot;: true,
@@ -733,7 +836,24 @@ Rule restoration and management reachability are separate observations. No produ
         &quot;write_limit_bytes&quot;: 16842752,
         &quot;test_tmpfs_unmounted&quot;: true
       },
-      &quot;seconds&quot;: 1.1438385419999975
+      &quot;seconds&quot;: 2.2563681680000016
+    },
+    {
+      &quot;name&quot;: &quot;slow_clients_and_deadline&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;ok&quot;: true,
+        &quot;connections&quot;: 16,
+        &quot;expired_connections&quot;: 16,
+        &quot;rollback_while_all_slots_occupied&quot;: true,
+        &quot;final_phase&quot;: &quot;ROLLED_BACK&quot;,
+        &quot;seconds&quot;: 6.083956167000004,
+        &quot;fresh_confirmation_after_slot_recovery&quot;: true,
+        &quot;baseline_readback_verified&quot;: true,
+        &quot;connection_lifetime_seconds&quot;: 5,
+        &quot;header_drip_interval_seconds&quot;: 0.1
+      },
+      &quot;seconds&quot;: 6.550385173999999
     },
     {
       &quot;name&quot;: &quot;measurement&quot;,
@@ -742,9 +862,9 @@ Rule restoration and management reachability are separate observations. No produ
         &quot;trials&quot;: [
           {
             &quot;index&quot;: 0,
-            &quot;plan_ms&quot;: 11.077291999999517,
-            &quot;apply_ms&quot;: 48.12008300000059,
-            &quot;finalize_ms&quot;: 31.563750000000113,
+            &quot;plan_ms&quot;: 21.15847900000034,
+            &quot;apply_ms&quot;: 47.48185300000074,
+            &quot;finalize_ms&quot;: 34.78780800000436,
             &quot;action&quot;: &quot;cancel&quot;,
             &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
             &quot;generation&quot;: 1,
@@ -769,9 +889,9 @@ Rule restoration and management reachability are separate observations. No produ
           },
           {
             &quot;index&quot;: 1,
-            &quot;plan_ms&quot;: 18.730458000000283,
-            &quot;apply_ms&quot;: 51.106707999998946,
-            &quot;finalize_ms&quot;: 3.673292000001993,
+            &quot;plan_ms&quot;: 12.078385000002356,
+            &quot;apply_ms&quot;: 45.01950400000254,
+            &quot;finalize_ms&quot;: 4.321706999995456,
             &quot;action&quot;: &quot;confirm&quot;,
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 2,
@@ -796,9 +916,9 @@ Rule restoration and management reachability are separate observations. No produ
           },
           {
             &quot;index&quot;: 2,
-            &quot;plan_ms&quot;: 8.116375000000176,
-            &quot;apply_ms&quot;: 43.07212499999835,
-            &quot;finalize_ms&quot;: 30.028999999998973,
+            &quot;plan_ms&quot;: 16.181274000004464,
+            &quot;apply_ms&quot;: 46.84914899999626,
+            &quot;finalize_ms&quot;: 33.37246400000282,
             &quot;action&quot;: &quot;cancel&quot;,
             &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
             &quot;generation&quot;: 3,
@@ -823,9 +943,9 @@ Rule restoration and management reachability are separate observations. No produ
           },
           {
             &quot;index&quot;: 3,
-            &quot;plan_ms&quot;: 13.698167000001149,
-            &quot;apply_ms&quot;: 56.51712499999917,
-            &quot;finalize_ms&quot;: 4.074291999998536,
+            &quot;plan_ms&quot;: 12.283160999999154,
+            &quot;apply_ms&quot;: 50.1243510000009,
+            &quot;finalize_ms&quot;: 3.9524520000000507,
             &quot;action&quot;: &quot;confirm&quot;,
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 4,
@@ -850,9 +970,9 @@ Rule restoration and management reachability are separate observations. No produ
           },
           {
             &quot;index&quot;: 4,
-            &quot;plan_ms&quot;: 15.974416999998908,
-            &quot;apply_ms&quot;: 53.99408299999919,
-            &quot;finalize_ms&quot;: 32.37999999999985,
+            &quot;plan_ms&quot;: 8.702754000005086,
+            &quot;apply_ms&quot;: 49.34350299999579,
+            &quot;finalize_ms&quot;: 31.115890999998896,
             &quot;action&quot;: &quot;cancel&quot;,
             &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
             &quot;generation&quot;: 5,
@@ -877,9 +997,9 @@ Rule restoration and management reachability are separate observations. No produ
           },
           {
             &quot;index&quot;: 5,
-            &quot;plan_ms&quot;: 14.230209000000826,
-            &quot;apply_ms&quot;: 46.75770799999768,
-            &quot;finalize_ms&quot;: 3.6405419999994137,
+            &quot;plan_ms&quot;: 12.486518999999419,
+            &quot;apply_ms&quot;: 44.69963700000079,
+            &quot;finalize_ms&quot;: 3.800695000002463,
             &quot;action&quot;: &quot;confirm&quot;,
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 6,
@@ -904,9 +1024,9 @@ Rule restoration and management reachability are separate observations. No produ
           },
           {
             &quot;index&quot;: 6,
-            &quot;plan_ms&quot;: 16.303000000000623,
-            &quot;apply_ms&quot;: 44.547500000000184,
-            &quot;finalize_ms&quot;: 33.33058300000147,
+            &quot;plan_ms&quot;: 12.865341000001251,
+            &quot;apply_ms&quot;: 49.724744999998904,
+            &quot;finalize_ms&quot;: 33.46346499999697,
             &quot;action&quot;: &quot;cancel&quot;,
             &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
             &quot;generation&quot;: 7,
@@ -931,9 +1051,9 @@ Rule restoration and management reachability are separate observations. No produ
           },
           {
             &quot;index&quot;: 7,
-            &quot;plan_ms&quot;: 9.859583000000782,
-            &quot;apply_ms&quot;: 51.33629199999845,
-            &quot;finalize_ms&quot;: 4.530041000002427,
+            &quot;plan_ms&quot;: 12.316777999998862,
+            &quot;apply_ms&quot;: 51.93929600000047,
+            &quot;finalize_ms&quot;: 3.9303359999962595,
             &quot;action&quot;: &quot;confirm&quot;,
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 8,
@@ -958,9 +1078,9 @@ Rule restoration and management reachability are separate observations. No produ
           },
           {
             &quot;index&quot;: 8,
-            &quot;plan_ms&quot;: 10.983958000000626,
-            &quot;apply_ms&quot;: 44.68999999999923,
-            &quot;finalize_ms&quot;: 31.30974999999836,
+            &quot;plan_ms&quot;: 11.101759999995409,
+            &quot;apply_ms&quot;: 38.52635000000504,
+            &quot;finalize_ms&quot;: 31.94691099999858,
             &quot;action&quot;: &quot;cancel&quot;,
             &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
             &quot;generation&quot;: 9,
@@ -985,9 +1105,9 @@ Rule restoration and management reachability are separate observations. No produ
           },
           {
             &quot;index&quot;: 9,
-            &quot;plan_ms&quot;: 9.46345800000259,
-            &quot;apply_ms&quot;: 45.441916999998,
-            &quot;finalize_ms&quot;: 3.4200420000018994,
+            &quot;plan_ms&quot;: 12.911805000001664,
+            &quot;apply_ms&quot;: 75.24094499999734,
+            &quot;finalize_ms&quot;: 4.94724700000404,
             &quot;action&quot;: &quot;confirm&quot;,
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 10,
@@ -1013,82 +1133,86 @@ Rule restoration and management reachability are separate observations. No produ
         ],
         &quot;plan&quot;: {
           &quot;n&quot;: 10,
-          &quot;median_ms&quot;: 12.387729500000333,
-          &quot;min_ms&quot;: 8.116375000000176,
-          &quot;max_ms&quot;: 18.730458000000283,
+          &quot;median_ms&quot;: 12.40164849999914,
+          &quot;min_ms&quot;: 8.702754000005086,
+          &quot;max_ms&quot;: 21.15847900000034,
           &quot;samples_ms&quot;: [
-            11.077291999999517,
-            18.730458000000283,
-            8.116375000000176,
-            13.698167000001149,
-            15.974416999998908,
-            14.230209000000826,
-            16.303000000000623,
-            9.859583000000782,
-            10.983958000000626,
-            9.46345800000259
+            21.15847900000034,
+            12.078385000002356,
+            16.181274000004464,
+            12.283160999999154,
+            8.702754000005086,
+            12.486518999999419,
+            12.865341000001251,
+            12.316777999998862,
+            11.101759999995409,
+            12.911805000001664
           ]
         },
         &quot;apply&quot;: {
           &quot;n&quot;: 10,
-          &quot;median_ms&quot;: 47.438895499999134,
-          &quot;min_ms&quot;: 43.07212499999835,
-          &quot;max_ms&quot;: 56.51712499999917,
+          &quot;median_ms&quot;: 48.412677999998266,
+          &quot;min_ms&quot;: 38.52635000000504,
+          &quot;max_ms&quot;: 75.24094499999734,
           &quot;samples_ms&quot;: [
-            48.12008300000059,
-            51.106707999998946,
-            43.07212499999835,
-            56.51712499999917,
-            53.99408299999919,
-            46.75770799999768,
-            44.547500000000184,
-            51.33629199999845,
-            44.68999999999923,
-            45.441916999998
+            47.48185300000074,
+            45.01950400000254,
+            46.84914899999626,
+            50.1243510000009,
+            49.34350299999579,
+            44.69963700000079,
+            49.724744999998904,
+            51.93929600000047,
+            38.52635000000504,
+            75.24094499999734
           ]
         },
         &quot;confirm&quot;: {
           &quot;n&quot;: 5,
-          &quot;median_ms&quot;: 3.673292000001993,
-          &quot;min_ms&quot;: 3.4200420000018994,
-          &quot;max_ms&quot;: 4.530041000002427,
+          &quot;median_ms&quot;: 3.9524520000000507,
+          &quot;min_ms&quot;: 3.800695000002463,
+          &quot;max_ms&quot;: 4.94724700000404,
           &quot;samples_ms&quot;: [
-            3.673292000001993,
-            4.074291999998536,
-            3.6405419999994137,
-            4.530041000002427,
-            3.4200420000018994
+            4.321706999995456,
+            3.9524520000000507,
+            3.800695000002463,
+            3.9303359999962595,
+            4.94724700000404
           ]
         },
         &quot;cancel&quot;: {
           &quot;n&quot;: 5,
-          &quot;median_ms&quot;: 31.563750000000113,
-          &quot;min_ms&quot;: 30.028999999998973,
-          &quot;max_ms&quot;: 33.33058300000147,
+          &quot;median_ms&quot;: 33.37246400000282,
+          &quot;min_ms&quot;: 31.115890999998896,
+          &quot;max_ms&quot;: 34.78780800000436,
           &quot;samples_ms&quot;: [
-            31.563750000000113,
-            30.028999999998973,
-            32.37999999999985,
-            33.33058300000147,
-            31.30974999999836
+            34.78780800000436,
+            33.37246400000282,
+            31.115890999998896,
+            33.46346499999697,
+            31.94691099999858
           ]
         },
         &quot;rss&quot;: {
-          &quot;initial_bytes&quot;: 23863296,
-          &quot;final_bytes&quot;: 24231936,
-          &quot;worker_high_water_bytes&quot;: 24231936,
+          &quot;initial_bytes&quot;: 23896064,
+          &quot;final_bytes&quot;: 24645632,
+          &quot;worker_high_water_bytes&quot;: 24645632,
           &quot;scope&quot;: &quot;Agent process only; excludes transient nft children, clients and VM; kernel-reported VmHWM&quot;
         },
         &quot;disk&quot;: {
-          &quot;logical_bytes&quot;: 347881,
+          &quot;logical_bytes&quot;: 347885,
           &quot;allocated_bytes&quot;: 372736,
           &quot;files&quot;: {
-            &quot;batch-d7a367f2cc4a4d58a609860258abf5b5.nft&quot;: {
+            &quot;executor-8c36d2fef5a1b97f3bd6186a89d35c8a.json&quot;: {
+              &quot;logical_bytes&quot;: 126,
+              &quot;allocated_bytes&quot;: 4096
+            },
+            &quot;batch-8c36d2fef5a1b97f3bd6186a89d35c8a.nft&quot;: {
               &quot;logical_bytes&quot;: 178,
               &quot;allocated_bytes&quot;: 4096
             },
             &quot;key.pem&quot;: {
-              &quot;logical_bytes&quot;: 1704,
+              &quot;logical_bytes&quot;: 1708,
               &quot;allocated_bytes&quot;: 4096
             },
             &quot;reserve&quot;: {
@@ -1111,10 +1235,6 @@ Rule restoration and management reachability are separate observations. No produ
               &quot;logical_bytes&quot;: 0,
               &quot;allocated_bytes&quot;: 0
             },
-            &quot;executor-d7a367f2cc4a4d58a609860258abf5b5.json&quot;: {
-              &quot;logical_bytes&quot;: 126,
-              &quot;allocated_bytes&quot;: 4096
-            },
             &quot;rescue.json&quot;: {
               &quot;logical_bytes&quot;: 590,
               &quot;allocated_bytes&quot;: 4096
@@ -1129,99 +1249,99 @@ Rule restoration and management reachability are separate observations. No produ
         &quot;warmup&quot;: &quot;Service readiness only; all 10 operation trials retained&quot;,
         &quot;timing_scope&quot;: &quot;TLS request/response including connection+handshake, checks, nft and durable journal; one client, loopback-veth path in VM; no baseline speedup claim&quot;
       },
-      &quot;seconds&quot;: 0.9912395419999989
+      &quot;seconds&quot;: 1.024487391000001
     }
   ],
   &quot;host&quot;: {
     &quot;schema&quot;: 1,
-    &quot;run_id&quot;: &quot;90a6c11375432d5f&quot;,
+    &quot;run_id&quot;: &quot;04dc27f97d65586b&quot;,
     &quot;passed&quot;: true,
-    &quot;source_sha256&quot;: &quot;cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d&quot;,
+    &quot;source_sha256&quot;: &quot;cf9055fb22968517608759f2b024b7b701ace9568e6ea736c49c481a06b679ca&quot;,
     &quot;source_changed&quot;: false,
     &quot;stages&quot;: [
       {
         &quot;name&quot;: &quot;native-contracts&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 1.3570039170008386
+        &quot;seconds&quot;: 2.338208499997563
       },
       {
         &quot;name&quot;: &quot;production-mutations&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 0.4849542080046376
+        &quot;seconds&quot;: 1.7408303749980405
       },
       {
         &quot;name&quot;: &quot;vm-initial&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 0.2711556249996647
+        &quot;seconds&quot;: 0.2590191249983036
       },
       {
         &quot;name&quot;: &quot;vm-start&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 9.495726291999745
+        &quot;seconds&quot;: 9.56548012499843
       },
       {
         &quot;name&quot;: &quot;image-build&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 1.6608093329996336
+        &quot;seconds&quot;: 1.6877983330050483
       },
       {
         &quot;name&quot;: &quot;image-inspect&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 0.02146066600107588
+        &quot;seconds&quot;: 0.021223624993581325
       },
       {
         &quot;name&quot;: &quot;container-create&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 0.02944170900445897
+        &quot;seconds&quot;: 0.029499292002583388
       },
       {
         &quot;name&quot;: &quot;container-inspect&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 0.01164341600087937
+        &quot;seconds&quot;: 0.01112200000352459
       },
       {
         &quot;name&quot;: &quot;linux-run&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 18.003559165998013
+        &quot;seconds&quot;: 26.704230750001443
       },
       {
         &quot;name&quot;: &quot;container-state&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 0.013072875000943895
+        &quot;seconds&quot;: 0.013276291996589862
       },
       {
         &quot;name&quot;: &quot;export&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 0.017778874993382487
+        &quot;seconds&quot;: 0.017180583003209904
       },
       {
         &quot;name&quot;: &quot;container-remove&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 0.017542834000778385
+        &quot;seconds&quot;: 0.020464082997932564
       },
       {
         &quot;name&quot;: &quot;vm-stop&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 2.408577999995032
+        &quot;seconds&quot;: 2.260081166001328
       },
       {
         &quot;name&quot;: &quot;vm-final&quot;,
         &quot;exit_code&quot;: 0,
         &quot;timed_out&quot;: false,
-        &quot;seconds&quot;: 0.19557962500402937
+        &quot;seconds&quot;: 0.20152341700304532
       }
     ],
     &quot;scope&quot;: &quot;Native macOS portable contracts + Colima Linux real kernel&quot;,
@@ -1260,11 +1380,32 @@ Rule restoration and management reachability are separate observations. No produ
         &quot;caught_by_assertion&quot;: true,
         &quot;exit_code&quot;: 1,
         &quot;timed_out&quot;: false
+      },
+      {
+        &quot;name&quot;: &quot;misreport-post-commit-checkpoint&quot;,
+        &quot;test&quot;: &quot;tests.test_core.CoreTests.test_post_commit_checkpoint_failure_preserves_confirmation&quot;,
+        &quot;caught_by_assertion&quot;: true,
+        &quot;exit_code&quot;: 1,
+        &quot;timed_out&quot;: false
+      },
+      {
+        &quot;name&quot;: &quot;fail-recovery-on-natural-exit&quot;,
+        &quot;test&quot;: &quot;tests.test_core.CoreTests.test_executor_exit_before_pidfd_open_recovers&quot;,
+        &quot;caught_by_assertion&quot;: true,
+        &quot;exit_code&quot;: 1,
+        &quot;timed_out&quot;: false
+      },
+      {
+        &quot;name&quot;: &quot;unbounded-header-trickle&quot;,
+        &quot;test&quot;: &quot;tests.test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections&quot;,
+        &quot;caught_by_assertion&quot;: true,
+        &quot;exit_code&quot;: 1,
+        &quot;timed_out&quot;: false
       }
     ],
     &quot;vm_initial_state&quot;: &quot;Stopped&quot;,
     &quot;image&quot;: {
-      &quot;Id&quot;: &quot;sha256:ca8ca4022a349fe9945e9932832d47e70eed3555385663b970cd4ae083fe373b&quot;,
+      &quot;Id&quot;: &quot;sha256:4f803981c128cb9f855cbf41f1805a9dcc663ed569ad41c55bc510c52762948d&quot;,
       &quot;Architecture&quot;: &quot;arm64&quot;,
       &quot;Os&quot;: &quot;linux&quot;
     },
@@ -1280,7 +1421,13 @@ Rule restoration and management reachability are separate observations. No produ
       ],
       &quot;Memory&quot;: 805306368,
       &quot;NanoCpus&quot;: 2000000000,
-      &quot;PidsLimit&quot;: 128
+      &quot;PidsLimit&quot;: 128,
+      &quot;SecurityOpt&quot;: [
+        &quot;apparmor=unconfined&quot;,
+        &quot;no-new-privileges&quot;
+      ],
+      &quot;Init&quot;: true,
+      &quot;mount_count&quot;: 0
     },
     &quot;container_exit&quot;: {
       &quot;ExitCode&quot;: 0,
@@ -1315,60 +1462,170 @@ Rule restoration and management reachability are separate observations. No produ
         &quot;target&quot;: &quot;host&quot;,
         &quot;field&quot;: &quot;container_removed&quot;,
         &quot;rejected&quot;: true
+      },
+      {
+        &quot;target&quot;: &quot;host&quot;,
+        &quot;field&quot;: &quot;stages&quot;,
+        &quot;rejected&quot;: true
+      },
+      {
+        &quot;target&quot;: &quot;linux&quot;,
+        &quot;field&quot;: &quot;cases&quot;,
+        &quot;rejected&quot;: true
+      },
+      {
+        &quot;target&quot;: &quot;native&quot;,
+        &quot;field&quot;: &quot;test_ids&quot;,
+        &quot;rejected&quot;: true
+      },
+      {
+        &quot;target&quot;: &quot;host&quot;,
+        &quot;field&quot;: &quot;production_mutations&quot;,
+        &quot;rejected&quot;: true
+      },
+      {
+        &quot;target&quot;: &quot;linux&quot;,
+        &quot;field&quot;: &quot;source_sha256&quot;,
+        &quot;rejected&quot;: true
+      },
+      {
+        &quot;target&quot;: &quot;linux&quot;,
+        &quot;field&quot;: &quot;fencing-retirement&quot;,
+        &quot;rejected&quot;: true
+      },
+      {
+        &quot;target&quot;: &quot;linux&quot;,
+        &quot;field&quot;: &quot;fencing-identical-policies&quot;,
+        &quot;rejected&quot;: true
+      },
+      {
+        &quot;target&quot;: &quot;linux&quot;,
+        &quot;field&quot;: &quot;recovery-omitted&quot;,
+        &quot;rejected&quot;: true
+      },
+      {
+        &quot;target&quot;: &quot;linux&quot;,
+        &quot;field&quot;: &quot;timing-summary&quot;,
+        &quot;rejected&quot;: true
+      },
+      {
+        &quot;target&quot;: &quot;linux&quot;,
+        &quot;field&quot;: &quot;fencing-missing-identity&quot;,
+        &quot;rejected&quot;: true
+      },
+      {
+        &quot;target&quot;: &quot;linux&quot;,
+        &quot;field&quot;: &quot;fencing-empty-identity&quot;,
+        &quot;rejected&quot;: true
+      },
+      {
+        &quot;target&quot;: &quot;linux&quot;,
+        &quot;field&quot;: &quot;fencing-missing-policy&quot;,
+        &quot;rejected&quot;: true
       }
     ]
   },
   &quot;native&quot;: {
     &quot;passed&quot;: true,
-    &quot;tests&quot;: 41,
+    &quot;tests&quot;: 48,
+    &quot;test_ids&quot;: [
+      &quot;test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections&quot;,
+      &quot;test_api.APITests.test_authentication&quot;,
+      &quot;test_api.APITests.test_backlog_peer_rejected&quot;,
+      &quot;test_api.APITests.test_bad_request_does_not_apply&quot;,
+      &quot;test_api.APITests.test_certificate_verification_enforced&quot;,
+      &quot;test_api.APITests.test_cli_reads_max_policy_bounded_history&quot;,
+      &quot;test_api.APITests.test_content_type_and_transfer_encoding&quot;,
+      &quot;test_api.APITests.test_full_api_and_keepalive_freshness&quot;,
+      &quot;test_api.APITests.test_history_network_output_does_not_hold_controller_lock&quot;,
+      &quot;test_api.APITests.test_private_token_file&quot;,
+      &quot;test_core.CoreTests.test_apply_idempotence&quot;,
+      &quot;test_core.CoreTests.test_bounded_history_and_receipts&quot;,
+      &quot;test_core.CoreTests.test_cancel_and_stale_cancel&quot;,
+      &quot;test_core.CoreTests.test_commit_and_restart&quot;,
+      &quot;test_core.CoreTests.test_confirmation_persistence_failure&quot;,
+      &quot;test_core.CoreTests.test_confirmed_not_cancelled&quot;,
+      &quot;test_core.CoreTests.test_corrupt_journal_no_write&quot;,
+      &quot;test_core.CoreTests.test_drift_blocks_apply&quot;,
+      &quot;test_core.CoreTests.test_executor_exit_before_pidfd_open_recovers&quot;,
+      &quot;test_core.CoreTests.test_executor_exit_before_pidfd_signal_recovers&quot;,
+      &quot;test_core.CoreTests.test_executor_permission_failure_still_blocks_recovery&quot;,
+      &quot;test_core.CoreTests.test_expired_confirm_without_timer&quot;,
+      &quot;test_core.CoreTests.test_foreign_boot_rejects_confirm&quot;,
+      &quot;test_core.CoreTests.test_invalid_requests_do_not_write&quot;,
+      &quot;test_core.CoreTests.test_journal_open_error_closes_connection&quot;,
+      &quot;test_core.CoreTests.test_old_connection&quot;,
+      &quot;test_core.CoreTests.test_one_owner&quot;,
+      &quot;test_core.CoreTests.test_pending_restart_restores&quot;,
+      &quot;test_core.CoreTests.test_post_commit_checkpoint_failure_preserves_confirmation&quot;,
+      &quot;test_core.CoreTests.test_readback_time_cannot_extend_confirmation&quot;,
+      &quot;test_core.CoreTests.test_rollback_despite_journal_write_failure&quot;,
+      &quot;test_core.CoreTests.test_shutdown_rolls_back&quot;,
+      &quot;test_core.CoreTests.test_space_guard_precedes_kernel_write&quot;,
+      &quot;test_core.CoreTests.test_stale_apply&quot;,
+      &quot;test_core.CoreTests.test_timeout&quot;,
+      &quot;test_core.CoreTests.test_unknown_before_confirm&quot;,
+      &quot;test_core.CoreTests.test_unknown_before_readback_not_blessed&quot;,
+      &quot;test_core.CoreTests.test_unknown_during_pending_not_overwritten&quot;,
+      &quot;test_core.CoreTests.test_wrong_challenge_generation_and_digest&quot;,
+      &quot;test_core.PolicyTests.test_canonical_retains_unknowns&quot;,
+      &quot;test_core.PolicyTests.test_expected_matches_contract&quot;,
+      &quot;test_core.PolicyTests.test_injection_unknown_keys_and_types&quot;,
+      &quot;test_core.PolicyTests.test_order_and_default_are_policy&quot;,
+      &quot;test_tools.ProcessTests.test_cli_refuses_plaintext&quot;,
+      &quot;test_tools.ProcessTests.test_nonzero_is_failure&quot;,
+      &quot;test_tools.ProcessTests.test_optimized_validation_cannot_claim_success&quot;,
+      &quot;test_tools.ProcessTests.test_success&quot;,
+      &quot;test_tools.ProcessTests.test_timeout_is_failure&quot;
+    ],
     &quot;failures&quot;: 0,
     &quot;errors&quot;: 0,
     &quot;skipped&quot;: 0,
-    &quot;seconds&quot;: 1.300001625000732,
+    &quot;seconds&quot;: 2.276841124999919,
     &quot;source&quot;: {
       &quot;Dockerfile&quot;: &quot;3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec&quot;,
       &quot;deploy/rulemoor.service&quot;: &quot;9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625&quot;,
       &quot;pyproject.toml&quot;: &quot;3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f&quot;,
       &quot;rulemoor/__init__.py&quot;: &quot;021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03&quot;,
-      &quot;rulemoor/backend.py&quot;: &quot;3b803f2ec05080bb8c3cf754e55d1e4c0d2e62a2b5f899d46b770cddf8670789&quot;,
+      &quot;rulemoor/backend.py&quot;: &quot;7dafe901109da30aab43501b031f8c5c1b97db77486b0de4ffbe045b7d8d9dd4&quot;,
       &quot;rulemoor/cli.py&quot;: &quot;fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5&quot;,
-      &quot;rulemoor/core.py&quot;: &quot;5da5904b45fc08c814dcd52ea9a695613189464367cadd1cde676fda4e3d6df4&quot;,
+      &quot;rulemoor/core.py&quot;: &quot;08c8f68deb8b67b5d501728792d81770ffaa9280bafd03fee6bd3b1c19e8a290&quot;,
       &quot;rulemoor/executor.py&quot;: &quot;9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd&quot;,
       &quot;rulemoor/policy.py&quot;: &quot;780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842&quot;,
-      &quot;rulemoor/service.py&quot;: &quot;15e03f11fd968d200ea0e33e9f9e43b9925dca8952cf5a22c465e0e7e1a12a18&quot;,
+      &quot;rulemoor/service.py&quot;: &quot;647f19c019a6b20065f547eff4bca63aa6ff380f6d0bcaac71808bc1c3a2dba9&quot;,
       &quot;tests/__init__.py&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;,
-      &quot;tests/test_api.py&quot;: &quot;111218bcdb768cdb6ace5c31130e806e59181a7f2bac88529889d902372ad47a&quot;,
-      &quot;tests/test_core.py&quot;: &quot;71e5647b614569c9ee9ad2695a76f4590f086b1a65fd05f17fbb7a82b30eb94c&quot;,
-      &quot;tests/test_tools.py&quot;: &quot;5dbf39a0e755eafae3e0574d58a38653b843e3c0a4a0e9404fce7d42039ba520&quot;,
-      &quot;tools/__init__.py&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;,
+      &quot;tests/test_api.py&quot;: &quot;b20e4b98a9c854f46505779ab1651ef0d0177fea9e80247870773a54fe27a5c0&quot;,
+      &quot;tests/test_core.py&quot;: &quot;62f6e08da431935d26cdf6c0ea22d80b37267400502fcbf6b289a4b8d57b1b5f&quot;,
+      &quot;tests/test_tools.py&quot;: &quot;c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5&quot;,
+      &quot;tools/__init__.py&quot;: &quot;eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac&quot;,
       &quot;tools/agent_driver.py&quot;: &quot;6ab01068cf71fd154041b8faa01043d65778f30bb43ce3e9fe3316a4c6a88c77&quot;,
-      &quot;tools/audit_evidence.py&quot;: &quot;210dc9b94f4f1082c2ce2c1485a85b6c5512db65c91900d2a7582998ed761114&quot;,
-      &quot;tools/client_driver.py&quot;: &quot;121e39d0b69a3a96c954280fd08c9a9675d294439e922a6131b678539d82d815&quot;,
+      &quot;tools/audit_evidence.py&quot;: &quot;20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617&quot;,
+      &quot;tools/client_driver.py&quot;: &quot;5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44&quot;,
       &quot;tools/colima-lock.json&quot;: &quot;fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d&quot;,
       &quot;tools/evidence.py&quot;: &quot;5d5ce2066f0267f8d563c0cd9afd3dca478aa65cd99dc378d67c972faddf6c25&quot;,
       &quot;tools/install_colima.py&quot;: &quot;70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb&quot;,
-      &quot;tools/linux_cases.py&quot;: &quot;8866e6aa7b3ef69dfd4edba27812fc52efbcf30c9aaa967ad014b15c4cabbb49&quot;,
-      &quot;tools/linux_validate.py&quot;: &quot;f60c964132f43b028cf4f0329982e838db5f01ffecee314bce1340a858efcdfe&quot;,
+      &quot;tools/linux_cases.py&quot;: &quot;ef18ff9e6527effe51b01e589faba89a575cf9f3df6ee0eaa1883555eacb818c&quot;,
+      &quot;tools/linux_validate.py&quot;: &quot;faea3d94e684e3bcbea145109f6c9319b6858deca5ea4ab5c5c6f16ef5aab067&quot;,
       &quot;tools/local_entry.py&quot;: &quot;f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911&quot;,
-      &quot;tools/mutations.py&quot;: &quot;e3330c9c85d076853588ef126bf429373ddc1cf0da3b07671548051df6801cf8&quot;,
+      &quot;tools/mutations.py&quot;: &quot;9783c3f53f50fca3e5d1abb831183e8ac9970b9c68768b65bb730ee62f316c71&quot;,
       &quot;tools/process.py&quot;: &quot;6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f&quot;,
-      &quot;tools/report.py&quot;: &quot;82f54562e2d645d2d784f69d2574c0cb974bfcc5f3ffdd21757a2d0de9dbaea3&quot;,
-      &quot;tools/storage_fault.py&quot;: &quot;98029c3c32ab075418ac99ba77055cafa0f61d9c4d399f5f6399bfc32009a300&quot;,
-      &quot;tools/unit.py&quot;: &quot;6b7928c487211651bbb8fa7991efc04949ce255474f8dd91c44efa4e5a1e1013&quot;,
+      &quot;tools/report.py&quot;: &quot;bd06975b06d28411cc2710c273f011125184b5a1041b568eff628ff4869c29f5&quot;,
+      &quot;tools/storage_fault.py&quot;: &quot;0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0&quot;,
+      &quot;tools/unit.py&quot;: &quot;ade259d94052f2c69685c35210af0444c44a76e81c51640dc5f212da6a5282fd&quot;,
       &quot;tools/validate-local&quot;: &quot;45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c&quot;,
-      &quot;tools/validate_local.py&quot;: &quot;06a2af4e00468a1529b3c837235c63fb7f86468d47ed3c4ff2949d08b297b084&quot;
+      &quot;tools/validate_local.py&quot;: &quot;51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1&quot;
     },
-    &quot;source_sha256&quot;: &quot;cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d&quot;,
-    &quot;run_id&quot;: &quot;90a6c11375432d5f&quot;,
+    &quot;source_sha256&quot;: &quot;cf9055fb22968517608759f2b024b7b701ace9568e6ea736c49c481a06b679ca&quot;,
+    &quot;run_id&quot;: &quot;04dc27f97d65586b&quot;,
     &quot;platform&quot;: &quot;Darwin&quot;,
     &quot;architecture&quot;: &quot;arm64&quot;,
     &quot;python&quot;: &quot;3.12.14&quot;,
-    &quot;test_process_peak_rss_bytes&quot;: 39452672,
+    &quot;test_process_peak_rss_bytes&quot;: 39993344,
     &quot;scope&quot;: &quot;Portable production-core contracts with a memory backend; not real nft or network performance&quot;
   },
   &quot;linux&quot;: {
     &quot;schema&quot;: 1,
-    &quot;run_id&quot;: &quot;90a6c11375432d5f&quot;,
+    &quot;run_id&quot;: &quot;04dc27f97d65586b&quot;,
     &quot;passed&quot;: true,
     &quot;execution&quot;: &quot;Colima Linux VM; real nftables/netns/TLS&quot;,
     &quot;source&quot;: {
@@ -1376,35 +1633,35 @@ Rule restoration and management reachability are separate observations. No produ
       &quot;deploy/rulemoor.service&quot;: &quot;9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625&quot;,
       &quot;pyproject.toml&quot;: &quot;3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f&quot;,
       &quot;rulemoor/__init__.py&quot;: &quot;021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03&quot;,
-      &quot;rulemoor/backend.py&quot;: &quot;3b803f2ec05080bb8c3cf754e55d1e4c0d2e62a2b5f899d46b770cddf8670789&quot;,
+      &quot;rulemoor/backend.py&quot;: &quot;7dafe901109da30aab43501b031f8c5c1b97db77486b0de4ffbe045b7d8d9dd4&quot;,
       &quot;rulemoor/cli.py&quot;: &quot;fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5&quot;,
-      &quot;rulemoor/core.py&quot;: &quot;5da5904b45fc08c814dcd52ea9a695613189464367cadd1cde676fda4e3d6df4&quot;,
+      &quot;rulemoor/core.py&quot;: &quot;08c8f68deb8b67b5d501728792d81770ffaa9280bafd03fee6bd3b1c19e8a290&quot;,
       &quot;rulemoor/executor.py&quot;: &quot;9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd&quot;,
       &quot;rulemoor/policy.py&quot;: &quot;780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842&quot;,
-      &quot;rulemoor/service.py&quot;: &quot;15e03f11fd968d200ea0e33e9f9e43b9925dca8952cf5a22c465e0e7e1a12a18&quot;,
+      &quot;rulemoor/service.py&quot;: &quot;647f19c019a6b20065f547eff4bca63aa6ff380f6d0bcaac71808bc1c3a2dba9&quot;,
       &quot;tests/__init__.py&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;,
-      &quot;tests/test_api.py&quot;: &quot;111218bcdb768cdb6ace5c31130e806e59181a7f2bac88529889d902372ad47a&quot;,
-      &quot;tests/test_core.py&quot;: &quot;71e5647b614569c9ee9ad2695a76f4590f086b1a65fd05f17fbb7a82b30eb94c&quot;,
-      &quot;tests/test_tools.py&quot;: &quot;5dbf39a0e755eafae3e0574d58a38653b843e3c0a4a0e9404fce7d42039ba520&quot;,
-      &quot;tools/__init__.py&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;,
+      &quot;tests/test_api.py&quot;: &quot;b20e4b98a9c854f46505779ab1651ef0d0177fea9e80247870773a54fe27a5c0&quot;,
+      &quot;tests/test_core.py&quot;: &quot;62f6e08da431935d26cdf6c0ea22d80b37267400502fcbf6b289a4b8d57b1b5f&quot;,
+      &quot;tests/test_tools.py&quot;: &quot;c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5&quot;,
+      &quot;tools/__init__.py&quot;: &quot;eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac&quot;,
       &quot;tools/agent_driver.py&quot;: &quot;6ab01068cf71fd154041b8faa01043d65778f30bb43ce3e9fe3316a4c6a88c77&quot;,
-      &quot;tools/audit_evidence.py&quot;: &quot;210dc9b94f4f1082c2ce2c1485a85b6c5512db65c91900d2a7582998ed761114&quot;,
-      &quot;tools/client_driver.py&quot;: &quot;121e39d0b69a3a96c954280fd08c9a9675d294439e922a6131b678539d82d815&quot;,
+      &quot;tools/audit_evidence.py&quot;: &quot;20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617&quot;,
+      &quot;tools/client_driver.py&quot;: &quot;5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44&quot;,
       &quot;tools/colima-lock.json&quot;: &quot;fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d&quot;,
       &quot;tools/evidence.py&quot;: &quot;5d5ce2066f0267f8d563c0cd9afd3dca478aa65cd99dc378d67c972faddf6c25&quot;,
       &quot;tools/install_colima.py&quot;: &quot;70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb&quot;,
-      &quot;tools/linux_cases.py&quot;: &quot;8866e6aa7b3ef69dfd4edba27812fc52efbcf30c9aaa967ad014b15c4cabbb49&quot;,
-      &quot;tools/linux_validate.py&quot;: &quot;f60c964132f43b028cf4f0329982e838db5f01ffecee314bce1340a858efcdfe&quot;,
+      &quot;tools/linux_cases.py&quot;: &quot;ef18ff9e6527effe51b01e589faba89a575cf9f3df6ee0eaa1883555eacb818c&quot;,
+      &quot;tools/linux_validate.py&quot;: &quot;faea3d94e684e3bcbea145109f6c9319b6858deca5ea4ab5c5c6f16ef5aab067&quot;,
       &quot;tools/local_entry.py&quot;: &quot;f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911&quot;,
-      &quot;tools/mutations.py&quot;: &quot;e3330c9c85d076853588ef126bf429373ddc1cf0da3b07671548051df6801cf8&quot;,
+      &quot;tools/mutations.py&quot;: &quot;9783c3f53f50fca3e5d1abb831183e8ac9970b9c68768b65bb730ee62f316c71&quot;,
       &quot;tools/process.py&quot;: &quot;6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f&quot;,
-      &quot;tools/report.py&quot;: &quot;82f54562e2d645d2d784f69d2574c0cb974bfcc5f3ffdd21757a2d0de9dbaea3&quot;,
-      &quot;tools/storage_fault.py&quot;: &quot;98029c3c32ab075418ac99ba77055cafa0f61d9c4d399f5f6399bfc32009a300&quot;,
-      &quot;tools/unit.py&quot;: &quot;6b7928c487211651bbb8fa7991efc04949ce255474f8dd91c44efa4e5a1e1013&quot;,
+      &quot;tools/report.py&quot;: &quot;bd06975b06d28411cc2710c273f011125184b5a1041b568eff628ff4869c29f5&quot;,
+      &quot;tools/storage_fault.py&quot;: &quot;0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0&quot;,
+      &quot;tools/unit.py&quot;: &quot;ade259d94052f2c69685c35210af0444c44a76e81c51640dc5f212da6a5282fd&quot;,
       &quot;tools/validate-local&quot;: &quot;45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c&quot;,
-      &quot;tools/validate_local.py&quot;: &quot;06a2af4e00468a1529b3c837235c63fb7f86468d47ed3c4ff2949d08b297b084&quot;
+      &quot;tools/validate_local.py&quot;: &quot;51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1&quot;
     },
-    &quot;source_sha256&quot;: &quot;cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d&quot;,
+    &quot;source_sha256&quot;: &quot;cf9055fb22968517608759f2b024b7b701ace9568e6ea736c49c481a06b679ca&quot;,
     &quot;cases&quot;: [
       {
         &quot;name&quot;: &quot;atomic_batches&quot;,
@@ -1578,7 +1835,7 @@ Rule restoration and management reachability are separate observations. No produ
             }
           ]
         },
-        &quot;seconds&quot;: 0.21915383300000002
+        &quot;seconds&quot;: 0.21991608400000118
       },
       {
         &quot;name&quot;: &quot;management_path&quot;,
@@ -1592,12 +1849,12 @@ Rule restoration and management reachability are separate observations. No produ
             &quot;old_confirm&quot;: 409
           },
           &quot;fresh_blocked_connect_errno&quot;: 11,
-          &quot;rollback_start_overdue_ms&quot;: 53.00812599999993,
-          &quot;rollback_complete_overdue_ms&quot;: 100.30245999999998,
+          &quot;rollback_start_overdue_ms&quot;: 52.775251999999995,
+          &quot;rollback_complete_overdue_ms&quot;: 102.30187700000037,
           &quot;fresh_access_restored&quot;: true,
           &quot;confirmed_survives_deadline&quot;: true
         },
-        &quot;seconds&quot;: 5.502628627
+        &quot;seconds&quot;: 5.538197295
       },
       {
         &quot;name&quot;: &quot;crash_matrix&quot;,
@@ -1680,7 +1937,8 @@ Rule restoration and management reachability are separate observations. No produ
             ],
             &quot;baseline_verified&quot;: true,
             &quot;idempotent&quot;: true,
-            &quot;newer_commit_survived_old_release&quot;: false
+            &quot;newer_commit_survived_old_release&quot;: false,
+            &quot;fencing&quot;: null
           },
           {
             &quot;point&quot;: &quot;executor-intent&quot;,
@@ -1759,7 +2017,8 @@ Rule restoration and management reachability are separate observations. No produ
             ],
             &quot;baseline_verified&quot;: true,
             &quot;idempotent&quot;: true,
-            &quot;newer_commit_survived_old_release&quot;: false
+            &quot;newer_commit_survived_old_release&quot;: false,
+            &quot;fencing&quot;: null
           },
           {
             &quot;point&quot;: &quot;executor-held&quot;,
@@ -1838,7 +2097,104 @@ Rule restoration and management reachability are separate observations. No produ
             ],
             &quot;baseline_verified&quot;: true,
             &quot;idempotent&quot;: true,
-            &quot;newer_commit_survived_old_release&quot;: true
+            &quot;newer_commit_survived_old_release&quot;: true,
+            &quot;fencing&quot;: {
+              &quot;old_executor_identity&quot;: {
+                &quot;pid&quot;: 196,
+                &quot;start_ticks&quot;: 1916,
+                &quot;boot&quot;: &quot;68c600c3-acc5-4e8e-931b-af140fbe7704&quot;
+              },
+              &quot;old_executor_exited&quot;: true,
+              &quot;old_candidate&quot;: {
+                &quot;default&quot;: &quot;accept&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;new_candidate&quot;: {
+                &quot;default&quot;: &quot;accept&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 59993,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;new_generation&quot;: 3,
+              &quot;kernel_after_release&quot;: [
+                {
+                  &quot;table&quot;: {
+                    &quot;family&quot;: &quot;ip&quot;,
+                    &quot;name&quot;: &quot;rulemoor&quot;
+                  }
+                },
+                {
+                  &quot;chain&quot;: {
+                    &quot;family&quot;: &quot;ip&quot;,
+                    &quot;table&quot;: &quot;rulemoor&quot;,
+                    &quot;name&quot;: &quot;input&quot;,
+                    &quot;type&quot;: &quot;filter&quot;,
+                    &quot;hook&quot;: &quot;input&quot;,
+                    &quot;prio&quot;: 0,
+                    &quot;policy&quot;: &quot;accept&quot;
+                  }
+                },
+                {
+                  &quot;rule&quot;: {
+                    &quot;family&quot;: &quot;ip&quot;,
+                    &quot;table&quot;: &quot;rulemoor&quot;,
+                    &quot;chain&quot;: &quot;input&quot;,
+                    &quot;expr&quot;: [
+                      {
+                        &quot;match&quot;: {
+                          &quot;op&quot;: &quot;in&quot;,
+                          &quot;left&quot;: {
+                            &quot;ct&quot;: {
+                              &quot;key&quot;: &quot;state&quot;
+                            }
+                          },
+                          &quot;right&quot;: [
+                            &quot;established&quot;,
+                            &quot;related&quot;
+                          ]
+                        }
+                      },
+                      {
+                        &quot;accept&quot;: null
+                      }
+                    ]
+                  }
+                },
+                {
+                  &quot;rule&quot;: {
+                    &quot;family&quot;: &quot;ip&quot;,
+                    &quot;table&quot;: &quot;rulemoor&quot;,
+                    &quot;chain&quot;: &quot;input&quot;,
+                    &quot;expr&quot;: [
+                      {
+                        &quot;match&quot;: {
+                          &quot;op&quot;: &quot;==&quot;,
+                          &quot;left&quot;: {
+                            &quot;payload&quot;: {
+                              &quot;protocol&quot;: &quot;tcp&quot;,
+                              &quot;field&quot;: &quot;dport&quot;
+                            }
+                          },
+                          &quot;right&quot;: 59993
+                        }
+                      },
+                      {
+                        &quot;drop&quot;: null
+                      }
+                    ]
+                  }
+                }
+              ],
+              &quot;final_phase&quot;: &quot;COMMITTED&quot;
+            }
           },
           {
             &quot;point&quot;: &quot;kernel-applied&quot;,
@@ -1917,7 +2273,8 @@ Rule restoration and management reachability are separate observations. No produ
             ],
             &quot;baseline_verified&quot;: true,
             &quot;idempotent&quot;: true,
-            &quot;newer_commit_survived_old_release&quot;: false
+            &quot;newer_commit_survived_old_release&quot;: false,
+            &quot;fencing&quot;: null
           },
           {
             &quot;point&quot;: &quot;awaiting-confirm&quot;,
@@ -1996,7 +2353,8 @@ Rule restoration and management reachability are separate observations. No produ
             ],
             &quot;baseline_verified&quot;: true,
             &quot;idempotent&quot;: true,
-            &quot;newer_commit_survived_old_release&quot;: false
+            &quot;newer_commit_survived_old_release&quot;: false,
+            &quot;fencing&quot;: null
           },
           {
             &quot;point&quot;: &quot;rollback-applied&quot;,
@@ -2075,7 +2433,8 @@ Rule restoration and management reachability are separate observations. No produ
             ],
             &quot;baseline_verified&quot;: true,
             &quot;idempotent&quot;: true,
-            &quot;newer_commit_survived_old_release&quot;: false
+            &quot;newer_commit_survived_old_release&quot;: false,
+            &quot;fencing&quot;: null
           },
           {
             &quot;point&quot;: &quot;foreign-kernel-applied&quot;,
@@ -2088,7 +2447,7 @@ Rule restoration and management reachability are separate observations. No produ
             &quot;unknown_preserved&quot;: true
           }
         ],
-        &quot;seconds&quot;: 4.804435293999999
+        &quot;seconds&quot;: 4.908035419000001
       },
       {
         &quot;name&quot;: &quot;service_recovery&quot;,
@@ -2100,7 +2459,7 @@ Rule restoration and management reachability are separate observations. No produ
           &quot;durably_confirmed_restart_preserved&quot;: true,
           &quot;graceful_shutdown_restored&quot;: true
         },
-        &quot;seconds&quot;: 2.968526335
+        &quot;seconds&quot;: 2.9920105850000027
       },
       {
         &quot;name&quot;: &quot;queued_connection_and_response_loss&quot;,
@@ -2114,12 +2473,13 @@ Rule restoration and management reachability are separate observations. No produ
           &quot;confirmed_response_lost&quot;: true,
           &quot;committed_survived_restart&quot;: true
         },
-        &quot;seconds&quot;: 0.7108021250000007
+        &quot;seconds&quot;: 0.7342865839999995
       },
       {
         &quot;name&quot;: &quot;storage_faults&quot;,
         &quot;passed&quot;: true,
         &quot;evidence&quot;: {
+          &quot;post_commit_checkpoint_failure_preserved&quot;: true,
           &quot;enospc_observed&quot;: true,
           &quot;reserve_released&quot;: true,
           &quot;baseline_restored&quot;: true,
@@ -2131,7 +2491,24 @@ Rule restoration and management reachability are separate observations. No produ
           &quot;write_limit_bytes&quot;: 16842752,
           &quot;test_tmpfs_unmounted&quot;: true
         },
-        &quot;seconds&quot;: 1.1438385419999975
+        &quot;seconds&quot;: 2.2563681680000016
+      },
+      {
+        &quot;name&quot;: &quot;slow_clients_and_deadline&quot;,
+        &quot;passed&quot;: true,
+        &quot;evidence&quot;: {
+          &quot;ok&quot;: true,
+          &quot;connections&quot;: 16,
+          &quot;expired_connections&quot;: 16,
+          &quot;rollback_while_all_slots_occupied&quot;: true,
+          &quot;final_phase&quot;: &quot;ROLLED_BACK&quot;,
+          &quot;seconds&quot;: 6.083956167000004,
+          &quot;fresh_confirmation_after_slot_recovery&quot;: true,
+          &quot;baseline_readback_verified&quot;: true,
+          &quot;connection_lifetime_seconds&quot;: 5,
+          &quot;header_drip_interval_seconds&quot;: 0.1
+        },
+        &quot;seconds&quot;: 6.550385173999999
       },
       {
         &quot;name&quot;: &quot;measurement&quot;,
@@ -2140,9 +2517,9 @@ Rule restoration and management reachability are separate observations. No produ
           &quot;trials&quot;: [
             {
               &quot;index&quot;: 0,
-              &quot;plan_ms&quot;: 11.077291999999517,
-              &quot;apply_ms&quot;: 48.12008300000059,
-              &quot;finalize_ms&quot;: 31.563750000000113,
+              &quot;plan_ms&quot;: 21.15847900000034,
+              &quot;apply_ms&quot;: 47.48185300000074,
+              &quot;finalize_ms&quot;: 34.78780800000436,
               &quot;action&quot;: &quot;cancel&quot;,
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 1,
@@ -2167,9 +2544,9 @@ Rule restoration and management reachability are separate observations. No produ
             },
             {
               &quot;index&quot;: 1,
-              &quot;plan_ms&quot;: 18.730458000000283,
-              &quot;apply_ms&quot;: 51.106707999998946,
-              &quot;finalize_ms&quot;: 3.673292000001993,
+              &quot;plan_ms&quot;: 12.078385000002356,
+              &quot;apply_ms&quot;: 45.01950400000254,
+              &quot;finalize_ms&quot;: 4.321706999995456,
               &quot;action&quot;: &quot;confirm&quot;,
               &quot;phase&quot;: &quot;COMMITTED&quot;,
               &quot;generation&quot;: 2,
@@ -2194,9 +2571,9 @@ Rule restoration and management reachability are separate observations. No produ
             },
             {
               &quot;index&quot;: 2,
-              &quot;plan_ms&quot;: 8.116375000000176,
-              &quot;apply_ms&quot;: 43.07212499999835,
-              &quot;finalize_ms&quot;: 30.028999999998973,
+              &quot;plan_ms&quot;: 16.181274000004464,
+              &quot;apply_ms&quot;: 46.84914899999626,
+              &quot;finalize_ms&quot;: 33.37246400000282,
               &quot;action&quot;: &quot;cancel&quot;,
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 3,
@@ -2221,9 +2598,9 @@ Rule restoration and management reachability are separate observations. No produ
             },
             {
               &quot;index&quot;: 3,
-              &quot;plan_ms&quot;: 13.698167000001149,
-              &quot;apply_ms&quot;: 56.51712499999917,
-              &quot;finalize_ms&quot;: 4.074291999998536,
+              &quot;plan_ms&quot;: 12.283160999999154,
+              &quot;apply_ms&quot;: 50.1243510000009,
+              &quot;finalize_ms&quot;: 3.9524520000000507,
               &quot;action&quot;: &quot;confirm&quot;,
               &quot;phase&quot;: &quot;COMMITTED&quot;,
               &quot;generation&quot;: 4,
@@ -2248,9 +2625,9 @@ Rule restoration and management reachability are separate observations. No produ
             },
             {
               &quot;index&quot;: 4,
-              &quot;plan_ms&quot;: 15.974416999998908,
-              &quot;apply_ms&quot;: 53.99408299999919,
-              &quot;finalize_ms&quot;: 32.37999999999985,
+              &quot;plan_ms&quot;: 8.702754000005086,
+              &quot;apply_ms&quot;: 49.34350299999579,
+              &quot;finalize_ms&quot;: 31.115890999998896,
               &quot;action&quot;: &quot;cancel&quot;,
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 5,
@@ -2275,9 +2652,9 @@ Rule restoration and management reachability are separate observations. No produ
             },
             {
               &quot;index&quot;: 5,
-              &quot;plan_ms&quot;: 14.230209000000826,
-              &quot;apply_ms&quot;: 46.75770799999768,
-              &quot;finalize_ms&quot;: 3.6405419999994137,
+              &quot;plan_ms&quot;: 12.486518999999419,
+              &quot;apply_ms&quot;: 44.69963700000079,
+              &quot;finalize_ms&quot;: 3.800695000002463,
               &quot;action&quot;: &quot;confirm&quot;,
               &quot;phase&quot;: &quot;COMMITTED&quot;,
               &quot;generation&quot;: 6,
@@ -2302,9 +2679,9 @@ Rule restoration and management reachability are separate observations. No produ
             },
             {
               &quot;index&quot;: 6,
-              &quot;plan_ms&quot;: 16.303000000000623,
-              &quot;apply_ms&quot;: 44.547500000000184,
-              &quot;finalize_ms&quot;: 33.33058300000147,
+              &quot;plan_ms&quot;: 12.865341000001251,
+              &quot;apply_ms&quot;: 49.724744999998904,
+              &quot;finalize_ms&quot;: 33.46346499999697,
               &quot;action&quot;: &quot;cancel&quot;,
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 7,
@@ -2329,9 +2706,9 @@ Rule restoration and management reachability are separate observations. No produ
             },
             {
               &quot;index&quot;: 7,
-              &quot;plan_ms&quot;: 9.859583000000782,
-              &quot;apply_ms&quot;: 51.33629199999845,
-              &quot;finalize_ms&quot;: 4.530041000002427,
+              &quot;plan_ms&quot;: 12.316777999998862,
+              &quot;apply_ms&quot;: 51.93929600000047,
+              &quot;finalize_ms&quot;: 3.9303359999962595,
               &quot;action&quot;: &quot;confirm&quot;,
               &quot;phase&quot;: &quot;COMMITTED&quot;,
               &quot;generation&quot;: 8,
@@ -2356,9 +2733,9 @@ Rule restoration and management reachability are separate observations. No produ
             },
             {
               &quot;index&quot;: 8,
-              &quot;plan_ms&quot;: 10.983958000000626,
-              &quot;apply_ms&quot;: 44.68999999999923,
-              &quot;finalize_ms&quot;: 31.30974999999836,
+              &quot;plan_ms&quot;: 11.101759999995409,
+              &quot;apply_ms&quot;: 38.52635000000504,
+              &quot;finalize_ms&quot;: 31.94691099999858,
               &quot;action&quot;: &quot;cancel&quot;,
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 9,
@@ -2383,9 +2760,9 @@ Rule restoration and management reachability are separate observations. No produ
             },
             {
               &quot;index&quot;: 9,
-              &quot;plan_ms&quot;: 9.46345800000259,
-              &quot;apply_ms&quot;: 45.441916999998,
-              &quot;finalize_ms&quot;: 3.4200420000018994,
+              &quot;plan_ms&quot;: 12.911805000001664,
+              &quot;apply_ms&quot;: 75.24094499999734,
+              &quot;finalize_ms&quot;: 4.94724700000404,
               &quot;action&quot;: &quot;confirm&quot;,
               &quot;phase&quot;: &quot;COMMITTED&quot;,
               &quot;generation&quot;: 10,
@@ -2411,82 +2788,86 @@ Rule restoration and management reachability are separate observations. No produ
           ],
           &quot;plan&quot;: {
             &quot;n&quot;: 10,
-            &quot;median_ms&quot;: 12.387729500000333,
-            &quot;min_ms&quot;: 8.116375000000176,
-            &quot;max_ms&quot;: 18.730458000000283,
+            &quot;median_ms&quot;: 12.40164849999914,
+            &quot;min_ms&quot;: 8.702754000005086,
+            &quot;max_ms&quot;: 21.15847900000034,
             &quot;samples_ms&quot;: [
-              11.077291999999517,
-              18.730458000000283,
-              8.116375000000176,
-              13.698167000001149,
-              15.974416999998908,
-              14.230209000000826,
-              16.303000000000623,
-              9.859583000000782,
-              10.983958000000626,
-              9.46345800000259
+              21.15847900000034,
+              12.078385000002356,
+              16.181274000004464,
+              12.283160999999154,
+              8.702754000005086,
+              12.486518999999419,
+              12.865341000001251,
+              12.316777999998862,
+              11.101759999995409,
+              12.911805000001664
             ]
           },
           &quot;apply&quot;: {
             &quot;n&quot;: 10,
-            &quot;median_ms&quot;: 47.438895499999134,
-            &quot;min_ms&quot;: 43.07212499999835,
-            &quot;max_ms&quot;: 56.51712499999917,
+            &quot;median_ms&quot;: 48.412677999998266,
+            &quot;min_ms&quot;: 38.52635000000504,
+            &quot;max_ms&quot;: 75.24094499999734,
             &quot;samples_ms&quot;: [
-              48.12008300000059,
-              51.106707999998946,
-              43.07212499999835,
-              56.51712499999917,
-              53.99408299999919,
-              46.75770799999768,
-              44.547500000000184,
-              51.33629199999845,
-              44.68999999999923,
-              45.441916999998
+              47.48185300000074,
+              45.01950400000254,
+              46.84914899999626,
+              50.1243510000009,
+              49.34350299999579,
+              44.69963700000079,
+              49.724744999998904,
+              51.93929600000047,
+              38.52635000000504,
+              75.24094499999734
             ]
           },
           &quot;confirm&quot;: {
             &quot;n&quot;: 5,
-            &quot;median_ms&quot;: 3.673292000001993,
-            &quot;min_ms&quot;: 3.4200420000018994,
-            &quot;max_ms&quot;: 4.530041000002427,
+            &quot;median_ms&quot;: 3.9524520000000507,
+            &quot;min_ms&quot;: 3.800695000002463,
+            &quot;max_ms&quot;: 4.94724700000404,
             &quot;samples_ms&quot;: [
-              3.673292000001993,
-              4.074291999998536,
-              3.6405419999994137,
-              4.530041000002427,
-              3.4200420000018994
+              4.321706999995456,
+              3.9524520000000507,
+              3.800695000002463,
+              3.9303359999962595,
+              4.94724700000404
             ]
           },
           &quot;cancel&quot;: {
             &quot;n&quot;: 5,
-            &quot;median_ms&quot;: 31.563750000000113,
-            &quot;min_ms&quot;: 30.028999999998973,
-            &quot;max_ms&quot;: 33.33058300000147,
+            &quot;median_ms&quot;: 33.37246400000282,
+            &quot;min_ms&quot;: 31.115890999998896,
+            &quot;max_ms&quot;: 34.78780800000436,
             &quot;samples_ms&quot;: [
-              31.563750000000113,
-              30.028999999998973,
-              32.37999999999985,
-              33.33058300000147,
-              31.30974999999836
+              34.78780800000436,
+              33.37246400000282,
+              31.115890999998896,
+              33.46346499999697,
+              31.94691099999858
             ]
           },
           &quot;rss&quot;: {
-            &quot;initial_bytes&quot;: 23863296,
-            &quot;final_bytes&quot;: 24231936,
-            &quot;worker_high_water_bytes&quot;: 24231936,
+            &quot;initial_bytes&quot;: 23896064,
+            &quot;final_bytes&quot;: 24645632,
+            &quot;worker_high_water_bytes&quot;: 24645632,
             &quot;scope&quot;: &quot;Agent process only; excludes transient nft children, clients and VM; kernel-reported VmHWM&quot;
           },
           &quot;disk&quot;: {
-            &quot;logical_bytes&quot;: 347881,
+            &quot;logical_bytes&quot;: 347885,
             &quot;allocated_bytes&quot;: 372736,
             &quot;files&quot;: {
-              &quot;batch-d7a367f2cc4a4d58a609860258abf5b5.nft&quot;: {
+              &quot;executor-8c36d2fef5a1b97f3bd6186a89d35c8a.json&quot;: {
+                &quot;logical_bytes&quot;: 126,
+                &quot;allocated_bytes&quot;: 4096
+              },
+              &quot;batch-8c36d2fef5a1b97f3bd6186a89d35c8a.nft&quot;: {
                 &quot;logical_bytes&quot;: 178,
                 &quot;allocated_bytes&quot;: 4096
               },
               &quot;key.pem&quot;: {
-                &quot;logical_bytes&quot;: 1704,
+                &quot;logical_bytes&quot;: 1708,
                 &quot;allocated_bytes&quot;: 4096
               },
               &quot;reserve&quot;: {
@@ -2509,10 +2890,6 @@ Rule restoration and management reachability are separate observations. No produ
                 &quot;logical_bytes&quot;: 0,
                 &quot;allocated_bytes&quot;: 0
               },
-              &quot;executor-d7a367f2cc4a4d58a609860258abf5b5.json&quot;: {
-                &quot;logical_bytes&quot;: 126,
-                &quot;allocated_bytes&quot;: 4096
-              },
               &quot;rescue.json&quot;: {
                 &quot;logical_bytes&quot;: 590,
                 &quot;allocated_bytes&quot;: 4096
@@ -2527,61 +2904,111 @@ Rule restoration and management reachability are separate observations. No produ
           &quot;warmup&quot;: &quot;Service readiness only; all 10 operation trials retained&quot;,
           &quot;timing_scope&quot;: &quot;TLS request/response including connection+handshake, checks, nft and durable journal; one client, loopback-veth path in VM; no baseline speedup claim&quot;
         },
-        &quot;seconds&quot;: 0.9912395419999989
+        &quot;seconds&quot;: 1.024487391000001
       }
     ],
     &quot;unit_stage&quot;: {
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 1.2473293330000015,
+      &quot;seconds&quot;: 2.061630167999999,
       &quot;passed&quot;: true
     },
     &quot;unit&quot;: {
       &quot;passed&quot;: true,
-      &quot;tests&quot;: 41,
+      &quot;tests&quot;: 48,
+      &quot;test_ids&quot;: [
+        &quot;test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections&quot;,
+        &quot;test_api.APITests.test_authentication&quot;,
+        &quot;test_api.APITests.test_backlog_peer_rejected&quot;,
+        &quot;test_api.APITests.test_bad_request_does_not_apply&quot;,
+        &quot;test_api.APITests.test_certificate_verification_enforced&quot;,
+        &quot;test_api.APITests.test_cli_reads_max_policy_bounded_history&quot;,
+        &quot;test_api.APITests.test_content_type_and_transfer_encoding&quot;,
+        &quot;test_api.APITests.test_full_api_and_keepalive_freshness&quot;,
+        &quot;test_api.APITests.test_history_network_output_does_not_hold_controller_lock&quot;,
+        &quot;test_api.APITests.test_private_token_file&quot;,
+        &quot;test_core.CoreTests.test_apply_idempotence&quot;,
+        &quot;test_core.CoreTests.test_bounded_history_and_receipts&quot;,
+        &quot;test_core.CoreTests.test_cancel_and_stale_cancel&quot;,
+        &quot;test_core.CoreTests.test_commit_and_restart&quot;,
+        &quot;test_core.CoreTests.test_confirmation_persistence_failure&quot;,
+        &quot;test_core.CoreTests.test_confirmed_not_cancelled&quot;,
+        &quot;test_core.CoreTests.test_corrupt_journal_no_write&quot;,
+        &quot;test_core.CoreTests.test_drift_blocks_apply&quot;,
+        &quot;test_core.CoreTests.test_executor_exit_before_pidfd_open_recovers&quot;,
+        &quot;test_core.CoreTests.test_executor_exit_before_pidfd_signal_recovers&quot;,
+        &quot;test_core.CoreTests.test_executor_permission_failure_still_blocks_recovery&quot;,
+        &quot;test_core.CoreTests.test_expired_confirm_without_timer&quot;,
+        &quot;test_core.CoreTests.test_foreign_boot_rejects_confirm&quot;,
+        &quot;test_core.CoreTests.test_invalid_requests_do_not_write&quot;,
+        &quot;test_core.CoreTests.test_journal_open_error_closes_connection&quot;,
+        &quot;test_core.CoreTests.test_old_connection&quot;,
+        &quot;test_core.CoreTests.test_one_owner&quot;,
+        &quot;test_core.CoreTests.test_pending_restart_restores&quot;,
+        &quot;test_core.CoreTests.test_post_commit_checkpoint_failure_preserves_confirmation&quot;,
+        &quot;test_core.CoreTests.test_readback_time_cannot_extend_confirmation&quot;,
+        &quot;test_core.CoreTests.test_rollback_despite_journal_write_failure&quot;,
+        &quot;test_core.CoreTests.test_shutdown_rolls_back&quot;,
+        &quot;test_core.CoreTests.test_space_guard_precedes_kernel_write&quot;,
+        &quot;test_core.CoreTests.test_stale_apply&quot;,
+        &quot;test_core.CoreTests.test_timeout&quot;,
+        &quot;test_core.CoreTests.test_unknown_before_confirm&quot;,
+        &quot;test_core.CoreTests.test_unknown_before_readback_not_blessed&quot;,
+        &quot;test_core.CoreTests.test_unknown_during_pending_not_overwritten&quot;,
+        &quot;test_core.CoreTests.test_wrong_challenge_generation_and_digest&quot;,
+        &quot;test_core.PolicyTests.test_canonical_retains_unknowns&quot;,
+        &quot;test_core.PolicyTests.test_expected_matches_contract&quot;,
+        &quot;test_core.PolicyTests.test_injection_unknown_keys_and_types&quot;,
+        &quot;test_core.PolicyTests.test_order_and_default_are_policy&quot;,
+        &quot;test_tools.ProcessTests.test_cli_refuses_plaintext&quot;,
+        &quot;test_tools.ProcessTests.test_nonzero_is_failure&quot;,
+        &quot;test_tools.ProcessTests.test_optimized_validation_cannot_claim_success&quot;,
+        &quot;test_tools.ProcessTests.test_success&quot;,
+        &quot;test_tools.ProcessTests.test_timeout_is_failure&quot;
+      ],
       &quot;failures&quot;: 0,
       &quot;errors&quot;: 0,
       &quot;skipped&quot;: 0,
-      &quot;seconds&quot;: 1.1764127500000008,
+      &quot;seconds&quot;: 1.9896107929999989,
       &quot;source&quot;: {
         &quot;Dockerfile&quot;: &quot;3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec&quot;,
         &quot;deploy/rulemoor.service&quot;: &quot;9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625&quot;,
         &quot;pyproject.toml&quot;: &quot;3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f&quot;,
         &quot;rulemoor/__init__.py&quot;: &quot;021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03&quot;,
-        &quot;rulemoor/backend.py&quot;: &quot;3b803f2ec05080bb8c3cf754e55d1e4c0d2e62a2b5f899d46b770cddf8670789&quot;,
+        &quot;rulemoor/backend.py&quot;: &quot;7dafe901109da30aab43501b031f8c5c1b97db77486b0de4ffbe045b7d8d9dd4&quot;,
         &quot;rulemoor/cli.py&quot;: &quot;fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5&quot;,
-        &quot;rulemoor/core.py&quot;: &quot;5da5904b45fc08c814dcd52ea9a695613189464367cadd1cde676fda4e3d6df4&quot;,
+        &quot;rulemoor/core.py&quot;: &quot;08c8f68deb8b67b5d501728792d81770ffaa9280bafd03fee6bd3b1c19e8a290&quot;,
         &quot;rulemoor/executor.py&quot;: &quot;9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd&quot;,
         &quot;rulemoor/policy.py&quot;: &quot;780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842&quot;,
-        &quot;rulemoor/service.py&quot;: &quot;15e03f11fd968d200ea0e33e9f9e43b9925dca8952cf5a22c465e0e7e1a12a18&quot;,
+        &quot;rulemoor/service.py&quot;: &quot;647f19c019a6b20065f547eff4bca63aa6ff380f6d0bcaac71808bc1c3a2dba9&quot;,
         &quot;tests/__init__.py&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;,
-        &quot;tests/test_api.py&quot;: &quot;111218bcdb768cdb6ace5c31130e806e59181a7f2bac88529889d902372ad47a&quot;,
-        &quot;tests/test_core.py&quot;: &quot;71e5647b614569c9ee9ad2695a76f4590f086b1a65fd05f17fbb7a82b30eb94c&quot;,
-        &quot;tests/test_tools.py&quot;: &quot;5dbf39a0e755eafae3e0574d58a38653b843e3c0a4a0e9404fce7d42039ba520&quot;,
-        &quot;tools/__init__.py&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;,
+        &quot;tests/test_api.py&quot;: &quot;b20e4b98a9c854f46505779ab1651ef0d0177fea9e80247870773a54fe27a5c0&quot;,
+        &quot;tests/test_core.py&quot;: &quot;62f6e08da431935d26cdf6c0ea22d80b37267400502fcbf6b289a4b8d57b1b5f&quot;,
+        &quot;tests/test_tools.py&quot;: &quot;c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5&quot;,
+        &quot;tools/__init__.py&quot;: &quot;eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac&quot;,
         &quot;tools/agent_driver.py&quot;: &quot;6ab01068cf71fd154041b8faa01043d65778f30bb43ce3e9fe3316a4c6a88c77&quot;,
-        &quot;tools/audit_evidence.py&quot;: &quot;210dc9b94f4f1082c2ce2c1485a85b6c5512db65c91900d2a7582998ed761114&quot;,
-        &quot;tools/client_driver.py&quot;: &quot;121e39d0b69a3a96c954280fd08c9a9675d294439e922a6131b678539d82d815&quot;,
+        &quot;tools/audit_evidence.py&quot;: &quot;20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617&quot;,
+        &quot;tools/client_driver.py&quot;: &quot;5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44&quot;,
         &quot;tools/colima-lock.json&quot;: &quot;fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d&quot;,
         &quot;tools/evidence.py&quot;: &quot;5d5ce2066f0267f8d563c0cd9afd3dca478aa65cd99dc378d67c972faddf6c25&quot;,
         &quot;tools/install_colima.py&quot;: &quot;70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb&quot;,
-        &quot;tools/linux_cases.py&quot;: &quot;8866e6aa7b3ef69dfd4edba27812fc52efbcf30c9aaa967ad014b15c4cabbb49&quot;,
-        &quot;tools/linux_validate.py&quot;: &quot;f60c964132f43b028cf4f0329982e838db5f01ffecee314bce1340a858efcdfe&quot;,
+        &quot;tools/linux_cases.py&quot;: &quot;ef18ff9e6527effe51b01e589faba89a575cf9f3df6ee0eaa1883555eacb818c&quot;,
+        &quot;tools/linux_validate.py&quot;: &quot;faea3d94e684e3bcbea145109f6c9319b6858deca5ea4ab5c5c6f16ef5aab067&quot;,
         &quot;tools/local_entry.py&quot;: &quot;f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911&quot;,
-        &quot;tools/mutations.py&quot;: &quot;e3330c9c85d076853588ef126bf429373ddc1cf0da3b07671548051df6801cf8&quot;,
+        &quot;tools/mutations.py&quot;: &quot;9783c3f53f50fca3e5d1abb831183e8ac9970b9c68768b65bb730ee62f316c71&quot;,
         &quot;tools/process.py&quot;: &quot;6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f&quot;,
-        &quot;tools/report.py&quot;: &quot;82f54562e2d645d2d784f69d2574c0cb974bfcc5f3ffdd21757a2d0de9dbaea3&quot;,
-        &quot;tools/storage_fault.py&quot;: &quot;98029c3c32ab075418ac99ba77055cafa0f61d9c4d399f5f6399bfc32009a300&quot;,
-        &quot;tools/unit.py&quot;: &quot;6b7928c487211651bbb8fa7991efc04949ce255474f8dd91c44efa4e5a1e1013&quot;,
+        &quot;tools/report.py&quot;: &quot;bd06975b06d28411cc2710c273f011125184b5a1041b568eff628ff4869c29f5&quot;,
+        &quot;tools/storage_fault.py&quot;: &quot;0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0&quot;,
+        &quot;tools/unit.py&quot;: &quot;ade259d94052f2c69685c35210af0444c44a76e81c51640dc5f212da6a5282fd&quot;,
         &quot;tools/validate-local&quot;: &quot;45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c&quot;,
-        &quot;tools/validate_local.py&quot;: &quot;06a2af4e00468a1529b3c837235c63fb7f86468d47ed3c4ff2949d08b297b084&quot;
+        &quot;tools/validate_local.py&quot;: &quot;51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1&quot;
       },
-      &quot;source_sha256&quot;: &quot;cb4d5bc79e73366773b235b91fbf80e567bd08359c1e6f345fcbcdf715e5ed7d&quot;,
-      &quot;run_id&quot;: &quot;90a6c11375432d5f&quot;,
+      &quot;source_sha256&quot;: &quot;cf9055fb22968517608759f2b024b7b701ace9568e6ea736c49c481a06b679ca&quot;,
+      &quot;run_id&quot;: &quot;04dc27f97d65586b&quot;,
       &quot;platform&quot;: &quot;Linux&quot;,
       &quot;architecture&quot;: &quot;aarch64&quot;,
       &quot;python&quot;: &quot;3.12.14&quot;,
-      &quot;test_process_peak_rss_bytes&quot;: 36581376,
+      &quot;test_process_peak_rss_bytes&quot;: 36802560,
       &quot;scope&quot;: &quot;Portable production-core contracts with a memory backend; not real nft or network performance&quot;
     },
     &quot;environment&quot;: {
