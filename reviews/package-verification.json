@@ -2,14 +2,14 @@
   "version": "0.1.0",
   "wheel_modules_match_validated_source": true,
   "cli_and_agent_entrypoints_present": true,
-  "source_sha256": "242a3b7fa7f7ed9418521fc42e1d94b50e60d5738511dad6f036771f9013a75c",
+  "source_sha256": "30c1f7696bde723df46409031d531baf3ebd50aa1f51c36129497dbf71ee6ad4",
   "license_expression": "MIT",
   "wheel_and_sdist_include_matching_license_and_notices": true,
   "third_party_runtime_requirements": [],
   "artifacts": {
-    "rulemoor-0.1.0-py3-none-any.whl": "abbcc98282131aab9fdfcac6ab04c10318f3a14f60defe002bf6c1b57ccd4790",
-    "rulemoor-0.1.0.tar.gz": "a8d6d45993667d92fb7727ab24be58d14cf652098c93e9fca4fd346609be51c3"
+    "rulemoor-0.1.0-py3-none-any.whl": "ba923f0fdedb73b7780957244da3bd83db8c55c50add75aee4113aa216ac77a3",
+    "rulemoor-0.1.0.tar.gz": "76971cb98357088d29d75a33dbd401eff20d2cab7f43cac38d9b06b4c4c2493e"
   },
   "distribution_privacy_scan_passed": true,
-  "note": "Rebuilt after publication documentation changes; executable snapshot unchanged."
+  "note": "Rebuilt for deployment recovery implementation and systemd third-party notice; wheel modules match current validated production source."
 }

@@ -10,7 +10,7 @@ Provision `/etc/rulemoor/server.pem`, `server.key` and `token` out of band. Use 
 
 Create `/var/lib/rulemoor` owned by the service user with mode 0700. First initialization refuses both an existing journal and an existing table. Run initialization once, with a reviewed baseline. The default-accept example is a test/example policy, not a recommended production firewall. Existing unrelated firewall rules remain in place and can independently block access.
 
-The supplied `deploy/rulemoor.service` binds loopback by default. Review its management bind address and certificate before enabling remote operation. Copy it into the target's service-manager directory only after reviewing paths and permissions. The unit is an example; it has not been boot-tested under systemd. It restarts failed processes, clears fault-test hooks, limits privileges to the backend requirements and uses a private state directory. The process lock is advisory, not a boundary against root.
+The supplied `deploy/rulemoor.service` binds loopback by default. Review its management bind address and certificate before enabling remote operation. Copy it into the target's service-manager directory only after reviewing paths and permissions. The unit has been exercised under actual systemd, with a test-only network-namespace dependency/drop-in, in the retained isolated Linux VM deployment suite. This is not validation of every host’s boot/network/firewall ordering. It restarts failed processes, clears fault-test hooks, limits privileges to the backend requirements and uses a private state directory. The process lock is advisory, not a boundary against root.
 
 ## Normal change procedure
 
@@ -26,7 +26,7 @@ The service allows one unfinished change. Each accepted connection has a 5-secon
 
 Process SIGTERM/SIGINT stops acceptance and attempts rollback of a pending change. SIGKILL skips graceful cleanup; on the next start, the controller fences any identified orphan writer and reconciles the journal with actual rules. Known unfinished candidates are restored to their baseline. Known committed policy remains committed. A post-commit checkpoint error is a maintenance warning in status, not a reversal of the durable confirmation. A generation increase prevents old pending operations from being confirmed after recovery.
 
-A stopped process has no active deadline timer. Service-manager restart speed and availability matter; there is no guarantee of a rollback at the deadline while the service is down. Host reboot, disk power loss and service-manager integration are not covered by the retained results.
+A stopped process has no active deadline timer. Service-manager restart speed and availability matter; there is no guarantee of a rollback at the deadline while the service is down. The deployment suite verifies automatic systemd process restart and two orderly Linux VM stop/start cycles. Actual power loss, arbitrary filesystem/storage failures and other hosts’ boot ordering remain untested. See [deployment validation](DEPLOYMENT_VALIDATION.md).
 
 ## DEGRADED and local recovery
 
@@ -35,3 +35,9 @@ A stopped process has no active deadline timer. Service-manager restart speed an
 Malformed or oversized executor identity data also produces DEGRADED and blocks changes; the service does not guess which PID to kill. For detected foreign policy, resolve ownership and policy deliberately using console access. For an unreadable journal or interrupted initial provisioning, do not infer a baseline from whatever happens to be installed. The MVP has no force-adopt or remote force-reset endpoint. Reprovisioning is a local administrative procedure: retire the service and any executor, retain forensic state, establish a reviewed known policy, and rotate credentials before creating a fresh installation. Avoid temporary removal of access controls on a live machine. Automated adoption/migration is outside this MVP.
 
 The 4 MiB state-directory budget is an admission guard, not a disk quota or promise of continued disk availability. The 256 KiB reserve improves rollback opportunity after disk exhaustion but cannot guarantee recovery from arbitrary storage failures. Successful rule readback and successful management reconnection are separate evidence.
+
+## Kernel rules after a new boot
+
+Kernel nftables state is volatile. On a changed boot ID, after obtaining writer ownership, the controller recreates an absent owned table using the durable current policy for a terminal operation, or the baseline for an unfinished operation. Intent is committed before creation; readback is required before becoming ready. Pending changes are rolled back, never resumed. The boot ID is updated and the generation advances, including for a previously committed policy, to reject pre-boot base generations.
+
+This exception does not apply to an absent table within the same boot, a preexisting foreign table, interrupted initial provisioning, unreadable journals or a prior DEGRADED state. These still block writes and require operator recovery. Do not configure another boot-time firewall loader to race with Rulemoor. The service starts after `network.target`; there can be an interval without its owned rules before startup. It is not a guarantee of fail-closed early boot, uninterrupted access, or a substitute for console recovery.

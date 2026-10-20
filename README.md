@@ -2,7 +2,7 @@
 
 **Confirmed Linux firewall changes, with explicit recovery.**
 
-Rulemoor is an early single-node service for changing a dedicated nftables IPv4 input table. An operator previews a policy, applies it with a confirmation deadline, and confirms through a fresh TLS management connection. Without confirmation, the running agent attempts to restore the preceding policy. After a process crash, it reconciles its durable journal with actual kernel rules before accepting another change.
+Rulemoor is an early single-node service for changing a dedicated nftables IPv4 input table. An operator previews a policy, applies it with a confirmation deadline, and confirms through a fresh TLS management connection. Without confirmation, the running agent attempts to restore the preceding policy. After a process crash, it reconciles its durable journal with actual kernel rules before accepting another change. After a boot ID change, it can recreate an absent owned table from the durable confirmed policy or unfinished change’s baseline.
 
 The practical use case is a remotely managed Linux machine where an incorrect TCP ingress rule could remove the operator's access. Rulemoor provides the change lifecycle, not a general firewall manager or a guarantee that every network failure can be repaired.
 
@@ -68,6 +68,8 @@ PYTHON=.venv/bin/python tools/validate-local
 
 The one-command workflow installs checksum-pinned Colima/Lima locally if necessary and reuses an installed Docker CLI. Docker Desktop does not need to run. First-time setup downloads VM/container images. Existing running VMs are refused. See [validation methodology](docs/VALIDATION.md) for explicit toolchain overrides and cleanup behavior.
 
+[Systemd / VM restart validation](docs/DEPLOYMENT_VALIDATION.md) · [Deployment HTML report](reviews/deployment/report.html)
+
 [Retained validation](reviews/mvp/combined.json) · [HTML report](reviews/mvp/report.html) · [measurement interpretation](docs/MEASUREMENTS.md)
 
 macOS evidence covers portable contracts and real local TLS, using a memory backend. **Real nftables, network-failure, daemon RSS and operation timing evidence comes from Linux in a Colima VM.** These are separate scopes, not a native-platform performance comparison. All measured trials are retained; no speedup or production SLA is claimed.
@@ -78,7 +80,7 @@ macOS evidence covers portable contracts and real local TLS, using a memory back
 
 Important boundaries:
 
-- A stopped agent has no running rollback timer. Recovery requires restarting it. A service-manager example is supplied, but systemd packaging, whole-host reboot and power loss are not integration-tested.
+- A stopped agent has no running rollback timer. The supplied systemd unit and two orderly VM stop/start scenarios are integration-tested in an isolated Linux VM. This does not establish power-loss recovery, recovery-time bounds or boot ordering on other hosts. Rules may be absent before service startup.
 - Another privileged writer can ignore the advisory lock. Readback detects observed drift; it is not atomic exclusion against arbitrary root processes. Do not concurrently use another manager for the owned table.
 - Table replacement does not promise preservation of counters or all existing connections. Other tables/chains can still block traffic; this table's accept cannot override their drop.
 - Corrupt journals, interrupted first-time provisioning, unknown rules and failed rollback require local/operator recovery. Keep console or another independent recovery path.

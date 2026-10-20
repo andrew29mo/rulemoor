@@ -4,9 +4,9 @@ Status: code, tests, documentation and current local evidence reconciled. The ow
 
 ## Current evidence
 
-- Native macOS and Linux each pass **49** production-core/API/tool tests from the same immutable executable snapshot. Portable kernel behavior is represented by a memory backend; actual nftables/network evidence comes from the Linux VM case groups.
+- Native macOS and Linux each pass **56** production-core/API/tool tests from the same immutable executable snapshot. Portable kernel behavior is represented by a memory backend; actual nftables/network evidence comes from the Linux VM case groups.
 - All **eight** real Linux nft/netns/TLS groups pass: atomicity, management connectivity, six crash boundaries/two foreign-policy cases, process recovery, backlog/response loss, storage faults, finite slow clients and measurement.
-- **Nine** production mutations are caught by assertion failures; **seventeen** malformed or missing-evidence controls are rejected. Optimized validation is refused rather than silently removing assertions.
+- **Thirteen** production mutations are caught by assertion failures; **seventeen** malformed or missing-evidence controls are rejected. Optimized validation is refused rather than silently removing assertions.
 - Source fingerprints, individual test IDs, run IDs, raw trials, summary recomputation and exact HTML/JSON consistency are rechecked by `tools.audit_evidence`.
 - Both test namespaces have zero remaining workers after each case, before subsequent tests or measurements. Final namespace/container cleanup, unchanged container-root firewall and stopped VM are verified.
 - Built wheel modules are compared with the validated checkout; wheel and source distributions are checked for MIT metadata and matching license/notice files. Current records are in `reviews/mvp/` and `reviews/package-verification.json`.
@@ -37,11 +37,11 @@ Earlier Private-plan attempts to enable main protection and Secret scanning were
 
 ## Remaining limitations
 
-This remains a single-node IPv4 input-table MVP for the documented kernel/nft environment. A stopped agent has no running rollback timer. Whole-host reboot, power loss, systemd boot integration, arbitrary privileged writers, continuous connection-replacement attacks, other architectures and production qualification are not established by these results. Malformed metadata intentionally requires operator recovery, not automatic adoption.
+This remains a single-node IPv4 input-table MVP for the documented kernel/nft environment. A stopped agent has no running rollback timer. The later deployment suite adds actual systemd and two orderly VM stop/start cases; power loss, fail-closed early boot, arbitrary host boot ordering, arbitrary privileged writers, continuous connection-replacement attacks, other architectures and production qualification remain unestablished. Malformed metadata intentionally requires operator recovery, not automatic adoption.
 
 ## Owner-authorized MIT adoption — 2026-10-21
 
-The owner selected MIT after the correctness review. README, SECURITY.md, package metadata and third-party notices were updated together; historical review wording is explicitly historical. Setuptools >=77.0.3 is required for SPDX license metadata and explicit license-file inclusion. This packaging-only change receives a fresh same-source macOS/Linux run so the retained evidence fingerprint continues to match the current package inputs. Production Python code and tests are unchanged from commit `3c9f4ae`.
+The owner selected MIT after the correctness review. README, SECURITY.md, package metadata and third-party notices were updated together; historical review wording is explicitly historical. Setuptools >=77.0.3 is required for SPDX license metadata and explicit license-file inclusion. This packaging-only change receives a fresh same-source macOS/Linux run so the retained evidence fingerprint continues to match the current package inputs. At that MIT-adoption stage, production Python code and tests were unchanged from commit `3c9f4ae`.
 
 The MIT validation's first attempt failed during fresh dedicated-VM startup with a host PermissionError; the runner reported failure and verified the VM stopped. The successful retained run uses the documented explicit overrides for the previously validated dedicated Colima VM. This run does not establish successful first-time provisioning with the default VM home. Both attempts are recorded in `reviews/mvp/attempts.json`; raw host logs and VM files remain local.
 
@@ -50,3 +50,10 @@ The MIT validation's first attempt failed during fresh dedicated-VM startup with
 The repository is Public and GitHub identifies the license as MIT. Main protection applies to admins, prohibits force pushes/deletion, and retains owner direct pushes without mandatory PR reviews or required checks from the manual-only workflow. Private vulnerability reporting, Secret scanning, push protection and Dependabot are enabled. Actions allow only the two explicitly pinned actions, use read-only tokens and cannot approve PRs; all external contributors require approval for eligible fork PR workflows. Current settings and point-in-time alert observations are retained in `reviews/security-settings.json`. A zero alert count does not establish completion of asynchronous background scans.
 
 Local macOS/Linux validation run `97f20111c14d7117` was re-audited against the unchanged executable snapshot. Publication updates documentation/security records only; no new performance result or remote CI pass is claimed. The earlier failed fresh-VM startup and successful explicit-existing-VM run remain disclosed above.
+
+## Post-publication deployment recovery work
+
+[Deployment validation](DEPLOYMENT_VALIDATION.md) adds installed-unit, automatic restart and orderly VM boot evidence. The earlier MIT/publication run references above are historical; `reviews/mvp/` now retains the latest same-source portable/container run and `reviews/deployment/` retains the separate actual-systemd VM run. Executable changes receive fresh validation; no abrupt power-loss recovery is claimed.
+
+
+The deployment-recovery update passes **56 tests per platform, thirteen production mutations, seventeen original evidence controls, eight container Linux groups and seven actual-systemd deployment groups with six additional evidence controls**. Both suites record executable snapshot `30c1f7696bde723df46409031d531baf3ebd50aa1f51c36129497dbf71ee6ad4`. The deployment run is `dfad2049d204fa28`; the native/container run is `c166229ecdd5ae61`. Failed/superseded deployment attempts remain visible; current cleanup verifies removal and a stopped VM.

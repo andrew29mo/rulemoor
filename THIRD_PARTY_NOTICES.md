@@ -9,6 +9,7 @@ Runtime Python imports are from the standard library. Building a distribution us
 | Python | Runtime/standard library | [Python license](https://docs.python.org/3/license.html) |
 | setuptools | Package build backend | [MIT](https://github.com/pypa/setuptools/blob/main/LICENSE) |
 | nftables/libnftables | Separate system executable/library | [GPLv2, upstream licensing](https://git.netfilter.org/nftables/tree/COPYING) |
+| systemd | Separate VM service manager and deployment validation tools | [LGPL-2.1-or-later with documented exceptions](https://github.com/systemd/systemd/blob/main/LICENSES/README.md); not bundled |
 | iproute2 | Linux test topology | [Upstream COPYING](https://git.kernel.org/pub/scm/network/iproute2/iproute2.git/tree/COPYING) |
 | OpenSSL | Test TLS certificates/system TLS | [Apache-2.0](https://openssl-library.org/source/license/) for the retained Linux OpenSSL 3 build; host versions can differ |
 | Colima | Local VM orchestration | [MIT](https://github.com/abiosoft/colima/blob/main/LICENSE) |

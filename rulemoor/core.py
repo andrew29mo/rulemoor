@@ -142,12 +142,26 @@ class Controller:
                     self.backend.retire(self.root, self.s)
                 fd = lock(self.root / 'writer.lock')
                 try:
+                    rebooted = self.s['boot'] != self.backend.boot()
+                    # Kernel tables are volatile. Recreate only an absent owned table
+                    # after a verified boot change, never a same-boot deletion or drift.
+                    if rebooted and self.backend.read() is None:
+                        policy = self.s['current'] if self.s['phase'] in TERMINAL else self.s['baseline']
+                        self._save('boot_restore_intent')
+                        self.backend.initialize(policy)
                     if self.s['phase'] in TERMINAL:
                         if self.backend.read() != expected(self.s['current']):
                             self._degrade('Committed policy drift')
+                        elif rebooted:
+                            self.s['generation'] += 1
+                            self.s['boot'] = self.backend.boot()
+                            self._save('boot_restored')
                     else:
                         self.s['generation'] += 1
-                        self._rollback(fd, 'restart')
+                        self._rollback(fd, 'reboot' if rebooted else 'restart')
+                        if rebooted and self.s['phase'] == 'ROLLED_BACK':
+                            self.s['boot'] = self.backend.boot()
+                            self._save('boot_recovery_complete')
                 finally:
                     os.close(fd)
             except (RuntimeError, OSError, sqlite3.Error) as exc:

@@ -9,6 +9,10 @@ from .evidence import ROOT, manifest, save
 from .process import run
 
 MUTATIONS = [
+    ('rulemoor/core.py', 'cancel-new-operation-with-old-request', "or (op, generation) != (self.s['op'], self.s['generation'])", 'or False', 'tests.test_core.CoreTests.test_pre_recovery_requests_cannot_finalize_new_pending_operation'),
+    ('rulemoor/core.py', 'skip-boot-table-restore', 'self.backend.initialize(policy)', 'pass', 'tests.test_core.CoreTests.test_reboot_missing_table_restores_unconfirmed_baseline'),
+    ('rulemoor/core.py', 'restore-same-boot-deletion', 'if rebooted and self.backend.read() is None:', 'if self.backend.read() is None:', 'tests.test_core.CoreTests.test_same_boot_missing_table_is_not_recreated'),
+    ('rulemoor/core.py', 'reuse-preboot-generation', "elif rebooted:\n                            self.s['generation'] += 1", 'elif rebooted:\n                            pass', 'tests.test_core.CoreTests.test_reboot_restores_committed_policy_and_fences_old_base'),
     ('rulemoor/core.py', 'accept-old-connection', "or connected_at <= s['applied_at']", 'or False', 'tests.test_core.CoreTests.test_old_connection'),
     ('rulemoor/core.py', 'accept-expired-confirmation', "self.backend.clock() >= s['deadline']", "False", 'tests.test_core.CoreTests.test_expired_confirm_without_timer'),
     ('rulemoor/core.py', 'bless-unknown-readback', 'self.backend.read() != expected(p):', 'False:', 'tests.test_core.CoreTests.test_unknown_before_readback_not_blessed'),

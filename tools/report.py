@@ -31,6 +31,9 @@ Rule restoration and management reachability are separate observations. No produ
 
 def verify(linux, native, host, source):
     assert linux['passed'] is True and native['passed'] is True and host['passed'] is True
+    assert {'test_core.CoreTests.test_reboot_missing_table_restores_unconfirmed_baseline',
+            'test_core.CoreTests.test_reboot_restores_committed_policy_and_fences_old_base',
+            'test_core.CoreTests.test_same_boot_missing_table_is_not_recreated'}.issubset(native['test_ids'])
     assert linux['source'] == native['source'] == source
     assert linux['source_sha256'] == native['source_sha256'] == host['source_sha256'] == fingerprint(source)
     assert linux['unit']['source'] == source and linux['unit']['passed'] is True

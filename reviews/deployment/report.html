@@ -1,0 +1,877 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Rulemoor systemd and VM recovery</title>
+<style>body{font:16px system-ui;max-width:1000px;margin:2rem auto;padding:1rem}pre{white-space:pre-wrap;overflow-wrap:anywhere}td{padding:.5rem;border:1px solid #ccc}</style>
+<h1>Rulemoor deployment validation: PASS</h1>
+<p>Actual systemd in an isolated Linux VM. Firewall writes confined to a disposable network namespace.
+VM reboots are orderly stop/start, not power-loss tests. Timings are observations including probe/control overhead, not SLA bounds.
+Daemon/cgroup memory is distinct from total VM memory. No native macOS deployment claim.</p><table><tr><td>setup</td><td>PASS</td></tr><tr><td>crash</td><td>PASS</td></tr><tr><td>held_writer</td><td>PASS</td></tr><tr><td>prepare_pending_boot</td><td>PASS</td></tr><tr><td>after_pending_boot</td><td>PASS</td></tr><tr><td>after_committed_boot</td><td>PASS</td></tr><tr><td>cleanup</td><td>PASS</td></tr></table><p>Observed Agent SIGKILL to fresh TLS ready with restored baseline: 1383.8 ms (one trial; includes client probes and systemctl overhead).</p><p>Orderly VM stop/start plus post-boot validation: 12.95 s pending / 13.22 s committed (each one trial; includes VM control, SSH and assertions, not boot-time bounds).</p><table><tr><th>Stage</th><th>Agent VmHWM MiB</th><th>Service cgroup MiB</th></tr><tr><td>setup</td><td>22.15</td><td>10.64</td></tr><tr><td>crash</td><td>22.78</td><td>11.50</td></tr><tr><td>after_pending_boot</td><td>22.74</td><td>13.44</td></tr><tr><td>after_committed_boot</td><td>22.28</td><td>10.79</td></tr></table><pre>{
+  &quot;schema&quot;: 1,
+  &quot;run_id&quot;: &quot;dfad2049d204fa28&quot;,
+  &quot;recorded_at_utc&quot;: &quot;2026-10-20T17:32:18.692501+00:00&quot;,
+  &quot;passed&quot;: true,
+  &quot;source&quot;: {
+    &quot;Dockerfile&quot;: &quot;3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec&quot;,
+    &quot;deploy/rulemoor.service&quot;: &quot;9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625&quot;,
+    &quot;pyproject.toml&quot;: &quot;6be68097d0f9be7dc9b693b0e0f17f50669e339897a16da9ea422d583f6170c8&quot;,
+    &quot;rulemoor/__init__.py&quot;: &quot;021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03&quot;,
+    &quot;rulemoor/backend.py&quot;: &quot;9848470fad5480931c749e261abf33fb3d20b64b1dfbfaa44860a24f36137e6a&quot;,
+    &quot;rulemoor/cli.py&quot;: &quot;fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5&quot;,
+    &quot;rulemoor/core.py&quot;: &quot;be2a36fd774ca963be938c05d755e9fd65481e489d8baa1c88346b8ae3981b54&quot;,
+    &quot;rulemoor/executor.py&quot;: &quot;9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd&quot;,
+    &quot;rulemoor/policy.py&quot;: &quot;780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842&quot;,
+    &quot;rulemoor/service.py&quot;: &quot;647f19c019a6b20065f547eff4bca63aa6ff380f6d0bcaac71808bc1c3a2dba9&quot;,
+    &quot;tests/__init__.py&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;,
+    &quot;tests/test_api.py&quot;: &quot;b20e4b98a9c854f46505779ab1651ef0d0177fea9e80247870773a54fe27a5c0&quot;,
+    &quot;tests/test_core.py&quot;: &quot;99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb&quot;,
+    &quot;tests/test_tools.py&quot;: &quot;c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5&quot;,
+    &quot;tools/__init__.py&quot;: &quot;eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac&quot;,
+    &quot;tools/agent_driver.py&quot;: &quot;6ab01068cf71fd154041b8faa01043d65778f30bb43ce3e9fe3316a4c6a88c77&quot;,
+    &quot;tools/audit_deployment.py&quot;: &quot;d7a53bc5d07c2d9aa764417adbb1cfa6c5372de9669b88a0e9dda14b34f71103&quot;,
+    &quot;tools/audit_evidence.py&quot;: &quot;20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617&quot;,
+    &quot;tools/client_driver.py&quot;: &quot;5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44&quot;,
+    &quot;tools/colima-lock.json&quot;: &quot;fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d&quot;,
+    &quot;tools/deployment_guest.py&quot;: &quot;c605c1d7b779d279bcf66f931f4ffd034bae2b6b5dcb7b991256ddae7b65546c&quot;,
+    &quot;tools/deployment_report.py&quot;: &quot;515a4d4b7ca43aee09467a56a69f76ddba2fed97a39523624d4ee7cd1eacb4df&quot;,
+    &quot;tools/evidence.py&quot;: &quot;d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b&quot;,
+    &quot;tools/install_colima.py&quot;: &quot;70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb&quot;,
+    &quot;tools/linux_cases.py&quot;: &quot;49500a9697b81d5a1b9ba8651e4c1755474f6a49a213b95fce7ec55672cf0a79&quot;,
+    &quot;tools/linux_validate.py&quot;: &quot;bf9c45eef35c9b4b9dcbd9f0958a9122fe020f8e818aa5d234f28e306c9c9313&quot;,
+    &quot;tools/local_entry.py&quot;: &quot;f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911&quot;,
+    &quot;tools/mutations.py&quot;: &quot;f7f1ffcdfa3fbf0247c782ca447a977f71ba48c5273d1c6ad63b2bcbd00a7f29&quot;,
+    &quot;tools/process.py&quot;: &quot;6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f&quot;,
+    &quot;tools/report.py&quot;: &quot;c4ac1749bef625b181c7de8dca183eae386871fd5ec23d0b475248fc69d16803&quot;,
+    &quot;tools/storage_fault.py&quot;: &quot;0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0&quot;,
+    &quot;tools/unit.py&quot;: &quot;ade259d94052f2c69685c35210af0444c44a76e81c51640dc5f212da6a5282fd&quot;,
+    &quot;tools/validate-deployment&quot;: &quot;e3995176226e017ff2c6e36fd52c163b6e968ca539737420edfa7d5f9fcbe412&quot;,
+    &quot;tools/validate-local&quot;: &quot;45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c&quot;,
+    &quot;tools/validate_deployment.py&quot;: &quot;c15a8a3ce5a4381446ff91ab43007e6b55630c6dd7c4b70ee98d8a01501d9543&quot;,
+    &quot;tools/validate_local.py&quot;: &quot;51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1&quot;
+  },
+  &quot;source_sha256&quot;: &quot;30c1f7696bde723df46409031d531baf3ebd50aa1f51c36129497dbf71ee6ad4&quot;,
+  &quot;source_changed&quot;: false,
+  &quot;scope&quot;: {
+    &quot;execution&quot;: &quot;Actual systemd in Colima Linux VM; isolated test network namespace&quot;,
+    &quot;reboot_method&quot;: &quot;Orderly Colima VM stop/start; pending agent stopped using SIGKILL&quot;,
+    &quot;power_loss_tested&quot;: false,
+    &quot;native_macos_deployment_tested&quot;: false
+  },
+  &quot;stages&quot;: [
+    {
+      &quot;name&quot;: &quot;vm-initial&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.3718021249951562
+    },
+    {
+      &quot;name&quot;: &quot;vm-start&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 12.320608583002468
+    },
+    {
+      &quot;name&quot;: &quot;preflight&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.3349943749999511
+    },
+    {
+      &quot;name&quot;: &quot;guest-prerequisites&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.5941221670000232
+    },
+    {
+      &quot;name&quot;: &quot;wheel-build&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 1.455177834002825
+    },
+    {
+      &quot;name&quot;: &quot;snapshot-upload&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.2977846249996219
+    },
+    {
+      &quot;name&quot;: &quot;guest-setup&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 2.414106541000365
+    },
+    {
+      &quot;name&quot;: &quot;guest-crash&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 2.3391011670028092
+    },
+    {
+      &quot;name&quot;: &quot;guest-held_writer&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 4.752075916003378
+    },
+    {
+      &quot;name&quot;: &quot;guest-prepare_pending_boot&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.6861365000004298
+    },
+    {
+      &quot;name&quot;: &quot;pending-vm-stop&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 2.543646833000821
+    },
+    {
+      &quot;name&quot;: &quot;pending-vm-start&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 9.74865024999599
+    },
+    {
+      &quot;name&quot;: &quot;guest-after_pending_boot&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.6534503750008298
+    },
+    {
+      &quot;name&quot;: &quot;committed-vm-stop&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 2.653173708997201
+    },
+    {
+      &quot;name&quot;: &quot;committed-vm-start&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 10.001334250002401
+    },
+    {
+      &quot;name&quot;: &quot;guest-after_committed_boot&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.5530964999998105
+    },
+    {
+      &quot;name&quot;: &quot;guest-cleanup&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.5219390829952317
+    },
+    {
+      &quot;name&quot;: &quot;snapshot-remove&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.27317454199510394
+    },
+    {
+      &quot;name&quot;: &quot;vm-final-stop&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 2.4725364170008106
+    },
+    {
+      &quot;name&quot;: &quot;vm-final&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.18493358300474938
+    }
+  ],
+  &quot;cases&quot;: [
+    {
+      &quot;name&quot;: &quot;setup&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;pid1&quot;: &quot;systemd&quot;,
+        &quot;systemd&quot;: &quot;systemd 255 (255.4-1ubuntu8.15)&quot;,
+        &quot;kernel&quot;: &quot;6.8.0-117-generic&quot;,
+        &quot;architecture&quot;: &quot;aarch64&quot;,
+        &quot;python&quot;: &quot;3.12.3&quot;,
+        &quot;nft&quot;: &quot;nftables v1.0.9 (Old Doc Yak #3)&quot;,
+        &quot;installed_modules_match_source&quot;: true,
+        &quot;production_unit_sha256&quot;: &quot;9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625&quot;,
+        &quot;namespace_only_override&quot;: true,
+        &quot;unit_properties&quot;: {
+          &quot;Restart&quot;: &quot;on-failure&quot;,
+          &quot;MainPID&quot;: &quot;1684&quot;,
+          &quot;NRestarts&quot;: &quot;0&quot;,
+          &quot;MemoryCurrent&quot;: &quot;11165696&quot;,
+          &quot;CapabilityBoundingSet&quot;: &quot;cap_kill cap_net_admin&quot;,
+          &quot;PrivateTmp&quot;: &quot;yes&quot;,
+          &quot;ProtectHome&quot;: &quot;yes&quot;,
+          &quot;ProtectSystem&quot;: &quot;strict&quot;,
+          &quot;NoNewPrivileges&quot;: &quot;yes&quot;,
+          &quot;NetworkNamespacePath&quot;: &quot;/run/netns/rm_deployment&quot;,
+          &quot;KillMode&quot;: &quot;control-group&quot;,
+          &quot;ActiveState&quot;: &quot;active&quot;,
+          &quot;SubState&quot;: &quot;running&quot;
+        },
+        &quot;boot_id&quot;: &quot;98420722-1fdc-47ef-8597-d36f9463d0da&quot;,
+        &quot;memory&quot;: {
+          &quot;agent_rss_bytes&quot;: 23228416,
+          &quot;agent_vmhwm_bytes&quot;: 23228416,
+          &quot;service_cgroup_memory_current_bytes&quot;: 11157504,
+          &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
+        }
+      }
+    },
+    {
+      &quot;name&quot;: &quot;crash&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;automatic_systemd_restart&quot;: true,
+        &quot;restart_count_before&quot;: 0,
+        &quot;restart_count_after&quot;: 1,
+        &quot;main_pid_changed&quot;: true,
+        &quot;pending_baseline_restored&quot;: true,
+        &quot;stale_requests_rejected_during_new_pending&quot;: true,
+        &quot;stale_requests_rejected_after_new_commit&quot;: true,
+        &quot;new_policy_preserved&quot;: true,
+        &quot;kill_to_tls_ready_observed_ms&quot;: 1383.8434590000013,
+        &quot;memory&quot;: {
+          &quot;agent_rss_bytes&quot;: 23883776,
+          &quot;agent_vmhwm_bytes&quot;: 23883776,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12054528,
+          &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
+        },
+        &quot;old_generation&quot;: 1,
+        &quot;recovered_generation&quot;: 2,
+        &quot;new_generation&quot;: 3,
+        &quot;restored_kernel&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;kernel_after_stale&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59993
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      &quot;name&quot;: &quot;held_writer&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;test_only_fault_override&quot;: true,
+        &quot;old_executor_identity&quot;: {
+          &quot;pid&quot;: 1847,
+          &quot;start_ticks&quot;: 1778,
+          &quot;boot&quot;: &quot;98420722-1fdc-47ef-8597-d36f9463d0da&quot;
+        },
+        &quot;old_executor_retired&quot;: true,
+        &quot;systemd_cgroup_restart_observed&quot;: true,
+        &quot;known_baseline_restored&quot;: true,
+        &quot;late_release_did_not_overwrite_new_policy&quot;: true,
+        &quot;stale_requests_rejected_during_new_pending&quot;: true,
+        &quot;stale_requests_rejected&quot;: true,
+        &quot;new_policy_preserved&quot;: true,
+        &quot;old_generation&quot;: 4,
+        &quot;recovered_generation&quot;: 5,
+        &quot;new_generation&quot;: 6,
+        &quot;kernel_after_late_release&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;old_executor_identity_after&quot;: null
+      }
+    },
+    {
+      &quot;name&quot;: &quot;prepare_pending_boot&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;boot_id&quot;: &quot;98420722-1fdc-47ef-8597-d36f9463d0da&quot;,
+        &quot;journal_pending_after_service_stop&quot;: true,
+        &quot;candidate_still_installed&quot;: true,
+        &quot;graceful_rollback_deliberately_bypassed&quot;: true,
+        &quot;pending_generation&quot;: 7,
+        &quot;kernel_before_shutdown&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59992
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;unit_enabled&quot;: true
+      }
+    },
+    {
+      &quot;name&quot;: &quot;after_pending_boot&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;boot_id_before&quot;: &quot;98420722-1fdc-47ef-8597-d36f9463d0da&quot;,
+        &quot;boot_id_after&quot;: &quot;02b98d18-ce71-4451-8925-84e9bea98a57&quot;,
+        &quot;pre_agent_table_absent&quot;: true,
+        &quot;pending_baseline_restored&quot;: true,
+        &quot;generation_advanced&quot;: true,
+        &quot;stale_requests_rejected_during_new_pending&quot;: true,
+        &quot;stale_requests_rejected_after_new_commit&quot;: true,
+        &quot;new_policy_preserved&quot;: true,
+        &quot;vm_uptime_after_validation_seconds&quot;: 7.667410419,
+        &quot;memory&quot;: {
+          &quot;agent_rss_bytes&quot;: 23842816,
+          &quot;agent_vmhwm_bytes&quot;: 23842816,
+          &quot;service_cgroup_memory_current_bytes&quot;: 14094336,
+          &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
+        },
+        &quot;old_generation&quot;: 7,
+        &quot;recovered_generation&quot;: 8,
+        &quot;new_generation&quot;: 9,
+        &quot;restored_kernel&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;kernel_after_stale&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59993
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      &quot;name&quot;: &quot;after_committed_boot&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;boot_id_before&quot;: &quot;02b98d18-ce71-4451-8925-84e9bea98a57&quot;,
+        &quot;boot_id_after&quot;: &quot;5cae33cb-b708-4eba-ac29-451b9e028a9b&quot;,
+        &quot;pre_agent_table_absent&quot;: true,
+        &quot;committed_policy_restored&quot;: true,
+        &quot;generation_advanced&quot;: true,
+        &quot;old_base_rejected&quot;: true,
+        &quot;same_boot_foreign_policy_preserved&quot;: true,
+        &quot;memory&quot;: {
+          &quot;agent_rss_bytes&quot;: 23363584,
+          &quot;agent_vmhwm_bytes&quot;: 23363584,
+          &quot;service_cgroup_memory_current_bytes&quot;: 11309056,
+          &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
+        },
+        &quot;old_generation&quot;: 9,
+        &quot;recovered_generation&quot;: 10,
+        &quot;restored_kernel&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59993
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;foreign_kernel&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;foreign&quot;
+            }
+          }
+        ],
+        &quot;kernel_after_restart&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;foreign&quot;
+            }
+          }
+        ]
+      }
+    },
+    {
+      &quot;name&quot;: &quot;cleanup&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;namespace_removed&quot;: true,
+        &quot;service_stopped_and_removed&quot;: true,
+        &quot;credentials_and_state_removed&quot;: true,
+        &quot;vm_root_firewall_unchanged&quot;: true
+      }
+    }
+  ],
+  &quot;vm_initial_state&quot;: &quot;Stopped&quot;,
+  &quot;wheel_sha256&quot;: &quot;0f43b6bf06d3e0fc941cc68731053c5c13a55c929eaaea3cacf1cbb4791d4a0b&quot;,
+  &quot;pending_vm_restart_control_seconds&quot;: 12.95396158299991,
+  &quot;committed_vm_restart_control_seconds&quot;: 13.215772583003854,
+  &quot;source_snapshot_removed&quot;: true,
+  &quot;vm_final_state&quot;: &quot;Stopped&quot;,
+  &quot;evidence_controls&quot;: [
+    {
+      &quot;name&quot;: &quot;boot-identity&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;missing-case&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;stale-kernel&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;missing-cleanup&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;timeout&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;source&quot;,
+      &quot;rejected&quot;: true
+    }
+  ]
+}</pre></html>

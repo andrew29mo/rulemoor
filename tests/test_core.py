@@ -61,6 +61,80 @@ class CoreTests(unittest.TestCase):
         self.assertGreater(s['generation'], old['generation'])
         self.assertEqual(self.b.read(), expected(BASE))
         self.assertEqual(self.restart()['phase'], 'ROLLED_BACK')
+    def test_reboot_missing_table_restores_unconfirmed_baseline(self):
+        old = self.apply()
+        self.b.boot_value = 'next-boot'; self.b.value = None
+        restored = self.restart()
+        self.assertEqual(restored['phase'], 'ROLLED_BACK')
+        self.assertEqual(restored['boot'], 'next-boot')
+        self.assertEqual(self.b.read(), expected(BASE))
+        self.assertGreater(restored['generation'], old['generation'])
+        with self.assertRaises(Conflict): self.confirm(old)
+        with self.assertRaises(Conflict): self.c.cancel(old['op'], old['generation'])
+        self.assertEqual(self.b.read(), expected(BASE))
+
+    def test_reboot_restores_committed_policy_and_fences_old_base(self):
+        self.apply(); old = self.confirm()
+        self.b.boot_value = 'next-boot'; self.b.value = None
+        restored = self.restart()
+        self.assertEqual(restored['phase'], 'COMMITTED')
+        self.assertEqual(self.b.read(), expected(NEXT))
+        self.assertGreater(restored['generation'], old['generation'])
+        with self.assertRaises(Conflict):
+            self.c.apply('old-base', old['generation'], BASE, 5)
+        generation = restored['generation']
+        self.assertEqual(self.restart()['generation'], generation)
+
+    def test_same_boot_missing_table_is_not_recreated(self):
+        self.b.value = None
+        self.assertEqual(self.restart()['phase'], 'DEGRADED')
+        self.assertIsNone(self.b.value)
+
+    def test_reboot_foreign_policy_is_preserved(self):
+        for pending in (False, True):
+            with self.subTest(pending=pending):
+                if pending:
+                    # Separate fixture because DEGRADED intentionally blocks writes.
+                    self.c.close(); self.temp.cleanup(); self.setUp(); self.apply()
+                foreign = expected({'default': 'drop', 'rules': []})
+                self.b.value = foreign; self.b.boot_value = 'next-boot'
+                self.assertEqual(self.restart()['phase'], 'DEGRADED')
+                self.assertEqual(self.b.read(), foreign)
+
+    def test_boot_restore_interrupted_after_kernel_creation_is_repeatable(self):
+        old = self.apply(); self.b.value = None; self.b.boot_value = 'next-boot'
+        initialize = self.b.initialize
+        def interrupted(policy):
+            initialize(policy)
+            raise SystemExit('simulated process exit after kernel creation')
+        self.b.initialize = interrupted
+        with self.assertRaises(SystemExit): self.restart()
+        self.assertEqual(self.b.read(), expected(BASE))
+        self.b.initialize = initialize
+        restored = self.restart()
+        self.assertEqual(restored['phase'], 'ROLLED_BACK')
+        self.assertGreater(restored['generation'], old['generation'])
+        self.assertEqual(restored['boot'], 'next-boot')
+
+    def test_boot_restore_requires_durable_intent_before_kernel_write(self):
+        self.b.value = None; self.b.boot_value = 'next-boot'
+        with patch.object(self.c.store, 'save', side_effect=sqlite3.OperationalError('disk unavailable')):
+            self.c.start()
+        self.assertEqual(self.c.s['phase'], 'DEGRADED')
+        self.assertIsNone(self.b.read())
+
+    def test_pre_recovery_requests_cannot_finalize_new_pending_operation(self):
+        old = self.apply()
+        self.b.boot_value = 'next-boot'; self.b.value = None
+        restored = self.restart()
+        policy = {'default': 'accept', 'rules': [{'port': 59993, 'verdict': 'drop'}]}
+        fresh = self.c.apply('new-operation', restored['generation'], policy, 10)
+        with self.assertRaises(Conflict): self.c.cancel(old['op'], old['generation'])
+        with self.assertRaises(Conflict): self.confirm(old)
+        self.assertEqual(self.c.s['phase'], 'AWAITING_CONFIRM')
+        self.assertEqual(self.b.read(), expected(policy))
+        self.assertEqual(self.confirm(fresh)['phase'], 'COMMITTED')
+
     def test_timeout(self):
         self.apply(); self.b.t = 110.; self.c.tick()
         self.assertEqual(self.c.s['phase'], 'ROLLED_BACK')

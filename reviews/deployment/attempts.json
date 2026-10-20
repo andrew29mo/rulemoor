@@ -1,0 +1,37 @@
+[
+  {
+    "attempt": "01",
+    "run_id": "73cff0fb5def645a",
+    "passed": false,
+    "source_sha256": "671d2d844a8f812fcb9e9f87a9b5954f0de63e9f0c6186afe62054b52737f3a5",
+    "note": "Failed before guest deployment: snapshot transfer passed an unsupported input argument to the process wrapper; no guest cases ran. VM stopped. Subsequent preflight verified no installation remained."
+  },
+  {
+    "attempt": "02",
+    "run_id": "9461e842a833241e",
+    "passed": false,
+    "source_sha256": "b2d965cea0c54b318f72279fb2d966e737cff7342b851e3fb42397554961e494",
+    "note": "Failed: foreign-policy fixture had invalid nft syntax after both boot restoration assertions. Overall FAIL; cleanup retry succeeded and VM stopped. No complete pass claimed."
+  },
+  {
+    "attempt": "03",
+    "run_id": "938bb309e479b519",
+    "passed": true,
+    "source_sha256": "8c0e83b3e635eb9224cf603d30b40f8717b9e7007ee885d36a4a8b7255c14740",
+    "note": "Passed prior deployment cases; superseded by stronger stale-request challenges during a newer pending operation and an added production cancellation mutation."
+  },
+  {
+    "attempt": "final",
+    "run_id": "ece1e2262ea799c6",
+    "passed": true,
+    "source_sha256": "991da705b7a9f73db6cfb40c45d8fcf08488416084fb26103ee9a696124ffb45",
+    "note": "Passed strong stale-request scenarios; superseded only to label the post-validation VM uptime field accurately, distinct from agent startup latency."
+  },
+  {
+    "attempt": "release",
+    "run_id": "dfad2049d204fa28",
+    "passed": true,
+    "source_sha256": "30c1f7696bde723df46409031d531baf3ebd50aa1f51c36129497dbf71ee6ad4",
+    "note": "Current complete same-source deployment pass; seven groups, six evidence controls, automatic systemd restart and two orderly VM stop/start cycles. Power loss not tested."
+  }
+]

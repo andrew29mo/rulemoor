@@ -1,97 +1,125 @@
 {
   "schema": 1,
-  "run_id": "97f20111c14d7117",
+  "run_id": "c166229ecdd5ae61",
   "passed": true,
-  "source_sha256": "242a3b7fa7f7ed9418521fc42e1d94b50e60d5738511dad6f036771f9013a75c",
+  "source_sha256": "30c1f7696bde723df46409031d531baf3ebd50aa1f51c36129497dbf71ee6ad4",
   "source_changed": false,
   "stages": [
     {
       "name": "native-contracts",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.125421290998929
+      "seconds": 2.6103232919995207
     },
     {
       "name": "production-mutations",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.6331229159986833
+      "seconds": 2.2658559999981662
     },
     {
       "name": "vm-initial",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.19739308299904224
+      "seconds": 0.26693129100021906
     },
     {
       "name": "vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.255863165999472
+      "seconds": 10.190995000004477
     },
     {
       "name": "image-build",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.6635809999934281
+      "seconds": 1.6892997920003836
     },
     {
       "name": "image-inspect",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.021554582999669947
+      "seconds": 0.02247762499609962
     },
     {
       "name": "container-create",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.02910899999551475
+      "seconds": 0.02997312500519911
     },
     {
       "name": "container-inspect",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.011774999999033753
+      "seconds": 0.011967416998231784
     },
     {
       "name": "linux-run",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 26.958615791998454
+      "seconds": 27.193153874999552
     },
     {
       "name": "container-state",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.013256083002488595
+      "seconds": 0.01201358300022548
     },
     {
       "name": "export",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.01741033299913397
+      "seconds": 0.017602375002752524
     },
     {
       "name": "container-remove",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.019002250002813525
+      "seconds": 0.02050825000333134
     },
     {
       "name": "vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.2818854580036714
+      "seconds": 2.3117381669944734
     },
     {
       "name": "vm-final",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2636218330007978
+      "seconds": 0.266512791000423
     }
   ],
   "scope": "Native macOS portable contracts + Colima Linux real kernel",
   "production_mutations": [
+    {
+      "name": "cancel-new-operation-with-old-request",
+      "test": "tests.test_core.CoreTests.test_pre_recovery_requests_cannot_finalize_new_pending_operation",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "skip-boot-table-restore",
+      "test": "tests.test_core.CoreTests.test_reboot_missing_table_restores_unconfirmed_baseline",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "restore-same-boot-deletion",
+      "test": "tests.test_core.CoreTests.test_same_boot_missing_table_is_not_recreated",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "reuse-preboot-generation",
+      "test": "tests.test_core.CoreTests.test_reboot_restores_committed_policy_and_fences_old_base",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
     {
       "name": "accept-old-connection",
       "test": "tests.test_core.CoreTests.test_old_connection",
@@ -158,7 +186,7 @@
   ],
   "vm_initial_state": "Stopped",
   "image": {
-    "Id": "sha256:57990b2dfcb8b9442f3b89ae9fd5089f61c1faba9f65351582e27f79e7e95c1a",
+    "Id": "sha256:ebf2df19265630320a6c3435093cb85521d1001f4be390f16492842f3b9f0068",
     "Architecture": "arm64",
     "Os": "linux"
   },

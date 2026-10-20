@@ -4,7 +4,7 @@
 
 `python -m tools.unit` runs production schema/compiler/core decisions, real local TLS API/CLI transport checks, and failure/timeout handling of the validation process wrapper. Memory-backend tests deliberately isolate state-machine contracts. They do not establish nft semantics, kernel reachability or native macOS agent performance. OpenSSL is needed to create temporary test certificates, which are deleted with the temporary directory.
 
-`python -m tools.mutations` copies source into isolated temporary directories, changes nine production decisions and requires an existing assertion to fail for each. Import/syntax failures, timeouts or a bare nonzero exit do not count as caught mutations.
+`python -m tools.mutations` copies source into isolated temporary directories, changes thirteen production decisions and requires an existing assertion to fail for each. Import/syntax failures, timeouts or a bare nonzero exit do not count as caught mutations.
 
 ## Linux scope
 
@@ -53,3 +53,7 @@ Retained publication artifacts contain only structured records and the generated
 ## Remote CI
 
 A manual-only GitHub Actions workflow repeats portable contracts on Linux/macOS. It is not the real-kernel validation and is not required by the local workflow. It has not been dispatched for this MVP; no remote CI pass is claimed. Actions are pinned and the workflow has read-only permissions.
+
+## Actual systemd and orderly VM restarts
+
+The separate [deployment suite](DEPLOYMENT_VALIDATION.md) installs the production wheel and unit directly in an isolated Linux VM. It verifies systemd automatic restart, cgroup orphan cleanup, TLS readiness, stale operations, missing kernel rules after a changed boot ID, committed-policy restoration and foreign-policy refusal. This is not systemd simulated in a container. It restarts the selected VM twice and requires explicit selection of a stopped dedicated profile. It uses a different Linux userspace from the container suite; its memory/timing observations are reported separately. Power-loss recovery is not tested.

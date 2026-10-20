@@ -81,6 +81,20 @@
     "run_id": "97f20111c14d7117",
     "passed": true,
     "source_sha256": "242a3b7fa7f7ed9418521fc42e1d94b50e60d5738511dad6f036771f9013a75c",
-    "note": "Current retained pass after MIT package metadata: 49 tests/platform, nine production mutations, seventeen evidence controls, eight real Linux groups. Production/test/tool sources unchanged from 3c9f4ae."
+    "note": "MIT retained pass (historical) after MIT package metadata: 49 tests/platform, nine production mutations, seventeen evidence controls, eight real Linux groups. Production/test/tool sources unchanged from 3c9f4ae. Superseded by deployment-recovery implementation and regressions."
+  },
+  {
+    "attempt": "deployment-regression-20261021",
+    "run_id": "f0ebc32f5fee26a9",
+    "passed": true,
+    "source_sha256": "991da705b7a9f73db6cfb40c45d8fcf08488416084fb26103ee9a696124ffb45",
+    "note": "Earlier same-source native/container pass: 56 tests/platform, thirteen production mutations, seventeen evidence controls, eight Linux case groups. Actual-systemd VM boot evidence is separately retained in reviews/deployment. Superseded by deployment-recovery implementation and regressions. Superseded by the report-field naming correction."
+  },
+  {
+    "attempt": "deployment-release-regression-20261021",
+    "run_id": "c166229ecdd5ae61",
+    "passed": true,
+    "source_sha256": "30c1f7696bde723df46409031d531baf3ebd50aa1f51c36129497dbf71ee6ad4",
+    "note": "Current same-source native/container pass: 56 tests/platform, thirteen production mutations, seventeen evidence controls, eight Linux case groups. Actual-systemd VM boot evidence is separately retained in reviews/deployment."
   }
 ]
