@@ -1,0 +1,198 @@
+"""Portable contract tests call the production Controller; kernel behavior is tested separately."""
+import copy
+import json
+from pathlib import Path
+import sqlite3
+import tempfile
+import unittest
+from unittest.mock import patch, MagicMock
+from rulemoor.core import Controller, Conflict, MAX_HISTORY, Store
+from rulemoor.policy import validate, expected, compile_policy, canonical, digest
+
+BASE = {'default': 'accept', 'rules': [{'port': 59991, 'verdict': 'drop'}]}
+NEXT = {'default': 'drop', 'rules': [{'port': 18443, 'verdict': 'accept'}]}
+
+
+class MemoryBackend:
+    def __init__(self):
+        self.value = None
+        self.t = 100.
+        self.boot_value = 'test-boot'
+        self.calls = 0
+    def clock(self): return self.t
+    def boot(self): return self.boot_value
+    def read(self): return copy.deepcopy(self.value)
+    def check(self, policy, replace=True): validate(policy)
+    def initialize(self, policy): self.value = expected(policy)
+    def execute(self, root, state, policy, fd, persist, hook):
+        self.calls += 1
+        self.value = expected(policy)
+    def retire(self, root, state): pass
+
+
+class CoreTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.b = MemoryBackend()
+        self.c = Controller(self.temp.name, self.b)
+        self.c.initialize(BASE)
+    def tearDown(self):
+        self.c.close()
+        self.temp.cleanup()
+    def apply(self, **kw):
+        return self.c.apply(kw.get('op', 'change-1'), self.c.s['generation'], NEXT, kw.get('window', 10))
+    def confirm(self, state=None, at=101.):
+        s = state or self.c.status()
+        return self.c.confirm(s['op'], s['generation'], s['candidate_digest'], s['challenge'], at)
+    def restart(self):
+        self.c.close()
+        self.c = Controller(self.temp.name, self.b)
+        return self.c.start()
+    def test_commit_and_restart(self):
+        self.apply(); self.confirm()
+        self.assertEqual(self.restart()['phase'], 'COMMITTED')
+        self.assertEqual(self.b.read(), expected(NEXT))
+    def test_pending_restart_restores(self):
+        old = self.apply()
+        s = self.restart()
+        self.assertEqual(s['phase'], 'ROLLED_BACK')
+        self.assertGreater(s['generation'], old['generation'])
+        self.assertEqual(self.b.read(), expected(BASE))
+        self.assertEqual(self.restart()['phase'], 'ROLLED_BACK')
+    def test_timeout(self):
+        self.apply(); self.b.t = 110.; self.c.tick()
+        self.assertEqual(self.c.s['phase'], 'ROLLED_BACK')
+        self.assertEqual(self.b.read(), expected(BASE))
+    def test_expired_confirm_without_timer(self):
+        self.apply(); self.b.t = 110.
+        with self.assertRaises(Conflict): self.confirm()
+        self.assertEqual(self.c.s['phase'], 'AWAITING_CONFIRM')
+    def test_readback_time_cannot_extend_confirmation(self):
+        self.apply()
+        read = self.b.read
+        def slow():
+            self.b.t = 111.
+            return read()
+        with patch.object(self.b, 'read', slow):
+            with self.assertRaises(Conflict): self.confirm()
+    def test_old_connection(self):
+        self.apply()
+        with self.assertRaises(Conflict): self.confirm(at=100.)
+    def test_wrong_challenge_generation_and_digest(self):
+        self.apply()
+        for field in ('generation', 'candidate_digest', 'challenge', 'op'):
+            state = self.c.status()
+            state[field] = 999 if field == 'generation' else 'wrong'
+            with self.subTest(field=field), self.assertRaises(Conflict): self.confirm(state)
+    def test_apply_idempotence(self):
+        first = self.apply()
+        again = self.c.apply('change-1', 0, NEXT, 10)
+        self.assertEqual(again, first)
+        self.assertEqual(self.b.calls, 1)
+        with self.assertRaises(Conflict): self.c.apply('change-1', 0, BASE, 10)
+    def test_stale_apply(self):
+        self.apply()
+        with self.assertRaises(Conflict): self.c.apply('change-2', 0, BASE, 10)
+    def test_cancel_and_stale_cancel(self):
+        state = self.apply()
+        self.c.cancel(state['op'], state['generation'])
+        self.assertEqual(self.b.read(), expected(BASE))
+        with self.assertRaises(Conflict): self.c.cancel(state['op'], state['generation'])
+    def test_confirmed_not_cancelled(self):
+        state = self.apply(); self.confirm()
+        with self.assertRaises(Conflict): self.c.cancel(state['op'], state['generation'])
+    def test_drift_blocks_apply(self):
+        self.b.value = [{'unknown': True}]
+        with self.assertRaises(Conflict): self.apply()
+        self.assertEqual(self.c.s['phase'], 'DEGRADED')
+        self.assertEqual(self.b.calls, 0)
+    def test_unknown_during_pending_not_overwritten(self):
+        self.apply(); self.b.value = [{'foreign': True}]; self.b.t = 111.; self.c.tick()
+        self.assertEqual(self.c.s['phase'], 'DEGRADED')
+        self.assertEqual(self.b.read(), [{'foreign': True}])
+    def test_unknown_before_readback_not_blessed(self):
+        def drift(point):
+            if point == 'kernel-applied': self.b.value = [{'foreign': True}]
+        self.c.hook = drift
+        self.apply()
+        self.assertEqual(self.c.s['phase'], 'DEGRADED')
+    def test_unknown_before_confirm(self):
+        self.apply(); self.b.value = [{'foreign': True}]
+        with self.assertRaises(Conflict): self.confirm()
+        self.assertEqual(self.c.s['phase'], 'DEGRADED')
+    def test_foreign_boot_rejects_confirm(self):
+        self.apply(); self.b.boot_value = 'another-boot'
+        with self.assertRaises(Conflict): self.confirm()
+        self.c.tick()
+        self.assertEqual(self.c.s['phase'], 'ROLLED_BACK')
+    def test_confirmation_persistence_failure(self):
+        self.apply()
+        with patch.object(self.c.store, 'save', side_effect=sqlite3.OperationalError('disk full')):
+            with self.assertRaises(sqlite3.Error): self.confirm()
+        self.assertEqual(self.c.s['phase'], 'AWAITING_CONFIRM')
+        self.assertEqual(self.restart()['phase'], 'ROLLED_BACK')
+    def test_rollback_despite_journal_write_failure(self):
+        self.apply(); self.b.t = 111.
+        with patch.object(self.c.store, 'save', side_effect=sqlite3.OperationalError('disk full')):
+            self.c.tick()
+        self.assertEqual(self.b.read(), expected(BASE))
+        self.assertEqual(self.c.s['phase'], 'DEGRADED')
+        self.assertFalse(Path(self.temp.name, 'reserve').exists())
+        with self.assertRaises(Conflict): self.apply(op='other')
+    def test_space_guard_precedes_kernel_write(self):
+        with patch('rulemoor.core.shutil.disk_usage', return_value=type('Disk', (), {'free': 0})()):
+            with self.assertRaises(Conflict): self.apply()
+        self.assertEqual(self.b.calls, 0)
+    def test_corrupt_journal_no_write(self):
+        self.c.close()
+        Path(self.temp.name, 'state.sqlite').write_bytes(b'not a database')
+        self.c = Controller(self.temp.name, self.b)
+        self.assertEqual(self.c.start()['phase'], 'DEGRADED')
+        self.assertEqual(self.b.calls, 0)
+    def test_journal_open_error_closes_connection(self):
+        connection = MagicMock()
+        connection.execute.side_effect = sqlite3.DatabaseError('corrupt journal')
+        with patch('rulemoor.core.sqlite3.connect', return_value=connection):
+            with self.assertRaises(sqlite3.DatabaseError):
+                with Store(self.temp.name).connect():
+                    self.fail('Corrupt journal unexpectedly opened')
+        connection.close.assert_called_once()
+    def test_one_owner(self):
+        with self.assertRaises(RuntimeError): Controller(self.temp.name, self.b)
+    def test_bounded_history_and_receipts(self):
+        for i in range(24):
+            s = self.apply(op='op-' + str(i)); self.c.cancel(s['op'], s['generation'])
+        self.assertLessEqual(len(self.c.store.history()), MAX_HISTORY)
+        self.assertEqual(self.b.read(), expected(BASE))
+    def test_invalid_requests_do_not_write(self):
+        for window in (0, 301, float('nan'), True):
+            with self.subTest(window=window), self.assertRaises(ValueError): self.apply(window=window)
+        self.assertEqual(self.b.calls, 0)
+    def test_shutdown_rolls_back(self):
+        self.apply(); self.c.shutdown()
+        self.assertEqual(self.c.s['phase'], 'ROLLED_BACK')
+
+
+class PolicyTests(unittest.TestCase):
+    def test_injection_unknown_keys_and_types(self):
+        for value in ({'default': 'accept; flush ruleset', 'rules': []},
+                      {'default': 'accept', 'rules': [], 'extra': 1},
+                      {'default': 'accept', 'rules': [{'port': True, 'verdict': 'accept'}]},
+                      {'default': 'accept', 'rules': [{'port': 0, 'verdict': 'drop'}]},
+                      {'default': 'accept', 'rules': [{'port': 10, 'verdict': 'queue'}]},
+                      {'default': 'accept', 'rules': [{'port': 10, 'verdict': 'drop'}] * 33}):
+            with self.subTest(value=value), self.assertRaises(ValueError): validate(value)
+    def test_order_and_default_are_policy(self):
+        reverse = {'default': 'accept', 'rules': [{'port': 1, 'verdict': 'drop'}, {'port': 1, 'verdict': 'accept'}]}
+        other = copy.deepcopy(reverse); other['rules'].reverse()
+        self.assertNotEqual(digest(expected(reverse)), digest(expected(other)))
+        other = copy.deepcopy(reverse); other['default'] = 'drop'
+        self.assertNotEqual(digest(expected(reverse)), digest(expected(other)))
+    def test_expected_matches_contract(self):
+        rows = expected(BASE)
+        self.assertEqual(rows[1]['chain']['policy'], 'accept')
+        self.assertEqual(rows[-1]['rule']['expr'][0]['match']['right'], 59991)
+        self.assertIn('delete table ip rulemoor', compile_policy(BASE))
+    def test_canonical_retains_unknowns(self):
+        raw = {'nftables': [{'metainfo': {}}, {'rule': {'handle': 5, 'expr': [{'unknown': 1}]}}]}
+        self.assertEqual(canonical(raw), [{'rule': {'expr': [{'unknown': 1}]}}])

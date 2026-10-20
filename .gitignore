@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+AGENTS.md
+local/
+results/
+*.pem
+*.key
+*.sqlite*
+.env*
+.DS_Store
+build/
+dist/
+*.egg-info/

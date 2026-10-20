@@ -1,0 +1,186 @@
+{
+  "schema": 1,
+  "run_id": "4f1e93769abbc384",
+  "passed": true,
+  "source_sha256": "9b638019a720f1f872c18b8d04d1ed2519df99535748159f397bd24d90efe7db",
+  "source_changed": false,
+  "stages": [
+    {
+      "name": "native-contracts",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 1.0469407499986119
+    },
+    {
+      "name": "production-mutations",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.44558066700119525
+    },
+    {
+      "name": "vm-initial",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.18551912499970058
+    },
+    {
+      "name": "vm-start",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 9.516178917001525
+    },
+    {
+      "name": "image-build",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 1.6873180830007186
+    },
+    {
+      "name": "image-inspect",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.02124641700356733
+    },
+    {
+      "name": "container-create",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.03312737499800278
+    },
+    {
+      "name": "container-inspect",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.011026957996364217
+    },
+    {
+      "name": "linux-run",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 17.768164542001614
+    },
+    {
+      "name": "container-state",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.012572374995215796
+    },
+    {
+      "name": "export",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.018471499999577645
+    },
+    {
+      "name": "container-remove",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.018265541999426205
+    },
+    {
+      "name": "vm-stop",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 2.243392208998557
+    },
+    {
+      "name": "vm-final",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.19477999999799067
+    }
+  ],
+  "scope": "Native macOS portable contracts + Colima Linux real kernel",
+  "production_mutations": [
+    {
+      "name": "accept-old-connection",
+      "test": "tests.test_core.CoreTests.test_old_connection",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "accept-expired-confirmation",
+      "test": "tests.test_core.CoreTests.test_expired_confirm_without_timer",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "bless-unknown-readback",
+      "test": "tests.test_core.CoreTests.test_unknown_before_readback_not_blessed",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "skip-timeout-rollback",
+      "test": "tests.test_core.CoreTests.test_timeout",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "commit-before-durable-save",
+      "test": "tests.test_core.CoreTests.test_confirmation_persistence_failure",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    }
+  ],
+  "vm_initial_state": "Stopped",
+  "image": {
+    "Id": "sha256:cd0c7eb8a11c3e98a1ff6c839652c5c710f5b64c6450892c35227afc2f806783",
+    "Architecture": "arm64",
+    "Os": "linux"
+  },
+  "container": {
+    "Privileged": false,
+    "NetworkMode": "none",
+    "CapDrop": [
+      "ALL"
+    ],
+    "CapAdd": [
+      "CAP_NET_ADMIN",
+      "CAP_SYS_ADMIN"
+    ],
+    "Memory": 805306368,
+    "NanoCpus": 2000000000,
+    "PidsLimit": 128
+  },
+  "container_exit": {
+    "ExitCode": 0,
+    "OOMKilled": false,
+    "Running": false,
+    "Error": ""
+  },
+  "container_removed": true,
+  "vm_final_state": "Stopped",
+  "evidence_mutations": [
+    {
+      "target": "linux",
+      "field": "run_id",
+      "rejected": true
+    },
+    {
+      "target": "linux",
+      "field": "passed",
+      "rejected": true
+    },
+    {
+      "target": "linux",
+      "field": "source",
+      "rejected": true
+    },
+    {
+      "target": "native",
+      "field": "tests",
+      "rejected": true
+    },
+    {
+      "target": "host",
+      "field": "container_removed",
+      "rejected": true
+    }
+  ]
+}

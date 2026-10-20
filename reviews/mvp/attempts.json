@@ -1,0 +1,37 @@
+[
+  {
+    "attempt": 1,
+    "run_id": "866b955684aa4c1e",
+    "passed": true,
+    "source_sha256": "c805e65226230c1ec6437b580ede0f61146688098af93e30c98ecf718b03a9f4",
+    "note": "Initial kernel/API validation; superseded by stronger guards and faults."
+  },
+  {
+    "attempt": 2,
+    "run_id": "463d47c756c686be",
+    "passed": true,
+    "source_sha256": "bbba2d24acc1fb1385deab97c9ea2e264ad8ddaf60ee6cda376c18989be1d5c1",
+    "note": "Added backlog, response-loss and generation fencing; superseded."
+  },
+  {
+    "attempt": 3,
+    "run_id": "a2effda58d269ded",
+    "passed": false,
+    "source_sha256": "82e101d01920a01d1913b4d36575fa3ed952313805307f0b772fe96fe7197da4",
+    "note": "Failed: test tmpfs mount did not survive separate ip-netns-exec invocation. Not valid evidence of bounded tmpfs behavior. Container removed and VM stopped."
+  },
+  {
+    "attempt": 4,
+    "run_id": "e423d1f966c65fba",
+    "passed": false,
+    "source_sha256": "dd358ca168fa66b3e4cfdb101db5d9118d75f785a6e41eb92940ec6096f46447",
+    "note": "Failed: corrupt SQLite initialization left a connection open, preventing test tmpfs unmount. Fixed in production Store.connect."
+  },
+  {
+    "attempt": 5,
+    "run_id": "4f1e93769abbc384",
+    "passed": true,
+    "source_sha256": "9b638019a720f1f872c18b8d04d1ed2519df99535748159f397bd24d90efe7db",
+    "note": "Current retained complete pass."
+  }
+]

@@ -1,0 +1,1239 @@
+{
+  "schema": 1,
+  "run_id": "4f1e93769abbc384",
+  "passed": true,
+  "execution": "Colima Linux VM; real nftables/netns/TLS",
+  "source": {
+    "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
+    "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
+    "pyproject.toml": "3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f",
+    "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
+    "rulemoor/backend.py": "3b803f2ec05080bb8c3cf754e55d1e4c0d2e62a2b5f899d46b770cddf8670789",
+    "rulemoor/cli.py": "eda8891f09abeadeb92bbfda88e2cdf70c633a72aadcf3e3473c8d8edf8f3e8f",
+    "rulemoor/core.py": "5da5904b45fc08c814dcd52ea9a695613189464367cadd1cde676fda4e3d6df4",
+    "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
+    "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
+    "rulemoor/service.py": "15e03f11fd968d200ea0e33e9f9e43b9925dca8952cf5a22c465e0e7e1a12a18",
+    "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tests/test_api.py": "36fc0620f8f5688c27edd1f4667a94e1e048186d0f8b15ba48eef4453476f191",
+    "tests/test_core.py": "71e5647b614569c9ee9ad2695a76f4590f086b1a65fd05f17fbb7a82b30eb94c",
+    "tests/test_tools.py": "5dbf39a0e755eafae3e0574d58a38653b843e3c0a4a0e9404fce7d42039ba520",
+    "tools/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tools/agent_driver.py": "6ab01068cf71fd154041b8faa01043d65778f30bb43ce3e9fe3316a4c6a88c77",
+    "tools/audit_evidence.py": "210dc9b94f4f1082c2ce2c1485a85b6c5512db65c91900d2a7582998ed761114",
+    "tools/client_driver.py": "121e39d0b69a3a96c954280fd08c9a9675d294439e922a6131b678539d82d815",
+    "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
+    "tools/evidence.py": "5d5ce2066f0267f8d563c0cd9afd3dca478aa65cd99dc378d67c972faddf6c25",
+    "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
+    "tools/linux_cases.py": "8866e6aa7b3ef69dfd4edba27812fc52efbcf30c9aaa967ad014b15c4cabbb49",
+    "tools/linux_validate.py": "f60c964132f43b028cf4f0329982e838db5f01ffecee314bce1340a858efcdfe",
+    "tools/local_entry.py": "f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911",
+    "tools/mutations.py": "e3330c9c85d076853588ef126bf429373ddc1cf0da3b07671548051df6801cf8",
+    "tools/process.py": "6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f",
+    "tools/report.py": "82f54562e2d645d2d784f69d2574c0cb974bfcc5f3ffdd21757a2d0de9dbaea3",
+    "tools/storage_fault.py": "98029c3c32ab075418ac99ba77055cafa0f61d9c4d399f5f6399bfc32009a300",
+    "tools/unit.py": "6b7928c487211651bbb8fa7991efc04949ce255474f8dd91c44efa4e5a1e1013",
+    "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
+    "tools/validate_local.py": "06a2af4e00468a1529b3c837235c63fb7f86468d47ed3c4ff2949d08b297b084"
+  },
+  "source_sha256": "9b638019a720f1f872c18b8d04d1ed2519df99535748159f397bd24d90efe7db",
+  "cases": [
+    {
+      "name": "atomic_batches",
+      "passed": true,
+      "evidence": {
+        "unrelated_table_unchanged": true,
+        "nft_exec_lock_inherited": true,
+        "check_nonmutating": true,
+        "invalid_batch_exit": 1,
+        "invalid_batch_atomic": true,
+        "candidate_readback": [
+          {
+            "table": {
+              "family": "ip",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "accept"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59992
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          }
+        ],
+        "ordered_default_drop_readback": [
+          {
+            "table": {
+              "family": "ip",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 1234
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 1234
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "seconds": 0.24270308300000032
+    },
+    {
+      "name": "management_path",
+      "passed": true,
+      "evidence": {
+        "unauthorized_rejected": true,
+        "old_connection": {
+          "ok": true,
+          "first": 200,
+          "old_status": 200,
+          "old_confirm": 409
+        },
+        "fresh_blocked_connect_errno": 11,
+        "rollback_start_overdue_ms": 57.6516680000001,
+        "rollback_complete_overdue_ms": 104.55046000000046,
+        "fresh_access_restored": true,
+        "confirmed_survives_deadline": true
+      },
+      "seconds": 5.506718919999999
+    },
+    {
+      "name": "crash_matrix",
+      "passed": true,
+      "evidence": [
+        {
+          "point": "prepared",
+          "before_phase": "PREPARED",
+          "after_phase": "ROLLED_BACK",
+          "generation_before": 1,
+          "generation_after": 2,
+          "kernel_before": [
+            {
+              "table": {
+                "family": "ip",
+                "name": "rulemoor"
+              }
+            },
+            {
+              "chain": {
+                "family": "ip",
+                "table": "rulemoor",
+                "name": "input",
+                "type": "filter",
+                "hook": "input",
+                "prio": 0,
+                "policy": "accept"
+              }
+            },
+            {
+              "rule": {
+                "family": "ip",
+                "table": "rulemoor",
+                "chain": "input",
+                "expr": [
+                  {
+                    "match": {
+                      "op": "in",
+                      "left": {
+                        "ct": {
+                          "key": "state"
+                        }
+                      },
+                      "right": [
+                        "established",
+                        "related"
+                      ]
+                    }
+                  },
+                  {
+                    "accept": null
+                  }
+                ]
+              }
+            },
+            {
+              "rule": {
+                "family": "ip",
+                "table": "rulemoor",
+                "chain": "input",
+                "expr": [
+                  {
+                    "match": {
+                      "op": "==",
+                      "left": {
+                        "payload": {
+                          "protocol": "tcp",
+                          "field": "dport"
+                        }
+                      },
+                      "right": 59991
+                    }
+                  },
+                  {
+                    "drop": null
+                  }
+                ]
+              }
+            }
+          ],
+          "baseline_verified": true,
+          "idempotent": true,
+          "newer_commit_survived_old_release": false
+        },
+        {
+          "point": "executor-intent",
+          "before_phase": "APPLYING",
+          "after_phase": "ROLLED_BACK",
+          "generation_before": 1,
+          "generation_after": 2,
+          "kernel_before": [
+            {
+              "table": {
+                "family": "ip",
+                "name": "rulemoor"
+              }
+            },
+            {
+              "chain": {
+                "family": "ip",
+                "table": "rulemoor",
+                "name": "input",
+                "type": "filter",
+                "hook": "input",
+                "prio": 0,
+                "policy": "accept"
+              }
+            },
+            {
+              "rule": {
+                "family": "ip",
+                "table": "rulemoor",
+                "chain": "input",
+                "expr": [
+                  {
+                    "match": {
+                      "op": "in",
+                      "left": {
+                        "ct": {
+                          "key": "state"
+                        }
+                      },
+                      "right": [
+                        "established",
+                        "related"
+                      ]
+                    }
+                  },
+                  {
+                    "accept": null
+                  }
+                ]
+              }
+            },
+            {
+              "rule": {
+                "family": "ip",
+                "table": "rulemoor",
+                "chain": "input",
+                "expr": [
+                  {
+                    "match": {
+                      "op": "==",
+                      "left": {
+                        "payload": {
+                          "protocol": "tcp",
+                          "field": "dport"
+                        }
+                      },
+                      "right": 59991
+                    }
+                  },
+                  {
+                    "drop": null
+                  }
+                ]
+              }
+            }
+          ],
+          "baseline_verified": true,
+          "idempotent": true,
+          "newer_commit_survived_old_release": false
+        },
+        {
+          "point": "executor-held",
+          "before_phase": "APPLYING",
+          "after_phase": "ROLLED_BACK",
+          "generation_before": 1,
+          "generation_after": 2,
+          "kernel_before": [
+            {
+              "table": {
+                "family": "ip",
+                "name": "rulemoor"
+              }
+            },
+            {
+              "chain": {
+                "family": "ip",
+                "table": "rulemoor",
+                "name": "input",
+                "type": "filter",
+                "hook": "input",
+                "prio": 0,
+                "policy": "accept"
+              }
+            },
+            {
+              "rule": {
+                "family": "ip",
+                "table": "rulemoor",
+                "chain": "input",
+                "expr": [
+                  {
+                    "match": {
+                      "op": "in",
+                      "left": {
+                        "ct": {
+                          "key": "state"
+                        }
+                      },
+                      "right": [
+                        "established",
+                        "related"
+                      ]
+                    }
+                  },
+                  {
+                    "accept": null
+                  }
+                ]
+              }
+            },
+            {
+              "rule": {
+                "family": "ip",
+                "table": "rulemoor",
+                "chain": "input",
+                "expr": [
+                  {
+                    "match": {
+                      "op": "==",
+                      "left": {
+                        "payload": {
+                          "protocol": "tcp",
+                          "field": "dport"
+                        }
+                      },
+                      "right": 59991
+                    }
+                  },
+                  {
+                    "drop": null
+                  }
+                ]
+              }
+            }
+          ],
+          "baseline_verified": true,
+          "idempotent": true,
+          "newer_commit_survived_old_release": true
+        },
+        {
+          "point": "kernel-applied",
+          "before_phase": "APPLYING",
+          "after_phase": "ROLLED_BACK",
+          "generation_before": 1,
+          "generation_after": 2,
+          "kernel_before": [
+            {
+              "table": {
+                "family": "ip",
+                "name": "rulemoor"
+              }
+            },
+            {
+              "chain": {
+                "family": "ip",
+                "table": "rulemoor",
+                "name": "input",
+                "type": "filter",
+                "hook": "input",
+                "prio": 0,
+                "policy": "accept"
+              }
+            },
+            {
+              "rule": {
+                "family": "ip",
+                "table": "rulemoor",
+                "chain": "input",
+                "expr": [
+                  {
+                    "match": {
+                      "op": "in",
+                      "left": {
+                        "ct": {
+                          "key": "state"
+                        }
+                      },
+                      "right": [
+                        "established",
+                        "related"
+                      ]
+                    }
+                  },
+                  {
+                    "accept": null
+                  }
+                ]
+              }
+            },
+            {
+              "rule": {
+                "family": "ip",
+                "table": "rulemoor",
+                "chain": "input",
+                "expr": [
+                  {
+                    "match": {
+                      "op": "==",
+                      "left": {
+                        "payload": {
+                          "protocol": "tcp",
+                          "field": "dport"
+                        }
+                      },
+                      "right": 59992
+                    }
+                  },
+                  {
+                    "drop": null
+                  }
+                ]
+              }
+            }
+          ],
+          "baseline_verified": true,
+          "idempotent": true,
+          "newer_commit_survived_old_release": false
+        },
+        {
+          "point": "awaiting-confirm",
+          "before_phase": "AWAITING_CONFIRM",
+          "after_phase": "ROLLED_BACK",
+          "generation_before": 1,
+          "generation_after": 2,
+          "kernel_before": [
+            {
+              "table": {
+                "family": "ip",
+                "name": "rulemoor"
+              }
+            },
+            {
+              "chain": {
+                "family": "ip",
+                "table": "rulemoor",
+                "name": "input",
+                "type": "filter",
+                "hook": "input",
+                "prio": 0,
+                "policy": "accept"
+              }
+            },
+            {
+              "rule": {
+                "family": "ip",
+                "table": "rulemoor",
+                "chain": "input",
+                "expr": [
+                  {
+                    "match": {
+                      "op": "in",
+                      "left": {
+                        "ct": {
+                          "key": "state"
+                        }
+                      },
+                      "right": [
+                        "established",
+                        "related"
+                      ]
+                    }
+                  },
+                  {
+                    "accept": null
+                  }
+                ]
+              }
+            },
+            {
+              "rule": {
+                "family": "ip",
+                "table": "rulemoor",
+                "chain": "input",
+                "expr": [
+                  {
+                    "match": {
+                      "op": "==",
+                      "left": {
+                        "payload": {
+                          "protocol": "tcp",
+                          "field": "dport"
+                        }
+                      },
+                      "right": 59992
+                    }
+                  },
+                  {
+                    "drop": null
+                  }
+                ]
+              }
+            }
+          ],
+          "baseline_verified": true,
+          "idempotent": true,
+          "newer_commit_survived_old_release": false
+        },
+        {
+          "point": "rollback-applied",
+          "before_phase": "ROLLING_BACK",
+          "after_phase": "ROLLED_BACK",
+          "generation_before": 1,
+          "generation_after": 2,
+          "kernel_before": [
+            {
+              "table": {
+                "family": "ip",
+                "name": "rulemoor"
+              }
+            },
+            {
+              "chain": {
+                "family": "ip",
+                "table": "rulemoor",
+                "name": "input",
+                "type": "filter",
+                "hook": "input",
+                "prio": 0,
+                "policy": "accept"
+              }
+            },
+            {
+              "rule": {
+                "family": "ip",
+                "table": "rulemoor",
+                "chain": "input",
+                "expr": [
+                  {
+                    "match": {
+                      "op": "in",
+                      "left": {
+                        "ct": {
+                          "key": "state"
+                        }
+                      },
+                      "right": [
+                        "established",
+                        "related"
+                      ]
+                    }
+                  },
+                  {
+                    "accept": null
+                  }
+                ]
+              }
+            },
+            {
+              "rule": {
+                "family": "ip",
+                "table": "rulemoor",
+                "chain": "input",
+                "expr": [
+                  {
+                    "match": {
+                      "op": "==",
+                      "left": {
+                        "payload": {
+                          "protocol": "tcp",
+                          "field": "dport"
+                        }
+                      },
+                      "right": 59991
+                    }
+                  },
+                  {
+                    "drop": null
+                  }
+                ]
+              }
+            }
+          ],
+          "baseline_verified": true,
+          "idempotent": true,
+          "newer_commit_survived_old_release": false
+        },
+        {
+          "point": "foreign-kernel-applied",
+          "after_phase": "DEGRADED",
+          "unknown_preserved": true
+        },
+        {
+          "point": "foreign-awaiting-confirm",
+          "after_phase": "DEGRADED",
+          "unknown_preserved": true
+        }
+      ],
+      "seconds": 4.782671585999999
+    },
+    {
+      "name": "service_recovery",
+      "passed": true,
+      "evidence": {
+        "executor_timeout_reported_failure_and_restored": true,
+        "pending_restart_restored": true,
+        "stale_confirmation_rejected": true,
+        "durably_confirmed_restart_preserved": true,
+        "graceful_shutdown_restored": true
+      },
+      "seconds": 2.9487827089999996
+    },
+    {
+      "name": "queued_connection_and_response_loss",
+      "passed": true,
+      "evidence": {
+        "queued_before_apply_accepted_later": {
+          "ok": true,
+          "confirm_status": 409,
+          "reason": "Connection existed before the post-apply connection snapshot"
+        },
+        "confirmed_response_lost": true,
+        "committed_survived_restart": true
+      },
+      "seconds": 0.7241443750000016
+    },
+    {
+      "name": "storage_faults",
+      "passed": true,
+      "evidence": {
+        "enospc_observed": true,
+        "reserve_released": true,
+        "baseline_restored": true,
+        "rollback_journal_verified": true,
+        "directory_budget_rejected": true,
+        "corrupt_journal_blocked": true,
+        "scope": "Actual 16 MiB tmpfs exhaustion; no power-loss or filesystem-corruption recovery claim",
+        "verified_filesystem_bytes": 16777216,
+        "write_limit_bytes": 16842752,
+        "test_tmpfs_unmounted": true
+      },
+      "seconds": 1.142181376
+    },
+    {
+      "name": "measurement",
+      "passed": true,
+      "evidence": {
+        "trials": [
+          {
+            "index": 0,
+            "plan_ms": 10.697083000000163,
+            "apply_ms": 45.38612500000028,
+            "finalize_ms": 36.087458000000794,
+            "action": "cancel",
+            "phase": "ROLLED_BACK",
+            "generation": 1,
+            "before_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "candidate_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "plan_ms": 12.013667000001504,
+            "apply_ms": 45.08870800000153,
+            "finalize_ms": 3.4737499999977217,
+            "action": "confirm",
+            "phase": "COMMITTED",
+            "generation": 2,
+            "before_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "candidate_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "plan_ms": 16.31125000000111,
+            "apply_ms": 39.061541999998894,
+            "finalize_ms": 29.250749999999215,
+            "action": "cancel",
+            "phase": "ROLLED_BACK",
+            "generation": 3,
+            "before_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "candidate_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          {
+            "index": 3,
+            "plan_ms": 16.31054099999929,
+            "apply_ms": 40.700749999999175,
+            "finalize_ms": 3.945292000000933,
+            "action": "confirm",
+            "phase": "COMMITTED",
+            "generation": 4,
+            "before_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "candidate_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          {
+            "index": 4,
+            "plan_ms": 11.063875000001389,
+            "apply_ms": 43.74912599999803,
+            "finalize_ms": 29.396790999999922,
+            "action": "cancel",
+            "phase": "ROLLED_BACK",
+            "generation": 5,
+            "before_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "candidate_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          {
+            "index": 5,
+            "plan_ms": 13.64816699999949,
+            "apply_ms": 40.584290999998274,
+            "finalize_ms": 3.572459000000805,
+            "action": "confirm",
+            "phase": "COMMITTED",
+            "generation": 6,
+            "before_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "candidate_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          {
+            "index": 6,
+            "plan_ms": 12.599707999999765,
+            "apply_ms": 45.700874999997865,
+            "finalize_ms": 25.696083999999786,
+            "action": "cancel",
+            "phase": "ROLLED_BACK",
+            "generation": 7,
+            "before_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "candidate_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          {
+            "index": 7,
+            "plan_ms": 7.212374999998161,
+            "apply_ms": 48.61691600000029,
+            "finalize_ms": 3.8070420000018146,
+            "action": "confirm",
+            "phase": "COMMITTED",
+            "generation": 8,
+            "before_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "candidate_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          {
+            "index": 8,
+            "plan_ms": 17.48391699999985,
+            "apply_ms": 42.65554100000202,
+            "finalize_ms": 28.574124999998674,
+            "action": "cancel",
+            "phase": "ROLLED_BACK",
+            "generation": 9,
+            "before_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "candidate_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          {
+            "index": 9,
+            "plan_ms": 10.482249999999027,
+            "apply_ms": 45.60895799999898,
+            "finalize_ms": 3.560333000002913,
+            "action": "confirm",
+            "phase": "COMMITTED",
+            "generation": 10,
+            "before_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "candidate_policy": {
+              "default": "accept",
+              "rules": [
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          }
+        ],
+        "plan": {
+          "n": 10,
+          "median_ms": 12.306687500000635,
+          "min_ms": 7.212374999998161,
+          "max_ms": 17.48391699999985,
+          "samples_ms": [
+            10.697083000000163,
+            12.013667000001504,
+            16.31125000000111,
+            16.31054099999929,
+            11.063875000001389,
+            13.64816699999949,
+            12.599707999999765,
+            7.212374999998161,
+            17.48391699999985,
+            10.482249999999027
+          ]
+        },
+        "apply": {
+          "n": 10,
+          "median_ms": 44.41891699999978,
+          "min_ms": 39.061541999998894,
+          "max_ms": 48.61691600000029,
+          "samples_ms": [
+            45.38612500000028,
+            45.08870800000153,
+            39.061541999998894,
+            40.700749999999175,
+            43.74912599999803,
+            40.584290999998274,
+            45.700874999997865,
+            48.61691600000029,
+            42.65554100000202,
+            45.60895799999898
+          ]
+        },
+        "confirm": {
+          "n": 5,
+          "median_ms": 3.572459000000805,
+          "min_ms": 3.4737499999977217,
+          "max_ms": 3.945292000000933,
+          "samples_ms": [
+            3.4737499999977217,
+            3.945292000000933,
+            3.572459000000805,
+            3.8070420000018146,
+            3.560333000002913
+          ]
+        },
+        "cancel": {
+          "n": 5,
+          "median_ms": 29.250749999999215,
+          "min_ms": 25.696083999999786,
+          "max_ms": 36.087458000000794,
+          "samples_ms": [
+            36.087458000000794,
+            29.250749999999215,
+            29.396790999999922,
+            25.696083999999786,
+            28.574124999998674
+          ]
+        },
+        "rss": {
+          "initial_bytes": 23863296,
+          "final_bytes": 24231936,
+          "worker_high_water_bytes": 24231936,
+          "scope": "Agent process only; excludes transient nft children, clients and VM; kernel-reported VmHWM"
+        },
+        "disk": {
+          "logical_bytes": 347881,
+          "allocated_bytes": 372736,
+          "files": {
+            "key.pem": {
+              "logical_bytes": 1704,
+              "allocated_bytes": 4096
+            },
+            "reserve": {
+              "logical_bytes": 262144,
+              "allocated_bytes": 262144
+            },
+            "executor-f3f49fa7a5abbafd5ffd9553b7e29ebd.json": {
+              "logical_bytes": 126,
+              "allocated_bytes": 4096
+            },
+            "agent.lock": {
+              "logical_bytes": 0,
+              "allocated_bytes": 0
+            },
+            "cert.pem": {
+              "logical_bytes": 1155,
+              "allocated_bytes": 4096
+            },
+            "state.sqlite": {
+              "logical_bytes": 81920,
+              "allocated_bytes": 86016
+            },
+            "writer.lock": {
+              "logical_bytes": 0,
+              "allocated_bytes": 0
+            },
+            "batch-f3f49fa7a5abbafd5ffd9553b7e29ebd.nft": {
+              "logical_bytes": 178,
+              "allocated_bytes": 4096
+            },
+            "rescue.json": {
+              "logical_bytes": 590,
+              "allocated_bytes": 4096
+            },
+            "token": {
+              "logical_bytes": 64,
+              "allocated_bytes": 4096
+            }
+          },
+          "scope": "Private state directory, including test TLS files; filesystem allocation, not container image size"
+        },
+        "warmup": "Service readiness only; all 10 operation trials retained",
+        "timing_scope": "TLS request/response including connection+handshake, checks, nft and durable journal; one client, loopback-veth path in VM; no baseline speedup claim"
+      },
+      "seconds": 0.9337990420000004
+    }
+  ],
+  "unit_stage": {
+    "exit_code": 0,
+    "timed_out": false,
+    "seconds": 1.0690036250000006,
+    "passed": true
+  },
+  "unit": {
+    "passed": true,
+    "tests": 40,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 0.9959920840000009,
+    "source": {
+      "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
+      "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
+      "pyproject.toml": "3f657191c7ac257f75158c843549f32cea614ed91b267059696956126fcaa28f",
+      "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
+      "rulemoor/backend.py": "3b803f2ec05080bb8c3cf754e55d1e4c0d2e62a2b5f899d46b770cddf8670789",
+      "rulemoor/cli.py": "eda8891f09abeadeb92bbfda88e2cdf70c633a72aadcf3e3473c8d8edf8f3e8f",
+      "rulemoor/core.py": "5da5904b45fc08c814dcd52ea9a695613189464367cadd1cde676fda4e3d6df4",
+      "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
+      "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
+      "rulemoor/service.py": "15e03f11fd968d200ea0e33e9f9e43b9925dca8952cf5a22c465e0e7e1a12a18",
+      "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tests/test_api.py": "36fc0620f8f5688c27edd1f4667a94e1e048186d0f8b15ba48eef4453476f191",
+      "tests/test_core.py": "71e5647b614569c9ee9ad2695a76f4590f086b1a65fd05f17fbb7a82b30eb94c",
+      "tests/test_tools.py": "5dbf39a0e755eafae3e0574d58a38653b843e3c0a4a0e9404fce7d42039ba520",
+      "tools/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tools/agent_driver.py": "6ab01068cf71fd154041b8faa01043d65778f30bb43ce3e9fe3316a4c6a88c77",
+      "tools/audit_evidence.py": "210dc9b94f4f1082c2ce2c1485a85b6c5512db65c91900d2a7582998ed761114",
+      "tools/client_driver.py": "121e39d0b69a3a96c954280fd08c9a9675d294439e922a6131b678539d82d815",
+      "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
+      "tools/evidence.py": "5d5ce2066f0267f8d563c0cd9afd3dca478aa65cd99dc378d67c972faddf6c25",
+      "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
+      "tools/linux_cases.py": "8866e6aa7b3ef69dfd4edba27812fc52efbcf30c9aaa967ad014b15c4cabbb49",
+      "tools/linux_validate.py": "f60c964132f43b028cf4f0329982e838db5f01ffecee314bce1340a858efcdfe",
+      "tools/local_entry.py": "f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911",
+      "tools/mutations.py": "e3330c9c85d076853588ef126bf429373ddc1cf0da3b07671548051df6801cf8",
+      "tools/process.py": "6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f",
+      "tools/report.py": "82f54562e2d645d2d784f69d2574c0cb974bfcc5f3ffdd21757a2d0de9dbaea3",
+      "tools/storage_fault.py": "98029c3c32ab075418ac99ba77055cafa0f61d9c4d399f5f6399bfc32009a300",
+      "tools/unit.py": "6b7928c487211651bbb8fa7991efc04949ce255474f8dd91c44efa4e5a1e1013",
+      "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
+      "tools/validate_local.py": "06a2af4e00468a1529b3c837235c63fb7f86468d47ed3c4ff2949d08b297b084"
+    },
+    "source_sha256": "9b638019a720f1f872c18b8d04d1ed2519df99535748159f397bd24d90efe7db",
+    "run_id": "4f1e93769abbc384",
+    "platform": "Linux",
+    "architecture": "aarch64",
+    "python": "3.12.14",
+    "test_process_peak_rss_bytes": 35876864,
+    "scope": "Portable production-core contracts with a memory backend; not real nft or network performance"
+  },
+  "environment": {
+    "kernel": "6.8.0-117-generic",
+    "architecture": "aarch64",
+    "python": "3.12.14",
+    "nft": "nftables v1.0.6 (Lester Gooch #5)",
+    "packages": [
+      "iproute2\t6.1.0-3",
+      "libnftables1:arm64\t1.0.6-2+deb12u2",
+      "nftables\t1.0.6-2+deb12u2",
+      "openssl\t3.0.22-1~deb12u1"
+    ],
+    "scope": "Real Linux kernel in Colima VM; no host firewall mutation; not native macOS"
+  },
+  "cleanup": {
+    "remaining_processes": [],
+    "remaining_namespaces": "",
+    "passed": true,
+    "container_root_rules_unchanged": true
+  },
+  "source_changed": false
+}
