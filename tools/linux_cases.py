@@ -38,8 +38,11 @@ def start(args, ns=TARGET, env=None):
 
 
 def stop(p):
-    if p.poll() is None:
+    # A dead parent can still own a process group with live orphan executors.
+    try:
         os.killpg(p.pid, signal.SIGKILL)
+    except ProcessLookupError:
+        pass
     p.communicate(timeout=4)
 
 
@@ -274,7 +277,27 @@ def service_recovery(parent):
     outcome = client(root, '/apply', {'op': 'timeout', 'generation': 0, 'policy': NEXT, 'window': 5})
     assert not outcome['ok'] and state(root)['phase'] == 'ROLLED_BACK' and kernel() == expected(BASE)
     p.send_signal(signal.SIGTERM); out, err = p.communicate(timeout=5); assert p.returncode == 0, err
-    return {'executor_timeout_reported_failure_and_restored': True, 'pending_restart_restored': True, 'stale_confirmation_rejected': True,
+    root = parent / 'corrupt-executor-record'; reset(root)
+    old = start([sys.executable, '-m', 'tools.agent_driver', 'apply', root, '--hold', 'executor-held'],
+                env=dict(os.environ, RULEMOOR_FAULT='executor-held'))
+    wait(lambda: (root / 'executor-held.reached').exists())
+    pending = state(root)
+    receipt = json.loads((root / ('executor-' + pending['executor_token'] + '.json')).read_text())
+    held_identity = {k: receipt[k] for k in ('pid', 'start_ticks', 'boot')}
+    old.kill(); old.communicate(timeout=3)
+    (root / ('executor-' + pending['executor_token'] + '.json')).write_text('{corrupt')
+    before = kernel()
+    p = serve(root)
+    observed = client(root)['value']
+    assert observed['phase'] == 'DEGRADED' and 'Invalid executor identity record' in observed['reason']
+    assert not client(root, '/apply', {'op': 'blocked-after-corruption', 'generation': pending['generation'], 'policy': NEXT, 'window': 2})['ok']
+    assert kernel() == before == expected(BASE)
+    p.send_signal(signal.SIGTERM); _, err = p.communicate(timeout=5); assert p.returncode == 0, err
+    # Corrupt identity is not permission for production to kill an uncertain PID.
+    # The fixture owns the original process group and retires its held orphan.
+    stop(old)
+    wait(lambda: identity(held_identity['pid']) != held_identity)
+    return {'corrupt_record_fixture_orphan_retired_before_next_case': True, 'corrupt_executor_record_degraded_without_write': True, 'executor_timeout_reported_failure_and_restored': True, 'pending_restart_restored': True, 'stale_confirmation_rejected': True,
             'durably_confirmed_restart_preserved': True, 'graceful_shutdown_restored': True}
 
 

@@ -53,6 +53,20 @@
     "run_id": "04dc27f97d65586b",
     "passed": true,
     "source_sha256": "cf9055fb22968517608759f2b024b7b701ace9568e6ea736c49c481a06b679ca",
-    "note": "Current reviewed pass: 48 tests per platform, eight production mutations, seventeen evidence controls, eight Linux groups."
+    "note": "Agent-reviewed pass retained in f50e7a7; superseded by final pre-publication metadata diagnostics and inter-case cleanup checks."
+  },
+  {
+    "attempt": "prepublication-20261021",
+    "run_id": "a0294ea25b8bc63f",
+    "passed": true,
+    "source_sha256": "fb5e00f98c93d02911146ae488a00196d7614d49a447d91d23436452d3bd6ca8",
+    "note": "Passed then-current checks; superseded because the new corrupt-record fixture retired its orphan only at final cleanup. Not used for current published measurements."
+  },
+  {
+    "attempt": "prepublication-20261021-final",
+    "run_id": "bef6e4bc43213324",
+    "passed": true,
+    "source_sha256": "6dd4cbdefd9d39d7c6a522441ab139b90f1e5b62e9b7523b5e16cdde0cc2a7fa",
+    "note": "Current pre-publication pass: 49 tests/platform, nine production mutations, seventeen evidence controls, eight Linux groups, zero namespace workers after each case."
   }
 ]

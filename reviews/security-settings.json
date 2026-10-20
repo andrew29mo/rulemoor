@@ -18,7 +18,7 @@
     "sha_pinning_required": true
   },
   "allowed_actions": {
-    "github_owned_allowed": false,
+    "github_owned_allowed": true,
     "patterns_allowed": [
       "actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09",
       "actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1"
@@ -44,5 +44,6 @@
     "main_protection": "GitHub PUT returned 403: private repository requires an upgraded plan or public visibility",
     "secret_scanning_and_push_protection": "GitHub PATCH returned 422: secret scanning unavailable for this repository; neither claimed enabled"
   },
-  "remote_workflow_dispatched": false
+  "remote_workflow_dispatched": false,
+  "settings_rechecked_on": "2026-10-21"
 }

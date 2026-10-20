@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import secrets
+import re
 import signal
 import subprocess
 import sys
@@ -108,6 +109,8 @@ class NftBackend:
         token = state.get('executor_token')
         if not token:
             return
+        if not isinstance(token, str) or re.fullmatch(r'[0-9a-f]{32}', token) is None:
+            raise RuntimeError('Invalid executor token; local operator recovery required')
         path = Path(root) / ('executor-' + token + '.json')
         end = clock() + 2
         while not path.exists() and clock() < end:
@@ -118,10 +121,23 @@ class NftBackend:
             fd = lock(Path(root) / 'writer.lock')
             os.close(fd)
             return
-        rec = json.loads(path.read_text())
+        try:
+            with path.open('rb') as stream:
+                raw = stream.read(4097)
+            if len(raw) > 4096:
+                raise ValueError('Oversized identity record')
+            rec = json.loads(raw)
+            if not isinstance(rec, dict) or set(rec) != {'pid', 'start_ticks', 'boot', 'token'}:
+                raise ValueError('Invalid identity fields')
+            if type(rec['pid']) is not int or rec['pid'] <= 1:
+                raise ValueError('Invalid executor PID')
+            if type(rec['start_ticks']) is not int or rec['start_ticks'] < 0:
+                raise ValueError('Invalid process start time')
+            if not isinstance(rec['boot'], str) or not 0 < len(rec['boot']) <= 128 or rec['token'] != token:
+                raise ValueError('Invalid boot/token identity')
+        except (ValueError, TypeError):
+            raise RuntimeError('Invalid executor identity record; local operator recovery required') from None
         expected = {k: rec[k] for k in ('pid', 'start_ticks', 'boot')}
-        if rec['token'] != token:
-            raise RuntimeError('Executor identity token mismatch')
         if identity(rec['pid']) != expected:
             return
         try:

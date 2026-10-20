@@ -164,7 +164,7 @@ class CoreTests(unittest.TestCase):
     def executor_exit_recovery(self, boundary):
         from rulemoor.backend import NftBackend
         self.apply(op='exit-' + boundary)
-        token = 'exited-' + boundary
+        token = 'e' * 32
         record = {'pid': 12345678, 'start_ticks': 1, 'boot': 'test-boot', 'token': token}
         Path(self.temp.name, 'executor-' + token + '.json').write_text(json.dumps(record))
         self.c.s['executor_token'] = token
@@ -187,7 +187,7 @@ class CoreTests(unittest.TestCase):
     def test_executor_permission_failure_still_blocks_recovery(self):
         from rulemoor.backend import NftBackend
         self.apply()
-        token = 'permission-failure'
+        token = 'f' * 32
         record = {'pid': 12345678, 'start_ticks': 1, 'boot': 'test-boot', 'token': token}
         Path(self.temp.name, 'executor-' + token + '.json').write_text(json.dumps(record))
         self.c.s['executor_token'] = token; self.c._save('simulated_executor_record')
@@ -263,3 +263,34 @@ class PolicyTests(unittest.TestCase):
     def test_canonical_retains_unknowns(self):
         raw = {'nftables': [{'metainfo': {}}, {'rule': {'handle': 5, 'expr': [{'unknown': 1}]}}]}
         self.assertEqual(canonical(raw), [{'rule': {'expr': [{'unknown': 1}]}}])
+
+
+class RecoveryMetadataTests(unittest.TestCase):
+    def test_corrupt_executor_metadata_is_degraded_without_signaling(self):
+        from rulemoor.backend import NftBackend
+        token = 'a' * 32
+        valid = {'pid': 12345678, 'start_ticks': 1, 'boot': 'test-boot', 'token': token}
+        payloads = ['{broken', '{}', json.dumps({**valid, 'pid': True}),
+                    json.dumps({**valid, 'start_ticks': 'wrong'}),
+                    json.dumps({**valid, 'boot': None}), json.dumps({**valid, 'token': 'b' * 32}),
+                    ' ' * 4097 + json.dumps(valid)]
+        for payload in payloads:
+            with self.subTest(payload=payload[:80]), tempfile.TemporaryDirectory() as root:
+                b = MemoryBackend(); c = Controller(root, b)
+                c.initialize(BASE); c.apply('metadata', 0, NEXT, 10)
+                c.s['executor_token'] = token; c._save('metadata_fixture'); c.close()
+                Path(root, 'executor-' + token + '.json').write_text(payload)
+                b.retire = NftBackend().retire
+                c = Controller(root, b)
+                error = None
+                try:
+                    with patch('rulemoor.backend.clock', return_value=100.), \
+                         patch('rulemoor.backend.identity', side_effect=AssertionError('Invalid record reached a process lookup')):
+                        try: result = c.start()
+                        except Exception as exc: error = type(exc).__name__
+                    self.assertIsNone(error, 'Malformed metadata aborted startup instead of reporting DEGRADED')
+                    self.assertEqual(result['phase'], 'DEGRADED')
+                    self.assertEqual(b.read(), expected(NEXT))
+                    with self.assertRaises(Conflict): c.apply('blocked', 1, BASE, 10)
+                finally:
+                    c.close()

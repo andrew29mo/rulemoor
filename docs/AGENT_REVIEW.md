@@ -16,12 +16,14 @@ History output was also moved outside the controller lock. The original slow-rea
 
 ## Final evidence
 
-Current artifacts are in `reviews/mvp/`: native macOS and Linux each pass 48 tests, eight production mutations are caught by assertion failures, seventeen corrupted evidence controls are rejected, and all eight real-Linux case groups pass. The raw source manifest/run ID, unit test IDs, distinct fencing policies, process identity, actual kernel readbacks, cleanup and full measurement trials are retained. Both reviewers rechecked the final evidence; the recovery reviewer also reran the three identity/policy tamper controls.
+The agent-reviewed run `04dc27f97d65586b`, retained in commit `f50e7a7`, had native macOS and Linux each pass 48 tests, eight production mutations are caught by assertion failures, seventeen corrupted evidence controls are rejected, and all eight real-Linux case groups pass. The raw source manifest/run ID, unit test IDs, distinct fencing policies, process identity, actual kernel readbacks, cleanup and full measurement trials are retained. Both reviewers rechecked that agent-review run; the recovery reviewer also reran the three identity/policy tamper controls.
 
 The installed package is separately compared against the validated module files. Raw local host logs, generated credentials, personal agent settings and orchestration logs are not publication artifacts.
 
 ## Interpretation and limits
 
-The timing experiment retains ten sequential, policy-changing TLS operations, split between five confirmations and five cancellations. Its RSS is the agent process's kernel VmHWM, excluding nft children, clients and VM memory. Updated values in `docs/MEASUREMENTS.md` describe the reviewed run; no before/after speedup is inferred.
+The timing experiment retains ten sequential, policy-changing TLS operations, split between five confirmations and five cancellations. Its RSS is the agent process's kernel VmHWM, excluding nft children, clients and VM memory. The latest values in `docs/MEASUREMENTS.md` may describe a later pre-publication run; no before/after speedup is inferred.
 
 The five-second lifetime bounds a finite set of slow connections. Continuous replacement connections can still deny admission and prevent an operator from confirming; the timeout/recovery path is intended to fail safe, not guarantee availability under attack. No production SLA, comprehensive DoS resistance, systemd boot validation, host-reboot or power-loss proof is claimed. Private-plan branch protection and Secret scanning limitations remain as recorded in `reviews/security-settings.json`.
+
+Subsequent pre-publication changes and their latest evidence are documented in `PUBLICATION_REVIEW.md`. This historical agent review does not imply the two reviewers examined those later changes.

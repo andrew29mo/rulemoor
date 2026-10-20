@@ -43,6 +43,16 @@ def main():
                 # A failed case must not leave an active agent affecting later measurements.
                 for p in cases.PROCESSES:
                     cases.stop(p)
+                end = time.monotonic() + 1
+                while True:
+                    remaining = {ns: cases.call(['ip', 'netns', 'pids', ns]).stdout.split()
+                                 for ns in (cases.CTL, cases.TARGET)}
+                    if not any(remaining.values()) or time.monotonic() >= end:
+                        break
+                    time.sleep(.01)
+                row['post_case_processes'] = remaining
+                save(output / 'linux.json', value)
+                assert not any(remaining.values()), 'A case leaked workers before the next measurement'
     except BaseException as exc:
         value.update(error=type(exc).__name__ + ': ' + str(exc), traceback=traceback.format_exc())
     finally:

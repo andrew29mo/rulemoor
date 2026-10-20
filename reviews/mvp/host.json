@@ -1,93 +1,93 @@
 {
   "schema": 1,
-  "run_id": "04dc27f97d65586b",
+  "run_id": "bef6e4bc43213324",
   "passed": true,
-  "source_sha256": "cf9055fb22968517608759f2b024b7b701ace9568e6ea736c49c481a06b679ca",
+  "source_sha256": "6dd4cbdefd9d39d7c6a522441ab139b90f1e5b62e9b7523b5e16cdde0cc2a7fa",
   "source_changed": false,
   "stages": [
     {
       "name": "native-contracts",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.338208499997563
+      "seconds": 2.339930333000666
     },
     {
       "name": "production-mutations",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.7408303749980405
+      "seconds": 1.8963743749991409
     },
     {
       "name": "vm-initial",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2590191249983036
+      "seconds": 0.4102021250000689
     },
     {
       "name": "vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.56548012499843
+      "seconds": 9.047803417000978
     },
     {
       "name": "image-build",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.6877983330050483
+      "seconds": 1.6916427079995628
     },
     {
       "name": "image-inspect",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.021223624993581325
+      "seconds": 0.02203166700201109
     },
     {
       "name": "container-create",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.029499292002583388
+      "seconds": 0.029597250002552755
     },
     {
       "name": "container-inspect",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.01112200000352459
+      "seconds": 0.011454625004262198
     },
     {
       "name": "linux-run",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 26.704230750001443
+      "seconds": 26.848724583003786
     },
     {
       "name": "container-state",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.013276291996589862
+      "seconds": 0.012243167002452537
     },
     {
       "name": "export",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.017180583003209904
+      "seconds": 0.01877283400244778
     },
     {
       "name": "container-remove",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.020464082997932564
+      "seconds": 0.021869874995900318
     },
     {
       "name": "vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.260081166001328
+      "seconds": 2.377160415999242
     },
     {
       "name": "vm-final",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.20152341700304532
+      "seconds": 0.19293520799692487
     }
   ],
   "scope": "Native macOS portable contracts + Colima Linux real kernel",
@@ -142,6 +142,13 @@
       "timed_out": false
     },
     {
+      "name": "unhandled-corrupt-executor-record",
+      "test": "tests.test_core.RecoveryMetadataTests.test_corrupt_executor_metadata_is_degraded_without_signaling",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
       "name": "unbounded-header-trickle",
       "test": "tests.test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections",
       "caught_by_assertion": true,
@@ -151,7 +158,7 @@
   ],
   "vm_initial_state": "Stopped",
   "image": {
-    "Id": "sha256:4f803981c128cb9f855cbf41f1805a9dcc663ed569ad41c55bc510c52762948d",
+    "Id": "sha256:f222e1bf9c5ef6141ee589b5d8f9f8c4b9472276f2fcb96e133c408a8b365f4f",
     "Architecture": "arm64",
     "Os": "linux"
   },

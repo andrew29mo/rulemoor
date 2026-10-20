@@ -44,10 +44,12 @@ def verify(linux, native, host, source):
             'test_core.CoreTests.test_executor_exit_before_pidfd_open_recovers',
             'test_core.CoreTests.test_executor_exit_before_pidfd_signal_recovers',
             'test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections',
-            'test_tools.ProcessTests.test_optimized_validation_cannot_claim_success'} <= set(native['test_ids'])
-    assert native['tests'] >= 48 and native['errors'] == native['failures'] == native['skipped'] == 0
+            'test_tools.ProcessTests.test_optimized_validation_cannot_claim_success',
+            'test_core.RecoveryMetadataTests.test_corrupt_executor_metadata_is_degraded_without_signaling'} <= set(native['test_ids'])
+    assert native['tests'] >= 49 and native['errors'] == native['failures'] == native['skipped'] == 0
     assert [r['name'] for r in linux['cases']] == ['atomic_batches', 'management_path', 'crash_matrix', 'service_recovery', 'queued_connection_and_response_loss', 'storage_faults', 'slow_clients_and_deadline', 'measurement']
     assert all(r['passed'] is True and 'evidence' in r for r in linux['cases'])
+    assert all(set(r['post_case_processes']) == {'rm_control', 'rm_target'} and not any(r['post_case_processes'].values()) for r in linux['cases'])
     atomic, network, crash, recovery, queued, storage, slow, measured = [r['evidence'] for r in linux['cases']]
     assert atomic['unrelated_table_unchanged']
     assert atomic['nft_exec_lock_inherited']
@@ -70,7 +72,7 @@ def verify(linux, native, host, source):
     assert fenced['new_generation'] > crash[2]['generation_after'] > crash[2]['generation_before']
     assert fenced['final_phase'] == 'COMMITTED'
     assert all(r['after_phase'] == 'DEGRADED' and r['unknown_preserved'] for r in crash[6:])
-    assert set(recovery) == {'executor_timeout_reported_failure_and_restored', 'pending_restart_restored', 'stale_confirmation_rejected', 'durably_confirmed_restart_preserved', 'graceful_shutdown_restored'}
+    assert set(recovery) == {'corrupt_record_fixture_orphan_retired_before_next_case', 'corrupt_executor_record_degraded_without_write', 'executor_timeout_reported_failure_and_restored', 'pending_restart_restored', 'stale_confirmation_rejected', 'durably_confirmed_restart_preserved', 'graceful_shutdown_restored'}
     assert all(v is True for v in recovery.values())
     assert queued['queued_before_apply_accepted_later']['confirm_status'] == 409
     assert queued['confirmed_response_lost'] and queued['committed_survived_restart']

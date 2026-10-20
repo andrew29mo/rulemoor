@@ -16,6 +16,7 @@ MUTATIONS = [
     ('rulemoor/core.py', 'commit-before-durable-save', 'self.s = before', 'pass', 'tests.test_core.CoreTests.test_confirmation_persistence_failure'),
     ('rulemoor/core.py', 'misreport-post-commit-checkpoint', "self.checkpoint_warning = 'Journal checkpoint failed; transaction committed'", 'raise', 'tests.test_core.CoreTests.test_post_commit_checkpoint_failure_preserves_confirmation'),
     ('rulemoor/backend.py', 'fail-recovery-on-natural-exit', 'return  # Natural exit after identity check; caller still verifies writer.lock.', 'raise', 'tests.test_core.CoreTests.test_executor_exit_before_pidfd_open_recovers'),
+    ('rulemoor/backend.py', 'unhandled-corrupt-executor-record', "raise RuntimeError('Invalid executor identity record; local operator recovery required') from None", 'raise', 'tests.test_core.RecoveryMetadataTests.test_corrupt_executor_metadata_is_degraded_without_signaling'),
     ('rulemoor/service.py', 'unbounded-header-trickle', 'threading.Timer(MAX_CONNECTION_SECONDS,', 'threading.Timer(60.0,', 'tests.test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections'),
 ]
 
