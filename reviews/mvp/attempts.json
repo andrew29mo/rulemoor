@@ -130,6 +130,13 @@
     "run_id": "4447fa732873e1a8",
     "passed": true,
     "source_sha256": "decbbbc637af274add41fc1eb3c4e4b58159a331907eb6247956b29da7425561",
-    "note": "Current management-preflight source: 81 tests/platform, twenty-three production mutations, seventeen container evidence controls and eight real Linux groups. Configured service measurements are separate from this unconfigured operation benchmark."
+    "note": "Historical management-preflight source: 81 tests/platform, twenty-three production mutations, seventeen container evidence controls and eight real Linux groups. Configured service measurements are separate from this unconfigured operation benchmark. Superseded by agent-reviewed recovery ordering, NEW/ESTABLISHED diagnosis and TCP cause checks."
+  },
+  {
+    "attempt": "management-preflight-agent-review-20261021",
+    "run_id": "6ed204f4e6c8dead",
+    "passed": true,
+    "source_sha256": "ac398e4379e004285a44459268cd555940bee5b0cf898ba5b47315f723729e8d",
+    "note": "Current management-preflight source: 85 tests/platform, twenty-five production mutations, seventeen container evidence controls and eight real Linux groups. Configured service measurements are separate from this unconfigured operation benchmark."
   }
 ]

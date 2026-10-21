@@ -9,7 +9,7 @@ MAX_PATH_BYTES = 4096
 MAX_PATHS = 8
 MAX_ENTRIES = 4096
 MAX_CHAINS = 64
-SCOPE = 'New IPv4 TCP traffic to explicitly configured local destination ports; not an end-to-end route proof'
+SCOPE = 'NEW and ESTABLISHED IPv4 TCP input traffic to explicitly configured local destination ports; not an end-to-end route proof'
 
 
 def validate_paths(paths):
@@ -53,8 +53,8 @@ def own_paths(policy, paths):
     return {'status': 'blocked' if any(p['decision'] == 'drop' for p in out) else 'allowed', 'paths': out}
 
 
-def match_value(expr, port):
-    """True/False/unknown for a small documented NEW IPv4 TCP model."""
+def match_value(expr, port, state):
+    """True/False/unknown for a small documented IPv4 TCP state model."""
     if not isinstance(expr, dict) or set(expr) != {'op', 'left', 'right'}:
         return None
     left, right, op = expr['left'], expr['right'], expr['op']
@@ -70,13 +70,13 @@ def match_value(expr, port):
             states = [states]
         if isinstance(states, list) and all(isinstance(s, str) and s in ('new','established','related','invalid','untracked') for s in states):
             if op in ('in', '=='):
-                return 'new' in states
+                return state in states
             if op == '!=':
-                return 'new' not in states
+                return state not in states
     return None
 
 
-def chain_decision(chain, rules, port):
+def state_decision(chain, rules, port, state):
     outcomes = set()
     reachable = True
     for rule in rules:
@@ -89,7 +89,7 @@ def chain_decision(chain, rules, port):
                 unsupported = True; continue
             kind, value = next(iter(expression.items()))
             if kind == 'match':
-                result = match_value(value, port)
+                result = match_value(value, port, state)
                 if result is False: matched = False
                 elif result is None and matched is not False: matched = None
             elif kind in ('accept', 'drop') and value is None and verdict is None:
@@ -112,6 +112,17 @@ def chain_decision(chain, rules, port):
     if outcomes == {'drop'}:
         return 'blocked'
     if outcomes == {'accept'}:
+        return 'no_observed_input_conflict'
+    return 'risk'
+
+
+def chain_decision(chain, rules, port):
+    # A fresh TCP/TLS session needs both initial and subsequent ingress packets.
+    # Accepting only NEW packets cannot justify a conflict-free session model.
+    outcomes = {state_decision(chain, rules, port, state) for state in ('new','established')}
+    if 'blocked' in outcomes:
+        return 'blocked'
+    if outcomes == {'no_observed_input_conflict'}:
         return 'no_observed_input_conflict'
     return 'risk'
 

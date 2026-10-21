@@ -16,7 +16,8 @@ STAGES = ['vm-initial','vm-start','preflight','guest-prerequisites','wheel-build
           'guest-cleanup','snapshot-remove','vm-final-stop','vm-final']
 CONTROL_NAMES = ['boot-identity','missing-case','stale-kernel','missing-cleanup','timeout','source',
                  'missing-stage','wrong-package-origin','wrong-preboot-journal','stale-pending-generation',
-                 'infinite-timing','missing-vm-interval','memory-identity','invalid-memory','poison-kernel-write','restart-still-running','failed-journal-changed','missing-limit-receipt','future-limit-receipt','unrelated-startup-memory','wrong-poison-invocation','guard-admitted','foreign-rule-modified','uncertainty-hidden','old-confirmation-admitted','false-tcp-observation']
+                 'infinite-timing','missing-vm-interval','memory-identity','invalid-memory','poison-kernel-write','restart-still-running','failed-journal-changed','missing-limit-receipt','future-limit-receipt','unrelated-startup-memory','wrong-poison-invocation','guard-admitted','foreign-rule-modified','uncertainty-hidden','old-confirmation-admitted','false-tcp-observation',
+                 'connection-refused','missing-tcp-recovery','changed-tcp-listener','configuration-recovery-skipped']
 
 
 def positive(value):
@@ -71,7 +72,42 @@ def stale_trace(t, policy, require_confirmation):
 
 
 
+def tcp_probe_evidence(probe, listener_identity, connected):
+    assert probe['connected'] is connected and type(probe['errno']) is int
+    assert probe['errno'] in ((0,) if connected else (11,110))
+    for point in ('listener_before','listener_after'):
+        assert probe[point]['poll'] is None and probe[point]['identity']==listener_identity
+
+
+def tcp_drop_cycle(before, drop, recovered, listener_identity):
+    tcp_probe_evidence(before,listener_identity,True)
+    tcp_probe_evidence(drop,listener_identity,False)
+    tcp_probe_evidence(recovered,listener_identity,True)
+
+
+def configuration_recovery_evidence(cases, boot):
+    assert [case['kind'] for case in cases]==['missing','null']
+    for case in cases:
+        pending=case['pending_journal'];recovered=case['recovered_journal']
+        assert pending==case['pending_journal_before_kill'] and pending['phase']=='AWAITING_CONFIRM'
+        assert pending['candidate']==NEXT and pending['current']==pending['baseline']==BASE
+        assert case['pending_kernel']==case['pending_kernel_before_kill']==expected(NEXT)
+        before,at_kill=case['unit_before_kill'],case['unit_at_kill']
+        assert int(before['MainPID'])>1 and before['MainPID']==at_kill['MainPID']
+        assert before['InvocationID'] and before['InvocationID']==at_kill['InvocationID']
+        assert before['ActiveState']==at_kill['ActiveState']=='active' and case['signal']=='SIGKILL'
+        assert recovered['phase']=='ROLLED_BACK' and recovered['generation']>pending['generation']
+        assert recovered['op']==pending['op'] and recovered['current']==recovered['baseline']==BASE
+        assert recovered['boot']==pending['boot']==case['boot_before']==case['boot_after']==boot
+        assert case['recovered_kernel']==expected(BASE) and case['ready_after_repair']==recovered
+        failed=case['failed_unit']
+        assert failed['ActiveState']=='failed' and failed['MainPID']=='0' and failed['Result'] in ('exit-code','start-limit-hit')
+        assert 1<=int(failed['NRestarts'])<=6
+        rate_limit_receipts({**case,'observation_clock':{'started_ns':case['failure_observed_monotonic_ns']}},boot)
+
+
 def preflight_evidence(row, boot):
+    configuration_recovery_evidence(row['configuration_recovery_cases'],boot)
     assert row['configuration']=='explicit-local-ipv4-tcp-ports' and row['supported_configuration_override']
     for diag in [row['denied_plan'],row['ordered_plan'],row['unsupported_condition'],*[r['diagnostics'] for r in row['foreign_priority_cases']]]:
         assert diag['configuration']=='configured' and diag['fresh_connection_confirmation_required'] is True and diag['reachability_verified'] is False
@@ -81,7 +117,10 @@ def preflight_evidence(row, boot):
     assert row['state_before_denial']==row['state_after_denial']
     assert row['state_before_denial']['phase']=='COMMITTED'
     assert row['own_kernel_before']==row['own_kernel_after_denial']==expected(BASE)
-    assert row['tcp_probe_before_foreign_drop']['connected'] is True and row['tcp_probe_before_foreign_drop']['errno']==0
+    listener=row['listener_identity']
+    assert type(listener['pid']) is int and listener['pid']>1
+    assert type(listener['start_ticks']) is int and listener['start_ticks']>=0 and listener['boot']==boot
+    tcp_probe_evidence(row['tcp_probe_before_foreign_drop'],listener,True)
     assert [r['priority'] for r in row['foreign_priority_cases']]==[-100,10]
     for case in row['foreign_priority_cases']:
         assert case['foreign_before']==case['foreign_after'] and case['foreign_before']
@@ -92,11 +131,11 @@ def preflight_evidence(row, boot):
         assert case['diagnostics']['external']['status']=='blocked'
         found=next(c for c in case['diagnostics']['external']['input_chains'] if c['table']=='rm_preflight_external')
         assert found['priority']==case['priority'] and [p['status'] for p in found['paths']]==['no_observed_input_conflict','blocked']
-        assert case['tcp_probe']['connected'] is False and type(case['tcp_probe']['errno']) is int and case['tcp_probe']['errno']!=0
+        tcp_drop_cycle(case['tcp_probe_before'],case['tcp_probe'],case['tcp_probe_recovered'],listener)
         interval(case['plan_clock'],case['plan_observed_ms']/1000)
     assert row['unsupported_condition']['external']['status']=='risk'
     assert row['foreign_before_allowed_apply']==row['foreign_after_allowed_apply'] and row['foreign_before_allowed_apply']
-    assert row['tcp_probe_after_unknown_condition']['connected'] is False and row['tcp_probe_after_unknown_condition']['errno']!=0
+    tcp_drop_cycle(row['tcp_probe_before_unknown_condition'],row['tcp_probe_after_unknown_condition'],row['tcp_probe_recovered_unknown_condition'],listener)
     c=row['confirmation'];assert c['old_status']==200 and c['old_confirm']==409 and c['fresh_phase']=='COMMITTED'
     s=row['state_after_allowed_apply'];assert s['phase']=='COMMITTED' and s['generation']==c['generation']>row['state_before_denial']['generation']
     assert row['own_kernel_after_allowed_apply']==expected(NEXT)
@@ -236,6 +275,10 @@ def negative_controls(value, source):
         elif name=='uncertainty-hidden':by_name['management_diagnostics']['unsupported_condition']['external']['status']='no_observed_input_conflict'
         elif name=='old-confirmation-admitted':by_name['management_diagnostics']['confirmation']['old_confirm']=200
         elif name=='false-tcp-observation':by_name['management_diagnostics']['foreign_priority_cases'][0]['tcp_probe']['connected']=True
+        elif name=='connection-refused':by_name['management_diagnostics']['foreign_priority_cases'][0]['tcp_probe']['errno']=111
+        elif name=='missing-tcp-recovery':del by_name['management_diagnostics']['foreign_priority_cases'][0]['tcp_probe_recovered']
+        elif name=='changed-tcp-listener':by_name['management_diagnostics']['foreign_priority_cases'][0]['tcp_probe_recovered']['listener_after']['identity']['start_ticks']+=1
+        elif name=='configuration-recovery-skipped':by_name['management_diagnostics']['configuration_recovery_cases'][0]['recovered_journal']['phase']='AWAITING_CONFIRM'
         elif name=='failed-journal-changed':by_name['restart_limit']['journal_while_failed']['phase']='ROLLED_BACK'
         try:verify(broken,source)
         except (AssertionError,KeyError):rows.append({'name':name,'rejected':True})

@@ -83,6 +83,16 @@ class DiagnosticTests(unittest.TestCase):
         established={'match':{'op':'in','left':{'ct':{'key':'state'}},'right':['established','related']}}
         self.assertEqual(self.inspect(ruleset([established,{'accept':None}],policy='drop'))['external']['status'],'blocked')
 
+    def test_established_ingress_block_is_not_hidden_by_new_accept(self):
+        for op,states in (('==','established'),('in',{'set':['established','related']}),('!=','new')):
+            match={'match':{'op':op,'left':{'ct':{'key':'state'}},'right':states}}
+            with self.subTest(op=op):
+                self.assertEqual(self.inspect(ruleset([match,{'drop':None}]))['external']['status'],'blocked')
+        new={'match':{'op':'==','left':{'ct':{'key':'state'}},'right':'new'}}
+        unknown={'match':{'op':'==','left':{'meta':{'key':'iifname'}},'right':'eth0'}}
+        raw=ruleset([new,{'accept':None}]);raw['nftables'].append({'rule':{'family':'ip','table':'external','chain':'input','expr':[unknown,{'drop':None}]}})
+        self.assertEqual(self.inspect(raw)['external']['status'],'risk')
+
     def test_unsupported_expression_jump_and_other_hooks_are_not_clear(self):
         ip={'match':{'op':'==','left':{'payload':{'protocol':'ip','field':'saddr'}},'right':'127.0.0.1'}}
         for expr in ([ip,{'drop':None}],[{'jump':{'target':'other'}}],[{'mangle':{'key':{},'value':1}}]):

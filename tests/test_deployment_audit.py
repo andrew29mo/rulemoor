@@ -1,7 +1,7 @@
 """Boundary checks for the production deployment evidence verifier."""
 import copy
 import unittest
-from tools.deployment_report import interval, positive, render, rate_limit_receipts
+from tools.deployment_report import interval, positive, render, rate_limit_receipts, tcp_drop_cycle
 
 
 class MeasurementEvidenceTests(unittest.TestCase):
@@ -46,3 +46,19 @@ class MeasurementEvidenceTests(unittest.TestCase):
         bad=copy.deepcopy(limited);bad['failure_started_monotonic_ns']=True
         with self.assertRaises(AssertionError):rate_limit_receipts(bad,'test-boot')
         with self.assertRaises(AssertionError):rate_limit_receipts(limited,'unrelated-boot')
+
+    def test_tcp_drop_requires_live_same_listener_and_successful_recovery(self):
+        listener={'pid':123,'start_ticks':456,'boot':'fixture-boot'}
+        def probe(connected):
+            return {'connected':connected,'errno':0 if connected else 11,
+                    'listener_before':{'poll':None,'identity':dict(listener)},
+                    'listener_after':{'poll':None,'identity':dict(listener)}}
+        good=[probe(True),probe(False),probe(True)]
+        tcp_drop_cycle(*good,listener)
+        for change in ('refused','listener-exited','listener-replaced','no-recovery'):
+            bad=copy.deepcopy(good)
+            if change=='refused':bad[1]['errno']=111
+            elif change=='listener-exited':bad[1]['listener_after']['poll']=1
+            elif change=='listener-replaced':bad[2]['listener_after']['identity']['start_ticks']+=1
+            else:bad[2]['connected']=False;bad[2]['errno']=11
+            with self.subTest(change=change),self.assertRaises(AssertionError):tcp_drop_cycle(*bad,listener)

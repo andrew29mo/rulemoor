@@ -9,6 +9,8 @@ from .evidence import ROOT, manifest, save
 from .process import run
 
 MUTATIONS = [
+    ('rulemoor/diagnostics.py', 'ignore-established-input-block', "for state in ('new','established')", "for state in ('new',)", 'tests.test_diagnostics.DiagnosticTests.test_established_ingress_block_is_not_hidden_by_new_accept'),
+    ('rulemoor/service.py', 'skip-service-startup-recovery', '        c.start()', '        pass', 'tests.test_service_startup.ServiceStartupTests.test_invalid_management_file_cannot_prevent_pending_recovery'),
     ('rulemoor/diagnostics.py', 'accept-null-file-configuration', " or value['paths'] is None", "", 'tests.test_diagnostics.DiagnosticTests.test_configuration_is_strict_bounded_and_copied'),
     ('rulemoor/diagnostics.py', 'hide-unknown-actions-behind-nonmatch', "if unsupported:", "if unsupported and matched is not False:", 'tests.test_diagnostics.DiagnosticTests.test_unknown_condition_cannot_hide_possible_drop'),
     ('rulemoor/core.py', 'skip-management-admission', "if diagnostics['own_policy']['status']=='blocked':", "if False:", 'tests.test_diagnostics.DiagnosticTests.test_first_match_and_default_guard_preserve_journal_and_kernel'),

@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "run_id": "c1431001b6cffb89",
-  "recorded_at_utc": "2026-10-21T02:09:43.556551+00:00",
+  "run_id": "d1c7c0713b157000",
+  "recorded_at_utc": "2026-10-21T02:29:24.214797+00:00",
   "passed": true,
   "source": {
     "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
@@ -11,15 +11,16 @@
     "rulemoor/backend.py": "0f58dacb7eb35727d738367476044e0e72d58459b4bbe2113fa038608cb6e078",
     "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
     "rulemoor/core.py": "01c601df1ea5d47b572d8c5eade72992d2725549f9ac960aba332e6c11a845ed",
-    "rulemoor/diagnostics.py": "24fd3db263b232b4eda3f633552722423e5d4c294fa420470bff2a71036b1dc3",
+    "rulemoor/diagnostics.py": "0afe68131e4f0ae001634e5604e78c3a289a2962e660664bccddd13b7f2f8304",
     "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
     "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
-    "rulemoor/service.py": "2439b33c850272873626c2971de3c85a6a922f4fda1fdce26428f92096597368",
+    "rulemoor/service.py": "4ceb2cdb744d4ce8c723570dfe9076037c98da3fd5bc4f4ac7ea7cfefddb9f63",
     "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
     "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
-    "tests/test_deployment_audit.py": "29a84f91a5afae2272f66b15620ac598b661a36069da4f99005bde7a90a28ee2",
-    "tests/test_diagnostics.py": "2f846eeae5c522731820432d42a6828df73ca2cc145095b713a423afabe1bf8c",
+    "tests/test_deployment_audit.py": "2aded3ab9edee04e189d2a8d69b60876bef1b5ae09dcfffa84b672a8e08d073c",
+    "tests/test_diagnostics.py": "1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7",
+    "tests/test_service_startup.py": "ed6f099450caa1268f47386bf138150e7a09c8a78c199f6a3e8c5fc79a6a3abf",
     "tests/test_startup_state.py": "eb4d74d1446c86b49b16639fcfc1713e8c63ca127b1e1831a838d1e876f5e950",
     "tests/test_tools.py": "c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5",
     "tools/__init__.py": "eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac",
@@ -28,14 +29,14 @@
     "tools/audit_evidence.py": "20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617",
     "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
     "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
-    "tools/deployment_guest.py": "105dfa532a841ee3f3e81b51cfb5eebdc4c455b00f69312ededcef22ff893332",
-    "tools/deployment_report.py": "9e899bc4fc0beb158d29ac5a8329913f788e6b4249237cb063212106d00ba34e",
+    "tools/deployment_guest.py": "7cad6e35d6c724ec9af4269eabbe63dbfef03c0295359e022958699882910eab",
+    "tools/deployment_report.py": "29c7d2460f6653f2df855a8461ee8f46ea953201200fca7a4fcb293342297f60",
     "tools/evidence.py": "d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b",
     "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
     "tools/linux_cases.py": "49500a9697b81d5a1b9ba8651e4c1755474f6a49a213b95fce7ec55672cf0a79",
     "tools/linux_validate.py": "bf9c45eef35c9b4b9dcbd9f0958a9122fe020f8e818aa5d234f28e306c9c9313",
     "tools/local_entry.py": "f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911",
-    "tools/mutations.py": "138e7d2a71eab7a63f281a1b46ea9617a1b353ed4b119406b74ec8a28075073e",
+    "tools/mutations.py": "d44611f0e8655f6670e41c16562da746a42e3206fd6199c06e60e54ce005a4cd",
     "tools/process.py": "6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f",
     "tools/report.py": "c4ac1749bef625b181c7de8dca183eae386871fd5ec23d0b475248fc69d16803",
     "tools/storage_fault.py": "0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0",
@@ -45,7 +46,7 @@
     "tools/validate_deployment.py": "f0f8226248432f75bb57c229df7e70dcad191ca42e8c254c7529efa7b67cce21",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "source_sha256": "decbbbc637af274add41fc1eb3c4e4b58159a331907eb6247956b29da7425561",
+  "source_sha256": "ac398e4379e004285a44459268cd555940bee5b0cf898ba5b47315f723729e8d",
   "source_changed": false,
   "scope": {
     "execution": "Actual systemd in Colima Linux VM; isolated test network namespace",
@@ -58,139 +59,139 @@
       "name": "vm-initial",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2946910409955308
+      "seconds": 0.38533437499427237
     },
     {
       "name": "vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 8.658180500002345
+      "seconds": 9.821126082999399
     },
     {
       "name": "preflight",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.24265549999836367
+      "seconds": 0.23686945799272507
     },
     {
       "name": "guest-prerequisites",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.5227157079934841
+      "seconds": 0.5262327499949606
     },
     {
       "name": "wheel-build",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.2226114999939455
+      "seconds": 1.219073792002746
     },
     {
       "name": "snapshot-upload",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2202879170072265
+      "seconds": 0.22191020799800754
     },
     {
       "name": "guest-setup",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.9301135420100763
+      "seconds": 1.9857155419886112
     },
     {
       "name": "guest-management_diagnostics",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.048775207993458
+      "seconds": 15.997943333000876
     },
     {
       "name": "guest-poisoned_journal",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.8819944159913575
+      "seconds": 2.9373520420049317
     },
     {
       "name": "guest-restart_limit",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.619349040993256
+      "seconds": 9.557073333999142
     },
     {
       "name": "guest-crash",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.085190290992614
+      "seconds": 2.0951303750043735
     },
     {
       "name": "guest-held_writer",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 4.551101417004247
+      "seconds": 4.456466207993799
     },
     {
       "name": "guest-prepare_pending_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.5179342919873307
+      "seconds": 0.5143414580088574
     },
     {
       "name": "pending-vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.5265367920073913
+      "seconds": 2.4325310829881346
     },
     {
       "name": "pending-vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.456878124998184
+      "seconds": 8.55337291599426
     },
     {
       "name": "guest-after_pending_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.6042253330087988
+      "seconds": 0.6212536249950062
     },
     {
       "name": "committed-vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.5042087089968845
+      "seconds": 2.5873936249990948
     },
     {
       "name": "committed-vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.351989916991442
+      "seconds": 8.612983290993725
     },
     {
       "name": "guest-after_committed_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.5620294169930276
+      "seconds": 0.56293545900553
     },
     {
       "name": "guest-cleanup",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.5162021659925813
+      "seconds": 0.46189883300394285
     },
     {
       "name": "snapshot-remove",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.3177855410031043
+      "seconds": 0.316501208988484
     },
     {
       "name": "vm-final-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.5027379160019336
+      "seconds": 2.398705624989816
     },
     {
       "name": "vm-final",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2590267909981776
+      "seconds": 0.2568389579973882
     }
   ],
   "cases": [
@@ -208,13 +209,13 @@
         "installed_package": {
           "origin": "/opt/rulemoor/venv/lib/python3.12/site-packages/rulemoor",
           "hashes": {
-            "rulemoor/service.py": "2439b33c850272873626c2971de3c85a6a922f4fda1fdce26428f92096597368",
+            "rulemoor/service.py": "4ceb2cdb744d4ce8c723570dfe9076037c98da3fd5bc4f4ac7ea7cfefddb9f63",
             "rulemoor/core.py": "01c601df1ea5d47b572d8c5eade72992d2725549f9ac960aba332e6c11a845ed",
             "rulemoor/backend.py": "0f58dacb7eb35727d738367476044e0e72d58459b4bbe2113fa038608cb6e078",
             "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
             "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
             "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
-            "rulemoor/diagnostics.py": "24fd3db263b232b4eda3f633552722423e5d4c294fa420470bff2a71036b1dc3",
+            "rulemoor/diagnostics.py": "0afe68131e4f0ae001634e5604e78c3a289a2962e660664bccddd13b7f2f8304",
             "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03"
           }
         },
@@ -223,12 +224,12 @@
         "unit_properties": {
           "Restart": "on-failure",
           "RestartUSec": "1s",
-          "MainPID": "1660",
+          "MainPID": "1655",
           "Result": "success",
           "NRestarts": "0",
           "ExecMainStatus": "0",
           "ControlGroup": "/system.slice/rulemoor.service",
-          "MemoryCurrent": "11247616",
+          "MemoryCurrent": "11223040",
           "CapabilityBoundingSet": "cap_kill cap_net_admin",
           "PrivateTmp": "yes",
           "ProtectHome": "yes",
@@ -241,27 +242,27 @@
           "StartLimitIntervalUSec": "1min",
           "StartLimitBurst": "5"
         },
-        "boot_id": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+        "boot_id": "9dca9a86-b0db-4438-a5be-d03937187b49",
         "memory": {
           "agent_rss_bytes": 23281664,
           "agent_vmhwm_bytes": 23281664,
-          "service_cgroup_memory_current_bytes": 11198464,
+          "service_cgroup_memory_current_bytes": 11202560,
           "process_identity": {
-            "pid": 1660,
-            "start_ticks": 997,
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e"
+            "pid": 1655,
+            "start_ticks": 1117,
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
           },
-          "main_pid_after": 1660,
-          "invocation_id": "cddc58cc8839451598578659b33bd8d5",
-          "invocation_id_after": "cddc58cc8839451598578659b33bd8d5",
+          "main_pid_after": 1655,
+          "invocation_id": "312f1bd276e84c99bcbbaccf5cec9ac7",
+          "invocation_id_after": "312f1bd276e84c99bcbbaccf5cec9ac7",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 10089152212,
-          "sample_finished_ns": 10093210212,
+          "sample_started_ns": 11275936463,
+          "sample_finished_ns": 11280988338,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         }
       }
@@ -272,9 +273,763 @@
       "evidence": {
         "configuration": "explicit-local-ipv4-tcp-ports",
         "supported_configuration_override": true,
+        "configuration_recovery_cases": [
+          {
+            "kind": "missing",
+            "pending_journal": {
+              "phase": "AWAITING_CONFIRM",
+              "generation": 3,
+              "op": "configuration-recovery-missing",
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "current": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "baseline": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "candidate": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "pending_kernel": [
+              {
+                "table": {
+                  "family": "ip",
+                  "name": "rulemoor"
+                }
+              },
+              {
+                "chain": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "name": "input",
+                  "type": "filter",
+                  "hook": "input",
+                  "prio": 0,
+                  "policy": "accept"
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "in",
+                        "left": {
+                          "ct": {
+                            "key": "state"
+                          }
+                        },
+                        "right": [
+                          "established",
+                          "related"
+                        ]
+                      }
+                    },
+                    {
+                      "accept": null
+                    }
+                  ]
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "==",
+                        "left": {
+                          "payload": {
+                            "protocol": "tcp",
+                            "field": "dport"
+                          }
+                        },
+                        "right": 59992
+                      }
+                    },
+                    {
+                      "drop": null
+                    }
+                  ]
+                }
+              }
+            ],
+            "unit_before_kill": {
+              "MainPID": "1714",
+              "InvocationID": "ec1c021e38394fbd9ccaaf39f270647e",
+              "ActiveState": "active",
+              "Result": "success",
+              "NRestarts": "0"
+            },
+            "unit_at_kill": {
+              "MainPID": "1714",
+              "InvocationID": "ec1c021e38394fbd9ccaaf39f270647e",
+              "ActiveState": "active",
+              "Result": "success",
+              "NRestarts": "0"
+            },
+            "pending_journal_before_kill": {
+              "phase": "AWAITING_CONFIRM",
+              "generation": 3,
+              "op": "configuration-recovery-missing",
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "current": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "baseline": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "candidate": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "pending_kernel_before_kill": [
+              {
+                "table": {
+                  "family": "ip",
+                  "name": "rulemoor"
+                }
+              },
+              {
+                "chain": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "name": "input",
+                  "type": "filter",
+                  "hook": "input",
+                  "prio": 0,
+                  "policy": "accept"
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "in",
+                        "left": {
+                          "ct": {
+                            "key": "state"
+                          }
+                        },
+                        "right": [
+                          "established",
+                          "related"
+                        ]
+                      }
+                    },
+                    {
+                      "accept": null
+                    }
+                  ]
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "==",
+                        "left": {
+                          "payload": {
+                            "protocol": "tcp",
+                            "field": "dport"
+                          }
+                        },
+                        "right": 59992
+                      }
+                    },
+                    {
+                      "drop": null
+                    }
+                  ]
+                }
+              }
+            ],
+            "signal": "SIGKILL",
+            "recovered_journal": {
+              "phase": "ROLLED_BACK",
+              "generation": 4,
+              "op": "configuration-recovery-missing",
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "current": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "baseline": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "candidate": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "recovered_kernel": [
+              {
+                "table": {
+                  "family": "ip",
+                  "name": "rulemoor"
+                }
+              },
+              {
+                "chain": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "name": "input",
+                  "type": "filter",
+                  "hook": "input",
+                  "prio": 0,
+                  "policy": "accept"
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "in",
+                        "left": {
+                          "ct": {
+                            "key": "state"
+                          }
+                        },
+                        "right": [
+                          "established",
+                          "related"
+                        ]
+                      }
+                    },
+                    {
+                      "accept": null
+                    }
+                  ]
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "==",
+                        "left": {
+                          "payload": {
+                            "protocol": "tcp",
+                            "field": "dport"
+                          }
+                        },
+                        "right": 59991
+                      }
+                    },
+                    {
+                      "drop": null
+                    }
+                  ]
+                }
+              }
+            ],
+            "failed_unit": {
+              "MainPID": "0",
+              "InvocationID": "ab85f4532e9243f9a0ac3c12f6cacf21",
+              "ActiveState": "failed",
+              "Result": "exit-code",
+              "NRestarts": "6"
+            },
+            "start_limit_receipts": [
+              {
+                "MESSAGE": "rulemoor.service: Start request repeated too quickly.",
+                "UNIT": "rulemoor.service",
+                "_BOOT_ID": "9dca9a86b0db4438a5bed03937187b49",
+                "__MONOTONIC_TIMESTAMP": "19962180"
+              }
+            ],
+            "failure_started_monotonic_ns": 13328858630,
+            "failure_observed_monotonic_ns": 20093054800,
+            "boot_before": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "boot_after": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "ready_after_repair": {
+              "phase": "ROLLED_BACK",
+              "generation": 4,
+              "op": "configuration-recovery-missing",
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "current": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "baseline": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "candidate": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "kind": "null",
+            "pending_journal": {
+              "phase": "AWAITING_CONFIRM",
+              "generation": 5,
+              "op": "configuration-recovery-null",
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "current": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "baseline": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "candidate": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "pending_kernel": [
+              {
+                "table": {
+                  "family": "ip",
+                  "name": "rulemoor"
+                }
+              },
+              {
+                "chain": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "name": "input",
+                  "type": "filter",
+                  "hook": "input",
+                  "prio": 0,
+                  "policy": "accept"
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "in",
+                        "left": {
+                          "ct": {
+                            "key": "state"
+                          }
+                        },
+                        "right": [
+                          "established",
+                          "related"
+                        ]
+                      }
+                    },
+                    {
+                      "accept": null
+                    }
+                  ]
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "==",
+                        "left": {
+                          "payload": {
+                            "protocol": "tcp",
+                            "field": "dport"
+                          }
+                        },
+                        "right": 59992
+                      }
+                    },
+                    {
+                      "drop": null
+                    }
+                  ]
+                }
+              }
+            ],
+            "unit_before_kill": {
+              "MainPID": "2021",
+              "InvocationID": "b0a99fffc91b4116ad3fd6139c9ed73b",
+              "ActiveState": "active",
+              "Result": "success",
+              "NRestarts": "0"
+            },
+            "unit_at_kill": {
+              "MainPID": "2021",
+              "InvocationID": "b0a99fffc91b4116ad3fd6139c9ed73b",
+              "ActiveState": "active",
+              "Result": "success",
+              "NRestarts": "0"
+            },
+            "pending_journal_before_kill": {
+              "phase": "AWAITING_CONFIRM",
+              "generation": 5,
+              "op": "configuration-recovery-null",
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "current": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "baseline": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "candidate": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "pending_kernel_before_kill": [
+              {
+                "table": {
+                  "family": "ip",
+                  "name": "rulemoor"
+                }
+              },
+              {
+                "chain": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "name": "input",
+                  "type": "filter",
+                  "hook": "input",
+                  "prio": 0,
+                  "policy": "accept"
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "in",
+                        "left": {
+                          "ct": {
+                            "key": "state"
+                          }
+                        },
+                        "right": [
+                          "established",
+                          "related"
+                        ]
+                      }
+                    },
+                    {
+                      "accept": null
+                    }
+                  ]
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "==",
+                        "left": {
+                          "payload": {
+                            "protocol": "tcp",
+                            "field": "dport"
+                          }
+                        },
+                        "right": 59992
+                      }
+                    },
+                    {
+                      "drop": null
+                    }
+                  ]
+                }
+              }
+            ],
+            "signal": "SIGKILL",
+            "recovered_journal": {
+              "phase": "ROLLED_BACK",
+              "generation": 6,
+              "op": "configuration-recovery-null",
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "current": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "baseline": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "candidate": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "recovered_kernel": [
+              {
+                "table": {
+                  "family": "ip",
+                  "name": "rulemoor"
+                }
+              },
+              {
+                "chain": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "name": "input",
+                  "type": "filter",
+                  "hook": "input",
+                  "prio": 0,
+                  "policy": "accept"
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "in",
+                        "left": {
+                          "ct": {
+                            "key": "state"
+                          }
+                        },
+                        "right": [
+                          "established",
+                          "related"
+                        ]
+                      }
+                    },
+                    {
+                      "accept": null
+                    }
+                  ]
+                }
+              },
+              {
+                "rule": {
+                  "family": "ip",
+                  "table": "rulemoor",
+                  "chain": "input",
+                  "expr": [
+                    {
+                      "match": {
+                        "op": "==",
+                        "left": {
+                          "payload": {
+                            "protocol": "tcp",
+                            "field": "dport"
+                          }
+                        },
+                        "right": 59991
+                      }
+                    },
+                    {
+                      "drop": null
+                    }
+                  ]
+                }
+              }
+            ],
+            "failed_unit": {
+              "MainPID": "0",
+              "InvocationID": "7d131112dbe74d63993cbffe6103aa78",
+              "ActiveState": "failed",
+              "Result": "exit-code",
+              "NRestarts": "6"
+            },
+            "start_limit_receipts": [
+              {
+                "MESSAGE": "rulemoor.service: Start request repeated too quickly.",
+                "UNIT": "rulemoor.service",
+                "_BOOT_ID": "9dca9a86b0db4438a5bed03937187b49",
+                "__MONOTONIC_TIMESTAMP": "26949544"
+              }
+            ],
+            "failure_started_monotonic_ns": 20295523633,
+            "failure_observed_monotonic_ns": 26971038303,
+            "boot_before": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "boot_after": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "ready_after_repair": {
+              "phase": "ROLLED_BACK",
+              "generation": 6,
+              "op": "configuration-recovery-null",
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "current": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "baseline": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "candidate": {
+                "default": "accept",
+                "rules": [
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            }
+          }
+        ],
         "denied_plan": {
           "schema": 1,
-          "scope": "New IPv4 TCP traffic to explicitly configured local destination ports; not an end-to-end route proof",
+          "scope": "NEW and ESTABLISHED IPv4 TCP input traffic to explicitly configured local destination ports; not an end-to-end route proof",
           "configuration": "configured",
           "fresh_connection_confirmation_required": true,
           "reachability_verified": false,
@@ -313,7 +1068,7 @@
         },
         "ordered_plan": {
           "schema": 1,
-          "scope": "New IPv4 TCP traffic to explicitly configured local destination ports; not an end-to-end route proof",
+          "scope": "NEW and ESTABLISHED IPv4 TCP input traffic to explicitly configured local destination ports; not an end-to-end route proof",
           "configuration": "configured",
           "fresh_connection_confirmation_required": true,
           "reachability_verified": false,
@@ -354,7 +1109,7 @@
           "phase": "COMMITTED",
           "generation": 0,
           "op": "initial",
-          "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
           "current": {
             "default": "accept",
             "rules": [
@@ -370,7 +1125,7 @@
           "phase": "COMMITTED",
           "generation": 0,
           "op": "initial",
-          "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
           "current": {
             "default": "accept",
             "rules": [
@@ -520,16 +1275,37 @@
             }
           }
         ],
+        "listener_identity": {
+          "pid": 1720,
+          "start_ticks": 1179,
+          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+        },
         "tcp_probe_before_foreign_drop": {
           "connected": true,
-          "errno": 0
+          "errno": 0,
+          "listener_before": {
+            "poll": null,
+            "identity": {
+              "pid": 1720,
+              "start_ticks": 1179,
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            }
+          },
+          "listener_after": {
+            "poll": null,
+            "identity": {
+              "pid": 1720,
+              "start_ticks": 1179,
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            }
+          }
         },
         "foreign_priority_cases": [
           {
             "priority": -100,
             "diagnostics": {
               "schema": 1,
-              "scope": "New IPv4 TCP traffic to explicitly configured local destination ports; not an end-to-end route proof",
+              "scope": "NEW and ESTABLISHED IPv4 TCP input traffic to explicitly configured local destination ports; not an end-to-end route proof",
               "configuration": "configured",
               "fresh_connection_confirmation_required": true,
               "reachability_verified": false,
@@ -672,22 +1448,78 @@
                 }
               }
             ],
+            "tcp_probe_before": {
+              "connected": true,
+              "errno": 0,
+              "listener_before": {
+                "poll": null,
+                "identity": {
+                  "pid": 1720,
+                  "start_ticks": 1179,
+                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                }
+              },
+              "listener_after": {
+                "poll": null,
+                "identity": {
+                  "pid": 1720,
+                  "start_ticks": 1179,
+                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                }
+              }
+            },
             "tcp_probe": {
               "connected": false,
-              "errno": 11
+              "errno": 11,
+              "listener_before": {
+                "poll": null,
+                "identity": {
+                  "pid": 1720,
+                  "start_ticks": 1179,
+                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                }
+              },
+              "listener_after": {
+                "poll": null,
+                "identity": {
+                  "pid": 1720,
+                  "start_ticks": 1179,
+                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                }
+              }
+            },
+            "tcp_probe_recovered": {
+              "connected": true,
+              "errno": 0,
+              "listener_before": {
+                "poll": null,
+                "identity": {
+                  "pid": 1720,
+                  "start_ticks": 1179,
+                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                }
+              },
+              "listener_after": {
+                "poll": null,
+                "identity": {
+                  "pid": 1720,
+                  "start_ticks": 1179,
+                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                }
+              }
             },
             "plan_clock": {
               "clock": "monotonic_ns",
-              "started_ns": 10992313879,
-              "finished_ns": 11047780629
+              "started_ns": 12227115130,
+              "finished_ns": 12279776755
             },
-            "plan_observed_ms": 55.46675
+            "plan_observed_ms": 52.661625
           },
           {
             "priority": 10,
             "diagnostics": {
               "schema": 1,
-              "scope": "New IPv4 TCP traffic to explicitly configured local destination ports; not an end-to-end route proof",
+              "scope": "NEW and ESTABLISHED IPv4 TCP input traffic to explicitly configured local destination ports; not an end-to-end route proof",
               "configuration": "configured",
               "fresh_connection_confirmation_required": true,
               "reachability_verified": false,
@@ -830,21 +1662,77 @@
                 }
               }
             ],
+            "tcp_probe_before": {
+              "connected": true,
+              "errno": 0,
+              "listener_before": {
+                "poll": null,
+                "identity": {
+                  "pid": 1720,
+                  "start_ticks": 1179,
+                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                }
+              },
+              "listener_after": {
+                "poll": null,
+                "identity": {
+                  "pid": 1720,
+                  "start_ticks": 1179,
+                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                }
+              }
+            },
             "tcp_probe": {
               "connected": false,
-              "errno": 11
+              "errno": 11,
+              "listener_before": {
+                "poll": null,
+                "identity": {
+                  "pid": 1720,
+                  "start_ticks": 1179,
+                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                }
+              },
+              "listener_after": {
+                "poll": null,
+                "identity": {
+                  "pid": 1720,
+                  "start_ticks": 1179,
+                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                }
+              }
+            },
+            "tcp_probe_recovered": {
+              "connected": true,
+              "errno": 0,
+              "listener_before": {
+                "poll": null,
+                "identity": {
+                  "pid": 1720,
+                  "start_ticks": 1179,
+                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                }
+              },
+              "listener_after": {
+                "poll": null,
+                "identity": {
+                  "pid": 1720,
+                  "start_ticks": 1179,
+                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                }
+              }
             },
             "plan_clock": {
               "clock": "monotonic_ns",
-              "started_ns": 11331931588,
-              "finished_ns": 11387163505
+              "started_ns": 12577794713,
+              "finished_ns": 12627185588
             },
-            "plan_observed_ms": 55.231917
+            "plan_observed_ms": 49.390875
           }
         ],
         "unsupported_condition": {
           "schema": 1,
-          "scope": "New IPv4 TCP traffic to explicitly configured local destination ports; not an end-to-end route proof",
+          "scope": "NEW and ESTABLISHED IPv4 TCP input traffic to explicitly configured local destination ports; not an end-to-end route proof",
           "configuration": "configured",
           "fresh_connection_confirmation_required": true,
           "reachability_verified": false,
@@ -1011,9 +1899,65 @@
             }
           }
         ],
+        "tcp_probe_before_unknown_condition": {
+          "connected": true,
+          "errno": 0,
+          "listener_before": {
+            "poll": null,
+            "identity": {
+              "pid": 1720,
+              "start_ticks": 1179,
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            }
+          },
+          "listener_after": {
+            "poll": null,
+            "identity": {
+              "pid": 1720,
+              "start_ticks": 1179,
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            }
+          }
+        },
         "tcp_probe_after_unknown_condition": {
           "connected": false,
-          "errno": 11
+          "errno": 11,
+          "listener_before": {
+            "poll": null,
+            "identity": {
+              "pid": 1720,
+              "start_ticks": 1179,
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            }
+          },
+          "listener_after": {
+            "poll": null,
+            "identity": {
+              "pid": 1720,
+              "start_ticks": 1179,
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            }
+          }
+        },
+        "tcp_probe_recovered_unknown_condition": {
+          "connected": true,
+          "errno": 0,
+          "listener_before": {
+            "poll": null,
+            "identity": {
+              "pid": 1720,
+              "start_ticks": 1179,
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            }
+          },
+          "listener_after": {
+            "poll": null,
+            "identity": {
+              "pid": 1720,
+              "start_ticks": 1179,
+              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            }
+          }
         },
         "confirmation": {
           "old_status": 200,
@@ -1022,25 +1966,25 @@
           "generation": 1
         },
         "memory": {
-          "agent_rss_bytes": 24158208,
-          "agent_vmhwm_bytes": 24158208,
-          "service_cgroup_memory_current_bytes": 12439552,
+          "agent_rss_bytes": 24256512,
+          "agent_vmhwm_bytes": 24256512,
+          "service_cgroup_memory_current_bytes": 12529664,
           "process_identity": {
-            "pid": 1719,
-            "start_ticks": 1044,
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e"
+            "pid": 1714,
+            "start_ticks": 1169,
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
           },
-          "main_pid_after": 1719,
-          "invocation_id": "7fab7304ff5c4be4855e909d1455f36d",
-          "invocation_id_after": "7fab7304ff5c4be4855e909d1455f36d",
+          "main_pid_after": 1714,
+          "invocation_id": "ec1c021e38394fbd9ccaaf39f270647e",
+          "invocation_id_after": "ec1c021e38394fbd9ccaaf39f270647e",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 11806232338,
-          "sample_finished_ns": 11818929171,
+          "sample_started_ns": 13095146547,
+          "sample_finished_ns": 13100262422,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "own_kernel_after_allowed_apply": [
@@ -1116,7 +2060,7 @@
           "phase": "COMMITTED",
           "generation": 1,
           "op": "guard-admitted",
-          "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
           "current": {
             "default": "accept",
             "rules": [
@@ -1157,8 +2101,8 @@
         "diagnostic_reason": "Unreadable journal; local operator recovery required",
         "original_snapshot_preserved": true,
         "mutations_rejected": true,
-        "invocation_before": "c82f070db3fc429aa556ae209c469008",
-        "invocation_after": "c82f070db3fc429aa556ae209c469008",
+        "invocation_before": "06e905800c6b4bb3950641d410e41115",
+        "invocation_after": "06e905800c6b4bb3950641d410e41115",
         "restart_count_before": 0,
         "restart_count_after": 0,
         "kernel_before": [
@@ -1300,25 +2244,25 @@
           }
         ],
         "memory": {
-          "agent_rss_bytes": 23384064,
-          "agent_vmhwm_bytes": 23384064,
-          "service_cgroup_memory_current_bytes": 11272192,
+          "agent_rss_bytes": 23392256,
+          "agent_vmhwm_bytes": 23392256,
+          "service_cgroup_memory_current_bytes": 11292672,
           "process_identity": {
-            "pid": 1883,
-            "start_ticks": 1247,
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e"
+            "pid": 2288,
+            "start_ticks": 2767,
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
           },
-          "main_pid_after": 1883,
-          "invocation_id": "c82f070db3fc429aa556ae209c469008",
-          "invocation_id_after": "c82f070db3fc429aa556ae209c469008",
+          "main_pid_after": 2288,
+          "invocation_id": "06e905800c6b4bb3950641d410e41115",
+          "invocation_id_after": "06e905800c6b4bb3950641d410e41115",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 14803998381,
-          "sample_finished_ns": 14812837798,
+          "sample_started_ns": 30011447471,
+          "sample_finished_ns": 30020852638,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "fixture_only_reprovision_and_token_rotation": true,
@@ -1352,26 +2296,26 @@
           "Result": "exit-code",
           "ExecMainStatus": "1"
         },
-        "failure_started_monotonic_ns": 15380343590,
+        "failure_started_monotonic_ns": 30663523847,
         "start_limit_receipts": [
           {
             "MESSAGE": "rulemoor.service: Start request repeated too quickly.",
             "UNIT": "rulemoor.service",
-            "_BOOT_ID": "a1cc1c1ab1c547b48c9443e3588c7a6e",
-            "__MONOTONIC_TIMESTAMP": "21781196"
+            "_BOOT_ID": "9dca9a86b0db4438a5bed03937187b49",
+            "__MONOTONIC_TIMESTAMP": "36981038"
           }
         ],
         "observation_clock": {
           "clock": "monotonic_ns",
-          "started_ns": 21901028343,
-          "finished_ns": 24109428469
+          "started_ns": 37027511517,
+          "finished_ns": 39238666724
         },
-        "observation_seconds": 2.208400126,
+        "observation_seconds": 2.211155207,
         "journal_before_failure": {
           "phase": "AWAITING_CONFIRM",
           "generation": 1,
           "op": "initial",
-          "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
           "current": {
             "default": "accept",
             "rules": [
@@ -1404,7 +2348,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 1,
           "op": "initial",
-          "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
           "current": {
             "default": "accept",
             "rules": [
@@ -1581,7 +2525,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 3,
             "op": "after-limit-new",
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
             "current": {
               "default": "accept",
               "rules": [
@@ -1614,7 +2558,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 3,
             "op": "after-limit-new",
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
             "current": {
               "default": "accept",
               "rules": [
@@ -1716,7 +2660,7 @@
             "phase": "COMMITTED",
             "generation": 3,
             "op": "after-limit-new",
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
             "current": {
               "default": "accept",
               "rules": [
@@ -1826,25 +2770,25 @@
           ]
         },
         "memory": {
-          "agent_rss_bytes": 24043520,
-          "agent_vmhwm_bytes": 24043520,
-          "service_cgroup_memory_current_bytes": 12234752,
+          "agent_rss_bytes": 23973888,
+          "agent_vmhwm_bytes": 23973888,
+          "service_cgroup_memory_current_bytes": 12242944,
           "process_identity": {
-            "pid": 2135,
-            "start_ticks": 2413,
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e"
+            "pid": 2543,
+            "start_ticks": 3925,
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
           },
-          "main_pid_after": 2135,
-          "invocation_id": "e7bf649ec23a44b48e68e4c40f990f2d",
-          "invocation_id_after": "e7bf649ec23a44b48e68e4c40f990f2d",
+          "main_pid_after": 2543,
+          "invocation_id": "752290f8bbaa45858d873f5e98ad3514",
+          "invocation_id_after": "752290f8bbaa45858d873f5e98ad3514",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 24656437344,
-          "sample_finished_ns": 24661027719,
+          "sample_started_ns": 39779246707,
+          "sample_finished_ns": 39783945291,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "segmentation_fault_tested": false,
@@ -1868,7 +2812,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 7,
             "op": "after-crash-new",
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
             "current": {
               "default": "accept",
               "rules": [
@@ -1901,7 +2845,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 7,
             "op": "after-crash-new",
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
             "current": {
               "default": "accept",
               "rules": [
@@ -2003,7 +2947,7 @@
             "phase": "COMMITTED",
             "generation": 7,
             "op": "after-crash-new",
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
             "current": {
               "default": "accept",
               "rules": [
@@ -2112,33 +3056,33 @@
             "apply"
           ]
         },
-        "kill_to_tls_ready_observed_ms": 1336.491584,
+        "kill_to_tls_ready_observed_ms": 1371.074126,
         "recovery_clock": {
           "clock": "monotonic_ns",
-          "kill_started_ns": 25097408594,
-          "tls_observed_ns": 26433900178,
-          "baseline_verified_ns": 26437421553
+          "kill_started_ns": 40152737401,
+          "tls_observed_ns": 41523811527,
+          "baseline_verified_ns": 41529121866
         },
         "memory": {
           "agent_rss_bytes": 23859200,
           "agent_vmhwm_bytes": 23859200,
-          "service_cgroup_memory_current_bytes": 11997184,
+          "service_cgroup_memory_current_bytes": 11993088,
           "process_identity": {
-            "pid": 2240,
-            "start_ticks": 2635,
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e"
+            "pid": 2649,
+            "start_ticks": 4140,
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
           },
-          "main_pid_after": 2240,
-          "invocation_id": "43d34c998cc6461abe931fddd29bef47",
-          "invocation_id_after": "43d34c998cc6461abe931fddd29bef47",
+          "main_pid_after": 2649,
+          "invocation_id": "ec768127e7e547cfac3f32f68b8feafe",
+          "invocation_id_after": "ec768127e7e547cfac3f32f68b8feafe",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 26747753595,
-          "sample_finished_ns": 26752471429,
+          "sample_started_ns": 41879042906,
+          "sample_finished_ns": 41883618692,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "old_generation": 5,
@@ -2290,9 +3234,9 @@
       "evidence": {
         "test_only_fault_override": true,
         "old_executor_identity": {
-          "pid": 2350,
-          "start_ticks": 2740,
-          "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e"
+          "pid": 2756,
+          "start_ticks": 4242,
+          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
         },
         "old_executor_retired": true,
         "systemd_cgroup_restart_observed": true,
@@ -2306,7 +3250,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 10,
             "op": "after-held-new",
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
             "current": {
               "default": "accept",
               "rules": [
@@ -2339,7 +3283,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 10,
             "op": "after-held-new",
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
             "current": {
               "default": "accept",
               "rules": [
@@ -2441,7 +3385,7 @@
             "phase": "COMMITTED",
             "generation": 10,
             "op": "after-held-new",
-            "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
             "current": {
               "default": "accept",
               "rules": [
@@ -2627,7 +3571,7 @@
       "name": "prepare_pending_boot",
       "passed": true,
       "evidence": {
-        "boot_id": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+        "boot_id": "9dca9a86-b0db-4438-a5be-d03937187b49",
         "journal_pending_after_service_stop": true,
         "candidate_still_installed": true,
         "graceful_rollback_deliberately_bypassed": true,
@@ -2705,7 +3649,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 11,
           "op": "pending-before-boot",
-          "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
           "current": {
             "default": "accept",
             "rules": [
@@ -2741,14 +3685,14 @@
       "name": "after_pending_boot",
       "passed": true,
       "evidence": {
-        "boot_id_before": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
-        "boot_id_after": "481104e1-34a5-48b1-944c-8065608c043a",
+        "boot_id_before": "9dca9a86-b0db-4438-a5be-d03937187b49",
+        "boot_id_after": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31",
         "pre_agent_table_absent": true,
         "journal_before_agent": {
           "phase": "AWAITING_CONFIRM",
           "generation": 11,
           "op": "pending-before-boot",
-          "boot": "a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e",
+          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
           "current": {
             "default": "accept",
             "rules": [
@@ -2787,7 +3731,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 13,
             "op": "post-boot-new",
-            "boot": "481104e1-34a5-48b1-944c-8065608c043a",
+            "boot": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31",
             "current": {
               "default": "accept",
               "rules": [
@@ -2820,7 +3764,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 13,
             "op": "post-boot-new",
-            "boot": "481104e1-34a5-48b1-944c-8065608c043a",
+            "boot": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31",
             "current": {
               "default": "accept",
               "rules": [
@@ -2922,7 +3866,7 @@
             "phase": "COMMITTED",
             "generation": 13,
             "op": "post-boot-new",
-            "boot": "481104e1-34a5-48b1-944c-8065608c043a",
+            "boot": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31",
             "current": {
               "default": "accept",
               "rules": [
@@ -3031,27 +3975,27 @@
             "apply"
           ]
         },
-        "vm_uptime_after_validation_seconds": 7.331626336,
+        "vm_uptime_after_validation_seconds": 6.561610044,
         "memory": {
-          "agent_rss_bytes": 23838720,
-          "agent_vmhwm_bytes": 23838720,
-          "service_cgroup_memory_current_bytes": 12443648,
+          "agent_rss_bytes": 23941120,
+          "agent_vmhwm_bytes": 23941120,
+          "service_cgroup_memory_current_bytes": 12558336,
           "process_identity": {
-            "pid": 501,
-            "start_ticks": 274,
-            "boot": "481104e1-34a5-48b1-944c-8065608c043a"
+            "pid": 509,
+            "start_ticks": 244,
+            "boot": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31"
           },
-          "main_pid_after": 501,
-          "invocation_id": "7c82c85360af4831876d92ad8507afdb",
-          "invocation_id_after": "7c82c85360af4831876d92ad8507afdb",
+          "main_pid_after": 509,
+          "invocation_id": "2f767d9206cb45d0939106acfee5e743",
+          "invocation_id_after": "2f767d9206cb45d0939106acfee5e743",
           "process_namespace_inode": 4026532394,
           "target_namespace_inode": 4026532394,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 7331626836,
-          "sample_finished_ns": 7336463127,
+          "sample_started_ns": 6561610544,
+          "sample_finished_ns": 6566497794,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "old_generation": 11,
@@ -3201,14 +4145,14 @@
       "name": "after_committed_boot",
       "passed": true,
       "evidence": {
-        "boot_id_before": "481104e1-34a5-48b1-944c-8065608c043a",
-        "boot_id_after": "38025ad0-7f3a-4337-9a32-5d85c9ac9cdb",
+        "boot_id_before": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31",
+        "boot_id_after": "888e7753-10d0-42a0-932f-1094bb9a3576",
         "pre_agent_table_absent": true,
         "journal_before_agent": {
           "phase": "COMMITTED",
           "generation": 13,
           "op": "post-boot-new",
-          "boot": "481104e1-34a5-48b1-944c-8065608c043a",
+          "boot": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31",
           "current": {
             "default": "accept",
             "rules": [
@@ -3247,20 +4191,20 @@
           "service_cgroup_memory_current_bytes": 11567104,
           "process_identity": {
             "pid": 501,
-            "start_ticks": 292,
-            "boot": "38025ad0-7f3a-4337-9a32-5d85c9ac9cdb"
+            "start_ticks": 197,
+            "boot": "888e7753-10d0-42a0-932f-1094bb9a3576"
           },
           "main_pid_after": 501,
-          "invocation_id": "6297c02ed4fd4224bcd7caefece682ad",
-          "invocation_id_after": "6297c02ed4fd4224bcd7caefece682ad",
+          "invocation_id": "6f22f14a9f4e4e539310951837270b07",
+          "invocation_id_after": "6f22f14a9f4e4e539310951837270b07",
           "process_namespace_inode": 4026532394,
           "target_namespace_inode": 4026532394,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 7109615794,
-          "sample_finished_ns": 7114640919,
+          "sample_started_ns": 6098218210,
+          "sample_finished_ns": 6103539918,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "memory_stage": "committed_after_boot_before_foreign_policy_probe",
@@ -3379,19 +4323,19 @@
     }
   ],
   "vm_initial_state": "Stopped",
-  "wheel_sha256": "8f027a9f14820e3acb9eb002d37e873830ab2431355e14daa584675e30d1bf1f",
+  "wheel_sha256": "7738b2df6f3a8650d787810c03346d7dc482f852efe07733298dcce96dd872ce",
   "pending_vm_restart_clock": {
     "clock": "monotonic_ns",
-    "started_ns": 67358763675916,
-    "finished_ns": 67371369494125
+    "started_ns": 68554594894333,
+    "finished_ns": 68566225754208
   },
-  "pending_vm_restart_control_seconds": 12.605818209,
+  "pending_vm_restart_control_seconds": 11.630859875,
   "committed_vm_restart_clock": {
     "clock": "monotonic_ns",
-    "started_ns": 67371369497541,
-    "finished_ns": 67383807530750
+    "started_ns": 68566225762791,
+    "finished_ns": 68578014918416
   },
-  "committed_vm_restart_control_seconds": 12.438033209,
+  "committed_vm_restart_control_seconds": 11.789155625,
   "source_snapshot_removed": true,
   "vm_final_state": "Stopped",
   "evidence_controls": [
@@ -3497,6 +4441,22 @@
     },
     {
       "name": "false-tcp-observation",
+      "rejected": true
+    },
+    {
+      "name": "connection-refused",
+      "rejected": true
+    },
+    {
+      "name": "missing-tcp-recovery",
+      "rejected": true
+    },
+    {
+      "name": "changed-tcp-listener",
+      "rejected": true
+    },
+    {
+      "name": "configuration-recovery-skipped",
       "rejected": true
     }
   ]

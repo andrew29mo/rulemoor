@@ -22,10 +22,10 @@ The runner makes an immutable executable snapshot, builds a wheel, installs it i
 
 ## Cases and distinguishing observations
 
-The configured [management diagnostic scenario](MANAGEMENT_PREFLIGHT.md) runs immediately after setup, before the existing recovery cases. It enables the production `--management-paths` argument using a fixture-only service drop-in, refuses an own-policy block, diagnoses real foreign input drops at priorities -100 and 10, preserves foreign rules and requires fresh TLS confirmation. Its TCP listener/probes are namespace-local. It removes the configuration override and disposable foreign table before the recovery cases. All ten groups are required.
+The configured [management diagnostic scenario](MANAGEMENT_PREFLIGHT.md) runs immediately after setup, before the existing recovery cases. It enables the production `--management-paths` argument using a fixture-only service drop-in, refuses an own-policy block, diagnoses real foreign input drops at priorities -100 and 10, preserves foreign rules and requires fresh TLS confirmation. Its TCP listener/probes are namespace-local. Each foreign-drop observation requires the same live listener and success → timeout → success after removing only the fixture table; refusal is not evidence of a drop. Missing/null management configuration is separately introduced while a change is pending, then MainPID is SIGKILLed: startup must restore baseline before refusing API admission. Configuration repair/reset/start must recover service. It removes the configuration override and disposable foreign table before the recovery cases. All ten groups are required.
 
 1. **Installed unit:** actual systemd PID 1, installed package byte equality, exact production unit digest, sandbox/capability checks and TLS readiness.
-2. **Configured management diagnostics:** production service with declared ports, rejected own-policy block, ordered allow, real TCP probes against earlier/later foreign drops, conservative unsupported-condition diagnosis, unchanged foreign rules and old/fresh TLS confirmation. Supported argument override is removed before recovery cases.
+2. **Configured management diagnostics:** production service with declared ports, rejected own-policy block, ordered allow, real TCP probes against earlier/later foreign drops, conservative unsupported-condition diagnosis, unchanged foreign rules and old/fresh TLS confirmation. The same group includes missing/null admission-configuration recovery through the installed entrypoint; its supported argument override is removed before the other recovery cases.
 3. **Malformed snapshot:** write a JSON list into the actual SQLite snapshot while stopped, start the installed unit and require DEGRADED, blocked mutation, unchanged kernel/data and stable invocation/restart count over a 2.2-second observation. Preserve private evidence, stop writers, then explicitly reprovision the disposable baseline and rotate credentials for subsequent cases. No production automatic repair is claimed.
 4. **Persistent startup failure:** apply an unconfirmed candidate using the legal operation ID `initial`, withhold the TLS key and kill MainPID. The real installed ExecStart repeatedly exits before recovery and must hit the production start limit. A current-boot structured systemd journal receipt must identify the rate-limit refusal between this fault starting and the failed-state observation beginning; some versions retain `Result=exit-code` rather than `start-limit-hit`. Retain failed/stable unit properties, an unchanged pending journal and candidate kernel policy. Restoring the key alone must not bypass the rate limit. Repair plus explicit reset/start must restore the baseline; stale requests must not alter a newer pending or committed policy. This is not a segmentation-fault or uninterruptible-I/O test.
 5. **Agent SIGKILL:** with an unconfirmed policy active, kill only MainPID; observe systemd's new invocation/PID and increased restart count, baseline readback and fresh TLS readiness. Submit a newer change, challenge it with old confirmation/cancel/apply requests while it is pending, then confirm and challenge again.
@@ -34,7 +34,7 @@ The configured [management diagnostic scenario](MANAGEMENT_PREFLIGHT.md) runs im
 8. **Pending VM boot:** orderly VM stop/start, changed kernel boot ID, namespace created with no owned table before the agent starts, enabled unit starts automatically, baseline reconstructed and generation advanced. Retain the journal before the agent starts, then the actual kernel/generation and rejected request paths while challenging a newer pending and committed policy with pre-boot requests.
 9. **Committed VM boot:** a second orderly VM stop/start must recreate the confirmed policy and advance the generation. An old base is rejected. A subsequently installed foreign table is retained with DEGRADED status after service restart.
 10. **Cleanup:** disable/remove the service and fixture, remove namespace workers, credentials, private state, installed package and source snapshot; verify the VM root firewall is unchanged and stop the VM.
-Nonzero commands, timeout, missing cases/stages, changed sources, unchanged boot identity, altered pre-agent journal, stale kernel output, nonfinite/inconsistent measurements, wrong process identity or cleanup failure cannot produce a passing report. Twenty-six deliberate evidence-corruption controls challenge the verifier. JSON and HTML are generated from the same observations and rechecked byte-for-byte by the auditor. Raw host logs and private operational receipts remain ignored/local; shared artifacts exclude credentials and confirmation challenges. Interrupted VM-manager/host failures can require manual recovery; stopping the driver forcibly is not a guaranteed cleanup path.
+Nonzero commands, timeout, missing cases/stages, changed sources, unchanged boot identity, altered pre-agent journal, stale kernel output, nonfinite/inconsistent measurements, wrong process identity or cleanup failure cannot produce a passing report. Thirty deliberate evidence-corruption controls challenge the verifier. JSON and HTML are generated from the same observations and rechecked byte-for-byte by the auditor. Raw host logs and private operational receipts remain ignored/local; shared artifacts exclude credentials and confirmation challenges. Interrupted VM-manager/host failures can require manual recovery; stopping the driver forcibly is not a guaranteed cleanup path.
 
 ## Measurements and limits
 
@@ -48,29 +48,29 @@ These measurements come from VM system services (configured 4 vCPU / 6 GiB), sep
 
 ## Retained observations
 
-Run `c1431001b6cffb89`, source `decbbbc637af274add41fc1eb3c4e4b58159a331907eb6247956b29da7425561`. Kernel 6.8.0-117-generic/aarch64, Python 3.12.3, systemd 255 (255.4-1ubuntu8.15), nftables v1.0.9 (Old Doc Yak #3). All ten case groups and twenty-six evidence-corruption controls passed. Installed site-packages module hashes match this source.
+Run `d1c7c0713b157000`, source `ac398e4379e004285a44459268cd555940bee5b0cf898ba5b47315f723729e8d`. Kernel 6.8.0-117-generic/aarch64, Python 3.12.3, systemd 255 (255.4-1ubuntu8.15), nftables v1.0.9 (Old Doc Yak #3). All ten case groups and thirty evidence-corruption controls passed. Installed site-packages module hashes match this source.
 
-Configured management diagnostics rejected an own-policy management-port block without changing state/kernel policy. A first-match ordered allow remained allowed. Disposable external input chains at priorities -100 and 10 both blocked a real fresh TCP connect to the probe port and were diagnosed as blocked. An unsupported source-address condition remained risk. Foreign rules were identical before/after diagnosis and an admitted policy change. The old TLS confirmation returned 409 and a fresh connection committed. This checks loopback within the VM namespace, not external routes or WAN.
+Configured management diagnostics rejected an own-policy management-port block without changing state/kernel policy. A first-match ordered allow remained allowed. Disposable external input chains at priorities -100 and 10 both blocked a real fresh TCP connect to the probe port and were diagnosed as blocked. An unsupported source-address condition remained risk. Each drop required the same live listener and success before/after removing only the fixture table; connection refusal was rejected. Foreign rules were identical before/after diagnosis and an admitted policy change. Both missing/null configuration trials retained pending journal/candidate rules immediately before SIGKILL, restored BASE on restart before API refusal, reached the bounded start limit, and recovered service after local configuration repair/reset/start. The old TLS confirmation returned 409 and a fresh connection committed. This checks loopback within the VM namespace, not external routes or WAN.
 
 | Foreign chain priority | Observed plan ms | New TCP connect | Diagnostic |
 |---|---:|---|---|
-| -100 | 55.47 | blocked | blocked |
-| 10 | 55.23 | blocked | blocked |
+| -100 | 52.66 | blocked | blocked |
+| 10 | 49.39 | blocked | blocked |
 
 Each interval has raw monotonic endpoints and includes namespace/CLI process startup, TLS, kernel preflight and inventory. These are single observations for different fixture conditions, not isolated inspection cost or comparative performance. The unconfigured container benchmark has a different timing scope.
 
 The malformed snapshot produced DEGRADED with unchanged rules/data. The legal pending ID `initial` survived sustained missing-key startup failure. The failed unit retained MainPID=0, Result=exit-code, NRestarts=6 for **2.21 s** without another restart. Its bounded current-boot receipt establishes rate-limit refusal; candidate rules and pending journal remained until local cause repair plus explicit reset/start restored the baseline. Stale requests did not overwrite a newer change. This is not independent rollback or arbitrary journal repair.
 
-A separate Agent SIGKILL trial reached observed fresh TLS readiness in **1336.5 ms**, with baseline readback timestamped afterward. Orderly VM stop/start plus validation took **12.61 s** (pending) and **12.44 s** (committed), each one observation including probing/control overhead. These are not recovery upper bounds. The raw uptime field is kernel uptime, not Agent startup latency.
+A separate Agent SIGKILL trial reached observed fresh TLS readiness in **1371.1 ms**, with baseline readback timestamped afterward. Orderly VM stop/start plus validation took **11.63 s** (pending) and **11.79 s** (committed), each one observation including probing/control overhead. These are not recovery upper bounds. The raw uptime field is kernel uptime, not Agent startup latency.
 
 | Observation stage | Agent RSS MiB | Agent VmHWM MiB | Service cgroup MiB |
 |---|---:|---:|---:|
 | setup | 22.20 | 22.20 | 10.68 |
-| management_diagnostics | 23.04 | 23.04 | 11.86 |
-| poisoned_journal | 22.30 | 22.30 | 10.75 |
-| restart_limit | 22.93 | 22.93 | 11.67 |
+| management_diagnostics | 23.13 | 23.13 | 11.95 |
+| poisoned_journal | 22.31 | 22.31 | 10.77 |
+| restart_limit | 22.86 | 22.86 | 11.68 |
 | crash | 22.75 | 22.75 | 11.44 |
-| after_pending_boot | 22.73 | 22.73 | 11.87 |
+| after_pending_boot | 22.83 | 22.83 | 11.98 |
 | after_committed_boot | 22.20 | 22.20 | 11.03 |
 
 The configured diagnostic sample belongs to its stable service invocation. Restart-limit memory is sampled after local recovery. All memory samples are joined to the appropriate boot; process/cgroup/VM memory scopes remain distinct. CPU/log saturation, large real-world ruleset performance, WAN/NAT/bridge/legacy firewall behavior, native segmentation faults, uninterruptible I/O and power loss were not tested. Historical failed/superseded attempts remain visible.

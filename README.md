@@ -13,7 +13,7 @@ The practical use case is a remotely managed Linux machine where an incorrect TC
 - CLI and TLS API with a provisioned certificate and a shared operator bearer token. No plaintext API or certificate-verification bypass in the CLI.
 - Durable intent, bounded operation history, explicit confirmation/cancellation, deadline rollback and process-restart recovery.
 - Bounded persisted-state validation rejects malformed snapshots before process fencing or kernel writes; the original evidence remains intact.
-- Optional declared management-port preflight rejects candidates that block those NEW IPv4 TCP paths; read-only foreign nftables diagnostics report supported conflicts and uncertainty. [Enable and understand the limits](docs/MANAGEMENT_PREFLIGHT.md).
+- Optional declared management-port preflight rejects candidates that block those NEW IPv4 TCP paths; read-only foreign nftables diagnostics report supported conflicts and uncertainty. [Enable and understand the limits](docs/MANAGEMENT_PREFLIGHT.md). The [review](docs/PREFLIGHT_REVIEW.md) covers recovery despite invalid admission configuration, NEW/ESTABLISHED input analysis and same-listener TCP evidence.
 - Unknown rules or uncertain ownership become `DEGRADED`, which blocks further changes rather than blindly overwriting them.
 
 ## Quick start

@@ -203,8 +203,7 @@ def main():
     if os.name != 'posix' or not hasattr(time, 'CLOCK_BOOTTIME') or not hasattr(os, 'pidfd_open'):
         p.error('The agent requires Linux CLOCK_BOOTTIME and pidfd support')
     os.umask(0o077)
-    paths = load_paths(a.management_paths) if a.action=='serve' and a.management_paths else None
-    c = Controller(a.state, NftBackend(), management_paths=paths)
+    c = Controller(a.state, NftBackend())
     server = None
     try:
         if a.action == 'init':
@@ -217,7 +216,10 @@ def main():
         context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
         context.minimum_version = ssl.TLSVersion.TLSv1_2
         context.load_cert_chain(a.cert, a.key)
+        # Recover known durable state before optional admission configuration.
+        # Invalid configuration still prevents the API from accepting new work.
         c.start()
+        c.management_paths = load_paths(a.management_paths) if a.management_paths else None
         server = Server((a.listen, a.port), c, token, context)
         def hook(point):
             if point == 'awaiting-confirm':

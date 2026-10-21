@@ -102,6 +102,13 @@
     "run_id": "c1431001b6cffb89",
     "passed": true,
     "source_sha256": "decbbbc637af274add41fc1eb3c4e4b58159a331907eb6247956b29da7425561",
-    "note": "Current management-preflight source: ten installed-systemd groups, twenty-six evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim."
+    "note": "Historical management-preflight source: ten installed-systemd groups, twenty-six evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim. Superseded by agent-reviewed recovery ordering, NEW/ESTABLISHED diagnosis and TCP cause checks."
+  },
+  {
+    "attempt": "management-preflight-agent-review-20261021",
+    "run_id": "d1c7c0713b157000",
+    "passed": true,
+    "source_sha256": "ac398e4379e004285a44459268cd555940bee5b0cf898ba5b47315f723729e8d",
+    "note": "Current management-preflight source: ten installed-systemd groups, thirty evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim."
   }
 ]

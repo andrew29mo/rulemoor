@@ -267,14 +267,24 @@ def management_diagnostics():
     listener=subprocess.Popen(['ip','netns','exec',NS,PYTHON,'-c',
         'import socket;s=socket.socket();s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);s.bind(("127.0.0.1",59999));s.listen();\nwhile True:\n c,a=s.accept();c.close()'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     table='rm_preflight_external'
+    listener_identity=identity(listener.pid)
+    assert listener_identity is not None
+    def listener_observation():
+        observed={'poll':listener.poll(),'identity':identity(listener.pid)}
+        assert observed['poll'] is None and observed['identity']==listener_identity
+        return observed
     def foreign():
         return canonical(json.loads(cmd(['ip','netns','exec',NS,'nft','-j','-s','list','table','ip',table]).stdout))
     def install(priority,rule):
-        cmd(['ip','netns','exec',NS,'nft','delete','table','ip',table],check=False)
         cmd(['ip','netns','exec',NS,'nft','-f','-'],input=f'table ip {table} {{\n chain input {{\n type filter hook input priority {priority}; policy accept;\n {rule}\n }}\n}}\n')
+    def remove():
+        cmd(['ip','netns','exec',NS,'nft','delete','table','ip',table])
     def probe():
+        before=listener_observation()
         code='import socket,json;s=socket.socket();s.settimeout(.25);e=s.connect_ex(("127.0.0.1",59999));s.close();print(json.dumps({"connected":e==0,"errno":e}))'
-        return json.loads(cmd(['ip','netns','exec',NS,PYTHON,'-c',code]).stdout)
+        result=json.loads(cmd(['ip','netns','exec',NS,PYTHON,'-c',code]).stdout)
+        result.update(listener_before=before,listener_after=listener_observation())
+        return result
     try:
         wait(lambda: probe()['connected']);before_probe=probe()
         own_before=kernel();state_before=project(request())
@@ -288,15 +298,21 @@ def management_diagnostics():
         assert ordered_plan['diagnostics']['own_policy']['status']=='allowed'
         observations=[]
         for priority in (-100,10):
+            before=probe();assert before['connected'] and before['errno']==0
             install(priority,'tcp dport 59999 drop')
-            original=foreign();blocked_probe=probe();assert not blocked_probe['connected']
+            original=foreign();blocked_probe=probe()
+            assert not blocked_probe['connected'] and blocked_probe['errno'] in (11,110)
             began=time.monotonic_ns()
             diag=request('/plan',{'policy':BASE})['diagnostics'];ended=time.monotonic_ns()
             assert diag['external']['status']=='blocked' and not diag['reachability_verified']
             assert diag['fresh_connection_confirmation_required']
             assert foreign()==original
-            observations.append({'priority':priority,'diagnostics':diag,'foreign_before':original,'foreign_after':foreign(),'tcp_probe':blocked_probe,
+            unchanged=foreign();remove()
+            recovered=probe();assert recovered['connected'] and recovered['errno']==0
+            observations.append({'priority':priority,'diagnostics':diag,'foreign_before':original,'foreign_after':unchanged,
+                                 'tcp_probe_before':before,'tcp_probe':blocked_probe,'tcp_probe_recovered':recovered,
                                  'plan_clock':{'clock':'monotonic_ns','started_ns':began,'finished_ns':ended},'plan_observed_ms':(ended-began)/1e6})
+        before_unknown=probe();assert before_unknown['connected'] and before_unknown['errno']==0
         install(10,'ip saddr 127.0.0.1 tcp dport 59999 drop')
         original=foreign();uncertain=request('/plan',{'policy':BASE})['diagnostics']
         assert uncertain['external']['status']=='risk' and not uncertain['reachability_verified']
@@ -320,16 +336,72 @@ print(json.dumps({'old_status':old_status,'old_confirm':old_confirm,'fresh_phase
         assert freshness['old_status']==200 and freshness['old_confirm']==409 and freshness['fresh_phase']=='COMMITTED'
         allowed_kernel=kernel();allowed_state=project(request())
         assert allowed_kernel==expected(NEXT) and foreign()==original
-        uncertain_after=foreign();still_blocked=probe();assert not still_blocked['connected']
+        uncertain_after=foreign();still_blocked=probe()
+        assert not still_blocked['connected'] and still_blocked['errno'] in (11,110)
+        remove()
+        recovered_unknown=probe();assert recovered_unknown['connected'] and recovered_unknown['errno']==0
         sample=memory()
         confirm(apply('after-diagnostics-baseline',BASE));assert kernel()==expected(BASE)
+        recovery_cases=[]
+        configured_text=config.read_text()
+        for kind in ('missing','null'):
+            cmd(['systemctl','reset-failed',UNIT])
+            pending=apply('configuration-recovery-'+kind,NEXT,window=300)
+            pending_journal=journal_projection();pending_kernel=kernel()
+            assert pending_journal==project(pending) and pending_journal['phase']=='AWAITING_CONFIRM'
+            assert pending_kernel==expected(NEXT)
+            unit_before=props();before_boot=boot_id()
+            assert int(unit_before['MainPID'])>1
+            try:
+                if kind=='missing':config.unlink()
+                else:config.write_text('null\n')
+                # Observe pending state after damaging the config, immediately
+                # before SIGKILL: graceful shutdown must not supply the rollback.
+                before_kill=journal_projection();kernel_before_kill=kernel();unit_at_kill=props()
+                assert before_kill==pending_journal and kernel_before_kill==pending_kernel
+                assert unit_at_kill['MainPID']==unit_before['MainPID'] and unit_at_kill['InvocationID']==unit_before['InvocationID']
+                failure_started=time.monotonic_ns()
+                cmd(['systemctl','kill','--kill-whom=main','--signal=SIGKILL',UNIT])
+                def rolled_back():
+                    state=journal_projection()
+                    return state if state['phase']=='ROLLED_BACK' and kernel()==expected(BASE) else False
+                recovered=wait(rolled_back,timeout=20);recovered_kernel=kernel()
+                assert recovered['generation']>pending['generation'] and recovered['boot']==before_boot
+                def limited():
+                    unit=props()
+                    if unit['ActiveState']!='failed' or unit['MainPID']!='0':return False
+                    entries=cmd(['journalctl','-u',UNIT,'-b','-o','json','--no-pager']).stdout.splitlines()
+                    receipts=[{k:r[k] for k in ('MESSAGE','UNIT','_BOOT_ID','__MONOTONIC_TIMESTAMP')}
+                              for line in entries for r in [json.loads(line)]
+                              if r.get('UNIT')==UNIT and r.get('MESSAGE')==UNIT+': Start request repeated too quickly.'
+                              and int(r['__MONOTONIC_TIMESTAMP'])*1000>=failure_started]
+                    return (unit,receipts) if receipts else False
+                failed,receipts=wait(limited,timeout=20);failure_observed=time.monotonic_ns()
+                assert journal_projection()==recovered and kernel()==recovered_kernel==expected(BASE)
+                after_boot=boot_id();assert after_boot==before_boot
+            finally:
+                config.write_text(configured_text)
+            cmd(['systemctl','reset-failed',UNIT]);cmd(['systemctl','start',UNIT]);repaired=ready('ROLLED_BACK')
+            assert project(repaired)==recovered and kernel()==expected(BASE)
+            keys=('MainPID','InvocationID','ActiveState','Result','NRestarts')
+            recovery_cases.append({'kind':kind,'pending_journal':pending_journal,'pending_kernel':pending_kernel,
+                                   'unit_before_kill':{k:unit_before[k] for k in keys},
+                                   'unit_at_kill':{k:unit_at_kill[k] for k in keys},
+                                   'pending_journal_before_kill':before_kill,'pending_kernel_before_kill':kernel_before_kill,
+                                   'signal':'SIGKILL','recovered_journal':recovered,'recovered_kernel':recovered_kernel,
+                                   'failed_unit':{k:failed[k] for k in keys},'start_limit_receipts':receipts,
+                                   'failure_started_monotonic_ns':failure_started,
+                                   'failure_observed_monotonic_ns':failure_observed,
+                                   'boot_before':before_boot,'boot_after':after_boot,'ready_after_repair':project(repaired)})
         return {'configuration':'explicit-local-ipv4-tcp-ports','supported_configuration_override':True,
+                'configuration_recovery_cases':recovery_cases,
                 'denied_plan':plan['diagnostics'],'ordered_plan':ordered_plan['diagnostics'],
                 'state_before_denial':state_before,'state_after_denial':state_after,
                 'own_kernel_before':own_before,'own_kernel_after_denial':own_after_denial,
-                'tcp_probe_before_foreign_drop':before_probe,'foreign_priority_cases':observations,
+                'listener_identity':listener_identity,'tcp_probe_before_foreign_drop':before_probe,'foreign_priority_cases':observations,
                 'unsupported_condition':uncertain,'foreign_before_allowed_apply':original,'foreign_after_allowed_apply':uncertain_after,
-                'tcp_probe_after_unknown_condition':still_blocked,'confirmation':freshness,'memory':sample,
+                'tcp_probe_before_unknown_condition':before_unknown,'tcp_probe_after_unknown_condition':still_blocked,
+                'tcp_probe_recovered_unknown_condition':recovered_unknown,'confirmation':freshness,'memory':sample,
                 'own_kernel_after_allowed_apply':allowed_kernel,'state_after_allowed_apply':allowed_state,
                 'scope':'Actual installed service in VM namespace; loopback TCP, not WAN/NAT/bridge/legacy-firewall verification'}
     finally:

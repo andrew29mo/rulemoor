@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "run_id": "4447fa732873e1a8",
+  "run_id": "6ed204f4e6c8dead",
   "passed": true,
   "execution": "Colima Linux VM; real nftables/netns/TLS",
   "source": {
@@ -11,15 +11,16 @@
     "rulemoor/backend.py": "0f58dacb7eb35727d738367476044e0e72d58459b4bbe2113fa038608cb6e078",
     "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
     "rulemoor/core.py": "01c601df1ea5d47b572d8c5eade72992d2725549f9ac960aba332e6c11a845ed",
-    "rulemoor/diagnostics.py": "24fd3db263b232b4eda3f633552722423e5d4c294fa420470bff2a71036b1dc3",
+    "rulemoor/diagnostics.py": "0afe68131e4f0ae001634e5604e78c3a289a2962e660664bccddd13b7f2f8304",
     "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
     "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
-    "rulemoor/service.py": "2439b33c850272873626c2971de3c85a6a922f4fda1fdce26428f92096597368",
+    "rulemoor/service.py": "4ceb2cdb744d4ce8c723570dfe9076037c98da3fd5bc4f4ac7ea7cfefddb9f63",
     "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
     "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
-    "tests/test_deployment_audit.py": "29a84f91a5afae2272f66b15620ac598b661a36069da4f99005bde7a90a28ee2",
-    "tests/test_diagnostics.py": "2f846eeae5c522731820432d42a6828df73ca2cc145095b713a423afabe1bf8c",
+    "tests/test_deployment_audit.py": "2aded3ab9edee04e189d2a8d69b60876bef1b5ae09dcfffa84b672a8e08d073c",
+    "tests/test_diagnostics.py": "1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7",
+    "tests/test_service_startup.py": "ed6f099450caa1268f47386bf138150e7a09c8a78c199f6a3e8c5fc79a6a3abf",
     "tests/test_startup_state.py": "eb4d74d1446c86b49b16639fcfc1713e8c63ca127b1e1831a838d1e876f5e950",
     "tests/test_tools.py": "c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5",
     "tools/__init__.py": "eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac",
@@ -28,14 +29,14 @@
     "tools/audit_evidence.py": "20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617",
     "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
     "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
-    "tools/deployment_guest.py": "105dfa532a841ee3f3e81b51cfb5eebdc4c455b00f69312ededcef22ff893332",
-    "tools/deployment_report.py": "9e899bc4fc0beb158d29ac5a8329913f788e6b4249237cb063212106d00ba34e",
+    "tools/deployment_guest.py": "7cad6e35d6c724ec9af4269eabbe63dbfef03c0295359e022958699882910eab",
+    "tools/deployment_report.py": "29c7d2460f6653f2df855a8461ee8f46ea953201200fca7a4fcb293342297f60",
     "tools/evidence.py": "d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b",
     "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
     "tools/linux_cases.py": "49500a9697b81d5a1b9ba8651e4c1755474f6a49a213b95fce7ec55672cf0a79",
     "tools/linux_validate.py": "bf9c45eef35c9b4b9dcbd9f0958a9122fe020f8e818aa5d234f28e306c9c9313",
     "tools/local_entry.py": "f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911",
-    "tools/mutations.py": "138e7d2a71eab7a63f281a1b46ea9617a1b353ed4b119406b74ec8a28075073e",
+    "tools/mutations.py": "d44611f0e8655f6670e41c16562da746a42e3206fd6199c06e60e54ce005a4cd",
     "tools/process.py": "6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f",
     "tools/report.py": "c4ac1749bef625b181c7de8dca183eae386871fd5ec23d0b475248fc69d16803",
     "tools/storage_fault.py": "0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0",
@@ -45,7 +46,7 @@
     "tools/validate_deployment.py": "f0f8226248432f75bb57c229df7e70dcad191ca42e8c254c7529efa7b67cce21",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "source_sha256": "decbbbc637af274add41fc1eb3c4e4b58159a331907eb6247956b29da7425561",
+  "source_sha256": "ac398e4379e004285a44459268cd555940bee5b0cf898ba5b47315f723729e8d",
   "cases": [
     {
       "name": "atomic_batches",
@@ -219,7 +220,7 @@
           }
         ]
       },
-      "seconds": 0.22258929200000033,
+      "seconds": 0.23044858300000115,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -237,12 +238,12 @@
           "old_confirm": 409
         },
         "fresh_blocked_connect_errno": 11,
-        "rollback_start_overdue_ms": 7.346001000001934,
-        "rollback_complete_overdue_ms": 52.43375100000236,
+        "rollback_start_overdue_ms": 42.921960000001036,
+        "rollback_complete_overdue_ms": 91.26450200000136,
         "fresh_access_restored": true,
         "confirmed_survives_deadline": true
       },
-      "seconds": 5.480489919000002,
+      "seconds": 5.5093426700000006,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -493,8 +494,8 @@
           "fencing": {
             "old_executor_identity": {
               "pid": 215,
-              "start_ticks": 2153,
-              "boot": "6478a67e-75ee-4086-b1e2-0b915a1027ea"
+              "start_ticks": 2159,
+              "boot": "af395c2d-6118-4147-8068-d6b4af5cad31"
             },
             "old_executor_exited": true,
             "old_candidate": {
@@ -839,7 +840,7 @@
           "unknown_preserved": true
         }
       ],
-      "seconds": 4.801842626999999,
+      "seconds": 4.767579043999998,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -857,7 +858,7 @@
         "durably_confirmed_restart_preserved": true,
         "graceful_shutdown_restored": true
       },
-      "seconds": 3.1477573770000014,
+      "seconds": 3.2261930849999985,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -875,7 +876,7 @@
         "confirmed_response_lost": true,
         "committed_survived_restart": true
       },
-      "seconds": 0.7387516250000026,
+      "seconds": 0.6906090839999983,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -897,7 +898,7 @@
         "write_limit_bytes": 16842752,
         "test_tmpfs_unmounted": true
       },
-      "seconds": 2.2603345430000026,
+      "seconds": 2.2642818339999984,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -912,13 +913,13 @@
         "expired_connections": 16,
         "rollback_while_all_slots_occupied": true,
         "final_phase": "ROLLED_BACK",
-        "seconds": 6.090864230000001,
+        "seconds": 6.092731825000001,
         "fresh_confirmation_after_slot_recovery": true,
         "baseline_readback_verified": true,
         "connection_lifetime_seconds": 5,
         "header_drip_interval_seconds": 0.1
       },
-      "seconds": 6.519894083999997,
+      "seconds": 6.543486289999997,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -931,9 +932,9 @@
         "trials": [
           {
             "index": 0,
-            "plan_ms": 8.106823999995072,
-            "apply_ms": 50.348013000004244,
-            "finalize_ms": 32.81418199999564,
+            "plan_ms": 11.150735000001077,
+            "apply_ms": 47.53141599999822,
+            "finalize_ms": 31.967700000002708,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 1,
@@ -958,9 +959,9 @@
           },
           {
             "index": 1,
-            "plan_ms": 20.40168099999562,
-            "apply_ms": 54.36448700000085,
-            "finalize_ms": 5.408020000004399,
+            "plan_ms": 12.116406000004076,
+            "apply_ms": 42.35438499999589,
+            "finalize_ms": 4.685274000003403,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 2,
@@ -985,9 +986,9 @@
           },
           {
             "index": 2,
-            "plan_ms": 15.080050000001677,
-            "apply_ms": 45.78385199999957,
-            "finalize_ms": 38.071504999997785,
+            "plan_ms": 9.677035999999362,
+            "apply_ms": 44.8575120000001,
+            "finalize_ms": 30.697361000001422,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 3,
@@ -1012,9 +1013,9 @@
           },
           {
             "index": 3,
-            "plan_ms": 14.343838999998582,
-            "apply_ms": 45.810381999999095,
-            "finalize_ms": 3.919203000002369,
+            "plan_ms": 14.03764500000193,
+            "apply_ms": 41.44667599999963,
+            "finalize_ms": 3.8144510000037712,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 4,
@@ -1039,9 +1040,9 @@
           },
           {
             "index": 4,
-            "plan_ms": 11.057564000005016,
-            "apply_ms": 44.50314599999672,
-            "finalize_ms": 30.555008000000328,
+            "plan_ms": 8.272808000000964,
+            "apply_ms": 50.23587399999485,
+            "finalize_ms": 29.462545000001228,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 5,
@@ -1066,9 +1067,9 @@
           },
           {
             "index": 5,
-            "plan_ms": 11.698499000004858,
-            "apply_ms": 41.45226400000013,
-            "finalize_ms": 4.282114999995201,
+            "plan_ms": 10.127019999998765,
+            "apply_ms": 42.440788000000396,
+            "finalize_ms": 3.6679349999957367,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 6,
@@ -1093,9 +1094,9 @@
           },
           {
             "index": 6,
-            "plan_ms": 10.878984999997954,
-            "apply_ms": 48.86843999999968,
-            "finalize_ms": 30.38927700000471,
+            "plan_ms": 14.444945000001042,
+            "apply_ms": 50.571220000001915,
+            "finalize_ms": 32.14270000000141,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 7,
@@ -1120,9 +1121,9 @@
           },
           {
             "index": 7,
-            "plan_ms": 12.393330999998398,
-            "apply_ms": 42.62029899999931,
-            "finalize_ms": 3.865224999998418,
+            "plan_ms": 15.76206600000063,
+            "apply_ms": 46.64490300000068,
+            "finalize_ms": 3.787954999999954,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 8,
@@ -1147,9 +1148,9 @@
           },
           {
             "index": 8,
-            "plan_ms": 12.354621000000066,
-            "apply_ms": 45.67264199999954,
-            "finalize_ms": 29.278639999994027,
+            "plan_ms": 9.278222999995478,
+            "apply_ms": 45.70601900000071,
+            "finalize_ms": 30.809597999997607,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 9,
@@ -1174,9 +1175,9 @@
           },
           {
             "index": 9,
-            "plan_ms": 12.961642999997025,
-            "apply_ms": 55.39890099999667,
-            "finalize_ms": 5.119400000005214,
+            "plan_ms": 16.152185000002817,
+            "apply_ms": 50.80016600000192,
+            "finalize_ms": 3.673895999995125,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 10,
@@ -1202,64 +1203,64 @@
         ],
         "plan": {
           "n": 10,
-          "median_ms": 12.373975999999232,
-          "min_ms": 8.106823999995072,
-          "max_ms": 20.40168099999562,
+          "median_ms": 11.633570500002577,
+          "min_ms": 8.272808000000964,
+          "max_ms": 16.152185000002817,
           "samples_ms": [
-            8.106823999995072,
-            20.40168099999562,
-            15.080050000001677,
-            14.343838999998582,
-            11.057564000005016,
-            11.698499000004858,
-            10.878984999997954,
-            12.393330999998398,
-            12.354621000000066,
-            12.961642999997025
+            11.150735000001077,
+            12.116406000004076,
+            9.677035999999362,
+            14.03764500000193,
+            8.272808000000964,
+            10.127019999998765,
+            14.444945000001042,
+            15.76206600000063,
+            9.278222999995478,
+            16.152185000002817
           ]
         },
         "apply": {
           "n": 10,
-          "median_ms": 45.79711699999933,
-          "min_ms": 41.45226400000013,
-          "max_ms": 55.39890099999667,
+          "median_ms": 46.175461000000695,
+          "min_ms": 41.44667599999963,
+          "max_ms": 50.80016600000192,
           "samples_ms": [
-            50.348013000004244,
-            54.36448700000085,
-            45.78385199999957,
-            45.810381999999095,
-            44.50314599999672,
-            41.45226400000013,
-            48.86843999999968,
-            42.62029899999931,
-            45.67264199999954,
-            55.39890099999667
+            47.53141599999822,
+            42.35438499999589,
+            44.8575120000001,
+            41.44667599999963,
+            50.23587399999485,
+            42.440788000000396,
+            50.571220000001915,
+            46.64490300000068,
+            45.70601900000071,
+            50.80016600000192
           ]
         },
         "confirm": {
           "n": 5,
-          "median_ms": 4.282114999995201,
-          "min_ms": 3.865224999998418,
-          "max_ms": 5.408020000004399,
+          "median_ms": 3.787954999999954,
+          "min_ms": 3.6679349999957367,
+          "max_ms": 4.685274000003403,
           "samples_ms": [
-            5.408020000004399,
-            3.919203000002369,
-            4.282114999995201,
-            3.865224999998418,
-            5.119400000005214
+            4.685274000003403,
+            3.8144510000037712,
+            3.6679349999957367,
+            3.787954999999954,
+            3.673895999995125
           ]
         },
         "cancel": {
           "n": 5,
-          "median_ms": 30.555008000000328,
-          "min_ms": 29.278639999994027,
-          "max_ms": 38.071504999997785,
+          "median_ms": 30.809597999997607,
+          "min_ms": 29.462545000001228,
+          "max_ms": 32.14270000000141,
           "samples_ms": [
-            32.81418199999564,
-            38.071504999997785,
-            30.555008000000328,
-            30.38927700000471,
-            29.278639999994027
+            31.967700000002708,
+            30.697361000001422,
+            29.462545000001228,
+            32.14270000000141,
+            30.809597999997607
           ]
         },
         "rss": {
@@ -1272,12 +1273,12 @@
           "logical_bytes": 347881,
           "allocated_bytes": 372736,
           "files": {
-            "executor-ffa30e48c82c34d99d6fa5e2c076279e.json": {
-              "logical_bytes": 126,
+            "batch-b02dd182dfac7873a0b3de1d7e5f0f2a.nft": {
+              "logical_bytes": 178,
               "allocated_bytes": 4096
             },
-            "batch-ffa30e48c82c34d99d6fa5e2c076279e.nft": {
-              "logical_bytes": 178,
+            "executor-b02dd182dfac7873a0b3de1d7e5f0f2a.json": {
+              "logical_bytes": 126,
               "allocated_bytes": 4096
             },
             "key.pem": {
@@ -1318,7 +1319,7 @@
         "warmup": "Service readiness only; all 10 operation trials retained",
         "timing_scope": "TLS request/response including connection+handshake, checks, nft and durable journal; one client, loopback-veth path in VM; no baseline speedup claim"
       },
-      "seconds": 0.9814076170000021,
+      "seconds": 0.9585300600000011,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -1328,12 +1329,12 @@
   "unit_stage": {
     "exit_code": 0,
     "timed_out": false,
-    "seconds": 4.573710836,
+    "seconds": 4.752178086000001,
     "passed": true
   },
   "unit": {
     "passed": true,
-    "tests": 81,
+    "tests": 85,
     "test_ids": [
       "test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections",
       "test_api.APITests.test_authentication",
@@ -1393,7 +1394,9 @@
       "test_deployment_audit.MeasurementEvidenceTests.test_interval_requires_monotonic_integer_endpoints",
       "test_deployment_audit.MeasurementEvidenceTests.test_limit_receipt_must_belong_to_fault_observation_window",
       "test_deployment_audit.MeasurementEvidenceTests.test_positive_measurement_rejects_boolean_and_nonfinite",
+      "test_deployment_audit.MeasurementEvidenceTests.test_tcp_drop_requires_live_same_listener_and_successful_recovery",
       "test_diagnostics.DiagnosticTests.test_configuration_is_strict_bounded_and_copied",
+      "test_diagnostics.DiagnosticTests.test_established_ingress_block_is_not_hidden_by_new_accept",
       "test_diagnostics.DiagnosticTests.test_external_earlier_and_later_chains_can_block",
       "test_diagnostics.DiagnosticTests.test_failure_and_missing_configuration_are_never_clear",
       "test_diagnostics.DiagnosticTests.test_first_match_and_default_guard_preserve_journal_and_kernel",
@@ -1402,6 +1405,8 @@
       "test_diagnostics.DiagnosticTests.test_ruleset_reader_bounds_bytes_timeout_and_nonzero_and_reaps",
       "test_diagnostics.DiagnosticTests.test_unknown_condition_cannot_hide_possible_drop",
       "test_diagnostics.DiagnosticTests.test_unsupported_expression_jump_and_other_hooks_are_not_clear",
+      "test_service_startup.ServiceStartupTests.test_guard_does_not_block_baseline_recovery_paths",
+      "test_service_startup.ServiceStartupTests.test_invalid_management_file_cannot_prevent_pending_recovery",
       "test_startup_state.StartupStateTests.test_incomplete_pending_state_is_diagnostic",
       "test_startup_state.StartupStateTests.test_initial_operation_id_confirmed_restart_remains_manageable",
       "test_startup_state.StartupStateTests.test_initial_operation_id_pending_restart_restores_baseline",
@@ -1420,7 +1425,7 @@
     "failures": 0,
     "errors": 0,
     "skipped": 0,
-    "seconds": 4.502865169,
+    "seconds": 4.678888211,
     "source": {
       "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
       "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
@@ -1429,15 +1434,16 @@
       "rulemoor/backend.py": "0f58dacb7eb35727d738367476044e0e72d58459b4bbe2113fa038608cb6e078",
       "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
       "rulemoor/core.py": "01c601df1ea5d47b572d8c5eade72992d2725549f9ac960aba332e6c11a845ed",
-      "rulemoor/diagnostics.py": "24fd3db263b232b4eda3f633552722423e5d4c294fa420470bff2a71036b1dc3",
+      "rulemoor/diagnostics.py": "0afe68131e4f0ae001634e5604e78c3a289a2962e660664bccddd13b7f2f8304",
       "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
       "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
-      "rulemoor/service.py": "2439b33c850272873626c2971de3c85a6a922f4fda1fdce26428f92096597368",
+      "rulemoor/service.py": "4ceb2cdb744d4ce8c723570dfe9076037c98da3fd5bc4f4ac7ea7cfefddb9f63",
       "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
       "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
-      "tests/test_deployment_audit.py": "29a84f91a5afae2272f66b15620ac598b661a36069da4f99005bde7a90a28ee2",
-      "tests/test_diagnostics.py": "2f846eeae5c522731820432d42a6828df73ca2cc145095b713a423afabe1bf8c",
+      "tests/test_deployment_audit.py": "2aded3ab9edee04e189d2a8d69b60876bef1b5ae09dcfffa84b672a8e08d073c",
+      "tests/test_diagnostics.py": "1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7",
+      "tests/test_service_startup.py": "ed6f099450caa1268f47386bf138150e7a09c8a78c199f6a3e8c5fc79a6a3abf",
       "tests/test_startup_state.py": "eb4d74d1446c86b49b16639fcfc1713e8c63ca127b1e1831a838d1e876f5e950",
       "tests/test_tools.py": "c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5",
       "tools/__init__.py": "eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac",
@@ -1446,14 +1452,14 @@
       "tools/audit_evidence.py": "20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617",
       "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
       "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
-      "tools/deployment_guest.py": "105dfa532a841ee3f3e81b51cfb5eebdc4c455b00f69312ededcef22ff893332",
-      "tools/deployment_report.py": "9e899bc4fc0beb158d29ac5a8329913f788e6b4249237cb063212106d00ba34e",
+      "tools/deployment_guest.py": "7cad6e35d6c724ec9af4269eabbe63dbfef03c0295359e022958699882910eab",
+      "tools/deployment_report.py": "29c7d2460f6653f2df855a8461ee8f46ea953201200fca7a4fcb293342297f60",
       "tools/evidence.py": "d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b",
       "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
       "tools/linux_cases.py": "49500a9697b81d5a1b9ba8651e4c1755474f6a49a213b95fce7ec55672cf0a79",
       "tools/linux_validate.py": "bf9c45eef35c9b4b9dcbd9f0958a9122fe020f8e818aa5d234f28e306c9c9313",
       "tools/local_entry.py": "f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911",
-      "tools/mutations.py": "138e7d2a71eab7a63f281a1b46ea9617a1b353ed4b119406b74ec8a28075073e",
+      "tools/mutations.py": "d44611f0e8655f6670e41c16562da746a42e3206fd6199c06e60e54ce005a4cd",
       "tools/process.py": "6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f",
       "tools/report.py": "c4ac1749bef625b181c7de8dca183eae386871fd5ec23d0b475248fc69d16803",
       "tools/storage_fault.py": "0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0",
@@ -1463,12 +1469,12 @@
       "tools/validate_deployment.py": "f0f8226248432f75bb57c229df7e70dcad191ca42e8c254c7529efa7b67cce21",
       "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
     },
-    "source_sha256": "decbbbc637af274add41fc1eb3c4e4b58159a331907eb6247956b29da7425561",
-    "run_id": "4447fa732873e1a8",
+    "source_sha256": "ac398e4379e004285a44459268cd555940bee5b0cf898ba5b47315f723729e8d",
+    "run_id": "6ed204f4e6c8dead",
     "platform": "Linux",
     "architecture": "aarch64",
     "python": "3.12.14",
-    "test_process_peak_rss_bytes": 38490112,
+    "test_process_peak_rss_bytes": 38273024,
     "scope": "Portable production-core contracts with a memory backend; not real nft or network performance"
   },
   "environment": {
