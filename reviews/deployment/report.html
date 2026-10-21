@@ -3,10 +3,10 @@
 <h1>Rulemoor deployment validation: PASS</h1>
 <p>Actual systemd in an isolated Linux VM. Firewall writes confined to a disposable network namespace.
 VM reboots are orderly stop/start, not power-loss tests. Timings are observations including probe/control overhead, not SLA bounds.
-Daemon/cgroup memory is distinct from total VM memory. No native macOS deployment claim.</p><table><tr><td>setup</td><td>PASS</td></tr><tr><td>management_diagnostics</td><td>PASS</td></tr><tr><td>dual_stack</td><td>PASS</td></tr><tr><td>poisoned_journal</td><td>PASS</td></tr><tr><td>restart_limit</td><td>PASS</td></tr><tr><td>crash</td><td>PASS</td></tr><tr><td>held_writer</td><td>PASS</td></tr><tr><td>prepare_pending_boot</td><td>PASS</td></tr><tr><td>after_pending_boot</td><td>PASS</td></tr><tr><td>after_committed_boot</td><td>PASS</td></tr><tr><td>prepare_dual_boot</td><td>PASS</td></tr><tr><td>after_dual_boot</td><td>PASS</td></tr><tr><td>dual_held_executor</td><td>PASS</td></tr><tr><td>cleanup</td><td>PASS</td></tr></table><p>Configured management-port denial was rejected before mutation. Earlier/later foreign input drops were diagnosed and tested with real TCP; unsupported conditions remained risk. Foreign rules were unchanged. Old TLS confirmation was rejected; a fresh connection confirmed. These are namespace-local checks, not route/WAN reachability proof. Plan observations include CLI process and namespace overhead.</p><p>Dual-stack static veth peers: repeated IPv4 confirmation could not mask a blocked fresh IPv6 connection; both policies rolled back at the common deadline. Old IPv4/IPv6 TLS and family spoofing were rejected. Fresh IPv4 partial + IPv6 confirmation committed; partial-confirmation SIGKILL restored the prior dual commit. Foreign tables remained unchanged.</p><p>Single observed dual confirmation round trips: IPv4 partial 4.65 ms; IPv6 final commit 4.12 ms. Different state transitions, not a family performance comparison. Includes fresh TLS and durable writes; client-process startup excluded. Static-neighbour discovery observed; routed PMTU, SLAAC, dual-stack VM boot and power loss were not tested.</p><p>Dual partial-confirmation VM reboot: pre-Agent journal still pending, both owned tables absent before service startup; both baseline policies restored and fresh IPv4/IPv6 TLS succeeded. Orderly VM stop/start plus validation: 12.63 s (one observation including control/probing, not a recovery bound).</p><p>Dual delayed orphan executor: deliberately kept outside the service cgroup and alive with writer.lock after its Agent was killed. The installed systemd Agent retired it before restoring the known baseline. A distinct two-family successor survived releasing the retired intent and a finite 2.10 s observation. This is explicit fault injection, not sudden power-loss or arbitrary-hang recovery.</p><p>Malformed snapshot: DEGRADED; original data and kernel policy preserved. Test-only local reprovision is not automatic repair.</p><p>Persistent missing-key startup failure: exit-code; pending candidate remains installed while stopped. No further restart observed for 2.21 s. Baseline recovery required local cause repair and explicit reset/start. Native segmentation fault and uninterruptible I/O were not tested.</p><p>Observed Agent SIGKILL to fresh TLS ready with restored baseline: 1219.3 ms (one trial; includes client probes and systemctl overhead).</p><p>Orderly VM stop/start plus post-boot validation: 12.73 s pending / 11.52 s committed (each observed case one trial; includes VM control, SSH and assertions, not boot-time bounds).</p><table><tr><th>Stage</th><th>Agent VmHWM MiB</th><th>Service cgroup MiB</th></tr><tr><td>setup</td><td>22.20</td><td>10.68</td></tr><tr><td>management_diagnostics</td><td>23.14</td><td>11.97</td></tr><tr><td>dual_stack</td><td>23.54</td><td>12.41</td></tr><tr><td>poisoned_journal</td><td>22.31</td><td>10.77</td></tr><tr><td>restart_limit</td><td>22.88</td><td>11.58</td></tr><tr><td>crash</td><td>22.77</td><td>11.47</td></tr><tr><td>after_pending_boot</td><td>22.73</td><td>11.87</td></tr><tr><td>after_committed_boot</td><td>22.18</td><td>11.03</td></tr><tr><td>after_dual_boot</td><td>22.95</td><td>12.11</td></tr><tr><td>dual_held_executor</td><td>23.00</td><td>11.65</td></tr></table><pre>{
+Daemon/cgroup memory is distinct from total VM memory. No native macOS deployment claim.</p><table><tr><td>setup</td><td>PASS</td></tr><tr><td>management_diagnostics</td><td>PASS</td></tr><tr><td>dual_stack</td><td>PASS</td></tr><tr><td>poisoned_journal</td><td>PASS</td></tr><tr><td>restart_limit</td><td>PASS</td></tr><tr><td>crash</td><td>PASS</td></tr><tr><td>held_writer</td><td>PASS</td></tr><tr><td>prepare_pending_boot</td><td>PASS</td></tr><tr><td>after_pending_boot</td><td>PASS</td></tr><tr><td>after_committed_boot</td><td>PASS</td></tr><tr><td>prepare_dual_boot</td><td>PASS</td></tr><tr><td>after_dual_boot</td><td>PASS</td></tr><tr><td>dual_held_executor</td><td>PASS</td></tr><tr><td>cleanup</td><td>PASS</td></tr></table><p>Configured management-port denial was rejected before mutation. Earlier/later foreign input drops were diagnosed and tested with real TCP; unsupported conditions remained risk. Foreign rules were unchanged. Old TLS confirmation was rejected; a fresh connection confirmed. These are namespace-local checks, not route/WAN reachability proof. Plan observations include CLI process and namespace overhead.</p><p>Dual-stack static veth peers: repeated IPv4 confirmation could not mask a blocked fresh IPv6 connection; both policies rolled back at the common deadline. Old IPv4/IPv6 TLS and family spoofing were rejected. Fresh IPv4 partial + IPv6 confirmation committed; partial-confirmation SIGKILL restored the prior dual commit. Foreign tables remained unchanged.</p><p>Single observed dual confirmation round trips: IPv4 partial 4.56 ms; IPv6 final commit 4.15 ms. Different state transitions, not a family performance comparison. Includes fresh TLS and durable writes; client-process startup excluded. Static-neighbour discovery observed. This case does not test VM boot; any separate partial-confirmation dual VM boot observation is reported below. Committed-only dual VM boot, routed PMTU, SLAAC and power loss remain untested.</p><p>Dual partial-confirmation VM reboot: pre-Agent journal still pending, both owned tables absent before service startup; both baseline policies restored and fresh IPv4/IPv6 TLS succeeded. Orderly VM stop/start plus validation: 11.57 s (one observation including control/probing, not a recovery bound).</p><p>Dual delayed orphan executor: deliberately kept outside the service cgroup and alive with writer.lock after its Agent was killed. The installed systemd Agent retired it before restoring the known baseline. A distinct two-family successor survived releasing the retired intent and a finite 2.10 s observation. This is explicit fault injection, not sudden power-loss or arbitrary-hang recovery.</p><p>Malformed snapshot: DEGRADED; original data and kernel policy preserved. Test-only local reprovision is not automatic repair.</p><p>Persistent missing-key startup failure: exit-code; pending candidate remains installed while stopped. No further restart observed for 2.21 s. Baseline recovery required local cause repair and explicit reset/start. Native segmentation fault and uninterruptible I/O were not tested.</p><p>Observed Agent SIGKILL to fresh TLS ready with restored baseline: 1289.9 ms (one trial; includes client probes and systemctl overhead).</p><p>Orderly VM stop/start plus post-boot validation: 14.47 s pending / 11.57 s committed (each observed case one trial; includes VM control, SSH and assertions, not boot-time bounds).</p><table><tr><th>Stage</th><th>Agent VmHWM MiB</th><th>Service cgroup MiB</th></tr><tr><td>setup</td><td>22.28</td><td>10.68</td></tr><tr><td>management_diagnostics</td><td>23.11</td><td>11.86</td></tr><tr><td>dual_stack</td><td>23.68</td><td>12.36</td></tr><tr><td>poisoned_journal</td><td>22.30</td><td>10.69</td></tr><tr><td>restart_limit</td><td>23.00</td><td>11.62</td></tr><tr><td>crash</td><td>22.81</td><td>11.45</td></tr><tr><td>after_pending_boot</td><td>22.90</td><td>12.05</td></tr><tr><td>after_committed_boot</td><td>22.20</td><td>11.03</td></tr><tr><td>after_dual_boot</td><td>22.95</td><td>12.21</td></tr><tr><td>dual_held_executor</td><td>22.99</td><td>11.66</td></tr></table><pre>{
   &quot;schema&quot;: 1,
-  &quot;run_id&quot;: &quot;2d6bce1eafd34363&quot;,
-  &quot;recorded_at_utc&quot;: &quot;2026-10-21T03:25:33.696125+00:00&quot;,
+  &quot;run_id&quot;: &quot;71eba3fbcb9238fb&quot;,
+  &quot;recorded_at_utc&quot;: &quot;2026-10-21T03:53:42.605345+00:00&quot;,
   &quot;passed&quot;: true,
   &quot;source&quot;: {
     &quot;Dockerfile&quot;: &quot;3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec&quot;,
@@ -23,7 +23,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
     &quot;tests/__init__.py&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;,
     &quot;tests/test_api.py&quot;: &quot;b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a&quot;,
     &quot;tests/test_core.py&quot;: &quot;99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb&quot;,
-    &quot;tests/test_deployment_audit.py&quot;: &quot;cd19458698309e9cdac222e4df3e2b2f9d34e2a80e03f93b9e8ab53f10b9133f&quot;,
+    &quot;tests/test_deployment_audit.py&quot;: &quot;c5d6f42e95a0442a4f202632d8e2523cb07a7222e354c8f2c1e62e6c64124d04&quot;,
     &quot;tests/test_diagnostics.py&quot;: &quot;1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7&quot;,
     &quot;tests/test_dual_recovery.py&quot;: &quot;28ace94c72e6c1453bf8147e9a63dec4f2b57dc49095af0df20b233eff30e49a&quot;,
     &quot;tests/test_dual_stack.py&quot;: &quot;e978ef28e9158d17b4235bd6466ff56afa4c235a6e14045a88f4ad4382255eb3&quot;,
@@ -37,7 +37,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
     &quot;tools/client_driver.py&quot;: &quot;5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44&quot;,
     &quot;tools/colima-lock.json&quot;: &quot;fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d&quot;,
     &quot;tools/deployment_guest.py&quot;: &quot;2022f2f7a7f944107194853747bb4bd4f9d503f8adb24895a687f83ad35b3a90&quot;,
-    &quot;tools/deployment_report.py&quot;: &quot;d870a73d2cb9141eb65a7cd760e066ce2bff945ba12dc4c11834fb57be8013c2&quot;,
+    &quot;tools/deployment_report.py&quot;: &quot;0ee8b76cad20fc62dc67be11dd3d2abae60f18402ff2d11c9e174d68a3772663&quot;,
     &quot;tools/dual_recovery.py&quot;: &quot;cf1347783722d3e16d990ca0bd6f1a1e4272cfcc35d2b1ba7837eea66e103e8c&quot;,
     &quot;tools/evidence.py&quot;: &quot;d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b&quot;,
     &quot;tools/install_colima.py&quot;: &quot;70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb&quot;,
@@ -54,7 +54,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
     &quot;tools/validate_deployment.py&quot;: &quot;1297b3b01dde8288b91bdac4451d89fe04c2665ab41fd62470062d7e7a21e89d&quot;,
     &quot;tools/validate_local.py&quot;: &quot;51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1&quot;
   },
-  &quot;source_sha256&quot;: &quot;c64749f0c951d14513ccc3e1cf18c0dc171c19e28310c259b6da4eb767a146ec&quot;,
+  &quot;source_sha256&quot;: &quot;6165ed1aca054e8ece3a93c7a1e348e540424f1a855ab698129147539d0cb3b7&quot;,
   &quot;source_changed&quot;: false,
   &quot;scope&quot;: {
     &quot;execution&quot;: &quot;Actual systemd in Colima Linux VM; isolated test network namespace&quot;,
@@ -67,175 +67,175 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;vm-initial&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.2393316249945201
+      &quot;seconds&quot;: 0.18463275000976864
     },
     {
       &quot;name&quot;: &quot;vm-start&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 8.684878833009861
+      &quot;seconds&quot;: 20.446698583997204
     },
     {
       &quot;name&quot;: &quot;preflight&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.24053599999751896
+      &quot;seconds&quot;: 0.31849316699663177
     },
     {
       &quot;name&quot;: &quot;guest-prerequisites&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.503638583002612
+      &quot;seconds&quot;: 5.384949082988896
     },
     {
       &quot;name&quot;: &quot;wheel-build&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 1.3618078329891432
+      &quot;seconds&quot;: 1.326543874994968
     },
     {
       &quot;name&quot;: &quot;snapshot-upload&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.22389020799892023
+      &quot;seconds&quot;: 0.25072083401028067
     },
     {
       &quot;name&quot;: &quot;guest-setup&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 1.9278927090053912
+      &quot;seconds&quot;: 1.891158958998858
     },
     {
       &quot;name&quot;: &quot;guest-management_diagnostics&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 16.07911162500386
+      &quot;seconds&quot;: 15.985442834004061
     },
     {
       &quot;name&quot;: &quot;guest-dual_stack&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 8.06086004099052
+      &quot;seconds&quot;: 8.178728750004666
     },
     {
       &quot;name&quot;: &quot;guest-poisoned_journal&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.992360791002284
+      &quot;seconds&quot;: 2.827480749998358
     },
     {
       &quot;name&quot;: &quot;guest-restart_limit&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 9.617702207993716
+      &quot;seconds&quot;: 9.555803666997235
     },
     {
       &quot;name&quot;: &quot;guest-crash&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 1.897061790994485
+      &quot;seconds&quot;: 1.9908490419911686
     },
     {
       &quot;name&quot;: &quot;guest-held_writer&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 4.361922459007474
+      &quot;seconds&quot;: 4.290567999996711
     },
     {
       &quot;name&quot;: &quot;guest-prepare_pending_boot&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.5180444579891628
+      &quot;seconds&quot;: 0.5222541250113863
     },
     {
       &quot;name&quot;: &quot;pending-vm-stop&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.570952624999336
+      &quot;seconds&quot;: 2.5092102920025354
     },
     {
       &quot;name&quot;: &quot;pending-vm-start&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 9.495461665996118
+      &quot;seconds&quot;: 11.326844667011756
     },
     {
       &quot;name&quot;: &quot;guest-after_pending_boot&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.6132069580053212
+      &quot;seconds&quot;: 0.5797185000119498
     },
     {
       &quot;name&quot;: &quot;committed-vm-stop&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.507577083000797
+      &quot;seconds&quot;: 2.4166897919931216
     },
     {
       &quot;name&quot;: &quot;committed-vm-start&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 8.401526832996751
+      &quot;seconds&quot;: 8.495590374994208
     },
     {
       &quot;name&quot;: &quot;guest-after_committed_boot&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.556052208004985
+      &quot;seconds&quot;: 0.6082749999914085
     },
     {
       &quot;name&quot;: &quot;guest-prepare_dual_boot&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 1.1994324160041288
+      &quot;seconds&quot;: 1.1344248749956023
     },
     {
       &quot;name&quot;: &quot;dual-pending-vm-stop&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.5670629580126842
+      &quot;seconds&quot;: 2.4028620409953874
     },
     {
       &quot;name&quot;: &quot;dual-pending-vm-start&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 9.36042624998663
+      &quot;seconds&quot;: 8.482168125003227
     },
     {
       &quot;name&quot;: &quot;guest-after_dual_boot&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.6461470409994945
+      &quot;seconds&quot;: 0.627696334006032
     },
     {
       &quot;name&quot;: &quot;guest-dual_held_executor&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.999173709002207
+      &quot;seconds&quot;: 2.975807666996843
     },
     {
       &quot;name&quot;: &quot;guest-cleanup&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.4791330000007292
+      &quot;seconds&quot;: 0.5835678339935839
     },
     {
       &quot;name&quot;: &quot;snapshot-remove&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.31498591700801626
+      &quot;seconds&quot;: 0.22959270799765363
     },
     {
       &quot;name&quot;: &quot;vm-final-stop&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.5086993749864632
+      &quot;seconds&quot;: 2.4138089999905787
     },
     {
       &quot;name&quot;: &quot;vm-final&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.2632616670016432
+      &quot;seconds&quot;: 0.18015749999904074
     }
   ],
   &quot;cases&quot;: [
@@ -268,12 +268,12 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         &quot;unit_properties&quot;: {
           &quot;Restart&quot;: &quot;on-failure&quot;,
           &quot;RestartUSec&quot;: &quot;1s&quot;,
-          &quot;MainPID&quot;: &quot;1660&quot;,
+          &quot;MainPID&quot;: &quot;2271&quot;,
           &quot;Result&quot;: &quot;success&quot;,
           &quot;NRestarts&quot;: &quot;0&quot;,
           &quot;ExecMainStatus&quot;: &quot;0&quot;,
           &quot;ControlGroup&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;MemoryCurrent&quot;: &quot;11218944&quot;,
+          &quot;MemoryCurrent&quot;: &quot;11247616&quot;,
           &quot;CapabilityBoundingSet&quot;: &quot;cap_kill cap_net_admin&quot;,
           &quot;PrivateTmp&quot;: &quot;yes&quot;,
           &quot;ProtectHome&quot;: &quot;yes&quot;,
@@ -286,27 +286,27 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;StartLimitIntervalUSec&quot;: &quot;1min&quot;,
           &quot;StartLimitBurst&quot;: &quot;5&quot;
         },
-        &quot;boot_id&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+        &quot;boot_id&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23281664,
-          &quot;agent_vmhwm_bytes&quot;: 23281664,
-          &quot;service_cgroup_memory_current_bytes&quot;: 11198464,
+          &quot;agent_rss_bytes&quot;: 23359488,
+          &quot;agent_vmhwm_bytes&quot;: 23359488,
+          &quot;service_cgroup_memory_current_bytes&quot;: 11202560,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 1660,
-            &quot;start_ticks&quot;: 1010,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+            &quot;pid&quot;: 2271,
+            &quot;start_ticks&quot;: 2696,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
           },
-          &quot;main_pid_after&quot;: 1660,
-          &quot;invocation_id&quot;: &quot;03e72b268b3242c1a19a2b3b44e24441&quot;,
-          &quot;invocation_id_after&quot;: &quot;03e72b268b3242c1a19a2b3b44e24441&quot;,
+          &quot;main_pid_after&quot;: 2271,
+          &quot;invocation_id&quot;: &quot;b8ff5d8dccdf4c2d9b49c7304faf7edd&quot;,
+          &quot;invocation_id_after&quot;: &quot;b8ff5d8dccdf4c2d9b49c7304faf7edd&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 10211279670,
-          &quot;sample_finished_ns&quot;: 10215307462,
+          &quot;sample_started_ns&quot;: 27069951679,
+          &quot;sample_finished_ns&quot;: 27074037637,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         }
       }
@@ -324,7 +324,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 3,
               &quot;op&quot;: &quot;configuration-recovery-missing&quot;,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -423,15 +423,15 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               }
             ],
             &quot;unit_before_kill&quot;: {
-              &quot;MainPID&quot;: &quot;1719&quot;,
-              &quot;InvocationID&quot;: &quot;b67f4511f67e453fa88e7f22207b7699&quot;,
+              &quot;MainPID&quot;: &quot;2330&quot;,
+              &quot;InvocationID&quot;: &quot;61f56fd604af4e2f87a6273b6bb11ee9&quot;,
               &quot;ActiveState&quot;: &quot;active&quot;,
               &quot;Result&quot;: &quot;success&quot;,
               &quot;NRestarts&quot;: &quot;0&quot;
             },
             &quot;unit_at_kill&quot;: {
-              &quot;MainPID&quot;: &quot;1719&quot;,
-              &quot;InvocationID&quot;: &quot;b67f4511f67e453fa88e7f22207b7699&quot;,
+              &quot;MainPID&quot;: &quot;2330&quot;,
+              &quot;InvocationID&quot;: &quot;61f56fd604af4e2f87a6273b6bb11ee9&quot;,
               &quot;ActiveState&quot;: &quot;active&quot;,
               &quot;Result&quot;: &quot;success&quot;,
               &quot;NRestarts&quot;: &quot;0&quot;
@@ -440,7 +440,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 3,
               &quot;op&quot;: &quot;configuration-recovery-missing&quot;,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -543,7 +543,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 4,
               &quot;op&quot;: &quot;configuration-recovery-missing&quot;,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -643,7 +643,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             ],
             &quot;failed_unit&quot;: {
               &quot;MainPID&quot;: &quot;0&quot;,
-              &quot;InvocationID&quot;: &quot;4bc61c7863e244f382a101a33a167cd3&quot;,
+              &quot;InvocationID&quot;: &quot;bcc3bd5bd195453a99210fcfc5841aed&quot;,
               &quot;ActiveState&quot;: &quot;failed&quot;,
               &quot;Result&quot;: &quot;exit-code&quot;,
               &quot;NRestarts&quot;: &quot;6&quot;
@@ -652,19 +652,19 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               {
                 &quot;MESSAGE&quot;: &quot;rulemoor.service: Start request repeated too quickly.&quot;,
                 &quot;UNIT&quot;: &quot;rulemoor.service&quot;,
-                &quot;_BOOT_ID&quot;: &quot;c4d2dcb176cb4e1991a4e0b5bc35d19b&quot;,
-                &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;18915147&quot;
+                &quot;_BOOT_ID&quot;: &quot;05fdf56dd7304fcabdc463318b9d9aff&quot;,
+                &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;35723139&quot;
               }
             ],
-            &quot;failure_started_monotonic_ns&quot;: 12294005296,
-            &quot;failure_observed_monotonic_ns&quot;: 19069028425,
-            &quot;boot_before&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
-            &quot;boot_after&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;failure_started_monotonic_ns&quot;: 29244333972,
+            &quot;failure_observed_monotonic_ns&quot;: 35736944264,
+            &quot;boot_before&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
+            &quot;boot_after&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;ready_after_repair&quot;: {
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 4,
               &quot;op&quot;: &quot;configuration-recovery-missing&quot;,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -700,7 +700,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 5,
               &quot;op&quot;: &quot;configuration-recovery-null&quot;,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -799,15 +799,15 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               }
             ],
             &quot;unit_before_kill&quot;: {
-              &quot;MainPID&quot;: &quot;2025&quot;,
-              &quot;InvocationID&quot;: &quot;1b1d99a701e24763a5b56348bcd0ffff&quot;,
+              &quot;MainPID&quot;: &quot;2639&quot;,
+              &quot;InvocationID&quot;: &quot;72573bd7d8cf4b279e48d41d3d46b5e4&quot;,
               &quot;ActiveState&quot;: &quot;active&quot;,
               &quot;Result&quot;: &quot;success&quot;,
               &quot;NRestarts&quot;: &quot;0&quot;
             },
             &quot;unit_at_kill&quot;: {
-              &quot;MainPID&quot;: &quot;2025&quot;,
-              &quot;InvocationID&quot;: &quot;1b1d99a701e24763a5b56348bcd0ffff&quot;,
+              &quot;MainPID&quot;: &quot;2639&quot;,
+              &quot;InvocationID&quot;: &quot;72573bd7d8cf4b279e48d41d3d46b5e4&quot;,
               &quot;ActiveState&quot;: &quot;active&quot;,
               &quot;Result&quot;: &quot;success&quot;,
               &quot;NRestarts&quot;: &quot;0&quot;
@@ -816,7 +816,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 5,
               &quot;op&quot;: &quot;configuration-recovery-null&quot;,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -919,7 +919,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 6,
               &quot;op&quot;: &quot;configuration-recovery-null&quot;,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -1019,7 +1019,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             ],
             &quot;failed_unit&quot;: {
               &quot;MainPID&quot;: &quot;0&quot;,
-              &quot;InvocationID&quot;: &quot;1841c953734f440cbe3f8cd67c13a31a&quot;,
+              &quot;InvocationID&quot;: &quot;02f93515fa924dcb8d57bb278e09a6d9&quot;,
               &quot;ActiveState&quot;: &quot;failed&quot;,
               &quot;Result&quot;: &quot;exit-code&quot;,
               &quot;NRestarts&quot;: &quot;6&quot;
@@ -1028,19 +1028,19 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               {
                 &quot;MESSAGE&quot;: &quot;rulemoor.service: Start request repeated too quickly.&quot;,
                 &quot;UNIT&quot;: &quot;rulemoor.service&quot;,
-                &quot;_BOOT_ID&quot;: &quot;c4d2dcb176cb4e1991a4e0b5bc35d19b&quot;,
-                &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;25913901&quot;
+                &quot;_BOOT_ID&quot;: &quot;05fdf56dd7304fcabdc463318b9d9aff&quot;,
+                &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;42654960&quot;
               }
             ],
-            &quot;failure_started_monotonic_ns&quot;: 19278872425,
-            &quot;failure_observed_monotonic_ns&quot;: 25940247720,
-            &quot;boot_before&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
-            &quot;boot_after&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;failure_started_monotonic_ns&quot;: 35976182424,
+            &quot;failure_observed_monotonic_ns&quot;: 42664033479,
+            &quot;boot_before&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
+            &quot;boot_after&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;ready_after_repair&quot;: {
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 6,
               &quot;op&quot;: &quot;configuration-recovery-null&quot;,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -1153,7 +1153,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 0,
           &quot;op&quot;: &quot;initial&quot;,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -1169,7 +1169,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 0,
           &quot;op&quot;: &quot;initial&quot;,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -1320,9 +1320,9 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           }
         ],
         &quot;listener_identity&quot;: {
-          &quot;pid&quot;: 1726,
-          &quot;start_ticks&quot;: 1072,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+          &quot;pid&quot;: 2336,
+          &quot;start_ticks&quot;: 2763,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
         },
         &quot;tcp_probe_before_foreign_drop&quot;: {
           &quot;connected&quot;: true,
@@ -1330,17 +1330,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;listener_before&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1726,
-              &quot;start_ticks&quot;: 1072,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+              &quot;pid&quot;: 2336,
+              &quot;start_ticks&quot;: 2763,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
             }
           },
           &quot;listener_after&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1726,
-              &quot;start_ticks&quot;: 1072,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+              &quot;pid&quot;: 2336,
+              &quot;start_ticks&quot;: 2763,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
             }
           }
         },
@@ -1498,17 +1498,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;listener_before&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1726,
-                  &quot;start_ticks&quot;: 1072,
-                  &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+                  &quot;pid&quot;: 2336,
+                  &quot;start_ticks&quot;: 2763,
+                  &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
                 }
               },
               &quot;listener_after&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1726,
-                  &quot;start_ticks&quot;: 1072,
-                  &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+                  &quot;pid&quot;: 2336,
+                  &quot;start_ticks&quot;: 2763,
+                  &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
                 }
               }
             },
@@ -1518,17 +1518,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;listener_before&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1726,
-                  &quot;start_ticks&quot;: 1072,
-                  &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+                  &quot;pid&quot;: 2336,
+                  &quot;start_ticks&quot;: 2763,
+                  &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
                 }
               },
               &quot;listener_after&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1726,
-                  &quot;start_ticks&quot;: 1072,
-                  &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+                  &quot;pid&quot;: 2336,
+                  &quot;start_ticks&quot;: 2763,
+                  &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
                 }
               }
             },
@@ -1538,26 +1538,26 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;listener_before&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1726,
-                  &quot;start_ticks&quot;: 1072,
-                  &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+                  &quot;pid&quot;: 2336,
+                  &quot;start_ticks&quot;: 2763,
+                  &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
                 }
               },
               &quot;listener_after&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1726,
-                  &quot;start_ticks&quot;: 1072,
-                  &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+                  &quot;pid&quot;: 2336,
+                  &quot;start_ticks&quot;: 2763,
+                  &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
                 }
               }
             },
             &quot;plan_clock&quot;: {
               &quot;clock&quot;: &quot;monotonic_ns&quot;,
-              &quot;started_ns&quot;: 11167355588,
-              &quot;finished_ns&quot;: 11220935171
+              &quot;started_ns&quot;: 28096021430,
+              &quot;finished_ns&quot;: 28137590596
             },
-            &quot;plan_observed_ms&quot;: 53.579583
+            &quot;plan_observed_ms&quot;: 41.569166
           },
           {
             &quot;priority&quot;: 10,
@@ -1712,17 +1712,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;listener_before&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1726,
-                  &quot;start_ticks&quot;: 1072,
-                  &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+                  &quot;pid&quot;: 2336,
+                  &quot;start_ticks&quot;: 2763,
+                  &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
                 }
               },
               &quot;listener_after&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1726,
-                  &quot;start_ticks&quot;: 1072,
-                  &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+                  &quot;pid&quot;: 2336,
+                  &quot;start_ticks&quot;: 2763,
+                  &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
                 }
               }
             },
@@ -1732,17 +1732,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;listener_before&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1726,
-                  &quot;start_ticks&quot;: 1072,
-                  &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+                  &quot;pid&quot;: 2336,
+                  &quot;start_ticks&quot;: 2763,
+                  &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
                 }
               },
               &quot;listener_after&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1726,
-                  &quot;start_ticks&quot;: 1072,
-                  &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+                  &quot;pid&quot;: 2336,
+                  &quot;start_ticks&quot;: 2763,
+                  &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
                 }
               }
             },
@@ -1752,26 +1752,26 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;listener_before&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1726,
-                  &quot;start_ticks&quot;: 1072,
-                  &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+                  &quot;pid&quot;: 2336,
+                  &quot;start_ticks&quot;: 2763,
+                  &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
                 }
               },
               &quot;listener_after&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1726,
-                  &quot;start_ticks&quot;: 1072,
-                  &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+                  &quot;pid&quot;: 2336,
+                  &quot;start_ticks&quot;: 2763,
+                  &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
                 }
               }
             },
             &quot;plan_clock&quot;: {
               &quot;clock&quot;: &quot;monotonic_ns&quot;,
-              &quot;started_ns&quot;: 11515458088,
-              &quot;finished_ns&quot;: 11571944213
+              &quot;started_ns&quot;: 28434833971,
+              &quot;finished_ns&quot;: 28476315471
             },
-            &quot;plan_observed_ms&quot;: 56.486125
+            &quot;plan_observed_ms&quot;: 41.4815
           }
         ],
         &quot;unsupported_condition&quot;: {
@@ -1949,17 +1949,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;listener_before&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1726,
-              &quot;start_ticks&quot;: 1072,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+              &quot;pid&quot;: 2336,
+              &quot;start_ticks&quot;: 2763,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
             }
           },
           &quot;listener_after&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1726,
-              &quot;start_ticks&quot;: 1072,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+              &quot;pid&quot;: 2336,
+              &quot;start_ticks&quot;: 2763,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
             }
           }
         },
@@ -1969,17 +1969,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;listener_before&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1726,
-              &quot;start_ticks&quot;: 1072,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+              &quot;pid&quot;: 2336,
+              &quot;start_ticks&quot;: 2763,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
             }
           },
           &quot;listener_after&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1726,
-              &quot;start_ticks&quot;: 1072,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+              &quot;pid&quot;: 2336,
+              &quot;start_ticks&quot;: 2763,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
             }
           }
         },
@@ -1989,17 +1989,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;listener_before&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1726,
-              &quot;start_ticks&quot;: 1072,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+              &quot;pid&quot;: 2336,
+              &quot;start_ticks&quot;: 2763,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
             }
           },
           &quot;listener_after&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1726,
-              &quot;start_ticks&quot;: 1072,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+              &quot;pid&quot;: 2336,
+              &quot;start_ticks&quot;: 2763,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
             }
           }
         },
@@ -2010,25 +2010,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;generation&quot;: 1
         },
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 24268800,
-          &quot;agent_vmhwm_bytes&quot;: 24268800,
-          &quot;service_cgroup_memory_current_bytes&quot;: 12550144,
+          &quot;agent_rss_bytes&quot;: 24227840,
+          &quot;agent_vmhwm_bytes&quot;: 24227840,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12435456,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 1719,
-            &quot;start_ticks&quot;: 1062,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+            &quot;pid&quot;: 2330,
+            &quot;start_ticks&quot;: 2754,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
           },
-          &quot;main_pid_after&quot;: 1719,
-          &quot;invocation_id&quot;: &quot;b67f4511f67e453fa88e7f22207b7699&quot;,
-          &quot;invocation_id_after&quot;: &quot;b67f4511f67e453fa88e7f22207b7699&quot;,
+          &quot;main_pid_after&quot;: 2330,
+          &quot;invocation_id&quot;: &quot;61f56fd604af4e2f87a6273b6bb11ee9&quot;,
+          &quot;invocation_id_after&quot;: &quot;61f56fd604af4e2f87a6273b6bb11ee9&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 12044773838,
-          &quot;sample_finished_ns&quot;: 12051864671,
+          &quot;sample_started_ns&quot;: 28994416680,
+          &quot;sample_finished_ns&quot;: 28999611847,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;own_kernel_after_allowed_apply&quot;: [
@@ -2104,7 +2104,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 1,
           &quot;op&quot;: &quot;guard-admitted&quot;,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -2296,7 +2296,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 0,
             &quot;op&quot;: &quot;initial&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;ipv4&quot;: {
                 &quot;default&quot;: &quot;drop&quot;,
@@ -2331,7 +2331,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 0,
             &quot;op&quot;: &quot;initial&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;ipv4&quot;: {
                 &quot;default&quot;: &quot;drop&quot;,
@@ -2783,7 +2783,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 1,
             &quot;op&quot;: &quot;dual-v6-blocked&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;ipv4&quot;: {
                 &quot;default&quot;: &quot;drop&quot;,
@@ -2866,7 +2866,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 1,
               &quot;op&quot;: &quot;dual-v6-blocked&quot;,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -2950,7 +2950,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 1,
               &quot;op&quot;: &quot;dual-v6-blocked&quot;,
-              &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+              &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -3037,7 +3037,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           },
           &quot;spoof_rejected&quot;: true,
           &quot;ipv6_connect_errno&quot;: 11,
-          &quot;deadline&quot;: 32.064348095
+          &quot;deadline&quot;: 48.871385397
         },
         &quot;pending_kernel&quot;: [
           {
@@ -3202,7 +3202,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
           &quot;generation&quot;: 1,
           &quot;op&quot;: &quot;dual-v6-blocked&quot;,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -3494,7 +3494,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
             &quot;generation&quot;: 1,
             &quot;op&quot;: &quot;dual-v6-blocked&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;ipv4&quot;: {
                 &quot;default&quot;: &quot;drop&quot;,
@@ -3578,7 +3578,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
             &quot;generation&quot;: 1,
             &quot;op&quot;: &quot;dual-v6-blocked&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;ipv4&quot;: {
                 &quot;default&quot;: &quot;drop&quot;,
@@ -3660,28 +3660,28 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           }
         },
         &quot;rollback_clock&quot;: {
-          &quot;deadline&quot;: 32.064348095,
-          &quot;rollback_started_at&quot;: 32.113524472,
-          &quot;rollback_completed_at&quot;: 32.149074348,
+          &quot;deadline&quot;: 48.871385397,
+          &quot;rollback_started_at&quot;: 48.897157869,
+          &quot;rollback_completed_at&quot;: 48.935299194,
           &quot;clock&quot;: &quot;CLOCK_BOOTTIME&quot;,
-          &quot;observed_at&quot;: 32.183842806
+          &quot;observed_at&quot;: 48.97039827
         },
         &quot;same_service_identity_during_timeout&quot;: {
-          &quot;pid&quot;: 2346,
-          &quot;start_ticks&quot;: 2683,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+          &quot;pid&quot;: 2961,
+          &quot;start_ticks&quot;: 4363,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
         },
         &quot;identity_after_timeout&quot;: {
-          &quot;pid&quot;: 2346,
-          &quot;start_ticks&quot;: 2683,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+          &quot;pid&quot;: 2961,
+          &quot;start_ticks&quot;: 4363,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
         },
         &quot;success&quot;: {
           &quot;ipv4_partial&quot;: {
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 2,
             &quot;op&quot;: &quot;dual-both-success&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;ipv4&quot;: {
                 &quot;default&quot;: &quot;drop&quot;,
@@ -3774,7 +3774,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 2,
             &quot;op&quot;: &quot;dual-both-success&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;ipv4&quot;: {
                 &quot;default&quot;: &quot;drop&quot;,
@@ -3866,12 +3866,12 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           },
           &quot;confirmation_clock&quot;: {
             &quot;clock&quot;: &quot;monotonic_ns&quot;,
-            &quot;started_ns&quot;: 32343686223,
-            &quot;partial_ns&quot;: 32348332181,
-            &quot;finished_ns&quot;: 32352453139
+            &quot;started_ns&quot;: 49138998190,
+            &quot;partial_ns&quot;: 49143554046,
+            &quot;finished_ns&quot;: 49147704317
           },
-          &quot;partial_ms&quot;: 4.645958,
-          &quot;commit_ms&quot;: 4.120958
+          &quot;partial_ms&quot;: 4.555856,
+          &quot;commit_ms&quot;: 4.150271
         },
         &quot;committed_kernel&quot;: [
           {
@@ -4080,34 +4080,34 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             }
           }
         ],
-        &quot;ipv6_neighbour_observation&quot;: &quot;2001:db8:44::2 lladdr 1a:d2:59:8a:31:01 REACHABLE&quot;,
+        &quot;ipv6_neighbour_observation&quot;: &quot;2001:db8:44::2 lladdr c6:31:14:03:4f:61 REACHABLE&quot;,
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 24682496,
-          &quot;agent_vmhwm_bytes&quot;: 24682496,
-          &quot;service_cgroup_memory_current_bytes&quot;: 13008896,
+          &quot;agent_rss_bytes&quot;: 24834048,
+          &quot;agent_vmhwm_bytes&quot;: 24834048,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12959744,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 2346,
-            &quot;start_ticks&quot;: 2683,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+            &quot;pid&quot;: 2961,
+            &quot;start_ticks&quot;: 4363,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
           },
-          &quot;main_pid_after&quot;: 2346,
-          &quot;invocation_id&quot;: &quot;489a5392162b42c38e40c23e795a3adf&quot;,
-          &quot;invocation_id_after&quot;: &quot;489a5392162b42c38e40c23e795a3adf&quot;,
+          &quot;main_pid_after&quot;: 2961,
+          &quot;invocation_id&quot;: &quot;6a4e06749e9243dda449431c9fbcf352&quot;,
+          &quot;invocation_id_after&quot;: &quot;6a4e06749e9243dda449431c9fbcf352&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 32359545931,
-          &quot;sample_finished_ns&quot;: 32363858306,
+          &quot;sample_started_ns&quot;: 49155045552,
+          &quot;sample_finished_ns&quot;: 49159681826,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;partial_before_kill&quot;: {
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 3,
           &quot;op&quot;: &quot;dual-partial-crash&quot;,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -4405,15 +4405,15 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         ],
         &quot;signal&quot;: &quot;SIGKILL&quot;,
         &quot;identity_after_restart&quot;: {
-          &quot;pid&quot;: 2662,
-          &quot;start_ticks&quot;: 3374,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+          &quot;pid&quot;: 3275,
+          &quot;start_ticks&quot;: 5054,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
         },
         &quot;recovered&quot;: {
           &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
           &quot;generation&quot;: 4,
           &quot;op&quot;: &quot;dual-partial-crash&quot;,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -4719,7 +4719,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 5,
             &quot;op&quot;: &quot;dual-newer&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;ipv4&quot;: {
                 &quot;default&quot;: &quot;drop&quot;,
@@ -4818,7 +4818,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 5,
             &quot;op&quot;: &quot;dual-newer&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;ipv4&quot;: {
                 &quot;default&quot;: &quot;drop&quot;,
@@ -4932,7 +4932,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
                 &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
                 &quot;generation&quot;: 5,
                 &quot;op&quot;: &quot;dual-newer&quot;,
-                &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+                &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
                 &quot;current&quot;: {
                   &quot;ipv4&quot;: {
                     &quot;default&quot;: &quot;drop&quot;,
@@ -5031,7 +5031,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
                 &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
                 &quot;generation&quot;: 5,
                 &quot;op&quot;: &quot;dual-newer&quot;,
-                &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+                &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
                 &quot;current&quot;: {
                   &quot;ipv4&quot;: {
                     &quot;default&quot;: &quot;drop&quot;,
@@ -5644,7 +5644,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
                 &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
                 &quot;generation&quot;: 5,
                 &quot;op&quot;: &quot;dual-newer&quot;,
-                &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+                &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
                 &quot;current&quot;: {
                   &quot;ipv4&quot;: {
                     &quot;default&quot;: &quot;drop&quot;,
@@ -5743,7 +5743,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
                 &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
                 &quot;generation&quot;: 5,
                 &quot;op&quot;: &quot;dual-newer&quot;,
-                &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+                &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
                 &quot;current&quot;: {
                   &quot;ipv4&quot;: {
                     &quot;default&quot;: &quot;drop&quot;,
@@ -6356,7 +6356,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
                 &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
                 &quot;generation&quot;: 5,
                 &quot;op&quot;: &quot;dual-newer&quot;,
-                &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+                &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
                 &quot;current&quot;: {
                   &quot;ipv4&quot;: {
                     &quot;default&quot;: &quot;drop&quot;,
@@ -6455,7 +6455,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
                 &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
                 &quot;generation&quot;: 5,
                 &quot;op&quot;: &quot;dual-newer&quot;,
-                &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+                &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
                 &quot;current&quot;: {
                   &quot;ipv4&quot;: {
                     &quot;default&quot;: &quot;drop&quot;,
@@ -7430,8 +7430,8 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         &quot;diagnostic_reason&quot;: &quot;Unreadable journal; local operator recovery required&quot;,
         &quot;original_snapshot_preserved&quot;: true,
         &quot;mutations_rejected&quot;: true,
-        &quot;invocation_before&quot;: &quot;1df5fcbf228c46b587e8d558d4c9e00f&quot;,
-        &quot;invocation_after&quot;: &quot;1df5fcbf228c46b587e8d558d4c9e00f&quot;,
+        &quot;invocation_before&quot;: &quot;beadb5a2560d44fda429eaa835e88480&quot;,
+        &quot;invocation_after&quot;: &quot;beadb5a2560d44fda429eaa835e88480&quot;,
         &quot;restart_count_before&quot;: 0,
         &quot;restart_count_after&quot;: 0,
         &quot;kernel_before&quot;: [
@@ -7573,25 +7573,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           }
         ],
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23396352,
-          &quot;agent_vmhwm_bytes&quot;: 23396352,
-          &quot;service_cgroup_memory_current_bytes&quot;: 11288576,
+          &quot;agent_rss_bytes&quot;: 23388160,
+          &quot;agent_vmhwm_bytes&quot;: 23388160,
+          &quot;service_cgroup_memory_current_bytes&quot;: 11210752,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 2785,
-            &quot;start_ticks&quot;: 3479,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+            &quot;pid&quot;: 3398,
+            &quot;start_ticks&quot;: 5156,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
           },
-          &quot;main_pid_after&quot;: 2785,
-          &quot;invocation_id&quot;: &quot;1df5fcbf228c46b587e8d558d4c9e00f&quot;,
-          &quot;invocation_id_after&quot;: &quot;1df5fcbf228c46b587e8d558d4c9e00f&quot;,
+          &quot;main_pid_after&quot;: 3398,
+          &quot;invocation_id&quot;: &quot;beadb5a2560d44fda429eaa835e88480&quot;,
+          &quot;invocation_id_after&quot;: &quot;beadb5a2560d44fda429eaa835e88480&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 37135323546,
-          &quot;sample_finished_ns&quot;: 37145250531,
+          &quot;sample_started_ns&quot;: 53892193609,
+          &quot;sample_finished_ns&quot;: 53897302941,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;fixture_only_reprovision_and_token_rotation&quot;: true,
@@ -7625,26 +7625,26 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;Result&quot;: &quot;exit-code&quot;,
           &quot;ExecMainStatus&quot;: &quot;1&quot;
         },
-        &quot;failure_started_monotonic_ns&quot;: 37817791794,
+        &quot;failure_started_monotonic_ns&quot;: 54483062231,
         &quot;start_limit_receipts&quot;: [
           {
             &quot;MESSAGE&quot;: &quot;rulemoor.service: Start request repeated too quickly.&quot;,
             &quot;UNIT&quot;: &quot;rulemoor.service&quot;,
-            &quot;_BOOT_ID&quot;: &quot;c4d2dcb176cb4e1991a4e0b5bc35d19b&quot;,
-            &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;44203156&quot;
+            &quot;_BOOT_ID&quot;: &quot;05fdf56dd7304fcabdc463318b9d9aff&quot;,
+            &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;60861062&quot;
           }
         ],
         &quot;observation_clock&quot;: {
           &quot;clock&quot;: &quot;monotonic_ns&quot;,
-          &quot;started_ns&quot;: 44255392832,
-          &quot;finished_ns&quot;: 46464431731
+          &quot;started_ns&quot;: 60891198815,
+          &quot;finished_ns&quot;: 63102165552
         },
-        &quot;observation_seconds&quot;: 2.209038899,
+        &quot;observation_seconds&quot;: 2.210966737,
         &quot;journal_before_failure&quot;: {
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 1,
           &quot;op&quot;: &quot;initial&quot;,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -7677,7 +7677,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 1,
           &quot;op&quot;: &quot;initial&quot;,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -7854,7 +7854,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 3,
             &quot;op&quot;: &quot;after-limit-new&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -7887,7 +7887,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 3,
             &quot;op&quot;: &quot;after-limit-new&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -7989,7 +7989,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 3,
             &quot;op&quot;: &quot;after-limit-new&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -8099,25 +8099,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           ]
         },
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23986176,
-          &quot;agent_vmhwm_bytes&quot;: 23986176,
-          &quot;service_cgroup_memory_current_bytes&quot;: 12144640,
+          &quot;agent_rss_bytes&quot;: 24113152,
+          &quot;agent_vmhwm_bytes&quot;: 24113152,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12189696,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 3037,
-            &quot;start_ticks&quot;: 4648,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+            &quot;pid&quot;: 3649,
+            &quot;start_ticks&quot;: 6312,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
           },
-          &quot;main_pid_after&quot;: 3037,
-          &quot;invocation_id&quot;: &quot;85b02c5cd7be461f984342b39c06b64b&quot;,
-          &quot;invocation_id_after&quot;: &quot;85b02c5cd7be461f984342b39c06b64b&quot;,
+          &quot;main_pid_after&quot;: 3649,
+          &quot;invocation_id&quot;: &quot;6ed05d983f354ed5a89a5002f6c36929&quot;,
+          &quot;invocation_id_after&quot;: &quot;6ed05d983f354ed5a89a5002f6c36929&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 47014096082,
-          &quot;sample_finished_ns&quot;: 47018741493,
+          &quot;sample_started_ns&quot;: 63649582085,
+          &quot;sample_finished_ns&quot;: 63654393325,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;segmentation_fault_tested&quot;: false,
@@ -8141,7 +8141,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 7,
             &quot;op&quot;: &quot;after-crash-new&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -8174,7 +8174,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 7,
             &quot;op&quot;: &quot;after-crash-new&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -8276,7 +8276,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 7,
             &quot;op&quot;: &quot;after-crash-new&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -8385,33 +8385,33 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;apply&quot;
           ]
         },
-        &quot;kill_to_tls_ready_observed_ms&quot;: 1219.33108,
+        &quot;kill_to_tls_ready_observed_ms&quot;: 1289.940338,
         &quot;recovery_clock&quot;: {
           &quot;clock&quot;: &quot;monotonic_ns&quot;,
-          &quot;kill_started_ns&quot;: 47421043695,
-          &quot;tls_observed_ns&quot;: 48640374775,
-          &quot;baseline_verified_ns&quot;: 48643832020
+          &quot;kill_started_ns&quot;: 64064979103,
+          &quot;tls_observed_ns&quot;: 65354919441,
+          &quot;baseline_verified_ns&quot;: 65358906638
         },
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23879680,
-          &quot;agent_vmhwm_bytes&quot;: 23879680,
-          &quot;service_cgroup_memory_current_bytes&quot;: 12025856,
+          &quot;agent_rss_bytes&quot;: 23920640,
+          &quot;agent_vmhwm_bytes&quot;: 23920640,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12005376,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 3140,
-            &quot;start_ticks&quot;: 4854,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+            &quot;pid&quot;: 3753,
+            &quot;start_ticks&quot;: 6524,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
           },
-          &quot;main_pid_after&quot;: 3140,
-          &quot;invocation_id&quot;: &quot;18109464864f46acb1cccd4b911afba1&quot;,
-          &quot;invocation_id_after&quot;: &quot;18109464864f46acb1cccd4b911afba1&quot;,
+          &quot;main_pid_after&quot;: 3753,
+          &quot;invocation_id&quot;: &quot;fb5d731e4ea34d73bc398a3e9e0fd493&quot;,
+          &quot;invocation_id_after&quot;: &quot;fb5d731e4ea34d73bc398a3e9e0fd493&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 48935381177,
-          &quot;sample_finished_ns&quot;: 48939947780,
+          &quot;sample_started_ns&quot;: 65665255035,
+          &quot;sample_finished_ns&quot;: 65670351172,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;old_generation&quot;: 5,
@@ -8563,9 +8563,9 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;evidence&quot;: {
         &quot;test_only_fault_override&quot;: true,
         &quot;old_executor_identity&quot;: {
-          &quot;pid&quot;: 3248,
-          &quot;start_ticks&quot;: 4954,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;
+          &quot;pid&quot;: 3861,
+          &quot;start_ticks&quot;: 6626,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;
         },
         &quot;old_executor_retired&quot;: true,
         &quot;systemd_cgroup_restart_observed&quot;: true,
@@ -8579,7 +8579,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 10,
             &quot;op&quot;: &quot;after-held-new&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -8612,7 +8612,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 10,
             &quot;op&quot;: &quot;after-held-new&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -8714,7 +8714,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 10,
             &quot;op&quot;: &quot;after-held-new&quot;,
-            &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+            &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -8900,7 +8900,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;prepare_pending_boot&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
-        &quot;boot_id&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+        &quot;boot_id&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
         &quot;journal_pending_after_service_stop&quot;: true,
         &quot;candidate_still_installed&quot;: true,
         &quot;graceful_rollback_deliberately_bypassed&quot;: true,
@@ -8978,7 +8978,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 11,
           &quot;op&quot;: &quot;pending-before-boot&quot;,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -9014,14 +9014,14 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;after_pending_boot&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
-        &quot;boot_id_before&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
-        &quot;boot_id_after&quot;: &quot;d807fba3-81af-43fd-8a2b-fdd3f7fe5e52&quot;,
+        &quot;boot_id_before&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
+        &quot;boot_id_after&quot;: &quot;7b430a5a-85a1-48f9-b6a3-07fb08663dbe&quot;,
         &quot;pre_agent_table_absent&quot;: true,
         &quot;journal_before_agent&quot;: {
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 11,
           &quot;op&quot;: &quot;pending-before-boot&quot;,
-          &quot;boot&quot;: &quot;c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b&quot;,
+          &quot;boot&quot;: &quot;05fdf56d-d730-4fca-bdc4-63318b9d9aff&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -9060,7 +9060,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 13,
             &quot;op&quot;: &quot;post-boot-new&quot;,
-            &quot;boot&quot;: &quot;d807fba3-81af-43fd-8a2b-fdd3f7fe5e52&quot;,
+            &quot;boot&quot;: &quot;7b430a5a-85a1-48f9-b6a3-07fb08663dbe&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -9093,7 +9093,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 13,
             &quot;op&quot;: &quot;post-boot-new&quot;,
-            &quot;boot&quot;: &quot;d807fba3-81af-43fd-8a2b-fdd3f7fe5e52&quot;,
+            &quot;boot&quot;: &quot;7b430a5a-85a1-48f9-b6a3-07fb08663dbe&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -9195,7 +9195,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 13,
             &quot;op&quot;: &quot;post-boot-new&quot;,
-            &quot;boot&quot;: &quot;d807fba3-81af-43fd-8a2b-fdd3f7fe5e52&quot;,
+            &quot;boot&quot;: &quot;7b430a5a-85a1-48f9-b6a3-07fb08663dbe&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -9304,27 +9304,27 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;apply&quot;
           ]
         },
-        &quot;vm_uptime_after_validation_seconds&quot;: 7.391422377,
+        &quot;vm_uptime_after_validation_seconds&quot;: 9.283926211,
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23834624,
-          &quot;agent_vmhwm_bytes&quot;: 23834624,
-          &quot;service_cgroup_memory_current_bytes&quot;: 12447744,
+          &quot;agent_rss_bytes&quot;: 24014848,
+          &quot;agent_vmhwm_bytes&quot;: 24014848,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12636160,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 501,
-            &quot;start_ticks&quot;: 299,
-            &quot;boot&quot;: &quot;d807fba3-81af-43fd-8a2b-fdd3f7fe5e52&quot;
+            &quot;pid&quot;: 508,
+            &quot;start_ticks&quot;: 267,
+            &quot;boot&quot;: &quot;7b430a5a-85a1-48f9-b6a3-07fb08663dbe&quot;
           },
-          &quot;main_pid_after&quot;: 501,
-          &quot;invocation_id&quot;: &quot;2db0bc77385c45a2aa32a3bc37f078e3&quot;,
-          &quot;invocation_id_after&quot;: &quot;2db0bc77385c45a2aa32a3bc37f078e3&quot;,
+          &quot;main_pid_after&quot;: 508,
+          &quot;invocation_id&quot;: &quot;226f785d64824a50be05c09ca0c998fa&quot;,
+          &quot;invocation_id_after&quot;: &quot;226f785d64824a50be05c09ca0c998fa&quot;,
           &quot;process_namespace_inode&quot;: 4026532394,
           &quot;target_namespace_inode&quot;: 4026532394,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 7391423211,
-          &quot;sample_finished_ns&quot;: 7397624211,
+          &quot;sample_started_ns&quot;: 9283926711,
+          &quot;sample_finished_ns&quot;: 9288645336,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;old_generation&quot;: 11,
@@ -9474,14 +9474,14 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;after_committed_boot&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
-        &quot;boot_id_before&quot;: &quot;d807fba3-81af-43fd-8a2b-fdd3f7fe5e52&quot;,
-        &quot;boot_id_after&quot;: &quot;f48a5590-614c-49af-b937-bd9a69f15205&quot;,
+        &quot;boot_id_before&quot;: &quot;7b430a5a-85a1-48f9-b6a3-07fb08663dbe&quot;,
+        &quot;boot_id_after&quot;: &quot;f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4&quot;,
         &quot;pre_agent_table_absent&quot;: true,
         &quot;journal_before_agent&quot;: {
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 13,
           &quot;op&quot;: &quot;post-boot-new&quot;,
-          &quot;boot&quot;: &quot;d807fba3-81af-43fd-8a2b-fdd3f7fe5e52&quot;,
+          &quot;boot&quot;: &quot;7b430a5a-85a1-48f9-b6a3-07fb08663dbe&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -9515,25 +9515,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         &quot;old_base_rejected&quot;: true,
         &quot;same_boot_foreign_policy_preserved&quot;: true,
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23261184,
-          &quot;agent_vmhwm_bytes&quot;: 23261184,
+          &quot;agent_rss_bytes&quot;: 23277568,
+          &quot;agent_vmhwm_bytes&quot;: 23277568,
           &quot;service_cgroup_memory_current_bytes&quot;: 11563008,
           &quot;process_identity&quot;: {
             &quot;pid&quot;: 502,
-            &quot;start_ticks&quot;: 236,
-            &quot;boot&quot;: &quot;f48a5590-614c-49af-b937-bd9a69f15205&quot;
+            &quot;start_ticks&quot;: 229,
+            &quot;boot&quot;: &quot;f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4&quot;
           },
           &quot;main_pid_after&quot;: 502,
-          &quot;invocation_id&quot;: &quot;2d395297735146b38f42c646f5c60426&quot;,
-          &quot;invocation_id_after&quot;: &quot;2d395297735146b38f42c646f5c60426&quot;,
+          &quot;invocation_id&quot;: &quot;9a76290874b543b98a59e23e3a54e816&quot;,
+          &quot;invocation_id_after&quot;: &quot;9a76290874b543b98a59e23e3a54e816&quot;,
           &quot;process_namespace_inode&quot;: 4026532394,
           &quot;target_namespace_inode&quot;: 4026532394,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 6079902627,
-          &quot;sample_finished_ns&quot;: 6084804002,
+          &quot;sample_started_ns&quot;: 6075868460,
+          &quot;sample_finished_ns&quot;: 6081573085,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;memory_stage&quot;: &quot;committed_after_boot_before_foreign_policy_probe&quot;,
@@ -9644,12 +9644,12 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;prepare_dual_boot&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
-        &quot;boot_id&quot;: &quot;f48a5590-614c-49af-b937-bd9a69f15205&quot;,
+        &quot;boot_id&quot;: &quot;f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4&quot;,
         &quot;committed_baseline&quot;: {
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 1,
           &quot;op&quot;: &quot;dual-recovery-baseline&quot;,
-          &quot;boot&quot;: &quot;f48a5590-614c-49af-b937-bd9a69f15205&quot;,
+          &quot;boot&quot;: &quot;f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -9950,7 +9950,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 2,
           &quot;op&quot;: &quot;dual-pending-before-boot&quot;,
-          &quot;boot&quot;: &quot;f48a5590-614c-49af-b937-bd9a69f15205&quot;,
+          &quot;boot&quot;: &quot;f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -10043,7 +10043,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 2,
           &quot;op&quot;: &quot;dual-pending-before-boot&quot;,
-          &quot;boot&quot;: &quot;f48a5590-614c-49af-b937-bd9a69f15205&quot;,
+          &quot;boot&quot;: &quot;f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -10559,13 +10559,13 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;after_dual_boot&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
-        &quot;boot_id_before&quot;: &quot;f48a5590-614c-49af-b937-bd9a69f15205&quot;,
-        &quot;boot_id_after&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+        &quot;boot_id_before&quot;: &quot;f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4&quot;,
+        &quot;boot_id_after&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
         &quot;journal_before_agent&quot;: {
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 2,
           &quot;op&quot;: &quot;dual-pending-before-boot&quot;,
-          &quot;boot&quot;: &quot;f48a5590-614c-49af-b937-bd9a69f15205&quot;,
+          &quot;boot&quot;: &quot;f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -10662,7 +10662,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
           &quot;generation&quot;: 3,
           &quot;op&quot;: &quot;dual-pending-before-boot&quot;,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -10963,7 +10963,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
             &quot;generation&quot;: 3,
             &quot;op&quot;: &quot;dual-pending-before-boot&quot;,
-            &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+            &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
             &quot;current&quot;: {
               &quot;ipv4&quot;: {
                 &quot;default&quot;: &quot;drop&quot;,
@@ -11056,7 +11056,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
             &quot;generation&quot;: 3,
             &quot;op&quot;: &quot;dual-pending-before-boot&quot;,
-            &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+            &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
             &quot;current&quot;: {
               &quot;ipv4&quot;: {
                 &quot;default&quot;: &quot;drop&quot;,
@@ -11150,7 +11150,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 4,
           &quot;op&quot;: &quot;dual-after-boot-successor&quot;,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -11245,7 +11245,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 4,
               &quot;op&quot;: &quot;dual-after-boot-successor&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -11336,7 +11336,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 4,
               &quot;op&quot;: &quot;dual-after-boot-successor&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -11845,7 +11845,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 4,
               &quot;op&quot;: &quot;dual-after-boot-successor&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -11936,7 +11936,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 4,
               &quot;op&quot;: &quot;dual-after-boot-successor&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -12445,7 +12445,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 4,
               &quot;op&quot;: &quot;dual-after-boot-successor&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -12536,7 +12536,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 4,
               &quot;op&quot;: &quot;dual-after-boot-successor&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -13043,7 +13043,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 4,
           &quot;op&quot;: &quot;dual-after-boot-successor&quot;,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -13341,25 +13341,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           }
         ],
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 24068096,
-          &quot;agent_vmhwm_bytes&quot;: 24068096,
-          &quot;service_cgroup_memory_current_bytes&quot;: 12693504,
+          &quot;agent_rss_bytes&quot;: 24064000,
+          &quot;agent_vmhwm_bytes&quot;: 24064000,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12800000,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 520,
-            &quot;start_ticks&quot;: 285,
-            &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;
+            &quot;pid&quot;: 523,
+            &quot;start_ticks&quot;: 234,
+            &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;
           },
-          &quot;main_pid_after&quot;: 520,
-          &quot;invocation_id&quot;: &quot;9a613cf1a93c45ee9deaa040b01cc0bd&quot;,
-          &quot;invocation_id_after&quot;: &quot;9a613cf1a93c45ee9deaa040b01cc0bd&quot;,
+          &quot;main_pid_after&quot;: 523,
+          &quot;invocation_id&quot;: &quot;9c24c66784814add8b0014644eabf9fc&quot;,
+          &quot;invocation_id_after&quot;: &quot;9c24c66784814add8b0014644eabf9fc&quot;,
           &quot;process_namespace_inode&quot;: 4026532394,
           &quot;target_namespace_inode&quot;: 4026532394,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 7403936961,
-          &quot;sample_finished_ns&quot;: 7408901544,
+          &quot;sample_started_ns&quot;: 6334447544,
+          &quot;sample_finished_ns&quot;: 6339311585,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         }
       }
@@ -13372,7 +13372,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 4,
           &quot;op&quot;: &quot;dual-after-boot-successor&quot;,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -13466,7 +13466,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;APPLYING&quot;,
           &quot;generation&quot;: 5,
           &quot;op&quot;: &quot;dual-held-orphan&quot;,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -13554,22 +13554,22 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;confirmed_families&quot;: []
         },
         &quot;held_agent_identity&quot;: {
-          &quot;pid&quot;: 1612,
-          &quot;start_ticks&quot;: 782,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;
+          &quot;pid&quot;: 1616,
+          &quot;start_ticks&quot;: 668,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;
         },
         &quot;old_executor_identity&quot;: {
-          &quot;pid&quot;: 1618,
-          &quot;start_ticks&quot;: 786,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;
+          &quot;pid&quot;: 1622,
+          &quot;start_ticks&quot;: 673,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;
         },
         &quot;old_executor_cgroup&quot;: [
           &quot;0::/user.slice/user-501.slice/session-4.scope&quot;
         ],
         &quot;after_agent_kill_identity&quot;: {
-          &quot;pid&quot;: 1618,
-          &quot;start_ticks&quot;: 786,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;
+          &quot;pid&quot;: 1622,
+          &quot;start_ticks&quot;: 673,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;
         },
         &quot;writer_lock_held_before_recovery&quot;: true,
         &quot;kernel_before_recovery&quot;: [
@@ -13783,7 +13783,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
           &quot;generation&quot;: 6,
           &quot;op&quot;: &quot;dual-held-orphan&quot;,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -14083,7 +14083,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 7,
           &quot;op&quot;: &quot;dual-after-orphan-new&quot;,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -14174,7 +14174,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 7,
           &quot;op&quot;: &quot;dual-after-orphan-new&quot;,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -14272,7 +14272,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 7,
               &quot;op&quot;: &quot;dual-after-orphan-new&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -14363,7 +14363,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 7,
               &quot;op&quot;: &quot;dual-after-orphan-new&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -14872,7 +14872,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 7,
               &quot;op&quot;: &quot;dual-after-orphan-new&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -14963,7 +14963,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 7,
               &quot;op&quot;: &quot;dual-after-orphan-new&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -15474,7 +15474,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;COMMITTED&quot;,
               &quot;generation&quot;: 7,
               &quot;op&quot;: &quot;dual-after-orphan-new&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -15568,7 +15568,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;COMMITTED&quot;,
               &quot;generation&quot;: 7,
               &quot;op&quot;: &quot;dual-after-orphan-new&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -16080,7 +16080,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;COMMITTED&quot;,
               &quot;generation&quot;: 7,
               &quot;op&quot;: &quot;dual-after-orphan-new&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -16174,7 +16174,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;COMMITTED&quot;,
               &quot;generation&quot;: 7,
               &quot;op&quot;: &quot;dual-after-orphan-new&quot;,
-              &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+              &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
               &quot;current&quot;: {
                 &quot;ipv4&quot;: {
                   &quot;default&quot;: &quot;drop&quot;,
@@ -16684,7 +16684,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 7,
           &quot;op&quot;: &quot;dual-after-orphan-new&quot;,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -16778,7 +16778,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 7,
           &quot;op&quot;: &quot;dual-after-orphan-new&quot;,
-          &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;,
+          &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;,
           &quot;current&quot;: {
             &quot;ipv4&quot;: {
               &quot;default&quot;: &quot;drop&quot;,
@@ -17286,30 +17286,30 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         &quot;identity_after_release&quot;: null,
         &quot;release_clock&quot;: {
           &quot;clock&quot;: &quot;monotonic_ns&quot;,
-          &quot;started_ns&quot;: 8318965003,
-          &quot;finished_ns&quot;: 10420313129
+          &quot;started_ns&quot;: 7230021211,
+          &quot;finished_ns&quot;: 9332202420
         },
-        &quot;release_observation_seconds&quot;: 2.101348126,
+        &quot;release_observation_seconds&quot;: 2.102181209,
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 24121344,
-          &quot;agent_vmhwm_bytes&quot;: 24121344,
-          &quot;service_cgroup_memory_current_bytes&quot;: 12218368,
+          &quot;agent_rss_bytes&quot;: 24109056,
+          &quot;agent_vmhwm_bytes&quot;: 24109056,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12222464,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 1622,
-            &quot;start_ticks&quot;: 789,
-            &quot;boot&quot;: &quot;19abfc86-5bc6-4e2a-932f-09b83308f957&quot;
+            &quot;pid&quot;: 1626,
+            &quot;start_ticks&quot;: 675,
+            &quot;boot&quot;: &quot;69fb01c9-fb4a-469d-847a-40634126733f&quot;
           },
-          &quot;main_pid_after&quot;: 1622,
-          &quot;invocation_id&quot;: &quot;93a0b45aefe84b78b68c906fbf532d30&quot;,
-          &quot;invocation_id_after&quot;: &quot;93a0b45aefe84b78b68c906fbf532d30&quot;,
+          &quot;main_pid_after&quot;: 1626,
+          &quot;invocation_id&quot;: &quot;342511e38de94e17b3672eed8e817e5c&quot;,
+          &quot;invocation_id_after&quot;: &quot;342511e38de94e17b3672eed8e817e5c&quot;,
           &quot;process_namespace_inode&quot;: 4026532394,
           &quot;target_namespace_inode&quot;: 4026532394,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 10431980254,
-          &quot;sample_finished_ns&quot;: 10441399545,
+          &quot;sample_started_ns&quot;: 9341309754,
+          &quot;sample_finished_ns&quot;: 9350174712,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;scope&quot;: &quot;Fault-injected installed Controller/executor outside unit; recovery by installed systemd Agent/pidfd fencing; finite late-release observation&quot;
@@ -17328,25 +17328,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
     }
   ],
   &quot;vm_initial_state&quot;: &quot;Stopped&quot;,
-  &quot;wheel_sha256&quot;: &quot;bdb9a126194a17f8233adc4797b61b88f249ab4464f150947acacd773e8b7bf2&quot;,
+  &quot;wheel_sha256&quot;: &quot;bed49d99ae327ad14ce008eaedd577084f6ab3c9a2583a3c2b4d978b65c0df91&quot;,
   &quot;pending_vm_restart_clock&quot;: {
     &quot;clock&quot;: &quot;monotonic_ns&quot;,
-    &quot;started_ns&quot;: 71930883847250,
-    &quot;finished_ns&quot;: 71943614179958
+    &quot;started_ns&quot;: 73636272889041,
+    &quot;finished_ns&quot;: 73650739571625
   },
-  &quot;pending_vm_restart_control_seconds&quot;: 12.730332708,
+  &quot;pending_vm_restart_control_seconds&quot;: 14.466682584,
   &quot;committed_vm_restart_clock&quot;: {
     &quot;clock&quot;: &quot;monotonic_ns&quot;,
-    &quot;started_ns&quot;: 71943614193833,
-    &quot;finished_ns&quot;: 71955130977625
+    &quot;started_ns&quot;: 73650739575041,
+    &quot;finished_ns&quot;: 73662311577916
   },
-  &quot;committed_vm_restart_control_seconds&quot;: 11.516783792,
+  &quot;committed_vm_restart_control_seconds&quot;: 11.572002875,
   &quot;dual_pending_vm_restart_clock&quot;: {
     &quot;clock&quot;: &quot;monotonic_ns&quot;,
-    &quot;started_ns&quot;: 71956360246833,
-    &quot;finished_ns&quot;: 71968993239208
+    &quot;started_ns&quot;: 73663477529583,
+    &quot;finished_ns&quot;: 73675050308083
   },
-  &quot;dual_pending_vm_restart_control_seconds&quot;: 12.632992375,
+  &quot;dual_pending_vm_restart_control_seconds&quot;: 11.5727785,
   &quot;source_snapshot_removed&quot;: true,
   &quot;vm_final_state&quot;: &quot;Stopped&quot;,
   &quot;evidence_controls&quot;: [

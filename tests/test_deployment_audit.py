@@ -33,6 +33,13 @@ class MeasurementEvidenceTests(unittest.TestCase):
         self.assertIn('FAIL', page)
         self.assertIn('not observed committed', page)
         self.assertNotIn('0.00 s committed', page)
+        page = render({'passed':True, 'cases':[
+            {'name':'dual_stack','passed':True,'evidence':{'success':{'partial_ms':1.,'commit_ms':2.}}},
+            {'name':'after_dual_boot','passed':True,'evidence':{}}],
+            'dual_pending_vm_restart_control_seconds':12.5})
+        self.assertIn('Dual partial-confirmation VM reboot:',page)
+        self.assertIn('Committed-only dual VM boot',page)
+        self.assertNotIn('SLAAC, dual-stack VM boot and power loss were not tested',page)
 
     def test_limit_receipt_must_belong_to_fault_observation_window(self):
         limited={'failure_started_monotonic_ns':1000000,

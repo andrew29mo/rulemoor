@@ -108,7 +108,7 @@
   "failures": 0,
   "errors": 0,
   "skipped": 0,
-  "seconds": 5.121977667004103,
+  "seconds": 5.677707957991515,
   "source": {
     "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
     "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
@@ -124,7 +124,7 @@
     "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
     "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
-    "tests/test_deployment_audit.py": "cd19458698309e9cdac222e4df3e2b2f9d34e2a80e03f93b9e8ab53f10b9133f",
+    "tests/test_deployment_audit.py": "c5d6f42e95a0442a4f202632d8e2523cb07a7222e354c8f2c1e62e6c64124d04",
     "tests/test_diagnostics.py": "1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7",
     "tests/test_dual_recovery.py": "28ace94c72e6c1453bf8147e9a63dec4f2b57dc49095af0df20b233eff30e49a",
     "tests/test_dual_stack.py": "e978ef28e9158d17b4235bd6466ff56afa4c235a6e14045a88f4ad4382255eb3",
@@ -138,7 +138,7 @@
     "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
     "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
     "tools/deployment_guest.py": "2022f2f7a7f944107194853747bb4bd4f9d503f8adb24895a687f83ad35b3a90",
-    "tools/deployment_report.py": "d870a73d2cb9141eb65a7cd760e066ce2bff945ba12dc4c11834fb57be8013c2",
+    "tools/deployment_report.py": "0ee8b76cad20fc62dc67be11dd3d2abae60f18402ff2d11c9e174d68a3772663",
     "tools/dual_recovery.py": "cf1347783722d3e16d990ca0bd6f1a1e4272cfcc35d2b1ba7837eea66e103e8c",
     "tools/evidence.py": "d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b",
     "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
@@ -155,11 +155,11 @@
     "tools/validate_deployment.py": "1297b3b01dde8288b91bdac4451d89fe04c2665ab41fd62470062d7e7a21e89d",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "source_sha256": "c64749f0c951d14513ccc3e1cf18c0dc171c19e28310c259b6da4eb767a146ec",
-  "run_id": "1ad17fa8d1bfd28b",
+  "source_sha256": "6165ed1aca054e8ece3a93c7a1e348e540424f1a855ab698129147539d0cb3b7",
+  "run_id": "7b1479d07fdd3012",
   "platform": "Darwin",
   "architecture": "arm64",
   "python": "3.12.14",
-  "test_process_peak_rss_bytes": 44728320,
+  "test_process_peak_rss_bytes": 43728896,
   "scope": "Portable production-core contracts with a memory backend; not real nft or network performance"
 }

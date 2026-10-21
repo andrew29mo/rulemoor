@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "run_id": "2d6bce1eafd34363",
-  "recorded_at_utc": "2026-10-21T03:25:33.696125+00:00",
+  "run_id": "71eba3fbcb9238fb",
+  "recorded_at_utc": "2026-10-21T03:53:42.605345+00:00",
   "passed": true,
   "source": {
     "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
@@ -18,7 +18,7 @@
     "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
     "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
-    "tests/test_deployment_audit.py": "cd19458698309e9cdac222e4df3e2b2f9d34e2a80e03f93b9e8ab53f10b9133f",
+    "tests/test_deployment_audit.py": "c5d6f42e95a0442a4f202632d8e2523cb07a7222e354c8f2c1e62e6c64124d04",
     "tests/test_diagnostics.py": "1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7",
     "tests/test_dual_recovery.py": "28ace94c72e6c1453bf8147e9a63dec4f2b57dc49095af0df20b233eff30e49a",
     "tests/test_dual_stack.py": "e978ef28e9158d17b4235bd6466ff56afa4c235a6e14045a88f4ad4382255eb3",
@@ -32,7 +32,7 @@
     "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
     "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
     "tools/deployment_guest.py": "2022f2f7a7f944107194853747bb4bd4f9d503f8adb24895a687f83ad35b3a90",
-    "tools/deployment_report.py": "d870a73d2cb9141eb65a7cd760e066ce2bff945ba12dc4c11834fb57be8013c2",
+    "tools/deployment_report.py": "0ee8b76cad20fc62dc67be11dd3d2abae60f18402ff2d11c9e174d68a3772663",
     "tools/dual_recovery.py": "cf1347783722d3e16d990ca0bd6f1a1e4272cfcc35d2b1ba7837eea66e103e8c",
     "tools/evidence.py": "d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b",
     "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
@@ -49,7 +49,7 @@
     "tools/validate_deployment.py": "1297b3b01dde8288b91bdac4451d89fe04c2665ab41fd62470062d7e7a21e89d",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "source_sha256": "c64749f0c951d14513ccc3e1cf18c0dc171c19e28310c259b6da4eb767a146ec",
+  "source_sha256": "6165ed1aca054e8ece3a93c7a1e348e540424f1a855ab698129147539d0cb3b7",
   "source_changed": false,
   "scope": {
     "execution": "Actual systemd in Colima Linux VM; isolated test network namespace",
@@ -62,175 +62,175 @@
       "name": "vm-initial",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2393316249945201
+      "seconds": 0.18463275000976864
     },
     {
       "name": "vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 8.684878833009861
+      "seconds": 20.446698583997204
     },
     {
       "name": "preflight",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.24053599999751896
+      "seconds": 0.31849316699663177
     },
     {
       "name": "guest-prerequisites",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.503638583002612
+      "seconds": 5.384949082988896
     },
     {
       "name": "wheel-build",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.3618078329891432
+      "seconds": 1.326543874994968
     },
     {
       "name": "snapshot-upload",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.22389020799892023
+      "seconds": 0.25072083401028067
     },
     {
       "name": "guest-setup",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.9278927090053912
+      "seconds": 1.891158958998858
     },
     {
       "name": "guest-management_diagnostics",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 16.07911162500386
+      "seconds": 15.985442834004061
     },
     {
       "name": "guest-dual_stack",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 8.06086004099052
+      "seconds": 8.178728750004666
     },
     {
       "name": "guest-poisoned_journal",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.992360791002284
+      "seconds": 2.827480749998358
     },
     {
       "name": "guest-restart_limit",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.617702207993716
+      "seconds": 9.555803666997235
     },
     {
       "name": "guest-crash",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.897061790994485
+      "seconds": 1.9908490419911686
     },
     {
       "name": "guest-held_writer",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 4.361922459007474
+      "seconds": 4.290567999996711
     },
     {
       "name": "guest-prepare_pending_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.5180444579891628
+      "seconds": 0.5222541250113863
     },
     {
       "name": "pending-vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.570952624999336
+      "seconds": 2.5092102920025354
     },
     {
       "name": "pending-vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.495461665996118
+      "seconds": 11.326844667011756
     },
     {
       "name": "guest-after_pending_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.6132069580053212
+      "seconds": 0.5797185000119498
     },
     {
       "name": "committed-vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.507577083000797
+      "seconds": 2.4166897919931216
     },
     {
       "name": "committed-vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 8.401526832996751
+      "seconds": 8.495590374994208
     },
     {
       "name": "guest-after_committed_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.556052208004985
+      "seconds": 0.6082749999914085
     },
     {
       "name": "guest-prepare_dual_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.1994324160041288
+      "seconds": 1.1344248749956023
     },
     {
       "name": "dual-pending-vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.5670629580126842
+      "seconds": 2.4028620409953874
     },
     {
       "name": "dual-pending-vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.36042624998663
+      "seconds": 8.482168125003227
     },
     {
       "name": "guest-after_dual_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.6461470409994945
+      "seconds": 0.627696334006032
     },
     {
       "name": "guest-dual_held_executor",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.999173709002207
+      "seconds": 2.975807666996843
     },
     {
       "name": "guest-cleanup",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.4791330000007292
+      "seconds": 0.5835678339935839
     },
     {
       "name": "snapshot-remove",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.31498591700801626
+      "seconds": 0.22959270799765363
     },
     {
       "name": "vm-final-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.5086993749864632
+      "seconds": 2.4138089999905787
     },
     {
       "name": "vm-final",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2632616670016432
+      "seconds": 0.18015749999904074
     }
   ],
   "cases": [
@@ -263,12 +263,12 @@
         "unit_properties": {
           "Restart": "on-failure",
           "RestartUSec": "1s",
-          "MainPID": "1660",
+          "MainPID": "2271",
           "Result": "success",
           "NRestarts": "0",
           "ExecMainStatus": "0",
           "ControlGroup": "/system.slice/rulemoor.service",
-          "MemoryCurrent": "11218944",
+          "MemoryCurrent": "11247616",
           "CapabilityBoundingSet": "cap_kill cap_net_admin",
           "PrivateTmp": "yes",
           "ProtectHome": "yes",
@@ -281,27 +281,27 @@
           "StartLimitIntervalUSec": "1min",
           "StartLimitBurst": "5"
         },
-        "boot_id": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+        "boot_id": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
         "memory": {
-          "agent_rss_bytes": 23281664,
-          "agent_vmhwm_bytes": 23281664,
-          "service_cgroup_memory_current_bytes": 11198464,
+          "agent_rss_bytes": 23359488,
+          "agent_vmhwm_bytes": 23359488,
+          "service_cgroup_memory_current_bytes": 11202560,
           "process_identity": {
-            "pid": 1660,
-            "start_ticks": 1010,
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+            "pid": 2271,
+            "start_ticks": 2696,
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
           },
-          "main_pid_after": 1660,
-          "invocation_id": "03e72b268b3242c1a19a2b3b44e24441",
-          "invocation_id_after": "03e72b268b3242c1a19a2b3b44e24441",
+          "main_pid_after": 2271,
+          "invocation_id": "b8ff5d8dccdf4c2d9b49c7304faf7edd",
+          "invocation_id_after": "b8ff5d8dccdf4c2d9b49c7304faf7edd",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 10211279670,
-          "sample_finished_ns": 10215307462,
+          "sample_started_ns": 27069951679,
+          "sample_finished_ns": 27074037637,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         }
       }
@@ -319,7 +319,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 3,
               "op": "configuration-recovery-missing",
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -418,15 +418,15 @@
               }
             ],
             "unit_before_kill": {
-              "MainPID": "1719",
-              "InvocationID": "b67f4511f67e453fa88e7f22207b7699",
+              "MainPID": "2330",
+              "InvocationID": "61f56fd604af4e2f87a6273b6bb11ee9",
               "ActiveState": "active",
               "Result": "success",
               "NRestarts": "0"
             },
             "unit_at_kill": {
-              "MainPID": "1719",
-              "InvocationID": "b67f4511f67e453fa88e7f22207b7699",
+              "MainPID": "2330",
+              "InvocationID": "61f56fd604af4e2f87a6273b6bb11ee9",
               "ActiveState": "active",
               "Result": "success",
               "NRestarts": "0"
@@ -435,7 +435,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 3,
               "op": "configuration-recovery-missing",
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -538,7 +538,7 @@
               "phase": "ROLLED_BACK",
               "generation": 4,
               "op": "configuration-recovery-missing",
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -638,7 +638,7 @@
             ],
             "failed_unit": {
               "MainPID": "0",
-              "InvocationID": "4bc61c7863e244f382a101a33a167cd3",
+              "InvocationID": "bcc3bd5bd195453a99210fcfc5841aed",
               "ActiveState": "failed",
               "Result": "exit-code",
               "NRestarts": "6"
@@ -647,19 +647,19 @@
               {
                 "MESSAGE": "rulemoor.service: Start request repeated too quickly.",
                 "UNIT": "rulemoor.service",
-                "_BOOT_ID": "c4d2dcb176cb4e1991a4e0b5bc35d19b",
-                "__MONOTONIC_TIMESTAMP": "18915147"
+                "_BOOT_ID": "05fdf56dd7304fcabdc463318b9d9aff",
+                "__MONOTONIC_TIMESTAMP": "35723139"
               }
             ],
-            "failure_started_monotonic_ns": 12294005296,
-            "failure_observed_monotonic_ns": 19069028425,
-            "boot_before": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
-            "boot_after": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "failure_started_monotonic_ns": 29244333972,
+            "failure_observed_monotonic_ns": 35736944264,
+            "boot_before": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
+            "boot_after": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "ready_after_repair": {
               "phase": "ROLLED_BACK",
               "generation": 4,
               "op": "configuration-recovery-missing",
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -695,7 +695,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 5,
               "op": "configuration-recovery-null",
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -794,15 +794,15 @@
               }
             ],
             "unit_before_kill": {
-              "MainPID": "2025",
-              "InvocationID": "1b1d99a701e24763a5b56348bcd0ffff",
+              "MainPID": "2639",
+              "InvocationID": "72573bd7d8cf4b279e48d41d3d46b5e4",
               "ActiveState": "active",
               "Result": "success",
               "NRestarts": "0"
             },
             "unit_at_kill": {
-              "MainPID": "2025",
-              "InvocationID": "1b1d99a701e24763a5b56348bcd0ffff",
+              "MainPID": "2639",
+              "InvocationID": "72573bd7d8cf4b279e48d41d3d46b5e4",
               "ActiveState": "active",
               "Result": "success",
               "NRestarts": "0"
@@ -811,7 +811,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 5,
               "op": "configuration-recovery-null",
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -914,7 +914,7 @@
               "phase": "ROLLED_BACK",
               "generation": 6,
               "op": "configuration-recovery-null",
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -1014,7 +1014,7 @@
             ],
             "failed_unit": {
               "MainPID": "0",
-              "InvocationID": "1841c953734f440cbe3f8cd67c13a31a",
+              "InvocationID": "02f93515fa924dcb8d57bb278e09a6d9",
               "ActiveState": "failed",
               "Result": "exit-code",
               "NRestarts": "6"
@@ -1023,19 +1023,19 @@
               {
                 "MESSAGE": "rulemoor.service: Start request repeated too quickly.",
                 "UNIT": "rulemoor.service",
-                "_BOOT_ID": "c4d2dcb176cb4e1991a4e0b5bc35d19b",
-                "__MONOTONIC_TIMESTAMP": "25913901"
+                "_BOOT_ID": "05fdf56dd7304fcabdc463318b9d9aff",
+                "__MONOTONIC_TIMESTAMP": "42654960"
               }
             ],
-            "failure_started_monotonic_ns": 19278872425,
-            "failure_observed_monotonic_ns": 25940247720,
-            "boot_before": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
-            "boot_after": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "failure_started_monotonic_ns": 35976182424,
+            "failure_observed_monotonic_ns": 42664033479,
+            "boot_before": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
+            "boot_after": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "ready_after_repair": {
               "phase": "ROLLED_BACK",
               "generation": 6,
               "op": "configuration-recovery-null",
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -1148,7 +1148,7 @@
           "phase": "COMMITTED",
           "generation": 0,
           "op": "initial",
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
           "current": {
             "default": "accept",
             "rules": [
@@ -1164,7 +1164,7 @@
           "phase": "COMMITTED",
           "generation": 0,
           "op": "initial",
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
           "current": {
             "default": "accept",
             "rules": [
@@ -1315,9 +1315,9 @@
           }
         ],
         "listener_identity": {
-          "pid": 1726,
-          "start_ticks": 1072,
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+          "pid": 2336,
+          "start_ticks": 2763,
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
         },
         "tcp_probe_before_foreign_drop": {
           "connected": true,
@@ -1325,17 +1325,17 @@
           "listener_before": {
             "poll": null,
             "identity": {
-              "pid": 1726,
-              "start_ticks": 1072,
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+              "pid": 2336,
+              "start_ticks": 2763,
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
             }
           },
           "listener_after": {
             "poll": null,
             "identity": {
-              "pid": 1726,
-              "start_ticks": 1072,
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+              "pid": 2336,
+              "start_ticks": 2763,
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
             }
           }
         },
@@ -1493,17 +1493,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1726,
-                  "start_ticks": 1072,
-                  "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+                  "pid": 2336,
+                  "start_ticks": 2763,
+                  "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1726,
-                  "start_ticks": 1072,
-                  "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+                  "pid": 2336,
+                  "start_ticks": 2763,
+                  "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
                 }
               }
             },
@@ -1513,17 +1513,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1726,
-                  "start_ticks": 1072,
-                  "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+                  "pid": 2336,
+                  "start_ticks": 2763,
+                  "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1726,
-                  "start_ticks": 1072,
-                  "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+                  "pid": 2336,
+                  "start_ticks": 2763,
+                  "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
                 }
               }
             },
@@ -1533,26 +1533,26 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1726,
-                  "start_ticks": 1072,
-                  "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+                  "pid": 2336,
+                  "start_ticks": 2763,
+                  "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1726,
-                  "start_ticks": 1072,
-                  "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+                  "pid": 2336,
+                  "start_ticks": 2763,
+                  "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
                 }
               }
             },
             "plan_clock": {
               "clock": "monotonic_ns",
-              "started_ns": 11167355588,
-              "finished_ns": 11220935171
+              "started_ns": 28096021430,
+              "finished_ns": 28137590596
             },
-            "plan_observed_ms": 53.579583
+            "plan_observed_ms": 41.569166
           },
           {
             "priority": 10,
@@ -1707,17 +1707,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1726,
-                  "start_ticks": 1072,
-                  "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+                  "pid": 2336,
+                  "start_ticks": 2763,
+                  "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1726,
-                  "start_ticks": 1072,
-                  "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+                  "pid": 2336,
+                  "start_ticks": 2763,
+                  "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
                 }
               }
             },
@@ -1727,17 +1727,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1726,
-                  "start_ticks": 1072,
-                  "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+                  "pid": 2336,
+                  "start_ticks": 2763,
+                  "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1726,
-                  "start_ticks": 1072,
-                  "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+                  "pid": 2336,
+                  "start_ticks": 2763,
+                  "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
                 }
               }
             },
@@ -1747,26 +1747,26 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1726,
-                  "start_ticks": 1072,
-                  "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+                  "pid": 2336,
+                  "start_ticks": 2763,
+                  "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1726,
-                  "start_ticks": 1072,
-                  "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+                  "pid": 2336,
+                  "start_ticks": 2763,
+                  "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
                 }
               }
             },
             "plan_clock": {
               "clock": "monotonic_ns",
-              "started_ns": 11515458088,
-              "finished_ns": 11571944213
+              "started_ns": 28434833971,
+              "finished_ns": 28476315471
             },
-            "plan_observed_ms": 56.486125
+            "plan_observed_ms": 41.4815
           }
         ],
         "unsupported_condition": {
@@ -1944,17 +1944,17 @@
           "listener_before": {
             "poll": null,
             "identity": {
-              "pid": 1726,
-              "start_ticks": 1072,
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+              "pid": 2336,
+              "start_ticks": 2763,
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
             }
           },
           "listener_after": {
             "poll": null,
             "identity": {
-              "pid": 1726,
-              "start_ticks": 1072,
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+              "pid": 2336,
+              "start_ticks": 2763,
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
             }
           }
         },
@@ -1964,17 +1964,17 @@
           "listener_before": {
             "poll": null,
             "identity": {
-              "pid": 1726,
-              "start_ticks": 1072,
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+              "pid": 2336,
+              "start_ticks": 2763,
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
             }
           },
           "listener_after": {
             "poll": null,
             "identity": {
-              "pid": 1726,
-              "start_ticks": 1072,
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+              "pid": 2336,
+              "start_ticks": 2763,
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
             }
           }
         },
@@ -1984,17 +1984,17 @@
           "listener_before": {
             "poll": null,
             "identity": {
-              "pid": 1726,
-              "start_ticks": 1072,
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+              "pid": 2336,
+              "start_ticks": 2763,
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
             }
           },
           "listener_after": {
             "poll": null,
             "identity": {
-              "pid": 1726,
-              "start_ticks": 1072,
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+              "pid": 2336,
+              "start_ticks": 2763,
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
             }
           }
         },
@@ -2005,25 +2005,25 @@
           "generation": 1
         },
         "memory": {
-          "agent_rss_bytes": 24268800,
-          "agent_vmhwm_bytes": 24268800,
-          "service_cgroup_memory_current_bytes": 12550144,
+          "agent_rss_bytes": 24227840,
+          "agent_vmhwm_bytes": 24227840,
+          "service_cgroup_memory_current_bytes": 12435456,
           "process_identity": {
-            "pid": 1719,
-            "start_ticks": 1062,
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+            "pid": 2330,
+            "start_ticks": 2754,
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
           },
-          "main_pid_after": 1719,
-          "invocation_id": "b67f4511f67e453fa88e7f22207b7699",
-          "invocation_id_after": "b67f4511f67e453fa88e7f22207b7699",
+          "main_pid_after": 2330,
+          "invocation_id": "61f56fd604af4e2f87a6273b6bb11ee9",
+          "invocation_id_after": "61f56fd604af4e2f87a6273b6bb11ee9",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 12044773838,
-          "sample_finished_ns": 12051864671,
+          "sample_started_ns": 28994416680,
+          "sample_finished_ns": 28999611847,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "own_kernel_after_allowed_apply": [
@@ -2099,7 +2099,7 @@
           "phase": "COMMITTED",
           "generation": 1,
           "op": "guard-admitted",
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
           "current": {
             "default": "accept",
             "rules": [
@@ -2291,7 +2291,7 @@
             "phase": "COMMITTED",
             "generation": 0,
             "op": "initial",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -2326,7 +2326,7 @@
             "phase": "COMMITTED",
             "generation": 0,
             "op": "initial",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -2778,7 +2778,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 1,
             "op": "dual-v6-blocked",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -2861,7 +2861,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 1,
               "op": "dual-v6-blocked",
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -2945,7 +2945,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 1,
               "op": "dual-v6-blocked",
-              "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+              "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -3032,7 +3032,7 @@
           },
           "spoof_rejected": true,
           "ipv6_connect_errno": 11,
-          "deadline": 32.064348095
+          "deadline": 48.871385397
         },
         "pending_kernel": [
           {
@@ -3197,7 +3197,7 @@
           "phase": "ROLLED_BACK",
           "generation": 1,
           "op": "dual-v6-blocked",
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -3489,7 +3489,7 @@
             "phase": "ROLLED_BACK",
             "generation": 1,
             "op": "dual-v6-blocked",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3573,7 +3573,7 @@
             "phase": "ROLLED_BACK",
             "generation": 1,
             "op": "dual-v6-blocked",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3655,28 +3655,28 @@
           }
         },
         "rollback_clock": {
-          "deadline": 32.064348095,
-          "rollback_started_at": 32.113524472,
-          "rollback_completed_at": 32.149074348,
+          "deadline": 48.871385397,
+          "rollback_started_at": 48.897157869,
+          "rollback_completed_at": 48.935299194,
           "clock": "CLOCK_BOOTTIME",
-          "observed_at": 32.183842806
+          "observed_at": 48.97039827
         },
         "same_service_identity_during_timeout": {
-          "pid": 2346,
-          "start_ticks": 2683,
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+          "pid": 2961,
+          "start_ticks": 4363,
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
         },
         "identity_after_timeout": {
-          "pid": 2346,
-          "start_ticks": 2683,
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+          "pid": 2961,
+          "start_ticks": 4363,
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
         },
         "success": {
           "ipv4_partial": {
             "phase": "AWAITING_CONFIRM",
             "generation": 2,
             "op": "dual-both-success",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3769,7 +3769,7 @@
             "phase": "COMMITTED",
             "generation": 2,
             "op": "dual-both-success",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3861,12 +3861,12 @@
           },
           "confirmation_clock": {
             "clock": "monotonic_ns",
-            "started_ns": 32343686223,
-            "partial_ns": 32348332181,
-            "finished_ns": 32352453139
+            "started_ns": 49138998190,
+            "partial_ns": 49143554046,
+            "finished_ns": 49147704317
           },
-          "partial_ms": 4.645958,
-          "commit_ms": 4.120958
+          "partial_ms": 4.555856,
+          "commit_ms": 4.150271
         },
         "committed_kernel": [
           {
@@ -4075,34 +4075,34 @@
             }
           }
         ],
-        "ipv6_neighbour_observation": "2001:db8:44::2 lladdr 1a:d2:59:8a:31:01 REACHABLE",
+        "ipv6_neighbour_observation": "2001:db8:44::2 lladdr c6:31:14:03:4f:61 REACHABLE",
         "memory": {
-          "agent_rss_bytes": 24682496,
-          "agent_vmhwm_bytes": 24682496,
-          "service_cgroup_memory_current_bytes": 13008896,
+          "agent_rss_bytes": 24834048,
+          "agent_vmhwm_bytes": 24834048,
+          "service_cgroup_memory_current_bytes": 12959744,
           "process_identity": {
-            "pid": 2346,
-            "start_ticks": 2683,
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+            "pid": 2961,
+            "start_ticks": 4363,
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
           },
-          "main_pid_after": 2346,
-          "invocation_id": "489a5392162b42c38e40c23e795a3adf",
-          "invocation_id_after": "489a5392162b42c38e40c23e795a3adf",
+          "main_pid_after": 2961,
+          "invocation_id": "6a4e06749e9243dda449431c9fbcf352",
+          "invocation_id_after": "6a4e06749e9243dda449431c9fbcf352",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 32359545931,
-          "sample_finished_ns": 32363858306,
+          "sample_started_ns": 49155045552,
+          "sample_finished_ns": 49159681826,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "partial_before_kill": {
           "phase": "AWAITING_CONFIRM",
           "generation": 3,
           "op": "dual-partial-crash",
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -4400,15 +4400,15 @@
         ],
         "signal": "SIGKILL",
         "identity_after_restart": {
-          "pid": 2662,
-          "start_ticks": 3374,
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+          "pid": 3275,
+          "start_ticks": 5054,
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
         },
         "recovered": {
           "phase": "ROLLED_BACK",
           "generation": 4,
           "op": "dual-partial-crash",
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -4714,7 +4714,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 5,
             "op": "dual-newer",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -4813,7 +4813,7 @@
             "phase": "COMMITTED",
             "generation": 5,
             "op": "dual-newer",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -4927,7 +4927,7 @@
                 "phase": "AWAITING_CONFIRM",
                 "generation": 5,
                 "op": "dual-newer",
-                "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+                "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -5026,7 +5026,7 @@
                 "phase": "AWAITING_CONFIRM",
                 "generation": 5,
                 "op": "dual-newer",
-                "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+                "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -5639,7 +5639,7 @@
                 "phase": "AWAITING_CONFIRM",
                 "generation": 5,
                 "op": "dual-newer",
-                "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+                "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -5738,7 +5738,7 @@
                 "phase": "AWAITING_CONFIRM",
                 "generation": 5,
                 "op": "dual-newer",
-                "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+                "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -6351,7 +6351,7 @@
                 "phase": "AWAITING_CONFIRM",
                 "generation": 5,
                 "op": "dual-newer",
-                "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+                "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -6450,7 +6450,7 @@
                 "phase": "AWAITING_CONFIRM",
                 "generation": 5,
                 "op": "dual-newer",
-                "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+                "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -7425,8 +7425,8 @@
         "diagnostic_reason": "Unreadable journal; local operator recovery required",
         "original_snapshot_preserved": true,
         "mutations_rejected": true,
-        "invocation_before": "1df5fcbf228c46b587e8d558d4c9e00f",
-        "invocation_after": "1df5fcbf228c46b587e8d558d4c9e00f",
+        "invocation_before": "beadb5a2560d44fda429eaa835e88480",
+        "invocation_after": "beadb5a2560d44fda429eaa835e88480",
         "restart_count_before": 0,
         "restart_count_after": 0,
         "kernel_before": [
@@ -7568,25 +7568,25 @@
           }
         ],
         "memory": {
-          "agent_rss_bytes": 23396352,
-          "agent_vmhwm_bytes": 23396352,
-          "service_cgroup_memory_current_bytes": 11288576,
+          "agent_rss_bytes": 23388160,
+          "agent_vmhwm_bytes": 23388160,
+          "service_cgroup_memory_current_bytes": 11210752,
           "process_identity": {
-            "pid": 2785,
-            "start_ticks": 3479,
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+            "pid": 3398,
+            "start_ticks": 5156,
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
           },
-          "main_pid_after": 2785,
-          "invocation_id": "1df5fcbf228c46b587e8d558d4c9e00f",
-          "invocation_id_after": "1df5fcbf228c46b587e8d558d4c9e00f",
+          "main_pid_after": 3398,
+          "invocation_id": "beadb5a2560d44fda429eaa835e88480",
+          "invocation_id_after": "beadb5a2560d44fda429eaa835e88480",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 37135323546,
-          "sample_finished_ns": 37145250531,
+          "sample_started_ns": 53892193609,
+          "sample_finished_ns": 53897302941,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "fixture_only_reprovision_and_token_rotation": true,
@@ -7620,26 +7620,26 @@
           "Result": "exit-code",
           "ExecMainStatus": "1"
         },
-        "failure_started_monotonic_ns": 37817791794,
+        "failure_started_monotonic_ns": 54483062231,
         "start_limit_receipts": [
           {
             "MESSAGE": "rulemoor.service: Start request repeated too quickly.",
             "UNIT": "rulemoor.service",
-            "_BOOT_ID": "c4d2dcb176cb4e1991a4e0b5bc35d19b",
-            "__MONOTONIC_TIMESTAMP": "44203156"
+            "_BOOT_ID": "05fdf56dd7304fcabdc463318b9d9aff",
+            "__MONOTONIC_TIMESTAMP": "60861062"
           }
         ],
         "observation_clock": {
           "clock": "monotonic_ns",
-          "started_ns": 44255392832,
-          "finished_ns": 46464431731
+          "started_ns": 60891198815,
+          "finished_ns": 63102165552
         },
-        "observation_seconds": 2.209038899,
+        "observation_seconds": 2.210966737,
         "journal_before_failure": {
           "phase": "AWAITING_CONFIRM",
           "generation": 1,
           "op": "initial",
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
           "current": {
             "default": "accept",
             "rules": [
@@ -7672,7 +7672,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 1,
           "op": "initial",
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
           "current": {
             "default": "accept",
             "rules": [
@@ -7849,7 +7849,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 3,
             "op": "after-limit-new",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "default": "accept",
               "rules": [
@@ -7882,7 +7882,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 3,
             "op": "after-limit-new",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "default": "accept",
               "rules": [
@@ -7984,7 +7984,7 @@
             "phase": "COMMITTED",
             "generation": 3,
             "op": "after-limit-new",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "default": "accept",
               "rules": [
@@ -8094,25 +8094,25 @@
           ]
         },
         "memory": {
-          "agent_rss_bytes": 23986176,
-          "agent_vmhwm_bytes": 23986176,
-          "service_cgroup_memory_current_bytes": 12144640,
+          "agent_rss_bytes": 24113152,
+          "agent_vmhwm_bytes": 24113152,
+          "service_cgroup_memory_current_bytes": 12189696,
           "process_identity": {
-            "pid": 3037,
-            "start_ticks": 4648,
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+            "pid": 3649,
+            "start_ticks": 6312,
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
           },
-          "main_pid_after": 3037,
-          "invocation_id": "85b02c5cd7be461f984342b39c06b64b",
-          "invocation_id_after": "85b02c5cd7be461f984342b39c06b64b",
+          "main_pid_after": 3649,
+          "invocation_id": "6ed05d983f354ed5a89a5002f6c36929",
+          "invocation_id_after": "6ed05d983f354ed5a89a5002f6c36929",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 47014096082,
-          "sample_finished_ns": 47018741493,
+          "sample_started_ns": 63649582085,
+          "sample_finished_ns": 63654393325,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "segmentation_fault_tested": false,
@@ -8136,7 +8136,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 7,
             "op": "after-crash-new",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "default": "accept",
               "rules": [
@@ -8169,7 +8169,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 7,
             "op": "after-crash-new",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "default": "accept",
               "rules": [
@@ -8271,7 +8271,7 @@
             "phase": "COMMITTED",
             "generation": 7,
             "op": "after-crash-new",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "default": "accept",
               "rules": [
@@ -8380,33 +8380,33 @@
             "apply"
           ]
         },
-        "kill_to_tls_ready_observed_ms": 1219.33108,
+        "kill_to_tls_ready_observed_ms": 1289.940338,
         "recovery_clock": {
           "clock": "monotonic_ns",
-          "kill_started_ns": 47421043695,
-          "tls_observed_ns": 48640374775,
-          "baseline_verified_ns": 48643832020
+          "kill_started_ns": 64064979103,
+          "tls_observed_ns": 65354919441,
+          "baseline_verified_ns": 65358906638
         },
         "memory": {
-          "agent_rss_bytes": 23879680,
-          "agent_vmhwm_bytes": 23879680,
-          "service_cgroup_memory_current_bytes": 12025856,
+          "agent_rss_bytes": 23920640,
+          "agent_vmhwm_bytes": 23920640,
+          "service_cgroup_memory_current_bytes": 12005376,
           "process_identity": {
-            "pid": 3140,
-            "start_ticks": 4854,
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+            "pid": 3753,
+            "start_ticks": 6524,
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
           },
-          "main_pid_after": 3140,
-          "invocation_id": "18109464864f46acb1cccd4b911afba1",
-          "invocation_id_after": "18109464864f46acb1cccd4b911afba1",
+          "main_pid_after": 3753,
+          "invocation_id": "fb5d731e4ea34d73bc398a3e9e0fd493",
+          "invocation_id_after": "fb5d731e4ea34d73bc398a3e9e0fd493",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 48935381177,
-          "sample_finished_ns": 48939947780,
+          "sample_started_ns": 65665255035,
+          "sample_finished_ns": 65670351172,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "old_generation": 5,
@@ -8558,9 +8558,9 @@
       "evidence": {
         "test_only_fault_override": true,
         "old_executor_identity": {
-          "pid": 3248,
-          "start_ticks": 4954,
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b"
+          "pid": 3861,
+          "start_ticks": 6626,
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff"
         },
         "old_executor_retired": true,
         "systemd_cgroup_restart_observed": true,
@@ -8574,7 +8574,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 10,
             "op": "after-held-new",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "default": "accept",
               "rules": [
@@ -8607,7 +8607,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 10,
             "op": "after-held-new",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "default": "accept",
               "rules": [
@@ -8709,7 +8709,7 @@
             "phase": "COMMITTED",
             "generation": 10,
             "op": "after-held-new",
-            "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+            "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
             "current": {
               "default": "accept",
               "rules": [
@@ -8895,7 +8895,7 @@
       "name": "prepare_pending_boot",
       "passed": true,
       "evidence": {
-        "boot_id": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+        "boot_id": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
         "journal_pending_after_service_stop": true,
         "candidate_still_installed": true,
         "graceful_rollback_deliberately_bypassed": true,
@@ -8973,7 +8973,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 11,
           "op": "pending-before-boot",
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
           "current": {
             "default": "accept",
             "rules": [
@@ -9009,14 +9009,14 @@
       "name": "after_pending_boot",
       "passed": true,
       "evidence": {
-        "boot_id_before": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
-        "boot_id_after": "d807fba3-81af-43fd-8a2b-fdd3f7fe5e52",
+        "boot_id_before": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
+        "boot_id_after": "7b430a5a-85a1-48f9-b6a3-07fb08663dbe",
         "pre_agent_table_absent": true,
         "journal_before_agent": {
           "phase": "AWAITING_CONFIRM",
           "generation": 11,
           "op": "pending-before-boot",
-          "boot": "c4d2dcb1-76cb-4e19-91a4-e0b5bc35d19b",
+          "boot": "05fdf56d-d730-4fca-bdc4-63318b9d9aff",
           "current": {
             "default": "accept",
             "rules": [
@@ -9055,7 +9055,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 13,
             "op": "post-boot-new",
-            "boot": "d807fba3-81af-43fd-8a2b-fdd3f7fe5e52",
+            "boot": "7b430a5a-85a1-48f9-b6a3-07fb08663dbe",
             "current": {
               "default": "accept",
               "rules": [
@@ -9088,7 +9088,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 13,
             "op": "post-boot-new",
-            "boot": "d807fba3-81af-43fd-8a2b-fdd3f7fe5e52",
+            "boot": "7b430a5a-85a1-48f9-b6a3-07fb08663dbe",
             "current": {
               "default": "accept",
               "rules": [
@@ -9190,7 +9190,7 @@
             "phase": "COMMITTED",
             "generation": 13,
             "op": "post-boot-new",
-            "boot": "d807fba3-81af-43fd-8a2b-fdd3f7fe5e52",
+            "boot": "7b430a5a-85a1-48f9-b6a3-07fb08663dbe",
             "current": {
               "default": "accept",
               "rules": [
@@ -9299,27 +9299,27 @@
             "apply"
           ]
         },
-        "vm_uptime_after_validation_seconds": 7.391422377,
+        "vm_uptime_after_validation_seconds": 9.283926211,
         "memory": {
-          "agent_rss_bytes": 23834624,
-          "agent_vmhwm_bytes": 23834624,
-          "service_cgroup_memory_current_bytes": 12447744,
+          "agent_rss_bytes": 24014848,
+          "agent_vmhwm_bytes": 24014848,
+          "service_cgroup_memory_current_bytes": 12636160,
           "process_identity": {
-            "pid": 501,
-            "start_ticks": 299,
-            "boot": "d807fba3-81af-43fd-8a2b-fdd3f7fe5e52"
+            "pid": 508,
+            "start_ticks": 267,
+            "boot": "7b430a5a-85a1-48f9-b6a3-07fb08663dbe"
           },
-          "main_pid_after": 501,
-          "invocation_id": "2db0bc77385c45a2aa32a3bc37f078e3",
-          "invocation_id_after": "2db0bc77385c45a2aa32a3bc37f078e3",
+          "main_pid_after": 508,
+          "invocation_id": "226f785d64824a50be05c09ca0c998fa",
+          "invocation_id_after": "226f785d64824a50be05c09ca0c998fa",
           "process_namespace_inode": 4026532394,
           "target_namespace_inode": 4026532394,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 7391423211,
-          "sample_finished_ns": 7397624211,
+          "sample_started_ns": 9283926711,
+          "sample_finished_ns": 9288645336,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "old_generation": 11,
@@ -9469,14 +9469,14 @@
       "name": "after_committed_boot",
       "passed": true,
       "evidence": {
-        "boot_id_before": "d807fba3-81af-43fd-8a2b-fdd3f7fe5e52",
-        "boot_id_after": "f48a5590-614c-49af-b937-bd9a69f15205",
+        "boot_id_before": "7b430a5a-85a1-48f9-b6a3-07fb08663dbe",
+        "boot_id_after": "f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4",
         "pre_agent_table_absent": true,
         "journal_before_agent": {
           "phase": "COMMITTED",
           "generation": 13,
           "op": "post-boot-new",
-          "boot": "d807fba3-81af-43fd-8a2b-fdd3f7fe5e52",
+          "boot": "7b430a5a-85a1-48f9-b6a3-07fb08663dbe",
           "current": {
             "default": "accept",
             "rules": [
@@ -9510,25 +9510,25 @@
         "old_base_rejected": true,
         "same_boot_foreign_policy_preserved": true,
         "memory": {
-          "agent_rss_bytes": 23261184,
-          "agent_vmhwm_bytes": 23261184,
+          "agent_rss_bytes": 23277568,
+          "agent_vmhwm_bytes": 23277568,
           "service_cgroup_memory_current_bytes": 11563008,
           "process_identity": {
             "pid": 502,
-            "start_ticks": 236,
-            "boot": "f48a5590-614c-49af-b937-bd9a69f15205"
+            "start_ticks": 229,
+            "boot": "f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4"
           },
           "main_pid_after": 502,
-          "invocation_id": "2d395297735146b38f42c646f5c60426",
-          "invocation_id_after": "2d395297735146b38f42c646f5c60426",
+          "invocation_id": "9a76290874b543b98a59e23e3a54e816",
+          "invocation_id_after": "9a76290874b543b98a59e23e3a54e816",
           "process_namespace_inode": 4026532394,
           "target_namespace_inode": 4026532394,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 6079902627,
-          "sample_finished_ns": 6084804002,
+          "sample_started_ns": 6075868460,
+          "sample_finished_ns": 6081573085,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "memory_stage": "committed_after_boot_before_foreign_policy_probe",
@@ -9639,12 +9639,12 @@
       "name": "prepare_dual_boot",
       "passed": true,
       "evidence": {
-        "boot_id": "f48a5590-614c-49af-b937-bd9a69f15205",
+        "boot_id": "f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4",
         "committed_baseline": {
           "phase": "COMMITTED",
           "generation": 1,
           "op": "dual-recovery-baseline",
-          "boot": "f48a5590-614c-49af-b937-bd9a69f15205",
+          "boot": "f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -9945,7 +9945,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 2,
           "op": "dual-pending-before-boot",
-          "boot": "f48a5590-614c-49af-b937-bd9a69f15205",
+          "boot": "f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -10038,7 +10038,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 2,
           "op": "dual-pending-before-boot",
-          "boot": "f48a5590-614c-49af-b937-bd9a69f15205",
+          "boot": "f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -10554,13 +10554,13 @@
       "name": "after_dual_boot",
       "passed": true,
       "evidence": {
-        "boot_id_before": "f48a5590-614c-49af-b937-bd9a69f15205",
-        "boot_id_after": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+        "boot_id_before": "f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4",
+        "boot_id_after": "69fb01c9-fb4a-469d-847a-40634126733f",
         "journal_before_agent": {
           "phase": "AWAITING_CONFIRM",
           "generation": 2,
           "op": "dual-pending-before-boot",
-          "boot": "f48a5590-614c-49af-b937-bd9a69f15205",
+          "boot": "f2cc1fd5-0ddf-45a8-9011-fd746c59b0d4",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -10657,7 +10657,7 @@
           "phase": "ROLLED_BACK",
           "generation": 3,
           "op": "dual-pending-before-boot",
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -10958,7 +10958,7 @@
             "phase": "ROLLED_BACK",
             "generation": 3,
             "op": "dual-pending-before-boot",
-            "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+            "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -11051,7 +11051,7 @@
             "phase": "ROLLED_BACK",
             "generation": 3,
             "op": "dual-pending-before-boot",
-            "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+            "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -11145,7 +11145,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 4,
           "op": "dual-after-boot-successor",
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -11240,7 +11240,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 4,
               "op": "dual-after-boot-successor",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -11331,7 +11331,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 4,
               "op": "dual-after-boot-successor",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -11840,7 +11840,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 4,
               "op": "dual-after-boot-successor",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -11931,7 +11931,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 4,
               "op": "dual-after-boot-successor",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -12440,7 +12440,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 4,
               "op": "dual-after-boot-successor",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -12531,7 +12531,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 4,
               "op": "dual-after-boot-successor",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -13038,7 +13038,7 @@
           "phase": "COMMITTED",
           "generation": 4,
           "op": "dual-after-boot-successor",
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -13336,25 +13336,25 @@
           }
         ],
         "memory": {
-          "agent_rss_bytes": 24068096,
-          "agent_vmhwm_bytes": 24068096,
-          "service_cgroup_memory_current_bytes": 12693504,
+          "agent_rss_bytes": 24064000,
+          "agent_vmhwm_bytes": 24064000,
+          "service_cgroup_memory_current_bytes": 12800000,
           "process_identity": {
-            "pid": 520,
-            "start_ticks": 285,
-            "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957"
+            "pid": 523,
+            "start_ticks": 234,
+            "boot": "69fb01c9-fb4a-469d-847a-40634126733f"
           },
-          "main_pid_after": 520,
-          "invocation_id": "9a613cf1a93c45ee9deaa040b01cc0bd",
-          "invocation_id_after": "9a613cf1a93c45ee9deaa040b01cc0bd",
+          "main_pid_after": 523,
+          "invocation_id": "9c24c66784814add8b0014644eabf9fc",
+          "invocation_id_after": "9c24c66784814add8b0014644eabf9fc",
           "process_namespace_inode": 4026532394,
           "target_namespace_inode": 4026532394,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 7403936961,
-          "sample_finished_ns": 7408901544,
+          "sample_started_ns": 6334447544,
+          "sample_finished_ns": 6339311585,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         }
       }
@@ -13367,7 +13367,7 @@
           "phase": "COMMITTED",
           "generation": 4,
           "op": "dual-after-boot-successor",
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -13461,7 +13461,7 @@
           "phase": "APPLYING",
           "generation": 5,
           "op": "dual-held-orphan",
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -13549,22 +13549,22 @@
           "confirmed_families": []
         },
         "held_agent_identity": {
-          "pid": 1612,
-          "start_ticks": 782,
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957"
+          "pid": 1616,
+          "start_ticks": 668,
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f"
         },
         "old_executor_identity": {
-          "pid": 1618,
-          "start_ticks": 786,
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957"
+          "pid": 1622,
+          "start_ticks": 673,
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f"
         },
         "old_executor_cgroup": [
           "0::/user.slice/user-501.slice/session-4.scope"
         ],
         "after_agent_kill_identity": {
-          "pid": 1618,
-          "start_ticks": 786,
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957"
+          "pid": 1622,
+          "start_ticks": 673,
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f"
         },
         "writer_lock_held_before_recovery": true,
         "kernel_before_recovery": [
@@ -13778,7 +13778,7 @@
           "phase": "ROLLED_BACK",
           "generation": 6,
           "op": "dual-held-orphan",
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -14078,7 +14078,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 7,
           "op": "dual-after-orphan-new",
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -14169,7 +14169,7 @@
           "phase": "COMMITTED",
           "generation": 7,
           "op": "dual-after-orphan-new",
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -14267,7 +14267,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -14358,7 +14358,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -14867,7 +14867,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -14958,7 +14958,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -15469,7 +15469,7 @@
               "phase": "COMMITTED",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -15563,7 +15563,7 @@
               "phase": "COMMITTED",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -16075,7 +16075,7 @@
               "phase": "COMMITTED",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -16169,7 +16169,7 @@
               "phase": "COMMITTED",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+              "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -16679,7 +16679,7 @@
           "phase": "COMMITTED",
           "generation": 7,
           "op": "dual-after-orphan-new",
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -16773,7 +16773,7 @@
           "phase": "COMMITTED",
           "generation": 7,
           "op": "dual-after-orphan-new",
-          "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957",
+          "boot": "69fb01c9-fb4a-469d-847a-40634126733f",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -17281,30 +17281,30 @@
         "identity_after_release": null,
         "release_clock": {
           "clock": "monotonic_ns",
-          "started_ns": 8318965003,
-          "finished_ns": 10420313129
+          "started_ns": 7230021211,
+          "finished_ns": 9332202420
         },
-        "release_observation_seconds": 2.101348126,
+        "release_observation_seconds": 2.102181209,
         "memory": {
-          "agent_rss_bytes": 24121344,
-          "agent_vmhwm_bytes": 24121344,
-          "service_cgroup_memory_current_bytes": 12218368,
+          "agent_rss_bytes": 24109056,
+          "agent_vmhwm_bytes": 24109056,
+          "service_cgroup_memory_current_bytes": 12222464,
           "process_identity": {
-            "pid": 1622,
-            "start_ticks": 789,
-            "boot": "19abfc86-5bc6-4e2a-932f-09b83308f957"
+            "pid": 1626,
+            "start_ticks": 675,
+            "boot": "69fb01c9-fb4a-469d-847a-40634126733f"
           },
-          "main_pid_after": 1622,
-          "invocation_id": "93a0b45aefe84b78b68c906fbf532d30",
-          "invocation_id_after": "93a0b45aefe84b78b68c906fbf532d30",
+          "main_pid_after": 1626,
+          "invocation_id": "342511e38de94e17b3672eed8e817e5c",
+          "invocation_id_after": "342511e38de94e17b3672eed8e817e5c",
           "process_namespace_inode": 4026532394,
           "target_namespace_inode": 4026532394,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 10431980254,
-          "sample_finished_ns": 10441399545,
+          "sample_started_ns": 9341309754,
+          "sample_finished_ns": 9350174712,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "scope": "Fault-injected installed Controller/executor outside unit; recovery by installed systemd Agent/pidfd fencing; finite late-release observation"
@@ -17323,25 +17323,25 @@
     }
   ],
   "vm_initial_state": "Stopped",
-  "wheel_sha256": "bdb9a126194a17f8233adc4797b61b88f249ab4464f150947acacd773e8b7bf2",
+  "wheel_sha256": "bed49d99ae327ad14ce008eaedd577084f6ab3c9a2583a3c2b4d978b65c0df91",
   "pending_vm_restart_clock": {
     "clock": "monotonic_ns",
-    "started_ns": 71930883847250,
-    "finished_ns": 71943614179958
+    "started_ns": 73636272889041,
+    "finished_ns": 73650739571625
   },
-  "pending_vm_restart_control_seconds": 12.730332708,
+  "pending_vm_restart_control_seconds": 14.466682584,
   "committed_vm_restart_clock": {
     "clock": "monotonic_ns",
-    "started_ns": 71943614193833,
-    "finished_ns": 71955130977625
+    "started_ns": 73650739575041,
+    "finished_ns": 73662311577916
   },
-  "committed_vm_restart_control_seconds": 11.516783792,
+  "committed_vm_restart_control_seconds": 11.572002875,
   "dual_pending_vm_restart_clock": {
     "clock": "monotonic_ns",
-    "started_ns": 71956360246833,
-    "finished_ns": 71968993239208
+    "started_ns": 73663477529583,
+    "finished_ns": 73675050308083
   },
-  "dual_pending_vm_restart_control_seconds": 12.632992375,
+  "dual_pending_vm_restart_control_seconds": 11.5727785,
   "source_snapshot_removed": true,
   "vm_final_state": "Stopped",
   "evidence_controls": [

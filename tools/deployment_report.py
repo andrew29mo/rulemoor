@@ -508,7 +508,7 @@ def render(value):
     if 'dual_stack' in by_name:
         d=by_name['dual_stack'];s=d['success']
         observations += '<p>Dual-stack static veth peers: repeated IPv4 confirmation could not mask a blocked fresh IPv6 connection; both policies rolled back at the common deadline. Old IPv4/IPv6 TLS and family spoofing were rejected. Fresh IPv4 partial + IPv6 confirmation committed; partial-confirmation SIGKILL restored the prior dual commit. Foreign tables remained unchanged.</p>'
-        observations += f'<p>Single observed dual confirmation round trips: IPv4 partial {s["partial_ms"]:.2f} ms; IPv6 final commit {s["commit_ms"]:.2f} ms. Different state transitions, not a family performance comparison. Includes fresh TLS and durable writes; client-process startup excluded. Static-neighbour discovery observed; routed PMTU, SLAAC, dual-stack VM boot and power loss were not tested.</p>'
+        observations += f'<p>Single observed dual confirmation round trips: IPv4 partial {s["partial_ms"]:.2f} ms; IPv6 final commit {s["commit_ms"]:.2f} ms. Different state transitions, not a family performance comparison. Includes fresh TLS and durable writes; client-process startup excluded. Static-neighbour discovery observed. This case does not test VM boot; any separate partial-confirmation dual VM boot observation is reported below. Committed-only dual VM boot, routed PMTU, SLAAC and power loss remain untested.</p>'
     if 'after_dual_boot' in by_name:
         seconds=value.get('dual_pending_vm_restart_control_seconds')
         text=f'{seconds:.2f} s' if seconds is not None else 'not yet observed'

@@ -51,47 +51,48 @@ These measurements come from VM system services (configured 4 vCPU / 6 GiB), sep
 [Evidence review and corrections](DEPLOYMENT_REVIEW.md) · [Retained JSON](../reviews/deployment/deployment.json) · [HTML report](../reviews/deployment/report.html) · [Attempt history](../reviews/deployment/attempts.json)
 
 
+
 ## Retained observations
 
-Run `2d6bce1eafd34363`, source `c64749f0c951d14513ccc3e1cf18c0dc171c19e28310c259b6da4eb767a146ec`. Kernel 6.8.0-117-generic/aarch64, Python 3.12.3, systemd 255 (255.4-1ubuntu8.15), nftables v1.0.9 (Old Doc Yak #3). All fourteen case groups and fifty-one evidence-corruption controls passed. Installed site-packages module hashes match this source. The first helper-import attempt failed and was cleaned/stopped; it remains in attempt history.
+Run `71eba3fbcb9238fb`, source `6165ed1aca054e8ece3a93c7a1e348e540424f1a855ab698129147539d0cb3b7`. Kernel 6.8.0-117-generic/aarch64, Python 3.12.3, systemd 255 (255.4-1ubuntu8.15), nftables v1.0.9 (Old Doc Yak #3). All fourteen case groups and fifty-one evidence-corruption controls passed. Installed site-packages module hashes match this source. The first helper-import attempt failed and was cleaned/stopped; it remains in attempt history.
 
 Configured management admission/foreign-rule diagnosis retained same-listener success → timeout → success after removing only fixture rules. Unknown conditions remained risk, old TLS confirmation was refused, a fresh connection committed, and foreign rules remained unchanged. These observations remain namespace-local.
 
 | Foreign priority | Observed plan ms |
 |---|---:|
-| -100 | 53.58 |
-| 10 | 56.49 |
+| -100 | 41.57 |
+| 10 | 41.48 |
 
 Plan observations include CLI process/namespace startup, TLS and checks. They are not isolated diagnostic CPU time or a paired comparison with the unconfigured legacy container benchmark.
 
-Missing-key startup failure reached the real start limit and remained stopped for 2.21 s before local cause repair/reset/start. A separate legacy Agent SIGKILL trial reached observed fresh TLS in 1219.3 ms, with baseline readback afterward. Neither is a recovery upper bound.
+Missing-key startup failure reached the real start limit and remained stopped for 2.21 s before local cause repair/reset/start. A separate legacy Agent SIGKILL trial reached observed fresh TLS in 1289.9 ms, with baseline readback afterward. Neither is a recovery upper bound.
 
 | Orderly VM stop/start + validation | Observed seconds |
 |---|---:|
-| Legacy IPv4 pending | 12.73 |
-| Legacy IPv4 committed | 11.52 |
-| Dual partial confirmation | 12.63 |
+| Legacy IPv4 pending | 14.47 |
+| Legacy IPv4 committed | 11.57 |
+| Dual partial confirmation | 11.57 |
 
 Each is one host-monotonic interval including Colima, SSH, namespace setup, probing and assertions. No power removal is performed.
 
-The original dual confirmation case still observes IPv6 timeout errno 11 with repeated IPv4 partial confirmation, followed by both-policy timeout restoration. Its separate IPv4 partial / IPv6 final confirmation round trips were 4.65 / 4.12 ms; these are different state transitions, not a family speed comparison.
+The original dual confirmation case still observes IPv6 timeout errno 11 with repeated IPv4 partial confirmation, followed by both-policy timeout restoration. Its separate IPv4 partial / IPv6 final confirmation round trips were 4.56 / 4.15 ms; these are different state transitions, not a family speed comparison.
 
 The new dual reboot retained AWAITING_CONFIRM with only ipv4 recorded before shutdown and before new-boot Agent startup. Both tables were absent before startup. Recovery restored the last normal commit and advanced generation 2 → 3; fresh IPv4/IPv6 TLS agreed. Immediate stale-request readbacks preserved the later dual successor.
 
-The held executor survived its temporary Agent outside rulemoor.service with writer.lock held. The installed Agent retired its recorded identity and freed writer ownership before a different successor committed. Releasing the old intent left both kernel tables and journal unchanged for 2.101 s. The executor was already retired before release; this is not a claim that a live stale writer safely resumed.
+The held executor survived its temporary Agent outside rulemoor.service with writer.lock held. The installed Agent retired its recorded identity and freed writer ownership before a different successor committed. Readbacks before releasing the old intent and after waiting 2.102 s matched for both kernel tables and the journal; this was not continuous observation. The executor was already retired before release; this is not a claim that a live stale writer safely resumed.
 
 | Stage | Agent RSS MiB | Agent VmHWM MiB | Service cgroup MiB |
 |---|---:|---:|---:|
-| setup | 22.20 | 22.20 | 10.68 |
-| management_diagnostics | 23.14 | 23.14 | 11.97 |
-| dual_stack | 23.54 | 23.54 | 12.41 |
-| poisoned_journal | 22.31 | 22.31 | 10.77 |
-| restart_limit | 22.88 | 22.88 | 11.58 |
-| crash | 22.77 | 22.77 | 11.47 |
-| after_pending_boot | 22.73 | 22.73 | 11.87 |
-| after_committed_boot | 22.18 | 22.18 | 11.03 |
-| after_dual_boot | 22.95 | 22.95 | 12.11 |
-| dual_held_executor | 23.00 | 23.00 | 11.65 |
+| setup | 22.28 | 22.28 | 10.68 |
+| management_diagnostics | 23.11 | 23.11 | 11.86 |
+| dual_stack | 23.68 | 23.68 | 12.36 |
+| poisoned_journal | 22.30 | 22.30 | 10.69 |
+| restart_limit | 23.00 | 23.00 | 11.62 |
+| crash | 22.81 | 22.81 | 11.45 |
+| after_pending_boot | 22.90 | 22.90 | 12.05 |
+| after_committed_boot | 22.20 | 22.20 | 11.03 |
+| after_dual_boot | 22.95 | 22.95 | 12.21 |
+| dual_held_executor | 22.99 | 22.99 | 11.66 |
 
 Samples retain stable service PID/start/boot/invocation and cgroup/namespace association. New dual recovery samples belong to the third boot, not the setup boot. Agent VmHWM excludes children/client/VM; cgroup accounting differs from Agent RSS and total VM RAM. Run-to-run differences are not optimization claims.
 

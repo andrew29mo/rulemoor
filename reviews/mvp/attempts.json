@@ -158,6 +158,13 @@
     "run_id": "1ad17fa8d1bfd28b",
     "passed": true,
     "source_sha256": "c64749f0c951d14513ccc3e1cf18c0dc171c19e28310c259b6da4eb767a146ec",
-    "note": "Current dual recovery source: 102 tests per platform, 29 assertion mutations, 17 original evidence controls and 8 real container Linux groups. Operation benchmark remains unconfigured legacy IPv4."
+    "note": "Historical dual recovery source: 102 tests per platform, 29 assertion mutations, 17 original evidence controls and 8 real container Linux groups. Operation benchmark remains unconfigured legacy IPv4. Superseded by same-source recovery evidence review rerun."
+  },
+  {
+    "attempt": "dual-recovery-review-20261021",
+    "run_id": "7b1479d07fdd3012",
+    "passed": true,
+    "source_sha256": "6165ed1aca054e8ece3a93c7a1e348e540424f1a855ab698129147539d0cb3b7",
+    "note": "Current independent-review corrections: renderer scope and before/after readback wording; 102 tests per platform, 29 production mutations; 14 actual-systemd groups and 51 evidence controls. Full same-source suites rerun, three orderly VM stop/start cycles; no power-loss claim."
   }
 ]

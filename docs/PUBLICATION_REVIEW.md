@@ -56,7 +56,7 @@ Local macOS/Linux validation run `97f20111c14d7117` was re-audited against the u
 [Deployment validation](DEPLOYMENT_VALIDATION.md) adds installed-unit, automatic restart and orderly VM boot evidence. The earlier MIT/publication run references above are historical; `reviews/mvp/` now retains the latest same-source portable/container run and `reviews/deployment/` retains the separate actual-systemd VM run. Executable changes receive fresh validation; no abrupt power-loss recovery is claimed.
 
 
-The current dual-stack update passes **102 tests per platform, twenty-nine production mutations, seventeen original evidence controls, eight container Linux groups and fourteen actual-systemd deployment groups with fifty-one additional evidence controls**. Both suites record executable snapshot `c64749f0c951d14513ccc3e1cf18c0dc171c19e28310c259b6da4eb767a146ec`. The deployment run is `2d6bce1eafd34363`; the native/container run is `1ad17fa8d1bfd28b`. Failed/superseded deployment attempts remain visible; current cleanup verifies removal and a stopped VM.
+The current dual-stack update passes **102 tests per platform, twenty-nine production mutations, seventeen original evidence controls, eight container Linux groups and fourteen actual-systemd deployment groups with fifty-one additional evidence controls**. Both suites record executable snapshot `6165ed1aca054e8ece3a93c7a1e348e540424f1a855ab698129147539d0cb3b7`. The deployment run is `71eba3fbcb9238fb`; the native/container run is `7b1479d07fdd3012`. Failed/superseded deployment attempts remain visible; current cleanup verifies removal and a stopped VM.
 
 ## Deployment evidence audit
 
@@ -85,3 +85,7 @@ The [dual review](DUAL_REVIEW.md) independently inspected production behavior an
 ## Actual dual VM boot and orphan executor extension
 
 [Direct recovery evidence](DUAL_RECOVERY.md) now covers a partially confirmed dual deployment across the third orderly VM restart, including pre-Agent pending journal and absent-table reads. A held executor deliberately survives its Agent outside the unit cgroup and is retired by the installed Agent before writer ownership and a distinct dual successor. Late release preserves both policies in the finite observation. Four portable regressions, one retirement-removal mutation and eight evidence controls complement the actual process/kernel checks. The first helper-import failure is disclosed; the successful run validates installed module bytes and cleanup. Production state-machine/compiler/TLS code was unchanged in this extension. No abrupt power-loss pass is claimed.
+
+## Dual VM recovery evidence review
+
+[The independent follow-up review](DUAL_RECOVERY_REVIEW.md) found contradictory old HTML/validation scope text and an overstatement of endpoint readbacks as continuous observation. The renderer, regression assertion and documents were corrected; the same-source native/container and actual-systemd suites were rerun. Runtime recovery code was unchanged. The pending pre-Agent journal, both baseline tables, surviving orphan lock and retirement-before-successor invariants remain required. No power-loss pass is claimed.
