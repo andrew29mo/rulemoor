@@ -46,6 +46,34 @@
     "run_id": "825cc1126d620a4f",
     "passed": true,
     "source_sha256": "d410c997fe1ac010f40e8880562e328fcaad24ba0b2d446a3530f55899d4fa7f",
-    "note": "Current reviewed pass: installed site-packages hashes, raw pre-agent journal proving no prior shutdown rollback, stale-request traces, stable process-attributed memory, monotonic endpoints, fourteen corruption controls, complete cleanup; no power-loss test."
+    "note": "Historical reviewed pass: installed site-packages hashes, raw pre-agent journal proving no prior shutdown rollback, stale-request traces, stable process-attributed memory, monotonic endpoints, fourteen corruption controls, complete cleanup; no power-loss test. Superseded by added startup-failure cases."
+  },
+  {
+    "attempt": "startup-failure-01",
+    "run_id": "cebb9913f426b831",
+    "passed": false,
+    "source_sha256": "91ea3b3a57301d4e14f443214ba7923ebe7df8fb5464a650d7540a72554bb51a",
+    "note": "Failed setup: new test tool used a tuple as a property key. Cleanup succeeded; VM stopped."
+  },
+  {
+    "attempt": "startup-failure-02",
+    "run_id": "f5a2543cfa9824bf",
+    "passed": false,
+    "source_sha256": "2671cf1485101978940d955b4fe848c0a800d624c5b53c9e607fb55ad1f2c357",
+    "note": "Failed waiting for Result=start-limit-hit. Captured failed execution, not a pass; cleanup succeeded; VM stopped."
+  },
+  {
+    "attempt": "startup-failure-diagnosis",
+    "run_id": "b837ed493a97d70b",
+    "passed": false,
+    "source_sha256": "099dfcfa73d3c2a1478f93720a572cb6de6fa1d2c33a68361937aa74b087d572",
+    "note": "Failed strict Result check. Raw journal showed rate-limit refusal while systemd retained Result=exit-code. Used as diagnostic evidence only, not a full validation pass. Cleanup succeeded; VM stopped."
+  },
+  {
+    "attempt": "startup-failure-final",
+    "run_id": "63577fe5d44f6b6b",
+    "passed": true,
+    "source_sha256": "8ec11da5478d2bada0534e4143e43e0b24f39cec0e06185e0ce81bf9cd4fcdcc",
+    "note": "Current same-source pass: nine actual-systemd groups and eighteen corruption controls. Structured current-fault rate-limit receipt, stable failed service, preserved pending state/candidate, explicit local repair/reset/start, stale-request fences and two orderly VM boots. No native segmentation fault, hung I/O or power loss tested."
   }
 ]

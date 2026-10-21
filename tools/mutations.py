@@ -9,6 +9,8 @@ from .evidence import ROOT, manifest, save
 from .process import run
 
 MUTATIONS = [
+    ('rulemoor/core.py', 'skip-persisted-state-validation', 'return validate_snapshot(json.loads(raw, parse_constant=invalid_constant))', 'return json.loads(raw, parse_constant=invalid_constant)', 'tests.test_startup_state.StartupStateTests.test_invalid_policy_and_generation_are_diagnostic'),
+    ('rulemoor/core.py', 'ignore-snapshot-size-bound', 'not 0 < size[0] <= MAX_SNAPSHOT_BYTES', 'not 0 < size[0]', 'tests.test_startup_state.StartupStateTests.test_oversized_valid_snapshot_is_diagnostic'),
     ('rulemoor/core.py', 'cancel-new-operation-with-old-request', "or (op, generation) != (self.s['op'], self.s['generation'])", 'or False', 'tests.test_core.CoreTests.test_pre_recovery_requests_cannot_finalize_new_pending_operation'),
     ('rulemoor/core.py', 'skip-boot-table-restore', 'self.backend.initialize(policy)', 'pass', 'tests.test_core.CoreTests.test_reboot_missing_table_restores_unconfirmed_baseline'),
     ('rulemoor/core.py', 'restore-same-boot-deletion', 'if rebooted and self.backend.read() is None:', 'if self.backend.read() is None:', 'tests.test_core.CoreTests.test_same_boot_missing_table_is_not_recreated'),

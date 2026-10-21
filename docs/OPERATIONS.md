@@ -28,9 +28,19 @@ Process SIGTERM/SIGINT stops acceptance and attempts rollback of a pending chang
 
 A stopped process has no active deadline timer. Service-manager restart speed and availability matter; there is no guarantee of a rollback at the deadline while the service is down. The deployment suite verifies automatic systemd process restart and two orderly Linux VM stop/start cycles. Actual power loss, arbitrary filesystem/storage failures and other hosts’ boot ordering remain untested. See [deployment validation](DEPLOYMENT_VALIDATION.md).
 
+## Persistent startup failure and rate limiting
+
+The supplied unit uses `Restart=on-failure`, `RestartSec=1`, `StartLimitIntervalSec=60` and `StartLimitBurst=5`. This bounds starts within a rate-limit window; it is not automatic policy repair. A process that repeatedly exits can reach the start limit with no running agent. Some systemd versions retain `Result=exit-code`; inspect the actual rate-limit journal message as well as status and restart count. A still-installed pending candidate can remain in the kernel, and its deadline cannot cause rollback while the agent is stopped.
+
+Use independent console access to inspect service status and private logs. Repair the underlying startup dependency first, then explicitly reset the service's failed state and start it. Check authenticated status, the expected baseline/committed kernel policy and a fresh management connection separately. Merely restoring a missing file, observing `ActiveState=active`, or resetting the counter does not establish recovery. Repeatedly resetting the limit without fixing the cause defeats its protection.
+
+The isolated deployment suite makes the actual installed agent fail repeatedly by withholding its TLS private key after an unconfirmed change. It checks the failed unit, unchanged pending journal and candidate rules before repairing the dependency and resetting the limit. This is a reproducible nonzero startup failure, not a native segmentation-fault or blocked-kernel-I/O test. It does not measure host CPU/log saturation or prove recovery from every program defect.
+
 ## DEGRADED and local recovery
 
 `DEGRADED` means no further automatic change is allowed. Record `status`, copy the private state directory and inspect `nft -j -s list table ip rulemoor` locally. Preserve journal files, `rescue.json` and executor identity files as sensitive operational evidence. Never delete a writer lock to force takeover; an inherited descriptor can remain active after its parent dies.
+
+The snapshot reader bounds stored JSON to 64 KiB and checks its schema, policies, generation, finite clocks and phase requirements before process fencing or kernel mutation. Missing, malformed, oversized or unusable snapshot data becomes an in-memory DEGRADED diagnostic and remains preserved on disk; it is not replaced with a guessed good policy. This is bounded validation of known invalid-state cases, not recovery of arbitrary corrupted storage. An active diagnostic process is not a healthy change controller.
 
 Malformed or oversized executor identity data also produces DEGRADED and blocks changes; the service does not guess which PID to kill. For detected foreign policy, resolve ownership and policy deliberately using console access. For an unreadable journal or interrupted initial provisioning, do not infer a baseline from whatever happens to be installed. The MVP has no force-adopt or remote force-reset endpoint. Reprovisioning is a local administrative procedure: retire the service and any executor, retain forensic state, establish a reviewed known policy, and rotate credentials before creating a fresh installation. Avoid temporary removal of access controls on a live machine. Automated adoption/migration is outside this MVP.
 

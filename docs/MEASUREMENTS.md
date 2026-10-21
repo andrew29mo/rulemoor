@@ -1,25 +1,25 @@
 # Observed MVP measurements
 
-Retained run: `b4bce6410424dfd2`. Executable snapshot: `d410c997fe1ac010f40e8880562e328fcaad24ba0b2d446a3530f55899d4fa7f`.
+Retained run: `4a4471ad2201c278`. Executable snapshot: `8ec11da5478d2bada0534e4143e43e0b24f39cec0e06185e0ce81bf9cd4fcdcc`.
 
 Environment: Linux 6.8.0-117-generic/aarch64, Python 3.12.14, nftables 1.0.6, inside a Colima VM. Container limits: 2 vCPU, 768 MiB. No native macOS agent-performance claim.
 
 | Operation | Trials | Median ms | Minimum–maximum ms |
 |---|---:|---:|---:|
-| plan | 10 | 12.26 | 9.96–16.24 |
-| apply | 10 | 45.69 | 40.92–52.12 |
-| confirm | 5 | 3.95 | 3.61–4.07 |
-| cancel | 5 | 32.92 | 31.23–35.44 |
+| plan | 10 | 12.63 | 10.07–23.76 |
+| apply | 10 | 48.36 | 44.66–52.86 |
+| confirm | 5 | 3.79 | 3.67–4.20 |
+| cancel | 5 | 32.69 | 28.12–33.66 |
 
 Each timed operation includes a fresh TLS connection, request/response and its relevant kernel checks and FULL-sync journal work. Client Python startup and the status fetch used to prepare each trial are outside the timer. Confirm timing uses the payload returned by apply; it does not include the extra status fetch performed by the interactive CLI confirm subcommand. These are endpoint round trips through the production CLI transport, not complete command-launch timings. One sequential client alternates between two one-rule policies, so every application changes the rule. Five operations are confirmed, five cancelled. Service readiness is the only warmup; every trial is retained. Ten samples are exploratory, not a tail-latency or throughput characterization. No competing-product baseline, speedup or production SLA is claimed.
 
-Agent initial RSS: 22.75 MiB; final RSS and kernel VmHWM: 23.46 MiB / 23.46 MiB. This excludes transient nft children, client processes, container services and the VM. It is not total deployment memory.
+Agent initial RSS: 22.80 MiB; final RSS and kernel VmHWM: 23.52 MiB / 23.52 MiB. This excludes transient nft children, client processes, container services and the VM. It is not total deployment memory.
 
 State directory after ten trials: 347,881 logical bytes, 372,736 allocated bytes (364 KiB). Includes the 256 KiB reserve and test TLS material. It excludes the container image, VM disk and Python installation; it is not a deployment-size claim.
 
-In one management-loss test with a 3-second window, rollback started 38.0 ms after the deadline and rule restoration was verified 90.3 ms after it. A subsequent fresh management request succeeded. Reachability-completion delay was not separately timestamped. These are single-run observations, not recovery-time upper bounds.
+In one management-loss test with a 3-second window, rollback started 53.3 ms after the deadline and rule restoration was verified 96.1 ms after it. A subsequent fresh management request succeeded. Reachability-completion delay was not separately timestamped. These are single-run observations, not recovery-time upper bounds.
 
-Native macOS and Linux each passed 60 tests on the same source snapshot. Thirteen production mutations and seventeen evidence-corruption controls were rejected. Real-kernel cases additionally cover six crash boundaries, two foreign-policy cases, backlog and response-loss scenarios, real executor timeout and actual bounded-tmpfs ENOSPC. macOS test-process peak RSS is retained for provenance only, and must not be compared to Linux daemon VmHWM.
+Native macOS and Linux each passed 66 tests on the same source snapshot. Fifteen production mutations and seventeen evidence-corruption controls were rejected. Real-kernel cases additionally cover six crash boundaries, two foreign-policy cases, backlog and response-loss scenarios, real executor timeout and actual bounded-tmpfs ENOSPC. macOS test-process peak RSS is retained for provenance only, and must not be compared to Linux daemon VmHWM.
 
 [Raw records](../reviews/mvp/combined.json) · [HTML report](../reviews/mvp/report.html)
 

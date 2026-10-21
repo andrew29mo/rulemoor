@@ -1,97 +1,111 @@
 {
   "schema": 1,
-  "run_id": "b4bce6410424dfd2",
+  "run_id": "4a4471ad2201c278",
   "passed": true,
-  "source_sha256": "d410c997fe1ac010f40e8880562e328fcaad24ba0b2d446a3530f55899d4fa7f",
+  "source_sha256": "8ec11da5478d2bada0534e4143e43e0b24f39cec0e06185e0ce81bf9cd4fcdcc",
   "source_changed": false,
   "stages": [
     {
       "name": "native-contracts",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.274264874999062
+      "seconds": 2.4080408749941853
     },
     {
       "name": "production-mutations",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.1333935419970658
+      "seconds": 2.2993866670003626
     },
     {
       "name": "vm-initial",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2630083750045742
+      "seconds": 0.2480230000001029
     },
     {
       "name": "vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 10.219021624994639
+      "seconds": 8.170784499998263
     },
     {
       "name": "image-build",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.6477115840025363
+      "seconds": 1.6833166669966886
     },
     {
       "name": "image-inspect",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.02189104200078873
+      "seconds": 0.021735458001785446
     },
     {
       "name": "container-create",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.03211166700202739
+      "seconds": 0.0289848329994129
     },
     {
       "name": "container-inspect",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.011890000001585577
+      "seconds": 0.01109908299986273
     },
     {
       "name": "linux-run",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 27.136085166006524
+      "seconds": 27.410391459001403
     },
     {
       "name": "container-state",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.013079124997602776
+      "seconds": 0.014713083000970073
     },
     {
       "name": "export",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.016059207999205682
+      "seconds": 0.0190928339943639
     },
     {
       "name": "container-remove",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.018690582997805905
+      "seconds": 0.020503332998487167
     },
     {
       "name": "vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.2794780830008676
+      "seconds": 2.381170207998366
     },
     {
       "name": "vm-final",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.26787608299491694
+      "seconds": 0.24493279099988285
     }
   ],
   "scope": "Native macOS portable contracts + Colima Linux real kernel",
   "production_mutations": [
+    {
+      "name": "skip-persisted-state-validation",
+      "test": "tests.test_startup_state.StartupStateTests.test_invalid_policy_and_generation_are_diagnostic",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "ignore-snapshot-size-bound",
+      "test": "tests.test_startup_state.StartupStateTests.test_oversized_valid_snapshot_is_diagnostic",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
     {
       "name": "cancel-new-operation-with-old-request",
       "test": "tests.test_core.CoreTests.test_pre_recovery_requests_cannot_finalize_new_pending_operation",
@@ -186,7 +200,7 @@
   ],
   "vm_initial_state": "Stopped",
   "image": {
-    "Id": "sha256:c9f2feeee2e596404ba9f93c8b9d342a1ac9a4606810c3c50d9eb2163549cbe4",
+    "Id": "sha256:0e9beb0b73512c9c31d72f961c10ad1d6adeebd1a37ea9dd2eec635429467c96",
     "Architecture": "arm64",
     "Os": "linux"
   },

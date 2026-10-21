@@ -102,6 +102,13 @@
     "run_id": "b4bce6410424dfd2",
     "passed": true,
     "source_sha256": "d410c997fe1ac010f40e8880562e328fcaad24ba0b2d446a3530f55899d4fa7f",
-    "note": "Current audited source: 60 tests/platform, thirteen production mutations, seventeen container evidence controls and eight Linux case groups."
+    "note": "Historical audited source: 60 tests/platform, thirteen production mutations, seventeen container evidence controls and eight Linux case groups. Superseded by startup-failure hardening."
+  },
+  {
+    "attempt": "startup-failure-regression-20261021",
+    "run_id": "4a4471ad2201c278",
+    "passed": true,
+    "source_sha256": "8ec11da5478d2bada0534e4143e43e0b24f39cec0e06185e0ce81bf9cd4fcdcc",
+    "note": "66 tests/platform, fifteen production mutations, seventeen container evidence controls, eight Linux groups. Separate actual-systemd run covers malformed snapshot and persistent startup failure; no power-loss claim."
   }
 ]

@@ -1,5 +1,6 @@
 """Serialized durable decisions shared by CLI service and real-kernel fault tests."""
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -19,6 +20,62 @@ MIN_FREE = 8 * 1024 * 1024
 
 class Conflict(RuntimeError):
     pass
+
+MAX_SNAPSHOT_BYTES = 65536
+
+
+def validate_snapshot(s):
+    """Reject unusable persisted state before fencing processes or changing rules."""
+    phases = {'INITIALIZING','PREPARED','APPLYING','AWAITING_CONFIRM','ROLLING_BACK','ROLLED_BACK','COMMITTED','DEGRADED'}
+    allowed = {'phase','generation','op','current','baseline','candidate','executor_token','boot','reason',
+               'request_hash','candidate_digest','deadline','applied_at','challenge','confirmed_at',
+               'rollback_started_at','rollback_completed_at'}
+    if not isinstance(s, dict) or not set(s).issubset(allowed) or s.get('phase') not in phases:
+        raise ValueError('Invalid journal state shape')
+    degraded = s['phase'] == 'DEGRADED'
+    if not (type(s.get('generation')) is int and 0 <= s['generation'] < 2**63):
+        if not degraded or s.get('generation') is not None: raise ValueError('Invalid generation')
+    if not (isinstance(s.get('op'), str) and re.fullmatch(r'[A-Za-z0-9_-]{1,64}', s['op'])):
+        if not degraded or s.get('op') is not None: raise ValueError('Invalid operation')
+    if not (isinstance(s.get('boot'), str) and 0 < len(s['boot']) <= 128):
+        if not degraded: raise ValueError('Invalid boot identity')
+    if 'current' in s: validate(s['current'])
+    elif not degraded: raise ValueError('Missing current policy')
+    for k in ('baseline','candidate'):
+        if s.get(k) is not None: validate(s[k])
+    for k in ('request_hash','candidate_digest','challenge'):
+        if k in s and (not isinstance(s[k], str) or re.fullmatch(r'[0-9a-f]{64}',s[k]) is None):
+            raise ValueError('Invalid digest/challenge')
+    token=s.get('executor_token')
+    if token is not None and (not isinstance(token,str) or re.fullmatch(r'[0-9a-f]{32}',token) is None):
+        raise ValueError('Invalid executor token')
+    for k in ('deadline','applied_at','confirmed_at','rollback_started_at','rollback_completed_at'):
+        if k in s:
+            try:
+                valid = type(s[k]) in (int,float) and math.isfinite(s[k]) and s[k] >= 0
+            except OverflowError:
+                valid = False
+            if not valid: raise ValueError('Invalid journal clock')
+    if s.get('reason') is not None and (not isinstance(s['reason'],str) or len(s['reason'])>2048):
+        raise ValueError('Invalid diagnostic')
+    if not degraded and not {'phase','generation','op','current','candidate','executor_token','boot','reason'}.issubset(s):
+        raise ValueError('Incomplete common state')
+    if not degraded and s['op']=='initial' and (s['phase'] not in {'INITIALIZING','COMMITTED'} or s['candidate'] is not None):
+        raise ValueError('Invalid initialization state')
+    if not degraded and s['op']!='initial':
+        required={'baseline','candidate','candidate_digest','request_hash','deadline'}
+        if not required.issubset(s) or s['baseline'] is None or s['candidate'] is None:
+            raise ValueError('Incomplete pending/rollback state')
+        if s['candidate_digest'] != digest(expected(s['candidate'])):
+            raise ValueError('Candidate digest mismatch')
+    if (s['phase']=='AWAITING_CONFIRM' or (s['phase']=='COMMITTED' and s['op']!='initial')) and not {'applied_at','challenge'}.issubset(s):
+        raise ValueError('Incomplete confirmation state')
+    if s['phase']=='ROLLED_BACK' and s['current']!=s['baseline']:
+        raise ValueError('Rollback policy mismatch')
+    if s['phase']=='COMMITTED' and s.get('candidate') is not None and s['current']!=s['candidate']:
+        raise ValueError('Committed policy mismatch')
+    return s
+
 
 
 class Store:
@@ -46,7 +103,15 @@ class Store:
 
     def load(self):
         with self.connect() as c:
-            return json.loads(c.execute('SELECT value FROM snapshot WHERE id=1').fetchone()[0])
+            size = c.execute('SELECT length(CAST(value AS BLOB)) FROM snapshot WHERE id=1').fetchone()
+            if size is None or type(size[0]) is not int or not 0 < size[0] <= MAX_SNAPSHOT_BYTES:
+                raise ValueError('Missing or oversized journal snapshot')
+            raw = c.execute('SELECT value FROM snapshot WHERE id=1').fetchone()[0]
+            def invalid_constant(value): raise ValueError('Nonfinite JSON constant')
+            try:
+                return validate_snapshot(json.loads(raw, parse_constant=invalid_constant))
+            except RecursionError:
+                raise ValueError('Journal nesting exceeds parser limit') from None
 
     def save(self, state, kind):
         data = json.dumps(state)

@@ -4,7 +4,7 @@
 
 `python -m tools.unit` runs production schema/compiler/core decisions, real local TLS API/CLI transport checks, and failure/timeout handling of the validation process wrapper. Memory-backend tests deliberately isolate state-machine contracts. They do not establish nft semantics, kernel reachability or native macOS agent performance. OpenSSL is needed to create temporary test certificates, which are deleted with the temporary directory.
 
-`python -m tools.mutations` copies source into isolated temporary directories, changes thirteen production decisions and requires an existing assertion to fail for each. Import/syntax failures, timeouts or a bare nonzero exit do not count as caught mutations.
+`python -m tools.mutations` copies source into isolated temporary directories, changes fifteen production decisions and requires an existing assertion to fail for each. Import/syntax failures, timeouts or a bare nonzero exit do not count as caught mutations.
 
 ## Linux scope
 
@@ -58,4 +58,10 @@ A manual-only GitHub Actions workflow repeats portable contracts on Linux/macOS.
 
 The separate [deployment suite](DEPLOYMENT_VALIDATION.md) installs the production wheel and unit directly in an isolated Linux VM. It verifies systemd automatic restart, cgroup orphan cleanup, TLS readiness, stale operations, missing kernel rules after a changed boot ID, committed-policy restoration and foreign-policy refusal. This is not systemd simulated in a container. It restarts the selected VM twice and requires explicit selection of a stopped dedicated profile. It uses a different Linux userspace from the container suite; its memory/timing observations are reported separately. Power-loss recovery is not tested.
 
-The deployment auditor additionally requires the complete VM stage sequence, an isolated installed-package origin/hash probe, unchanged pending journal across the orderly reboot before Agent startup, raw pending/committed stale-request observations and monotonic timing endpoints. Its fourteen corruption controls include omitted stages, false package origin, rolled-back pre-boot journal, stale generation, infinite/missing intervals and invalid memory identity. Four portable measurement/report regressions reject nonfinite values, inconsistent clocks and missing-duration-as-zero presentation.
+The deployment auditor additionally requires the complete VM stage sequence, an isolated installed-package origin/hash probe, unchanged pending journal across the orderly reboot before Agent startup, raw pending/committed stale-request observations and monotonic timing endpoints. Its eighteen corruption controls include omitted stages, false package origin, rolled-back pre-boot journal, stale generation, infinite/missing intervals and invalid memory identity. Four portable measurement/report regressions reject nonfinite values, inconsistent clocks and missing-duration-as-zero presentation.
+
+## Invalid snapshots and persistent startup failures
+
+Portable tests write malformed, incomplete, nonfinite, oversized and missing snapshots into real SQLite databases, then call production startup. They require diagnostic status, refused mutation, unchanged original data and no backend signaling/readback. The oversized case pads an otherwise valid snapshot, so removing the size guard is caught independently of schema rejection. Two production mutations separately remove schema validation and the size bound.
+
+The actual-systemd suite separately checks diagnostic startup from a JSON-list snapshot and sustained nonzero starts from a withheld TLS key. The former stays available for diagnosis without policy writes; the latter exhausts the unit's restart limit and requires local cause repair and an explicit reset/start before baseline recovery. These are different failure classes. The malformed-state fixture preserves its evidence, stops writers and reprovisions a reviewed disposable baseline with rotated credentials for subsequent cases; that is not a production automatic-repair feature. Native segmentation faults, uninterruptible storage I/O and power loss are untested.

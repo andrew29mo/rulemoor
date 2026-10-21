@@ -12,6 +12,7 @@ The practical use case is a remotely managed Linux machine where an incorrect TC
 - Exactly one table, `ip rulemoor`, input hook, priority 0. No arbitrary nft scripts, routing, NAT, IPv6 or multi-device transaction.
 - CLI and TLS API with a provisioned certificate and a shared operator bearer token. No plaintext API or certificate-verification bypass in the CLI.
 - Durable intent, bounded operation history, explicit confirmation/cancellation, deadline rollback and process-restart recovery.
+- Bounded persisted-state validation rejects malformed snapshots before process fencing or kernel writes; the original evidence remains intact.
 - Unknown rules or uncertain ownership become `DEGRADED`, which blocks further changes rather than blindly overwriting them.
 
 ## Quick start
@@ -80,7 +81,7 @@ macOS evidence covers portable contracts and real local TLS, using a memory back
 
 Important boundaries:
 
-- A stopped agent has no running rollback timer. The supplied systemd unit and two orderly VM stop/start scenarios are integration-tested in an isolated Linux VM. This does not establish power-loss recovery, recovery-time bounds or boot ordering on other hosts. Rules may be absent before service startup.
+- A stopped agent has no running rollback timer. Persistent startup failure can exhaust the supplied systemd start limit and leave a pending policy installed until local recovery. Known malformed snapshots instead expose DEGRADED without automatic policy repair. The supplied systemd unit and two orderly VM stop/start scenarios are integration-tested in an isolated Linux VM. This does not establish power-loss recovery, recovery-time bounds or boot ordering on other hosts. Rules may be absent before service startup.
 - Another privileged writer can ignore the advisory lock. Readback detects observed drift; it is not atomic exclusion against arbitrary root processes. Do not concurrently use another manager for the owned table.
 - Table replacement does not promise preservation of counters or all existing connections. Other tables/chains can still block traffic; this table's accept cannot override their drop.
 - Corrupt journals, interrupted first-time provisioning, unknown rules and failed rollback require local/operator recovery. Keep console or another independent recovery path.

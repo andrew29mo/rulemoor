@@ -63,7 +63,7 @@ def wait(fn, timeout=15):
 def props():
     keys = ['MainPID', 'NRestarts', 'InvocationID', 'ActiveState', 'SubState', 'KillMode',
             'Restart', 'NoNewPrivileges', 'ProtectSystem', 'ProtectHome', 'PrivateTmp',
-            'CapabilityBoundingSet', 'NetworkNamespacePath', 'MemoryCurrent', 'ControlGroup']
+            'CapabilityBoundingSet', 'NetworkNamespacePath', 'MemoryCurrent', 'ControlGroup','Result','ExecMainStatus','StartLimitIntervalUSec','StartLimitBurst','RestartUSec']
     out = cmd(['systemctl', 'show', UNIT, *['--property=' + k for k in keys]]).stdout
     return dict(row.split('=', 1) for row in out.splitlines())
 
@@ -256,6 +256,104 @@ MemoryAccounting=yes
             'boot_id': boot_id(), 'memory': memory()}
 
 
+def poisoned_journal():
+    """Known malformed state stays diagnostic; fixture reprovision is explicit."""
+    import sqlite3
+    cmd(['systemctl','stop',UNIT])
+    with sqlite3.connect(STATE / 'state.sqlite') as db:
+        db.execute('UPDATE snapshot SET value=? WHERE id=1',(json.dumps([]),))
+    before_kernel=kernel()
+    cmd(['systemctl','start',UNIT]); status=ready('DEGRADED'); before=props()
+    request('/apply',{'op':'poison-write','generation':0,'policy':NEXT,'window':30},rejected=True)
+    time.sleep(2.2); after=props()
+    with sqlite3.connect(STATE / 'state.sqlite') as db:
+        preserved=db.execute('SELECT value FROM snapshot WHERE id=1').fetchone()[0]
+    assert preserved==json.dumps([]) and before['InvocationID']==after['InvocationID']
+    after_kernel=kernel()
+    assert before['NRestarts']==after['NRestarts'] and after_kernel==before_kernel==expected(BASE)
+    sample=memory()
+    # Test-only operator reprovision: preserve evidence, stop all service writers,
+    # establish a reviewed baseline, rotate credentials, then production init.
+    cmd(['systemctl','stop',UNIT]); assert props()['MainPID']=='0'
+    shutil.copytree(STATE,FIXTURE/'poison-evidence')
+    shutil.rmtree(STATE)
+    cmd(['ip','netns','exec',NS,'nft','delete','table','ip','rulemoor'])
+    previous_token=(CONFIG/'token').read_text()
+    (CONFIG/'token').write_text(secrets.token_hex(32));(CONFIG/'token').chmod(0o600)
+    assert (CONFIG/'token').read_text()!=previous_token
+    cmd(['ip','netns','exec',NS,PYTHON,'-m','rulemoor.service','--state',STATE,'init','--policy',FIXTURE/'baseline.json'],cwd='/')
+    cmd(['systemctl','reset-failed',UNIT]);cmd(['systemctl','start',UNIT]);ready('COMMITTED')
+    assert kernel()==expected(BASE)
+    return {'invalid_snapshot_kind':'JSON list in valid SQLite snapshot',
+            'diagnostic_phase':status['phase'],'diagnostic_reason':status['reason'],
+            'original_snapshot_preserved':True,'mutations_rejected':True,
+            'invocation_before':before['InvocationID'],'invocation_after':after['InvocationID'],
+            'restart_count_before':int(before['NRestarts']),'restart_count_after':int(after['NRestarts']),
+            'kernel_before':before_kernel,'kernel_after_diagnostic':after_kernel,
+            'memory':sample,'fixture_only_reprovision_and_token_rotation':True,
+            'production_auto_repair_claimed':False}
+
+
+def restart_limit():
+    """Persistent real ExecStart failure must stop retrying, not pretend to heal."""
+    old=apply('limit-pending',NEXT,window=300)
+    before_journal=journal_projection()
+    cmd(['systemctl','reset-failed',UNIT]); config=props()
+    key=CONFIG/'server.key'; unavailable=CONFIG/'server.key.unavailable'
+    key.rename(unavailable)
+    try:
+        failure_started=time.monotonic_ns()
+        cmd(['systemctl','kill','--kill-whom=main','--signal=SIGKILL',UNIT])
+        def limit_receipts():
+            entries=cmd(['journalctl','-u',UNIT,'-b','-o','json','--no-pager']).stdout.splitlines()
+            return [{k:r[k] for k in ('MESSAGE','UNIT','_BOOT_ID','__MONOTONIC_TIMESTAMP')}
+                    for line in entries for r in [json.loads(line)]
+                    if r.get('UNIT')==UNIT and r.get('MESSAGE')==UNIT+': Start request repeated too quickly.'
+                    and int(r['__MONOTONIC_TIMESTAMP'])*1000>=failure_started]
+        def hit_limit():
+            observed=props()
+            return observed if observed['Result'] in ('exit-code','start-limit-hit') and observed['ActiveState']=='failed' and observed['MainPID']=='0' and limit_receipts() else False
+        try:
+            failed=wait(hit_limit,timeout=20)
+        except AssertionError:
+            # Private host log keeps the actual failure instead of guessing why.
+            import sys
+            print(json.dumps({'unit_at_timeout':props()}),file=sys.stderr)
+            print(cmd(['journalctl','-u',UNIT,'-n','45','--no-pager'],check=False).stdout,file=sys.stderr)
+            raise
+        receipts=limit_receipts()
+        observed_started=time.monotonic_ns();time.sleep(2.2);stable=props();observed_finished=time.monotonic_ns()
+        assert stable['Result']==failed['Result'] and stable['ActiveState']=='failed' and stable['MainPID']=='0'
+        assert stable['NRestarts']==failed['NRestarts']
+        assert int(config['StartLimitBurst'])==5 and 1<=int(stable['NRestarts'])<=6
+        failed_journal=journal_projection();failed_kernel=kernel()
+        assert failed_journal==before_journal and failed_journal['phase']=='AWAITING_CONFIRM'
+        assert failed_kernel==expected(NEXT)
+    finally:
+        if unavailable.exists():unavailable.rename(key)
+    # Fixing the file alone is not treated as proof that the failed service is ready.
+    blocked=cmd(['systemctl','start',UNIT],check=False)
+    assert blocked.returncode!=0 and props()['ActiveState']=='failed' and props()['MainPID']=='0'
+    cmd(['systemctl','reset-failed',UNIT]);cmd(['systemctl','start',UNIT]);recovered=ready('ROLLED_BACK')
+    restored=kernel();assert restored==expected(BASE) and recovered['generation']>old['generation']
+    fresh,trace=commit_under_stale_requests(old,'after-limit-new',NEW)
+    # Leave the original suite's reviewed baseline in place via normal API calls.
+    confirm(apply('after-limit-baseline',BASE));assert kernel()==expected(BASE)
+    keys=('MainPID','NRestarts','ActiveState','SubState','Result','ExecMainStatus')
+    return {'failure_mode':'Missing TLS key: installed production ExecStart exits nonzero before recovery',
+            'unit_limits':{k:config[k] for k in ('Restart','RestartUSec','StartLimitIntervalUSec','StartLimitBurst')},
+            'failed':{k:failed[k] for k in keys},'stable':{k:stable[k] for k in keys},
+            'failure_started_monotonic_ns':failure_started,'start_limit_receipts':receipts,
+            'observation_clock':{'clock':'monotonic_ns','started_ns':observed_started,'finished_ns':observed_finished},
+            'observation_seconds':(observed_finished-observed_started)/1e9,
+            'journal_before_failure':before_journal,'journal_while_failed':failed_journal,
+            'kernel_while_failed':failed_kernel,'blocked_start_exit_code':blocked.returncode,
+            'local_cause_fixed_and_reset_started':True,'restored_kernel':restored,
+            'old_generation':old['generation'],'recovered_generation':recovered['generation'],
+            'new_generation':fresh['generation'],'stale_trace':trace,'memory':memory(),
+            'segmentation_fault_tested':False,'uninterruptible_io_tested':False}
+
+
 def crash():
     old = apply('crash-pending', NEXT); before = props(); pid = int(before['MainPID'])
     assert kernel() == expected(NEXT)
@@ -408,7 +506,7 @@ def cleanup():
 
 
 def main():
-    p = argparse.ArgumentParser(); p.add_argument('phase', choices=['setup','topology','crash','held_writer','prepare_pending_boot','after_pending_boot','after_committed_boot','cleanup'])
+    p = argparse.ArgumentParser(); p.add_argument('phase', choices=['setup','topology','poisoned_journal','restart_limit','crash','held_writer','prepare_pending_boot','after_pending_boot','after_committed_boot','cleanup'])
     a = p.parse_args(); assert os.geteuid() == 0
     result = globals()[a.phase]()
     if result is not None:

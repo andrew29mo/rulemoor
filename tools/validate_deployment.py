@@ -106,6 +106,7 @@ def main():
                 ssh('snapshot-upload',['sudo','python3','-c',bootstrap],stdin=stream,timeout=60)
             uploaded=True
         phase('setup',setup=True)
+        phase('poisoned_journal'); phase('restart_limit')
         phase('crash'); phase('held_writer'); phase('prepare_pending_boot')
         began=time.monotonic_ns(); call('pending-vm-stop',[colima,'stop',a.profile],timeout=120); start('pending-vm-start')
         phase('after_pending_boot'); ended=time.monotonic_ns()

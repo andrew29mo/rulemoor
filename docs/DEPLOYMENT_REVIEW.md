@@ -1,5 +1,7 @@
 # Deployment evidence review — 2026-10-21
 
+Historical review of source `d410c997fe1ac010f40e8880562e328fcaad24ba0b2d446a3530f55899d4fa7f` (before startup-state hardening). Current counts and execution evidence are in [deployment validation](DEPLOYMENT_VALIDATION.md).
+
 Scope: installed production systemd service, process failure/restart, orderly VM boot recovery, stale writers/requests and the interpretation of retained timing/memory records. This is an evidence/validation correction; the production Controller, backend and service code did not change in this review.
 
 ## Findings reproduced and corrected
