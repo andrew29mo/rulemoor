@@ -526,17 +526,39 @@ print(json.dumps({'pending':projection(p)}))
         assert after_identity!=start_identity and recovered_kernel==expected(candidate) and recovered['generation']>partial['generation']
         newer={'ipv4':{'default':'drop','rules':candidate['ipv4']['rules']+[{'port':59994,'verdict':'drop'}]},
                'ipv6':{'default':'drop','rules':candidate['ipv6']['rules']+[{'port':59995,'verdict':'drop'}]}}
-        stale=peer(common+'''
+        new_pending=peer(common+'''
 import sys
-old=json.loads(Path('/var/lib/rulemoor-validation/dual-old-receipt.json').read_text());assert old['generation']==json.loads(sys.argv[1])['generation'];new=call('ipv4','/apply',{'op':'dual-newer','generation':call('ipv4')['generation'],'policy':json.loads(sys.argv[2]),'window':20})
-before=projection(call('ipv4'));reject=[]
-for path,p in (('/confirm',payload(old)),('/cancel',{'op':old['op'],'generation':old['generation']}),('/apply',{'op':'dual-old-base','generation':old['generation'],'policy':json.loads(sys.argv[2]),'window':20})):
- try:call('ipv4',path,p)
- except RuntimeError as e:assert str(e).startswith('409:');reject.append(path)
-assert projection(call('ipv4'))==before
+state=call('ipv4');new=call('ipv4','/apply',{'op':'dual-newer','generation':state['generation'],'policy':json.loads(sys.argv[1]),'window':20})
+Path('/var/lib/rulemoor-validation/dual-new-receipt.json').write_text(json.dumps(new))
+print(json.dumps(projection(new)))
+''',json.dumps(newer))
+        observations=[]
+        for path in ('/confirm','/cancel','/apply'):
+            before_stale=journal_projection();kernel_before_stale=dual_kernel()
+            assert before_stale==new_pending and kernel_before_stale==expected(newer)
+            rejected=peer(common+'''
+import sys
+old=json.loads(Path('/var/lib/rulemoor-validation/dual-old-receipt.json').read_text())
+assert old['generation']==json.loads(sys.argv[1])['generation']
+path=sys.argv[2]
+if path=='/confirm':p=payload(old)
+elif path=='/cancel':p={'op':old['op'],'generation':old['generation']}
+else:p={'op':'dual-old-base','generation':old['generation'],'policy':json.loads(sys.argv[3]),'window':20}
+try:call('ipv4',path,p)
+except RuntimeError as e:
+ assert str(e).startswith('409:');print(json.dumps({'status':409}))
+else:raise AssertionError('Stale request accepted')
+''',json.dumps(partial),path,json.dumps(newer))
+            after_stale=journal_projection();kernel_after_stale=dual_kernel()
+            assert after_stale==before_stale and kernel_after_stale==kernel_before_stale
+            observations.append({'path':path,'status':rejected['status'],'before':before_stale,'after':after_stale,
+                                 'kernel_before':kernel_before_stale,'kernel_after':kernel_after_stale})
+        final=peer(common+'''
+new=json.loads(Path('/var/lib/rulemoor-validation/dual-new-receipt.json').read_text())
 call('ipv4','/confirm',payload(new));end=call('ipv6','/confirm',payload(new))
-print(json.dumps({'rejected':reject,'before':before,'after':projection(end)}))
-''',json.dumps(partial),json.dumps(newer))
+print(json.dumps(projection(end)))
+''')
+        stale={'rejected':[r['path'] for r in observations],'before':new_pending,'after':final,'observations':observations}
         stale_kernel=dual_kernel();assert stale_kernel==expected(newer)
         foreign_after=foreign();assert foreign_after==foreign_before
         return {'mode':'fresh-dual-no-migration','cleanup':cleanup_evidence,'legacy_adoption_exit_code':adoption.returncode,'legacy_table_after_refused_init':legacy_preserved,'baseline':baseline,'blocked_candidate':blocked,'candidate':candidate,

@@ -144,6 +144,13 @@
     "run_id": "6b3e22b361d2e101",
     "passed": true,
     "source_sha256": "2173a5bb28d7610399e9d5479fb68e24d0eff6bf26c28fd84fc22acef8a4bb99",
-    "note": "Current dual-stack source: 96 tests/platform, twenty-eight production mutations, seventeen container evidence controls and eight real Linux groups. Configured service measurements are separate from this unconfigured operation benchmark."
+    "note": "Historical dual-stack source: 96 tests/platform, twenty-eight production mutations, seventeen container evidence controls and eight real Linux groups. Configured service measurements are separate from this unconfigured operation benchmark. Superseded by agent-reviewed boot/operation/process linkage and direct per-stale-request kernel observations."
+  },
+  {
+    "attempt": "dual-stack-agent-review-20261021",
+    "run_id": "a2ec14eb678b07ce",
+    "passed": true,
+    "source_sha256": "070976a8e9a8c48a33aedfaaf911ec8454cb429297bd3a68c64fb2236f007af7",
+    "note": "Current dual-stack source: 98 tests/platform, twenty-eight production mutations, seventeen container evidence controls and eight real Linux groups. Configured service measurements are separate from this unconfigured operation benchmark."
   }
 ]

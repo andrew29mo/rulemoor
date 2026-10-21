@@ -59,6 +59,8 @@ There are at most 16 active accepted connections per listener (32 across dual li
 
 The existing optional management-path preflight and external-conflict evaluator remain **IPv4-only**. For a dual policy they inspect its IPv4 component and explicitly return `ipv6_preflight: not_implemented`, with reachability unverified. Do not interpret an IPv4 allowed/no-observed-conflict result as an IPv6 safety decision. This slice relies on explicit fresh IPv6 confirmation and overall rollback, not on unimplemented IPv6 semantic/topology diagnostics. Other tools' rules are never automatically modified.
 
+[Agent-assisted review and evidence corrections](DUAL_REVIEW.md)
+
 ## Tested scope
 
 Portable tests call the production policy compiler/reference, strict journal reader, Controller, IPv4/IPv6 TLS servers and CLI transport. They challenge partial receipts, persistence failures, legacy compatibility, mode mismatch, repeated IPv4 confirmation, family spoofing, old connections, deadline rollback and restart/reboot state contracts. These use a memory backend and synthetic proc records where stated; they are not kernel or hardware tests.
@@ -67,4 +69,5 @@ The separate isolated Linux VM runs the installed production systemd service ove
 
 The existing orderly VM reboot cases still exercise the **legacy IPv4 deployment**. Dual-policy reboot behavior is covered by portable state tests, not an actual dual-stack VM reboot trial. Routed PMTU, SLAAC/RA policy, WAN, arbitrary firewall compatibility, dual-mode delayed-executor fault injection, power loss, early-boot protection and uninterrupted existing connections remain untested. No speedup or production recovery-time bound is claimed. Dual confirmation times represent different state transitions (partial versus final commit); they must not be presented as an IPv4/IPv6 speed comparison. Agent RSS/VmHWM, service-cgroup memory and VM RAM have different scopes.
 
-Retained executable source `2173a5bb28d7610399e9d5479fb68e24d0eff6bf26c28fd84fc22acef8a4bb99`; native/container run `6b3e22b361d2e101` (96 tests per platform, 28 production mutations); installed-service run `6e80d14cf5601c9f` (11 groups, 37 report controls). Both retain source manifests and exact audited JSON/HTML.
+
+Retained executable source `070976a8e9a8c48a33aedfaaf911ec8454cb429297bd3a68c64fb2236f007af7`; native/container run `a2ec14eb678b07ce` (98 tests per platform, 28 production mutations); installed-service run `7c8d9444bf76328b` (11 groups, 43 report controls). Both retain source manifests and exact audited JSON/HTML.

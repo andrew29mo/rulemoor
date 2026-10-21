@@ -123,6 +123,13 @@
     "run_id": "6e80d14cf5601c9f",
     "passed": true,
     "source_sha256": "2173a5bb28d7610399e9d5479fb68e24d0eff6bf26c28fd84fc22acef8a4bb99",
-    "note": "Current dual-stack source: eleven installed-systemd groups, thirty-seven evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim."
+    "note": "Historical dual-stack source: eleven installed-systemd groups, thirty-seven evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim. Superseded by agent-reviewed boot/operation/process linkage and direct per-stale-request kernel observations."
+  },
+  {
+    "attempt": "dual-stack-agent-review-20261021",
+    "run_id": "7c8d9444bf76328b",
+    "passed": true,
+    "source_sha256": "070976a8e9a8c48a33aedfaaf911ec8454cb429297bd3a68c64fb2236f007af7",
+    "note": "Current dual-stack source: eleven installed-systemd groups, forty-three evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim."
   }
 ]

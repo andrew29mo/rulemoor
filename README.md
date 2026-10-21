@@ -9,7 +9,7 @@ The practical use case is a remotely managed Linux machine where an incorrect TC
 ## Scope
 
 - Strict JSON schema: default `accept`/`drop`, up to 32 ordered TCP port rules per family; established/related traffic is accepted first.
-- Legacy mode owns only `ip rulemoor`; opt-in dual mode owns `ip rulemoor` plus `ip6 rulemoor`, input hook, priority 0. No arbitrary nft scripts, routing, NAT or multi-device transaction. Dual mode always accepts ICMPv6 control traffic and requires both families to confirm. [Dual-stack scope and setup](docs/DUAL_STACK.md).
+- Legacy mode owns only `ip rulemoor`; opt-in dual mode owns `ip rulemoor` plus `ip6 rulemoor`, input hook, priority 0. No arbitrary nft scripts, routing, NAT or multi-device transaction. Dual mode always accepts ICMPv6 control traffic and requires both families to confirm. [Dual-stack scope and setup](docs/DUAL_STACK.md); [review and limits](docs/DUAL_REVIEW.md).
 - CLI and TLS API with a provisioned certificate and a shared operator bearer token. No plaintext API or certificate-verification bypass in the CLI.
 - Durable intent, bounded operation history, explicit confirmation/cancellation, deadline rollback and process-restart recovery.
 - Bounded persisted-state validation rejects malformed snapshots before process fencing or kernel writes; the original evidence remains intact.

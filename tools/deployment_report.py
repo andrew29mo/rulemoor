@@ -17,11 +17,25 @@ STAGES = ['vm-initial','vm-start','preflight','guest-prerequisites','wheel-build
 CONTROL_NAMES = ['boot-identity','missing-case','stale-kernel','missing-cleanup','timeout','source',
                  'missing-stage','wrong-package-origin','wrong-preboot-journal','stale-pending-generation',
                  'infinite-timing','missing-vm-interval','memory-identity','invalid-memory','poison-kernel-write','restart-still-running','failed-journal-changed','missing-limit-receipt','future-limit-receipt','unrelated-startup-memory','wrong-poison-invocation','guard-admitted','foreign-rule-modified','uncertainty-hidden','old-confirmation-admitted','false-tcp-observation',
-                 'connection-refused','missing-tcp-recovery','changed-tcp-listener','configuration-recovery-skipped','dual-v4-masks-v6','dual-wrong-rollback','dual-wrong-transport','dual-foreign-modified','dual-missing-timing','dual-partial-crash-not-restored','dual-missing-cleanup']
+                 'connection-refused','missing-tcp-recovery','changed-tcp-listener','configuration-recovery-skipped','dual-v4-masks-v6','dual-wrong-rollback','dual-wrong-transport','dual-foreign-modified','dual-missing-timing','dual-partial-crash-not-restored','dual-missing-cleanup',
+                 'dual-invalid-restart-identity','dual-failure-wrong-boot','dual-unrelated-success-operation','dual-success-wrong-boot','dual-skipped-generation','dual-stale-kernel-modified']
 
 
 def positive(value):
     assert type(value) in (int, float) and math.isfinite(value) and value > 0
+
+
+def process_identity(identity, boot):
+    assert type(boot) is str and boot
+    assert type(identity['pid']) is int and identity['pid']>1
+    assert type(identity['start_ticks']) is int and identity['start_ticks']>=0
+    assert identity['boot']==boot
+
+
+def dual_projection_identity(projection, boot):
+    assert type(boot) is str and boot
+    assert projection['boot']==boot
+    assert type(projection['generation']) is int and projection['generation']>=0
 
 
 def interval(clock, summary_seconds):
@@ -143,6 +157,19 @@ def preflight_evidence(row, boot):
 
 
 def dual_evidence(row, boot):
+    assert type(boot) is str and boot
+    # Bind every observed journal/status projection to this run, including
+    # otherwise internally consistent receipts copied from another boot.
+    projections = [*row['initial'].values(), row['failure']['pending'],
+                   *row['failure']['partial'], row['restored'],
+                   *row['fresh_after_rollback'].values(),
+                   row['success']['ipv4_partial'], row['success']['ipv6_committed'],
+                   row['partial_before_kill'], row['recovered'],
+                   row['stale']['before'], row['stale']['after']]
+    for projection in projections:
+        dual_projection_identity(projection,boot)
+    for key in ('same_service_identity_during_timeout','identity_after_timeout','identity_after_restart'):
+        process_identity(row[key],boot)
     assert row['mode']=='fresh-dual-no-migration'
     assert row['cleanup']=={'client_namespace_removed':True,'veth_removed':True,'legacy_state_and_unit_restored':True}
     assert type(row['legacy_adoption_exit_code']) is int and row['legacy_adoption_exit_code']!=0
@@ -152,9 +179,12 @@ def dual_evidence(row, boot):
     assert blocked['ipv6']=={'default':'drop','rules':[]}
     assert row['initial']['ipv4']==row['initial']['ipv6']
     assert row['initial']['ipv4']['phase']=='COMMITTED' and row['initial']['ipv4']['current']==baseline
+    initial=row['initial']['ipv4']
+    assert initial['op']=='initial' and initial['generation']==0 and initial['candidate'] is None
     assert row['initial_kernel']==row['kernel_after_atomic_rejection']==expected(baseline)
     assert type(row['atomic_rejection_exit_code']) is int and row['atomic_rejection_exit_code']!=0
     f=row['failure'];pending=f['pending']
+    assert pending['op']=='dual-v6-blocked' and pending['generation']==initial['generation']+1
     assert pending['phase']=='AWAITING_CONFIRM' and pending['confirmed_families']==[]
     assert pending['candidate']==blocked and pending['baseline']==pending['current']==baseline
     assert f['old_confirmation_status']=={'ipv4':409,'ipv6':409} and f['spoof_rejected'] is True
@@ -166,6 +196,7 @@ def dual_evidence(row, boot):
     restored=row['restored']
     assert restored['phase']=='ROLLED_BACK' and restored['current']==restored['baseline']==baseline
     assert restored['op']==pending['op'] and restored['generation']==pending['generation']
+    assert restored=={**partial,'phase':'ROLLED_BACK'}
     assert row['restored_kernel']==expected(baseline)
     assert row['fresh_after_rollback']['ipv4']==row['fresh_after_rollback']['ipv6']==restored
     c=row['rollback_clock'];assert c['clock']=='CLOCK_BOOTTIME' and c['deadline']==f['deadline']
@@ -174,9 +205,10 @@ def dual_evidence(row, boot):
     i=row['same_service_identity_during_timeout']
     assert i==row['identity_after_timeout'] and i['boot']==boot and type(i['pid']) is int and i['pid']>1
     success=row['success'];first,last=success['ipv4_partial'],success['ipv6_committed']
+    assert first['op']=='dual-both-success' and first['generation']==restored['generation']+1
     assert first['phase']=='AWAITING_CONFIRM' and first['confirmed_families']==['ipv4']
     assert last=={**first,'phase':'COMMITTED','confirmed_families':['ipv4','ipv6'],'current':candidate}
-    assert first['candidate']==last['candidate']==candidate and first['baseline']==baseline
+    assert first['candidate']==last['candidate']==candidate and first['baseline']==first['current']==baseline
     assert first['generation']>restored['generation'] and row['committed_kernel']==expected(candidate)
     c=success['confirmation_clock'];assert c['clock']=='monotonic_ns' and type(c['partial_ns']) is int
     interval({'clock':c['clock'],'started_ns':c['started_ns'],'finished_ns':c['partial_ns']},success['partial_ms']/1000)
@@ -184,17 +216,27 @@ def dual_evidence(row, boot):
     assert '2001:db8:44::2' in row['ipv6_neighbour_observation'] and 'lladdr' in row['ipv6_neighbour_observation']
     memory_sample(row['memory']);assert row['memory']['process_identity']==i
     partial=row['partial_before_kill'];recovered=row['recovered']
+    assert partial['op']=='dual-partial-crash' and partial['generation']==last['generation']+1
     assert partial['phase']=='AWAITING_CONFIRM' and partial['confirmed_families']==['ipv4']
     assert partial['current']==partial['baseline']==candidate and partial['candidate']==baseline
     assert row['kernel_before_kill']==expected(baseline) and row['signal']=='SIGKILL'
     assert recovered['phase']=='ROLLED_BACK' and recovered['current']==candidate
     assert recovered['op']==partial['op'] and recovered['generation']>partial['generation']
+    assert recovered=={**partial,'phase':'ROLLED_BACK','generation':partial['generation']+1}
     assert recovered['boot']==partial['boot']==boot
     assert row['recovered_kernel']==expected(candidate)
     assert row['identity_after_restart']!=i and row['identity_after_restart']['boot']==boot
+    assert row['identity_after_restart']['start_ticks']>=i['start_ticks']
     stale=row['stale'];assert stale['rejected']==['/confirm','/cancel','/apply']
+    assert stale['before']['op']=='dual-newer' and stale['before']['generation']==recovered['generation']+1
     assert stale['before']['phase']=='AWAITING_CONFIRM' and stale['before']['generation']>recovered['generation']
-    assert stale['before']['candidate']==newer and stale['before']['current']==candidate
+    assert stale['before']['candidate']==newer and stale['before']['current']==stale['before']['baseline']==candidate
+    assert stale['before']['confirmed_families']==[]
+    assert [observation['path'] for observation in stale['observations']]==stale['rejected']
+    for observation in stale['observations']:
+        assert type(observation['status']) is int and observation['status']==409
+        assert observation['before']==observation['after']==stale['before']
+        assert observation['kernel_before']==observation['kernel_after']==expected(newer)
     assert stale['after']=={**stale['before'],'phase':'COMMITTED','current':newer,'confirmed_families':['ipv4','ipv6']}
     assert row['kernel_after_stale']==expected(newer)
     assert len(row['foreign_before'])==2 and row['foreign_before']==row['foreign_after']
@@ -347,6 +389,20 @@ def negative_controls(value, source):
         elif name=='dual-foreign-modified':by_name['dual_stack']['foreign_after']=[]
         elif name=='dual-missing-timing':del by_name['dual_stack']['success']['confirmation_clock']['partial_ns']
         elif name=='dual-partial-crash-not-restored':by_name['dual_stack']['recovered']['phase']='COMMITTED'
+        elif name=='dual-invalid-restart-identity':
+            by_name['dual_stack']['identity_after_restart']={'pid':0,'start_ticks':0,'boot':by_name['setup']['boot_id']}
+        elif name=='dual-failure-wrong-boot':
+            dual=by_name['dual_stack']
+            for receipt in [dual['failure']['pending'],*dual['failure']['partial'],dual['restored'],*dual['fresh_after_rollback'].values()]:
+                receipt['boot']='other-boot'
+        elif name=='dual-unrelated-success-operation':
+            for receipt in by_name['dual_stack']['success'].values():
+                if isinstance(receipt,dict) and 'op' in receipt:receipt['op']='unrelated-operation'
+        elif name=='dual-success-wrong-boot':
+            for key in ('ipv4_partial','ipv6_committed'):by_name['dual_stack']['success'][key]['boot']='other-boot'
+        elif name=='dual-skipped-generation':
+            for key in ('ipv4_partial','ipv6_committed'):by_name['dual_stack']['success'][key]['generation']+=1
+        elif name=='dual-stale-kernel-modified':by_name['dual_stack']['stale']['observations'][0]['kernel_after']=[]
         elif name=='failed-journal-changed':by_name['restart_limit']['journal_while_failed']['phase']='ROLLED_BACK'
         try:verify(broken,source)
         except (AssertionError,KeyError):rows.append({'name':name,'rejected':True})

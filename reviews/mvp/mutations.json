@@ -213,7 +213,7 @@
     "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
     "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
-    "tests/test_deployment_audit.py": "2aded3ab9edee04e189d2a8d69b60876bef1b5ae09dcfffa84b672a8e08d073c",
+    "tests/test_deployment_audit.py": "cd19458698309e9cdac222e4df3e2b2f9d34e2a80e03f93b9e8ab53f10b9133f",
     "tests/test_diagnostics.py": "1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7",
     "tests/test_dual_stack.py": "e978ef28e9158d17b4235bd6466ff56afa4c235a6e14045a88f4ad4382255eb3",
     "tests/test_service_startup.py": "ed6f099450caa1268f47386bf138150e7a09c8a78c199f6a3e8c5fc79a6a3abf",
@@ -225,8 +225,8 @@
     "tools/audit_evidence.py": "20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617",
     "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
     "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
-    "tools/deployment_guest.py": "6fa024d5cb9595575e4cf8f9fd70ac45f194d0270e57ac032dcc5ec66f2b6b79",
-    "tools/deployment_report.py": "160fab38df670e23bacd45c7b1dfd370a62c9a297cfd35b8e55668f644fddb23",
+    "tools/deployment_guest.py": "601203c66c99d8b768c659974172c7e01bc0a09324040c7fd395c35dd37ac220",
+    "tools/deployment_report.py": "4fcae04bbd23bf256f9488b43e64b8342b66a16f29c84b69776d6f0fbdff1843",
     "tools/evidence.py": "d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b",
     "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
     "tools/linux_cases.py": "49500a9697b81d5a1b9ba8651e4c1755474f6a49a213b95fce7ec55672cf0a79",
@@ -242,5 +242,5 @@
     "tools/validate_deployment.py": "b1a7a867d49d0baf7027e9a0c55c30efa78a90d5747467f4dd467e586407f8c8",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "run_id": "6b3e22b361d2e101"
+  "run_id": "a2ec14eb678b07ce"
 }

@@ -1,7 +1,7 @@
 """Boundary checks for the production deployment evidence verifier."""
 import copy
 import unittest
-from tools.deployment_report import interval, positive, render, rate_limit_receipts, tcp_drop_cycle
+from tools.deployment_report import interval, positive, render, rate_limit_receipts, tcp_drop_cycle, process_identity, dual_projection_identity
 
 
 class MeasurementEvidenceTests(unittest.TestCase):
@@ -62,3 +62,17 @@ class MeasurementEvidenceTests(unittest.TestCase):
             elif change=='listener-replaced':bad[2]['listener_after']['identity']['start_ticks']+=1
             else:bad[2]['connected']=False;bad[2]['errno']=11
             with self.subTest(change=change),self.assertRaises(AssertionError):tcp_drop_cycle(*bad,listener)
+
+    def test_dual_process_identity_requires_valid_pid_start_and_same_boot(self):
+        good={'pid':123,'start_ticks':456,'boot':'fixture-boot'}
+        process_identity(good,'fixture-boot')
+        for key,value in (('pid',0),('pid',True),('pid','123'),('start_ticks',-1),('start_ticks',False),('boot','other-boot')):
+            bad={**good,key:value}
+            with self.subTest(key=key,value=value),self.assertRaises(AssertionError):process_identity(bad,'fixture-boot')
+
+    def test_dual_projection_requires_shared_boot_and_valid_generation(self):
+        good={'phase':'AWAITING_CONFIRM','generation':1,'op':'dual-example','boot':'fixture-boot'}
+        dual_projection_identity(good,'fixture-boot')
+        for key,value in (('generation',-1),('generation',True),('generation','1'),('boot','other-boot')):
+            bad={**good,key:value}
+            with self.subTest(key=key,value=value),self.assertRaises(AssertionError):dual_projection_identity(bad,'fixture-boot')

@@ -4,7 +4,7 @@ Status: code, tests, documentation and current local evidence reconciled. The ow
 
 ## Current evidence
 
-- Native macOS and Linux each pass **96** production-core/API/tool tests from the same immutable executable snapshot. Portable kernel behavior is represented by a memory backend; actual nftables/network evidence comes from the Linux VM case groups.
+- Native macOS and Linux each pass **98** production-core/API/tool tests from the same immutable executable snapshot. Portable kernel behavior is represented by a memory backend; actual nftables/network evidence comes from the Linux VM case groups.
 - All **eight** real Linux nft/netns/TLS groups pass: atomicity, management connectivity, six crash boundaries/two foreign-policy cases, process recovery, backlog/response loss, storage faults, finite slow clients and measurement.
 - **Twenty-eight** production mutations are caught by assertion failures; **seventeen** malformed or missing-evidence controls are rejected. Optimized validation is refused rather than silently removing assertions.
 - Source fingerprints, individual test IDs, run IDs, raw trials, summary recomputation and exact HTML/JSON consistency are rechecked by `tools.audit_evidence`.
@@ -56,7 +56,7 @@ Local macOS/Linux validation run `97f20111c14d7117` was re-audited against the u
 [Deployment validation](DEPLOYMENT_VALIDATION.md) adds installed-unit, automatic restart and orderly VM boot evidence. The earlier MIT/publication run references above are historical; `reviews/mvp/` now retains the latest same-source portable/container run and `reviews/deployment/` retains the separate actual-systemd VM run. Executable changes receive fresh validation; no abrupt power-loss recovery is claimed.
 
 
-The current dual-stack update passes **96 tests per platform, twenty-eight production mutations, seventeen original evidence controls, eight container Linux groups and eleven actual-systemd deployment groups with thirty-seven additional evidence controls**. Both suites record executable snapshot `2173a5bb28d7610399e9d5479fb68e24d0eff6bf26c28fd84fc22acef8a4bb99`. The deployment run is `6e80d14cf5601c9f`; the native/container run is `6b3e22b361d2e101`. Failed/superseded deployment attempts remain visible; current cleanup verifies removal and a stopped VM.
+The current dual-stack update passes **98 tests per platform, twenty-eight production mutations, seventeen original evidence controls, eight container Linux groups and eleven actual-systemd deployment groups with forty-three additional evidence controls**. Both suites record executable snapshot `070976a8e9a8c48a33aedfaaf911ec8454cb429297bd3a68c64fb2236f007af7`. The deployment run is `7c8d9444bf76328b`; the native/container run is `a2ec14eb678b07ce`. Failed/superseded deployment attempts remain visible; current cleanup verifies removal and a stopped VM.
 
 ## Deployment evidence audit
 
@@ -76,4 +76,8 @@ The new [opt-in management preflight](MANAGEMENT_PREFLIGHT.md) declares local IP
 
 ## Dual-stack minimum slice
 
-The [dual-stack implementation](DUAL_STACK.md) is later work and is not covered by the earlier agent reviews. Current tests additionally verify explicit paired ip/ip6 policies, actual-family fresh TLS confirmations, durable partial receipts and whole-policy timeout/restart restoration. The installed-service fixture uses static cross-namespace veth peers, refuses legacy adoption, checks a kernel-rejected second-family transaction without changing either policy, observes IPv6 neighbour discovery, rejects stale operations and preserves foreign tables. Its client namespace/veth cleanup is required. The full VM reboot cases remain legacy IPv4; dual VM reboot, IPv6 preflight, routed PMTU, SLAAC, zero-downtime and power loss are not established. ICMPv6 is explicitly accepted before TCP rules.
+The [dual-stack implementation](DUAL_STACK.md) followed the startup and management-preflight reviews; its dedicated agent review is recorded below. Current tests additionally verify explicit paired ip/ip6 policies, actual-family fresh TLS confirmations, durable partial receipts and whole-policy timeout/restart restoration. The installed-service fixture uses static cross-namespace veth peers, refuses legacy adoption, checks a kernel-rejected second-family transaction without changing either policy, observes IPv6 neighbour discovery, rejects stale operations and preserves foreign tables. Its client namespace/veth cleanup is required. The full VM reboot cases remain legacy IPv4; dual VM reboot, IPv6 preflight, routed PMTU, SLAAC, zero-downtime and power loss are not established. ICMPv6 is explicitly accepted before TCP rules.
+
+## Agent-assisted dual-stack evidence review
+
+The [dual review](DUAL_REVIEW.md) independently inspected production behavior and challenged copied artifacts. It found verifier gaps for restart identity and cross-boot/operation receipts, then added strict linkage and six evidence-corruption controls. Each stale request now has immediate journal and both-family kernel readbacks before legitimate confirmations. No production dual compiler/state-machine/TLS change was required by confirmed findings. Current source/run evidence above includes these changes; the original dual pass is historical. ICMPv6 remains explicitly permissive, and dual VM reboot/delayed executor, power loss and broader IPv6 qualification remain untested.
