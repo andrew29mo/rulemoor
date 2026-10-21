@@ -130,3 +130,23 @@ class APITests(unittest.TestCase):
             release.set(); worker.join(2)
         self.assertTrue(acquired, 'A blocked HTTP write stalled controller decisions')
         self.assertFalse(errors)
+
+    def test_configured_management_guard_is_production_api_admission(self):
+        self.c.management_paths=[{'name':'api','port':self.server.server_port}]
+        before=self.c.status();kernel=self.c.backend.value
+        policy={'default':'drop','rules':[]}
+        code,plan=self.call('/plan',{'policy':policy})
+        self.assertEqual(code,200);self.assertEqual(plan['diagnostics']['own_policy']['status'],'blocked')
+        code,response=self.call('/apply',{'op':'guarded','generation':0,'policy':policy,'window':5})
+        self.assertEqual(code,409);self.assertEqual(response['diagnostics']['own_policy']['status'],'blocked')
+        self.assertEqual(self.c.status(),before);self.assertEqual(self.c.backend.value,kernel)
+
+    def test_configured_guard_preserves_fresh_confirmation_requirement(self):
+        self.c.management_paths=[{'name':'api','port':self.server.server_port}]
+        old=self.conn();self.call('/status',conn=old)
+        policy={'default':'drop','rules':[{'port':self.server.server_port,'verdict':'accept'}]}
+        code,s=self.call('/apply',{'op':'guarded-allow','generation':0,'policy':policy,'window':5})
+        self.assertEqual(code,200)
+        payload={k:s[k] for k in ('op','generation','candidate_digest','challenge')}
+        self.assertEqual(self.call('/confirm',payload,conn=old)[0],409)
+        self.assertEqual(self.call('/confirm',payload)[0],200)

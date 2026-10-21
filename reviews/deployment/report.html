@@ -3,26 +3,28 @@
 <h1>Rulemoor deployment validation: PASS</h1>
 <p>Actual systemd in an isolated Linux VM. Firewall writes confined to a disposable network namespace.
 VM reboots are orderly stop/start, not power-loss tests. Timings are observations including probe/control overhead, not SLA bounds.
-Daemon/cgroup memory is distinct from total VM memory. No native macOS deployment claim.</p><table><tr><td>setup</td><td>PASS</td></tr><tr><td>poisoned_journal</td><td>PASS</td></tr><tr><td>restart_limit</td><td>PASS</td></tr><tr><td>crash</td><td>PASS</td></tr><tr><td>held_writer</td><td>PASS</td></tr><tr><td>prepare_pending_boot</td><td>PASS</td></tr><tr><td>after_pending_boot</td><td>PASS</td></tr><tr><td>after_committed_boot</td><td>PASS</td></tr><tr><td>cleanup</td><td>PASS</td></tr></table><p>Malformed snapshot: DEGRADED; original data and kernel policy preserved. Test-only local reprovision is not automatic repair.</p><p>Persistent missing-key startup failure: exit-code; pending candidate remains installed while stopped. No further restart observed for 2.21 s. Baseline recovery required local cause repair and explicit reset/start. Native segmentation fault and uninterruptible I/O were not tested.</p><p>Observed Agent SIGKILL to fresh TLS ready with restored baseline: 1352.5 ms (one trial; includes client probes and systemctl overhead).</p><p>Orderly VM stop/start plus post-boot validation: 11.63 s pending / 12.31 s committed (each observed case one trial; includes VM control, SSH and assertions, not boot-time bounds).</p><table><tr><th>Stage</th><th>Agent VmHWM MiB</th><th>Service cgroup MiB</th></tr><tr><td>setup</td><td>22.17</td><td>10.65</td></tr><tr><td>poisoned_journal</td><td>22.26</td><td>10.73</td></tr><tr><td>restart_limit</td><td>22.83</td><td>11.53</td></tr><tr><td>crash</td><td>22.81</td><td>11.54</td></tr><tr><td>after_pending_boot</td><td>22.76</td><td>11.91</td></tr><tr><td>after_committed_boot</td><td>22.18</td><td>11.00</td></tr></table><pre>{
+Daemon/cgroup memory is distinct from total VM memory. No native macOS deployment claim.</p><table><tr><td>setup</td><td>PASS</td></tr><tr><td>management_diagnostics</td><td>PASS</td></tr><tr><td>poisoned_journal</td><td>PASS</td></tr><tr><td>restart_limit</td><td>PASS</td></tr><tr><td>crash</td><td>PASS</td></tr><tr><td>held_writer</td><td>PASS</td></tr><tr><td>prepare_pending_boot</td><td>PASS</td></tr><tr><td>after_pending_boot</td><td>PASS</td></tr><tr><td>after_committed_boot</td><td>PASS</td></tr><tr><td>cleanup</td><td>PASS</td></tr></table><p>Configured management-port denial was rejected before mutation. Earlier/later foreign input drops were diagnosed and tested with real TCP; unsupported conditions remained risk. Foreign rules were unchanged. Old TLS confirmation was rejected; a fresh connection confirmed. These are namespace-local checks, not route/WAN reachability proof. Plan observations include CLI process and namespace overhead.</p><p>Malformed snapshot: DEGRADED; original data and kernel policy preserved. Test-only local reprovision is not automatic repair.</p><p>Persistent missing-key startup failure: exit-code; pending candidate remains installed while stopped. No further restart observed for 2.21 s. Baseline recovery required local cause repair and explicit reset/start. Native segmentation fault and uninterruptible I/O were not tested.</p><p>Observed Agent SIGKILL to fresh TLS ready with restored baseline: 1336.5 ms (one trial; includes client probes and systemctl overhead).</p><p>Orderly VM stop/start plus post-boot validation: 12.61 s pending / 12.44 s committed (each observed case one trial; includes VM control, SSH and assertions, not boot-time bounds).</p><table><tr><th>Stage</th><th>Agent VmHWM MiB</th><th>Service cgroup MiB</th></tr><tr><td>setup</td><td>22.20</td><td>10.68</td></tr><tr><td>management_diagnostics</td><td>23.04</td><td>11.86</td></tr><tr><td>poisoned_journal</td><td>22.30</td><td>10.75</td></tr><tr><td>restart_limit</td><td>22.93</td><td>11.67</td></tr><tr><td>crash</td><td>22.75</td><td>11.44</td></tr><tr><td>after_pending_boot</td><td>22.73</td><td>11.87</td></tr><tr><td>after_committed_boot</td><td>22.20</td><td>11.03</td></tr></table><pre>{
   &quot;schema&quot;: 1,
-  &quot;run_id&quot;: &quot;436c8a5408819100&quot;,
-  &quot;recorded_at_utc&quot;: &quot;2026-10-21T01:31:15.672605+00:00&quot;,
+  &quot;run_id&quot;: &quot;c1431001b6cffb89&quot;,
+  &quot;recorded_at_utc&quot;: &quot;2026-10-21T02:09:43.556551+00:00&quot;,
   &quot;passed&quot;: true,
   &quot;source&quot;: {
     &quot;Dockerfile&quot;: &quot;3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec&quot;,
     &quot;deploy/rulemoor.service&quot;: &quot;9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625&quot;,
     &quot;pyproject.toml&quot;: &quot;6be68097d0f9be7dc9b693b0e0f17f50669e339897a16da9ea422d583f6170c8&quot;,
     &quot;rulemoor/__init__.py&quot;: &quot;021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03&quot;,
-    &quot;rulemoor/backend.py&quot;: &quot;9848470fad5480931c749e261abf33fb3d20b64b1dfbfaa44860a24f36137e6a&quot;,
+    &quot;rulemoor/backend.py&quot;: &quot;0f58dacb7eb35727d738367476044e0e72d58459b4bbe2113fa038608cb6e078&quot;,
     &quot;rulemoor/cli.py&quot;: &quot;fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5&quot;,
-    &quot;rulemoor/core.py&quot;: &quot;bb6db62af991cd1861f9ff2f40b3cf570905668b789fec489e15ea9f04b7e35e&quot;,
+    &quot;rulemoor/core.py&quot;: &quot;01c601df1ea5d47b572d8c5eade72992d2725549f9ac960aba332e6c11a845ed&quot;,
+    &quot;rulemoor/diagnostics.py&quot;: &quot;24fd3db263b232b4eda3f633552722423e5d4c294fa420470bff2a71036b1dc3&quot;,
     &quot;rulemoor/executor.py&quot;: &quot;9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd&quot;,
     &quot;rulemoor/policy.py&quot;: &quot;780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842&quot;,
-    &quot;rulemoor/service.py&quot;: &quot;647f19c019a6b20065f547eff4bca63aa6ff380f6d0bcaac71808bc1c3a2dba9&quot;,
+    &quot;rulemoor/service.py&quot;: &quot;2439b33c850272873626c2971de3c85a6a922f4fda1fdce26428f92096597368&quot;,
     &quot;tests/__init__.py&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;,
-    &quot;tests/test_api.py&quot;: &quot;b20e4b98a9c854f46505779ab1651ef0d0177fea9e80247870773a54fe27a5c0&quot;,
+    &quot;tests/test_api.py&quot;: &quot;b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a&quot;,
     &quot;tests/test_core.py&quot;: &quot;99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb&quot;,
     &quot;tests/test_deployment_audit.py&quot;: &quot;29a84f91a5afae2272f66b15620ac598b661a36069da4f99005bde7a90a28ee2&quot;,
+    &quot;tests/test_diagnostics.py&quot;: &quot;2f846eeae5c522731820432d42a6828df73ca2cc145095b713a423afabe1bf8c&quot;,
     &quot;tests/test_startup_state.py&quot;: &quot;eb4d74d1446c86b49b16639fcfc1713e8c63ca127b1e1831a838d1e876f5e950&quot;,
     &quot;tests/test_tools.py&quot;: &quot;c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5&quot;,
     &quot;tools/__init__.py&quot;: &quot;eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac&quot;,
@@ -31,24 +33,24 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
     &quot;tools/audit_evidence.py&quot;: &quot;20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617&quot;,
     &quot;tools/client_driver.py&quot;: &quot;5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44&quot;,
     &quot;tools/colima-lock.json&quot;: &quot;fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d&quot;,
-    &quot;tools/deployment_guest.py&quot;: &quot;a5a0611a49b2d750b5fd4f17a19aaa02b3c3f04f5c163572f456017d64ebcbb7&quot;,
-    &quot;tools/deployment_report.py&quot;: &quot;af3764d4184033c12ec7e982f32b47fa147935cfcf16d3461d4b6842d0274859&quot;,
+    &quot;tools/deployment_guest.py&quot;: &quot;105dfa532a841ee3f3e81b51cfb5eebdc4c455b00f69312ededcef22ff893332&quot;,
+    &quot;tools/deployment_report.py&quot;: &quot;9e899bc4fc0beb158d29ac5a8329913f788e6b4249237cb063212106d00ba34e&quot;,
     &quot;tools/evidence.py&quot;: &quot;d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b&quot;,
     &quot;tools/install_colima.py&quot;: &quot;70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb&quot;,
     &quot;tools/linux_cases.py&quot;: &quot;49500a9697b81d5a1b9ba8651e4c1755474f6a49a213b95fce7ec55672cf0a79&quot;,
     &quot;tools/linux_validate.py&quot;: &quot;bf9c45eef35c9b4b9dcbd9f0958a9122fe020f8e818aa5d234f28e306c9c9313&quot;,
     &quot;tools/local_entry.py&quot;: &quot;f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911&quot;,
-    &quot;tools/mutations.py&quot;: &quot;762d25dfa08ed343d17830aca5bbe2d655fe5cf3c94dd2ad2746de164261b1ad&quot;,
+    &quot;tools/mutations.py&quot;: &quot;138e7d2a71eab7a63f281a1b46ea9617a1b353ed4b119406b74ec8a28075073e&quot;,
     &quot;tools/process.py&quot;: &quot;6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f&quot;,
     &quot;tools/report.py&quot;: &quot;c4ac1749bef625b181c7de8dca183eae386871fd5ec23d0b475248fc69d16803&quot;,
     &quot;tools/storage_fault.py&quot;: &quot;0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0&quot;,
     &quot;tools/unit.py&quot;: &quot;ade259d94052f2c69685c35210af0444c44a76e81c51640dc5f212da6a5282fd&quot;,
     &quot;tools/validate-deployment&quot;: &quot;e3995176226e017ff2c6e36fd52c163b6e968ca539737420edfa7d5f9fcbe412&quot;,
     &quot;tools/validate-local&quot;: &quot;45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c&quot;,
-    &quot;tools/validate_deployment.py&quot;: &quot;ea518be2c745afe7cccb1f4e414382ac8090c8783464b86bb83eca6980ac8cd1&quot;,
+    &quot;tools/validate_deployment.py&quot;: &quot;f0f8226248432f75bb57c229df7e70dcad191ca42e8c254c7529efa7b67cce21&quot;,
     &quot;tools/validate_local.py&quot;: &quot;51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1&quot;
   },
-  &quot;source_sha256&quot;: &quot;2577be96c26b221f1f07cad8c4c4bcffaca12c9f9198bc4a7ff0f13d99f3f80c&quot;,
+  &quot;source_sha256&quot;: &quot;decbbbc637af274add41fc1eb3c4e4b58159a331907eb6247956b29da7425561&quot;,
   &quot;source_changed&quot;: false,
   &quot;scope&quot;: {
     &quot;execution&quot;: &quot;Actual systemd in Colima Linux VM; isolated test network namespace&quot;,
@@ -61,133 +63,139 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;vm-initial&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.3331301660000463
+      &quot;seconds&quot;: 0.2946910409955308
     },
     {
       &quot;name&quot;: &quot;vm-start&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 11.711788041997352
+      &quot;seconds&quot;: 8.658180500002345
     },
     {
       &quot;name&quot;: &quot;preflight&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.3245775000032154
+      &quot;seconds&quot;: 0.24265549999836367
     },
     {
       &quot;name&quot;: &quot;guest-prerequisites&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.44446408299700124
+      &quot;seconds&quot;: 0.5227157079934841
     },
     {
       &quot;name&quot;: &quot;wheel-build&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 1.3127062499988824
+      &quot;seconds&quot;: 1.2226114999939455
     },
     {
       &quot;name&quot;: &quot;snapshot-upload&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.21666679099871544
+      &quot;seconds&quot;: 0.2202879170072265
     },
     {
       &quot;name&quot;: &quot;guest-setup&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 1.989630208001472
+      &quot;seconds&quot;: 1.9301135420100763
+    },
+    {
+      &quot;name&quot;: &quot;guest-management_diagnostics&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 2.048775207993458
     },
     {
       &quot;name&quot;: &quot;guest-poisoned_journal&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.8618799579999177
+      &quot;seconds&quot;: 2.8819944159913575
     },
     {
       &quot;name&quot;: &quot;guest-restart_limit&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 9.67871395900147
+      &quot;seconds&quot;: 9.619349040993256
     },
     {
       &quot;name&quot;: &quot;guest-crash&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.119457291002618
+      &quot;seconds&quot;: 2.085190290992614
     },
     {
       &quot;name&quot;: &quot;guest-held_writer&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 4.542382749998069
+      &quot;seconds&quot;: 4.551101417004247
     },
     {
       &quot;name&quot;: &quot;guest-prepare_pending_boot&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.6108276670056512
+      &quot;seconds&quot;: 0.5179342919873307
     },
     {
       &quot;name&quot;: &quot;pending-vm-stop&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.5538410840017605
+      &quot;seconds&quot;: 2.5265367920073913
     },
     {
       &quot;name&quot;: &quot;pending-vm-start&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 8.450286708000931
+      &quot;seconds&quot;: 9.456878124998184
     },
     {
       &quot;name&quot;: &quot;guest-after_pending_boot&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.6135785000005853
+      &quot;seconds&quot;: 0.6042253330087988
     },
     {
       &quot;name&quot;: &quot;committed-vm-stop&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.4422303329993156
+      &quot;seconds&quot;: 2.5042087089968845
     },
     {
       &quot;name&quot;: &quot;committed-vm-start&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 9.34346162500151
+      &quot;seconds&quot;: 9.351989916991442
     },
     {
       &quot;name&quot;: &quot;guest-after_committed_boot&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.507833917006792
+      &quot;seconds&quot;: 0.5620294169930276
     },
     {
       &quot;name&quot;: &quot;guest-cleanup&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.5736649579994264
+      &quot;seconds&quot;: 0.5162021659925813
     },
     {
       &quot;name&quot;: &quot;snapshot-remove&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.23804841699893586
+      &quot;seconds&quot;: 0.3177855410031043
     },
     {
       &quot;name&quot;: &quot;vm-final-stop&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.5018100419983966
+      &quot;seconds&quot;: 2.5027379160019336
     },
     {
       &quot;name&quot;: &quot;vm-final&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.19047875000251224
+      &quot;seconds&quot;: 0.2590267909981776
     }
   ],
   &quot;cases&quot;: [
@@ -205,12 +213,13 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         &quot;installed_package&quot;: {
           &quot;origin&quot;: &quot;/opt/rulemoor/venv/lib/python3.12/site-packages/rulemoor&quot;,
           &quot;hashes&quot;: {
-            &quot;rulemoor/service.py&quot;: &quot;647f19c019a6b20065f547eff4bca63aa6ff380f6d0bcaac71808bc1c3a2dba9&quot;,
-            &quot;rulemoor/core.py&quot;: &quot;bb6db62af991cd1861f9ff2f40b3cf570905668b789fec489e15ea9f04b7e35e&quot;,
-            &quot;rulemoor/backend.py&quot;: &quot;9848470fad5480931c749e261abf33fb3d20b64b1dfbfaa44860a24f36137e6a&quot;,
+            &quot;rulemoor/service.py&quot;: &quot;2439b33c850272873626c2971de3c85a6a922f4fda1fdce26428f92096597368&quot;,
+            &quot;rulemoor/core.py&quot;: &quot;01c601df1ea5d47b572d8c5eade72992d2725549f9ac960aba332e6c11a845ed&quot;,
+            &quot;rulemoor/backend.py&quot;: &quot;0f58dacb7eb35727d738367476044e0e72d58459b4bbe2113fa038608cb6e078&quot;,
             &quot;rulemoor/executor.py&quot;: &quot;9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd&quot;,
             &quot;rulemoor/cli.py&quot;: &quot;fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5&quot;,
             &quot;rulemoor/policy.py&quot;: &quot;780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842&quot;,
+            &quot;rulemoor/diagnostics.py&quot;: &quot;24fd3db263b232b4eda3f633552722423e5d4c294fa420470bff2a71036b1dc3&quot;,
             &quot;rulemoor/__init__.py&quot;: &quot;021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03&quot;
           }
         },
@@ -219,12 +228,12 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         &quot;unit_properties&quot;: {
           &quot;Restart&quot;: &quot;on-failure&quot;,
           &quot;RestartUSec&quot;: &quot;1s&quot;,
-          &quot;MainPID&quot;: &quot;1664&quot;,
+          &quot;MainPID&quot;: &quot;1660&quot;,
           &quot;Result&quot;: &quot;success&quot;,
           &quot;NRestarts&quot;: &quot;0&quot;,
           &quot;ExecMainStatus&quot;: &quot;0&quot;,
           &quot;ControlGroup&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;MemoryCurrent&quot;: &quot;11169792&quot;,
+          &quot;MemoryCurrent&quot;: &quot;11247616&quot;,
           &quot;CapabilityBoundingSet&quot;: &quot;cap_kill cap_net_admin&quot;,
           &quot;PrivateTmp&quot;: &quot;yes&quot;,
           &quot;ProtectHome&quot;: &quot;yes&quot;,
@@ -237,29 +246,911 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;StartLimitIntervalUSec&quot;: &quot;1min&quot;,
           &quot;StartLimitBurst&quot;: &quot;5&quot;
         },
-        &quot;boot_id&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+        &quot;boot_id&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23248896,
-          &quot;agent_vmhwm_bytes&quot;: 23248896,
-          &quot;service_cgroup_memory_current_bytes&quot;: 11169792,
+          &quot;agent_rss_bytes&quot;: 23281664,
+          &quot;agent_vmhwm_bytes&quot;: 23281664,
+          &quot;service_cgroup_memory_current_bytes&quot;: 11198464,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 1664,
-            &quot;start_ticks&quot;: 1323,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;
+            &quot;pid&quot;: 1660,
+            &quot;start_ticks&quot;: 997,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;
           },
-          &quot;main_pid_after&quot;: 1664,
-          &quot;invocation_id&quot;: &quot;c4bf3b12cb5e4f0da6a16169447f1dce&quot;,
-          &quot;invocation_id_after&quot;: &quot;c4bf3b12cb5e4f0da6a16169447f1dce&quot;,
+          &quot;main_pid_after&quot;: 1660,
+          &quot;invocation_id&quot;: &quot;cddc58cc8839451598578659b33bd8d5&quot;,
+          &quot;invocation_id_after&quot;: &quot;cddc58cc8839451598578659b33bd8d5&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 13343461505,
-          &quot;sample_finished_ns&quot;: 13347686380,
+          &quot;sample_started_ns&quot;: 10089152212,
+          &quot;sample_finished_ns&quot;: 10093210212,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         }
+      }
+    },
+    {
+      &quot;name&quot;: &quot;management_diagnostics&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;configuration&quot;: &quot;explicit-local-ipv4-tcp-ports&quot;,
+        &quot;supported_configuration_override&quot;: true,
+        &quot;denied_plan&quot;: {
+          &quot;schema&quot;: 1,
+          &quot;scope&quot;: &quot;New IPv4 TCP traffic to explicitly configured local destination ports; not an end-to-end route proof&quot;,
+          &quot;configuration&quot;: &quot;configured&quot;,
+          &quot;fresh_connection_confirmation_required&quot;: true,
+          &quot;reachability_verified&quot;: false,
+          &quot;own_policy&quot;: {
+            &quot;status&quot;: &quot;blocked&quot;,
+            &quot;paths&quot;: [
+              {
+                &quot;name&quot;: &quot;api&quot;,
+                &quot;port&quot;: 18443,
+                &quot;decision&quot;: &quot;drop&quot;,
+                &quot;source&quot;: &quot;rule&quot;,
+                &quot;rule_index&quot;: 0
+              },
+              {
+                &quot;name&quot;: &quot;probe&quot;,
+                &quot;port&quot;: 59999,
+                &quot;decision&quot;: &quot;accept&quot;,
+                &quot;source&quot;: &quot;default&quot;,
+                &quot;rule_index&quot;: null
+              }
+            ]
+          },
+          &quot;external&quot;: {
+            &quot;status&quot;: &quot;no_observed_input_conflict&quot;,
+            &quot;input_chains&quot;: [],
+            &quot;unassessed_hooks&quot;: [],
+            &quot;truncated&quot;: false,
+            &quot;unassessed_object_count&quot;: 0,
+            &quot;snapshot_sha256&quot;: &quot;c1d8c15b6edde9961530a63208dbd559060a852c07d65f561019ae113a69db33&quot;,
+            &quot;limitations&quot;: [
+              &quot;Point-in-time read; no exclusion against other writers&quot;,
+              &quot;Other hooks, NAT, routes, bridges, legacy iptables, eBPF and external devices are not evaluated&quot;,
+              &quot;Unsupported expressions and jumps are uncertain; no observed input conflict is not proof of reachability&quot;
+            ]
+          }
+        },
+        &quot;ordered_plan&quot;: {
+          &quot;schema&quot;: 1,
+          &quot;scope&quot;: &quot;New IPv4 TCP traffic to explicitly configured local destination ports; not an end-to-end route proof&quot;,
+          &quot;configuration&quot;: &quot;configured&quot;,
+          &quot;fresh_connection_confirmation_required&quot;: true,
+          &quot;reachability_verified&quot;: false,
+          &quot;own_policy&quot;: {
+            &quot;status&quot;: &quot;allowed&quot;,
+            &quot;paths&quot;: [
+              {
+                &quot;name&quot;: &quot;api&quot;,
+                &quot;port&quot;: 18443,
+                &quot;decision&quot;: &quot;accept&quot;,
+                &quot;source&quot;: &quot;rule&quot;,
+                &quot;rule_index&quot;: 0
+              },
+              {
+                &quot;name&quot;: &quot;probe&quot;,
+                &quot;port&quot;: 59999,
+                &quot;decision&quot;: &quot;accept&quot;,
+                &quot;source&quot;: &quot;rule&quot;,
+                &quot;rule_index&quot;: 1
+              }
+            ]
+          },
+          &quot;external&quot;: {
+            &quot;status&quot;: &quot;no_observed_input_conflict&quot;,
+            &quot;input_chains&quot;: [],
+            &quot;unassessed_hooks&quot;: [],
+            &quot;truncated&quot;: false,
+            &quot;unassessed_object_count&quot;: 0,
+            &quot;snapshot_sha256&quot;: &quot;c1d8c15b6edde9961530a63208dbd559060a852c07d65f561019ae113a69db33&quot;,
+            &quot;limitations&quot;: [
+              &quot;Point-in-time read; no exclusion against other writers&quot;,
+              &quot;Other hooks, NAT, routes, bridges, legacy iptables, eBPF and external devices are not evaluated&quot;,
+              &quot;Unsupported expressions and jumps are uncertain; no observed input conflict is not proof of reachability&quot;
+            ]
+          }
+        },
+        &quot;state_before_denial&quot;: {
+          &quot;phase&quot;: &quot;COMMITTED&quot;,
+          &quot;generation&quot;: 0,
+          &quot;op&quot;: &quot;initial&quot;,
+          &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
+          &quot;current&quot;: {
+            &quot;default&quot;: &quot;accept&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;port&quot;: 59991,
+                &quot;verdict&quot;: &quot;drop&quot;
+              }
+            ]
+          },
+          &quot;candidate&quot;: null
+        },
+        &quot;state_after_denial&quot;: {
+          &quot;phase&quot;: &quot;COMMITTED&quot;,
+          &quot;generation&quot;: 0,
+          &quot;op&quot;: &quot;initial&quot;,
+          &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
+          &quot;current&quot;: {
+            &quot;default&quot;: &quot;accept&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;port&quot;: 59991,
+                &quot;verdict&quot;: &quot;drop&quot;
+              }
+            ]
+          },
+          &quot;candidate&quot;: null
+        },
+        &quot;own_kernel_before&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;own_kernel_after_denial&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;tcp_probe_before_foreign_drop&quot;: {
+          &quot;connected&quot;: true,
+          &quot;errno&quot;: 0
+        },
+        &quot;foreign_priority_cases&quot;: [
+          {
+            &quot;priority&quot;: -100,
+            &quot;diagnostics&quot;: {
+              &quot;schema&quot;: 1,
+              &quot;scope&quot;: &quot;New IPv4 TCP traffic to explicitly configured local destination ports; not an end-to-end route proof&quot;,
+              &quot;configuration&quot;: &quot;configured&quot;,
+              &quot;fresh_connection_confirmation_required&quot;: true,
+              &quot;reachability_verified&quot;: false,
+              &quot;own_policy&quot;: {
+                &quot;status&quot;: &quot;allowed&quot;,
+                &quot;paths&quot;: [
+                  {
+                    &quot;name&quot;: &quot;api&quot;,
+                    &quot;port&quot;: 18443,
+                    &quot;decision&quot;: &quot;accept&quot;,
+                    &quot;source&quot;: &quot;default&quot;,
+                    &quot;rule_index&quot;: null
+                  },
+                  {
+                    &quot;name&quot;: &quot;probe&quot;,
+                    &quot;port&quot;: 59999,
+                    &quot;decision&quot;: &quot;accept&quot;,
+                    &quot;source&quot;: &quot;default&quot;,
+                    &quot;rule_index&quot;: null
+                  }
+                ]
+              },
+              &quot;external&quot;: {
+                &quot;status&quot;: &quot;blocked&quot;,
+                &quot;input_chains&quot;: [
+                  {
+                    &quot;family&quot;: &quot;ip&quot;,
+                    &quot;table&quot;: &quot;rm_preflight_external&quot;,
+                    &quot;chain&quot;: &quot;input&quot;,
+                    &quot;hook&quot;: &quot;input&quot;,
+                    &quot;priority&quot;: -100,
+                    &quot;paths&quot;: [
+                      {
+                        &quot;name&quot;: &quot;api&quot;,
+                        &quot;port&quot;: 18443,
+                        &quot;status&quot;: &quot;no_observed_input_conflict&quot;
+                      },
+                      {
+                        &quot;name&quot;: &quot;probe&quot;,
+                        &quot;port&quot;: 59999,
+                        &quot;status&quot;: &quot;blocked&quot;
+                      }
+                    ]
+                  }
+                ],
+                &quot;unassessed_hooks&quot;: [],
+                &quot;truncated&quot;: false,
+                &quot;unassessed_object_count&quot;: 0,
+                &quot;snapshot_sha256&quot;: &quot;0500670c925743134781256fa324f6991116271cfe1b3e07534344b69adf51e6&quot;,
+                &quot;limitations&quot;: [
+                  &quot;Point-in-time read; no exclusion against other writers&quot;,
+                  &quot;Other hooks, NAT, routes, bridges, legacy iptables, eBPF and external devices are not evaluated&quot;,
+                  &quot;Unsupported expressions and jumps are uncertain; no observed input conflict is not proof of reachability&quot;
+                ]
+              }
+            },
+            &quot;foreign_before&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rm_preflight_external&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rm_preflight_external&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: -100,
+                  &quot;policy&quot;: &quot;accept&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rm_preflight_external&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ],
+            &quot;foreign_after&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rm_preflight_external&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rm_preflight_external&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: -100,
+                  &quot;policy&quot;: &quot;accept&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rm_preflight_external&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ],
+            &quot;tcp_probe&quot;: {
+              &quot;connected&quot;: false,
+              &quot;errno&quot;: 11
+            },
+            &quot;plan_clock&quot;: {
+              &quot;clock&quot;: &quot;monotonic_ns&quot;,
+              &quot;started_ns&quot;: 10992313879,
+              &quot;finished_ns&quot;: 11047780629
+            },
+            &quot;plan_observed_ms&quot;: 55.46675
+          },
+          {
+            &quot;priority&quot;: 10,
+            &quot;diagnostics&quot;: {
+              &quot;schema&quot;: 1,
+              &quot;scope&quot;: &quot;New IPv4 TCP traffic to explicitly configured local destination ports; not an end-to-end route proof&quot;,
+              &quot;configuration&quot;: &quot;configured&quot;,
+              &quot;fresh_connection_confirmation_required&quot;: true,
+              &quot;reachability_verified&quot;: false,
+              &quot;own_policy&quot;: {
+                &quot;status&quot;: &quot;allowed&quot;,
+                &quot;paths&quot;: [
+                  {
+                    &quot;name&quot;: &quot;api&quot;,
+                    &quot;port&quot;: 18443,
+                    &quot;decision&quot;: &quot;accept&quot;,
+                    &quot;source&quot;: &quot;default&quot;,
+                    &quot;rule_index&quot;: null
+                  },
+                  {
+                    &quot;name&quot;: &quot;probe&quot;,
+                    &quot;port&quot;: 59999,
+                    &quot;decision&quot;: &quot;accept&quot;,
+                    &quot;source&quot;: &quot;default&quot;,
+                    &quot;rule_index&quot;: null
+                  }
+                ]
+              },
+              &quot;external&quot;: {
+                &quot;status&quot;: &quot;blocked&quot;,
+                &quot;input_chains&quot;: [
+                  {
+                    &quot;family&quot;: &quot;ip&quot;,
+                    &quot;table&quot;: &quot;rm_preflight_external&quot;,
+                    &quot;chain&quot;: &quot;input&quot;,
+                    &quot;hook&quot;: &quot;input&quot;,
+                    &quot;priority&quot;: 10,
+                    &quot;paths&quot;: [
+                      {
+                        &quot;name&quot;: &quot;api&quot;,
+                        &quot;port&quot;: 18443,
+                        &quot;status&quot;: &quot;no_observed_input_conflict&quot;
+                      },
+                      {
+                        &quot;name&quot;: &quot;probe&quot;,
+                        &quot;port&quot;: 59999,
+                        &quot;status&quot;: &quot;blocked&quot;
+                      }
+                    ]
+                  }
+                ],
+                &quot;unassessed_hooks&quot;: [],
+                &quot;truncated&quot;: false,
+                &quot;unassessed_object_count&quot;: 0,
+                &quot;snapshot_sha256&quot;: &quot;e0bef30c5278f2f3382f0436bf09a0879a83669d179d5b0368617d21683eb54a&quot;,
+                &quot;limitations&quot;: [
+                  &quot;Point-in-time read; no exclusion against other writers&quot;,
+                  &quot;Other hooks, NAT, routes, bridges, legacy iptables, eBPF and external devices are not evaluated&quot;,
+                  &quot;Unsupported expressions and jumps are uncertain; no observed input conflict is not proof of reachability&quot;
+                ]
+              }
+            },
+            &quot;foreign_before&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rm_preflight_external&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rm_preflight_external&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 10,
+                  &quot;policy&quot;: &quot;accept&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rm_preflight_external&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ],
+            &quot;foreign_after&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rm_preflight_external&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rm_preflight_external&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 10,
+                  &quot;policy&quot;: &quot;accept&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rm_preflight_external&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ],
+            &quot;tcp_probe&quot;: {
+              &quot;connected&quot;: false,
+              &quot;errno&quot;: 11
+            },
+            &quot;plan_clock&quot;: {
+              &quot;clock&quot;: &quot;monotonic_ns&quot;,
+              &quot;started_ns&quot;: 11331931588,
+              &quot;finished_ns&quot;: 11387163505
+            },
+            &quot;plan_observed_ms&quot;: 55.231917
+          }
+        ],
+        &quot;unsupported_condition&quot;: {
+          &quot;schema&quot;: 1,
+          &quot;scope&quot;: &quot;New IPv4 TCP traffic to explicitly configured local destination ports; not an end-to-end route proof&quot;,
+          &quot;configuration&quot;: &quot;configured&quot;,
+          &quot;fresh_connection_confirmation_required&quot;: true,
+          &quot;reachability_verified&quot;: false,
+          &quot;own_policy&quot;: {
+            &quot;status&quot;: &quot;allowed&quot;,
+            &quot;paths&quot;: [
+              {
+                &quot;name&quot;: &quot;api&quot;,
+                &quot;port&quot;: 18443,
+                &quot;decision&quot;: &quot;accept&quot;,
+                &quot;source&quot;: &quot;default&quot;,
+                &quot;rule_index&quot;: null
+              },
+              {
+                &quot;name&quot;: &quot;probe&quot;,
+                &quot;port&quot;: 59999,
+                &quot;decision&quot;: &quot;accept&quot;,
+                &quot;source&quot;: &quot;default&quot;,
+                &quot;rule_index&quot;: null
+              }
+            ]
+          },
+          &quot;external&quot;: {
+            &quot;status&quot;: &quot;risk&quot;,
+            &quot;input_chains&quot;: [
+              {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rm_preflight_external&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;hook&quot;: &quot;input&quot;,
+                &quot;priority&quot;: 10,
+                &quot;paths&quot;: [
+                  {
+                    &quot;name&quot;: &quot;api&quot;,
+                    &quot;port&quot;: 18443,
+                    &quot;status&quot;: &quot;no_observed_input_conflict&quot;
+                  },
+                  {
+                    &quot;name&quot;: &quot;probe&quot;,
+                    &quot;port&quot;: 59999,
+                    &quot;status&quot;: &quot;risk&quot;
+                  }
+                ]
+              }
+            ],
+            &quot;unassessed_hooks&quot;: [],
+            &quot;truncated&quot;: false,
+            &quot;unassessed_object_count&quot;: 0,
+            &quot;snapshot_sha256&quot;: &quot;7c1793368a1829ac0d2467d74da39035ad5e4c6ff2179136f23f7857184273e7&quot;,
+            &quot;limitations&quot;: [
+              &quot;Point-in-time read; no exclusion against other writers&quot;,
+              &quot;Other hooks, NAT, routes, bridges, legacy iptables, eBPF and external devices are not evaluated&quot;,
+              &quot;Unsupported expressions and jumps are uncertain; no observed input conflict is not proof of reachability&quot;
+            ]
+          }
+        },
+        &quot;foreign_before_allowed_apply&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rm_preflight_external&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rm_preflight_external&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 10,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rm_preflight_external&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;ip&quot;,
+                        &quot;field&quot;: &quot;saddr&quot;
+                      }
+                    },
+                    &quot;right&quot;: &quot;127.0.0.1&quot;
+                  }
+                },
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59999
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;foreign_after_allowed_apply&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rm_preflight_external&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rm_preflight_external&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 10,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rm_preflight_external&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;ip&quot;,
+                        &quot;field&quot;: &quot;saddr&quot;
+                      }
+                    },
+                    &quot;right&quot;: &quot;127.0.0.1&quot;
+                  }
+                },
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59999
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;tcp_probe_after_unknown_condition&quot;: {
+          &quot;connected&quot;: false,
+          &quot;errno&quot;: 11
+        },
+        &quot;confirmation&quot;: {
+          &quot;old_status&quot;: 200,
+          &quot;old_confirm&quot;: 409,
+          &quot;fresh_phase&quot;: &quot;COMMITTED&quot;,
+          &quot;generation&quot;: 1
+        },
+        &quot;memory&quot;: {
+          &quot;agent_rss_bytes&quot;: 24158208,
+          &quot;agent_vmhwm_bytes&quot;: 24158208,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12439552,
+          &quot;process_identity&quot;: {
+            &quot;pid&quot;: 1719,
+            &quot;start_ticks&quot;: 1044,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;
+          },
+          &quot;main_pid_after&quot;: 1719,
+          &quot;invocation_id&quot;: &quot;7fab7304ff5c4be4855e909d1455f36d&quot;,
+          &quot;invocation_id_after&quot;: &quot;7fab7304ff5c4be4855e909d1455f36d&quot;,
+          &quot;process_namespace_inode&quot;: 4026532410,
+          &quot;target_namespace_inode&quot;: 4026532410,
+          &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
+          &quot;cwd&quot;: &quot;/&quot;,
+          &quot;python_path_environment_clean&quot;: true,
+          &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
+          &quot;sample_started_ns&quot;: 11806232338,
+          &quot;sample_finished_ns&quot;: 11818929171,
+          &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
+        },
+        &quot;own_kernel_after_allowed_apply&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59992
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;state_after_allowed_apply&quot;: {
+          &quot;phase&quot;: &quot;COMMITTED&quot;,
+          &quot;generation&quot;: 1,
+          &quot;op&quot;: &quot;guard-admitted&quot;,
+          &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
+          &quot;current&quot;: {
+            &quot;default&quot;: &quot;accept&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;port&quot;: 59992,
+                &quot;verdict&quot;: &quot;drop&quot;
+              }
+            ]
+          },
+          &quot;baseline&quot;: {
+            &quot;default&quot;: &quot;accept&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;port&quot;: 59991,
+                &quot;verdict&quot;: &quot;drop&quot;
+              }
+            ]
+          },
+          &quot;candidate&quot;: {
+            &quot;default&quot;: &quot;accept&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;port&quot;: 59992,
+                &quot;verdict&quot;: &quot;drop&quot;
+              }
+            ]
+          }
+        },
+        &quot;scope&quot;: &quot;Actual installed service in VM namespace; loopback TCP, not WAN/NAT/bridge/legacy-firewall verification&quot;
       }
     },
     {
@@ -271,8 +1162,8 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         &quot;diagnostic_reason&quot;: &quot;Unreadable journal; local operator recovery required&quot;,
         &quot;original_snapshot_preserved&quot;: true,
         &quot;mutations_rejected&quot;: true,
-        &quot;invocation_before&quot;: &quot;3aee0147bdbd4f3f81051f6f60f402f6&quot;,
-        &quot;invocation_after&quot;: &quot;3aee0147bdbd4f3f81051f6f60f402f6&quot;,
+        &quot;invocation_before&quot;: &quot;c82f070db3fc429aa556ae209c469008&quot;,
+        &quot;invocation_after&quot;: &quot;c82f070db3fc429aa556ae209c469008&quot;,
         &quot;restart_count_before&quot;: 0,
         &quot;restart_count_after&quot;: 0,
         &quot;kernel_before&quot;: [
@@ -414,25 +1305,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           }
         ],
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23339008,
-          &quot;agent_vmhwm_bytes&quot;: 23339008,
-          &quot;service_cgroup_memory_current_bytes&quot;: 11255808,
+          &quot;agent_rss_bytes&quot;: 23384064,
+          &quot;agent_vmhwm_bytes&quot;: 23384064,
+          &quot;service_cgroup_memory_current_bytes&quot;: 11272192,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 1689,
-            &quot;start_ticks&quot;: 1366,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;
+            &quot;pid&quot;: 1883,
+            &quot;start_ticks&quot;: 1247,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;
           },
-          &quot;main_pid_after&quot;: 1689,
-          &quot;invocation_id&quot;: &quot;3aee0147bdbd4f3f81051f6f60f402f6&quot;,
-          &quot;invocation_id_after&quot;: &quot;3aee0147bdbd4f3f81051f6f60f402f6&quot;,
+          &quot;main_pid_after&quot;: 1883,
+          &quot;invocation_id&quot;: &quot;c82f070db3fc429aa556ae209c469008&quot;,
+          &quot;invocation_id_after&quot;: &quot;c82f070db3fc429aa556ae209c469008&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 15988245215,
-          &quot;sample_finished_ns&quot;: 15994778465,
+          &quot;sample_started_ns&quot;: 14803998381,
+          &quot;sample_finished_ns&quot;: 14812837798,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;fixture_only_reprovision_and_token_rotation&quot;: true,
@@ -466,26 +1357,26 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;Result&quot;: &quot;exit-code&quot;,
           &quot;ExecMainStatus&quot;: &quot;1&quot;
         },
-        &quot;failure_started_monotonic_ns&quot;: 16657429215,
+        &quot;failure_started_monotonic_ns&quot;: 15380343590,
         &quot;start_limit_receipts&quot;: [
           {
             &quot;MESSAGE&quot;: &quot;rulemoor.service: Start request repeated too quickly.&quot;,
             &quot;UNIT&quot;: &quot;rulemoor.service&quot;,
-            &quot;_BOOT_ID&quot;: &quot;e6f067b2a528419f827132e35c8004d1&quot;,
-            &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;23019734&quot;
+            &quot;_BOOT_ID&quot;: &quot;a1cc1c1ab1c547b48c9443e3588c7a6e&quot;,
+            &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;21781196&quot;
           }
         ],
         &quot;observation_clock&quot;: {
           &quot;clock&quot;: &quot;monotonic_ns&quot;,
-          &quot;started_ns&quot;: 23136842677,
-          &quot;finished_ns&quot;: 25345304844
+          &quot;started_ns&quot;: 21901028343,
+          &quot;finished_ns&quot;: 24109428469
         },
-        &quot;observation_seconds&quot;: 2.208462167,
+        &quot;observation_seconds&quot;: 2.208400126,
         &quot;journal_before_failure&quot;: {
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 1,
           &quot;op&quot;: &quot;initial&quot;,
-          &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+          &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -518,7 +1409,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 1,
           &quot;op&quot;: &quot;initial&quot;,
-          &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+          &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -695,7 +1586,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 3,
             &quot;op&quot;: &quot;after-limit-new&quot;,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -728,7 +1619,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 3,
             &quot;op&quot;: &quot;after-limit-new&quot;,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -830,7 +1721,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 3,
             &quot;op&quot;: &quot;after-limit-new&quot;,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -940,25 +1831,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           ]
         },
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23937024,
-          &quot;agent_vmhwm_bytes&quot;: 23937024,
-          &quot;service_cgroup_memory_current_bytes&quot;: 12087296,
+          &quot;agent_rss_bytes&quot;: 24043520,
+          &quot;agent_vmhwm_bytes&quot;: 24043520,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12234752,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 1943,
-            &quot;start_ticks&quot;: 2536,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;
+            &quot;pid&quot;: 2135,
+            &quot;start_ticks&quot;: 2413,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;
           },
-          &quot;main_pid_after&quot;: 1943,
-          &quot;invocation_id&quot;: &quot;5e9f94cce5564d2aa45d0ad6d92c09ce&quot;,
-          &quot;invocation_id_after&quot;: &quot;5e9f94cce5564d2aa45d0ad6d92c09ce&quot;,
+          &quot;main_pid_after&quot;: 2135,
+          &quot;invocation_id&quot;: &quot;e7bf649ec23a44b48e68e4c40f990f2d&quot;,
+          &quot;invocation_id_after&quot;: &quot;e7bf649ec23a44b48e68e4c40f990f2d&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 25892695303,
-          &quot;sample_finished_ns&quot;: 25897311970,
+          &quot;sample_started_ns&quot;: 24656437344,
+          &quot;sample_finished_ns&quot;: 24661027719,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;segmentation_fault_tested&quot;: false,
@@ -982,7 +1873,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 7,
             &quot;op&quot;: &quot;after-crash-new&quot;,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -1015,7 +1906,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 7,
             &quot;op&quot;: &quot;after-crash-new&quot;,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -1117,7 +2008,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 7,
             &quot;op&quot;: &quot;after-crash-new&quot;,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -1226,33 +2117,33 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;apply&quot;
           ]
         },
-        &quot;kill_to_tls_ready_observed_ms&quot;: 1352.482126,
+        &quot;kill_to_tls_ready_observed_ms&quot;: 1336.491584,
         &quot;recovery_clock&quot;: {
           &quot;clock&quot;: &quot;monotonic_ns&quot;,
-          &quot;kill_started_ns&quot;: 26343435261,
-          &quot;tls_observed_ns&quot;: 27695917387,
-          &quot;baseline_verified_ns&quot;: 27699698304
+          &quot;kill_started_ns&quot;: 25097408594,
+          &quot;tls_observed_ns&quot;: 26433900178,
+          &quot;baseline_verified_ns&quot;: 26437421553
         },
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23916544,
-          &quot;agent_vmhwm_bytes&quot;: 23916544,
-          &quot;service_cgroup_memory_current_bytes&quot;: 12103680,
+          &quot;agent_rss_bytes&quot;: 23859200,
+          &quot;agent_vmhwm_bytes&quot;: 23859200,
+          &quot;service_cgroup_memory_current_bytes&quot;: 11997184,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 2048,
-            &quot;start_ticks&quot;: 2759,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;
+            &quot;pid&quot;: 2240,
+            &quot;start_ticks&quot;: 2635,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;
           },
-          &quot;main_pid_after&quot;: 2048,
-          &quot;invocation_id&quot;: &quot;3925c04b4ed34dc6af742bd2a9568d2f&quot;,
-          &quot;invocation_id_after&quot;: &quot;3925c04b4ed34dc6af742bd2a9568d2f&quot;,
+          &quot;main_pid_after&quot;: 2240,
+          &quot;invocation_id&quot;: &quot;43d34c998cc6461abe931fddd29bef47&quot;,
+          &quot;invocation_id_after&quot;: &quot;43d34c998cc6461abe931fddd29bef47&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 28016233637,
-          &quot;sample_finished_ns&quot;: 28020821096,
+          &quot;sample_started_ns&quot;: 26747753595,
+          &quot;sample_finished_ns&quot;: 26752471429,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;old_generation&quot;: 5,
@@ -1404,9 +2295,9 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;evidence&quot;: {
         &quot;test_only_fault_override&quot;: true,
         &quot;old_executor_identity&quot;: {
-          &quot;pid&quot;: 2158,
-          &quot;start_ticks&quot;: 2864,
-          &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;
+          &quot;pid&quot;: 2350,
+          &quot;start_ticks&quot;: 2740,
+          &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;
         },
         &quot;old_executor_retired&quot;: true,
         &quot;systemd_cgroup_restart_observed&quot;: true,
@@ -1420,7 +2311,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 10,
             &quot;op&quot;: &quot;after-held-new&quot;,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -1453,7 +2344,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 10,
             &quot;op&quot;: &quot;after-held-new&quot;,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -1555,7 +2446,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 10,
             &quot;op&quot;: &quot;after-held-new&quot;,
-            &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+            &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -1741,7 +2632,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;prepare_pending_boot&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
-        &quot;boot_id&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+        &quot;boot_id&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
         &quot;journal_pending_after_service_stop&quot;: true,
         &quot;candidate_still_installed&quot;: true,
         &quot;graceful_rollback_deliberately_bypassed&quot;: true,
@@ -1819,7 +2710,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 11,
           &quot;op&quot;: &quot;pending-before-boot&quot;,
-          &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+          &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -1855,14 +2746,14 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;after_pending_boot&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
-        &quot;boot_id_before&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
-        &quot;boot_id_after&quot;: &quot;2f1632c2-9f95-447a-8f89-d8e00fb4d233&quot;,
+        &quot;boot_id_before&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
+        &quot;boot_id_after&quot;: &quot;481104e1-34a5-48b1-944c-8065608c043a&quot;,
         &quot;pre_agent_table_absent&quot;: true,
         &quot;journal_before_agent&quot;: {
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 11,
           &quot;op&quot;: &quot;pending-before-boot&quot;,
-          &quot;boot&quot;: &quot;e6f067b2-a528-419f-8271-32e35c8004d1&quot;,
+          &quot;boot&quot;: &quot;a1cc1c1a-b1c5-47b4-8c94-43e3588c7a6e&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -1901,7 +2792,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 13,
             &quot;op&quot;: &quot;post-boot-new&quot;,
-            &quot;boot&quot;: &quot;2f1632c2-9f95-447a-8f89-d8e00fb4d233&quot;,
+            &quot;boot&quot;: &quot;481104e1-34a5-48b1-944c-8065608c043a&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -1934,7 +2825,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 13,
             &quot;op&quot;: &quot;post-boot-new&quot;,
-            &quot;boot&quot;: &quot;2f1632c2-9f95-447a-8f89-d8e00fb4d233&quot;,
+            &quot;boot&quot;: &quot;481104e1-34a5-48b1-944c-8065608c043a&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -2036,7 +2927,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 13,
             &quot;op&quot;: &quot;post-boot-new&quot;,
-            &quot;boot&quot;: &quot;2f1632c2-9f95-447a-8f89-d8e00fb4d233&quot;,
+            &quot;boot&quot;: &quot;481104e1-34a5-48b1-944c-8065608c043a&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -2145,27 +3036,27 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;apply&quot;
           ]
         },
-        &quot;vm_uptime_after_validation_seconds&quot;: 6.426718503,
+        &quot;vm_uptime_after_validation_seconds&quot;: 7.331626336,
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23867392,
-          &quot;agent_vmhwm_bytes&quot;: 23867392,
-          &quot;service_cgroup_memory_current_bytes&quot;: 12484608,
+          &quot;agent_rss_bytes&quot;: 23838720,
+          &quot;agent_vmhwm_bytes&quot;: 23838720,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12443648,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 500,
-            &quot;start_ticks&quot;: 204,
-            &quot;boot&quot;: &quot;2f1632c2-9f95-447a-8f89-d8e00fb4d233&quot;
+            &quot;pid&quot;: 501,
+            &quot;start_ticks&quot;: 274,
+            &quot;boot&quot;: &quot;481104e1-34a5-48b1-944c-8065608c043a&quot;
           },
-          &quot;main_pid_after&quot;: 500,
-          &quot;invocation_id&quot;: &quot;f492cab1800c48d8bcbec8fa95e7ba98&quot;,
-          &quot;invocation_id_after&quot;: &quot;f492cab1800c48d8bcbec8fa95e7ba98&quot;,
+          &quot;main_pid_after&quot;: 501,
+          &quot;invocation_id&quot;: &quot;7c82c85360af4831876d92ad8507afdb&quot;,
+          &quot;invocation_id_after&quot;: &quot;7c82c85360af4831876d92ad8507afdb&quot;,
           &quot;process_namespace_inode&quot;: 4026532394,
           &quot;target_namespace_inode&quot;: 4026532394,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 6426719169,
-          &quot;sample_finished_ns&quot;: 6432610586,
+          &quot;sample_started_ns&quot;: 7331626836,
+          &quot;sample_finished_ns&quot;: 7336463127,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;old_generation&quot;: 11,
@@ -2315,14 +3206,14 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;after_committed_boot&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
-        &quot;boot_id_before&quot;: &quot;2f1632c2-9f95-447a-8f89-d8e00fb4d233&quot;,
-        &quot;boot_id_after&quot;: &quot;f8c682d3-0640-4d77-8a87-aa2c4e306230&quot;,
+        &quot;boot_id_before&quot;: &quot;481104e1-34a5-48b1-944c-8065608c043a&quot;,
+        &quot;boot_id_after&quot;: &quot;38025ad0-7f3a-4337-9a32-5d85c9ac9cdb&quot;,
         &quot;pre_agent_table_absent&quot;: true,
         &quot;journal_before_agent&quot;: {
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 13,
           &quot;op&quot;: &quot;post-boot-new&quot;,
-          &quot;boot&quot;: &quot;2f1632c2-9f95-447a-8f89-d8e00fb4d233&quot;,
+          &quot;boot&quot;: &quot;481104e1-34a5-48b1-944c-8065608c043a&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -2356,25 +3247,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         &quot;old_base_rejected&quot;: true,
         &quot;same_boot_foreign_policy_preserved&quot;: true,
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23252992,
-          &quot;agent_vmhwm_bytes&quot;: 23252992,
-          &quot;service_cgroup_memory_current_bytes&quot;: 11538432,
+          &quot;agent_rss_bytes&quot;: 23273472,
+          &quot;agent_vmhwm_bytes&quot;: 23273472,
+          &quot;service_cgroup_memory_current_bytes&quot;: 11567104,
           &quot;process_identity&quot;: {
             &quot;pid&quot;: 501,
-            &quot;start_ticks&quot;: 304,
-            &quot;boot&quot;: &quot;f8c682d3-0640-4d77-8a87-aa2c4e306230&quot;
+            &quot;start_ticks&quot;: 292,
+            &quot;boot&quot;: &quot;38025ad0-7f3a-4337-9a32-5d85c9ac9cdb&quot;
           },
           &quot;main_pid_after&quot;: 501,
-          &quot;invocation_id&quot;: &quot;f4e30645914d4a658960f719f632491c&quot;,
-          &quot;invocation_id_after&quot;: &quot;f4e30645914d4a658960f719f632491c&quot;,
+          &quot;invocation_id&quot;: &quot;6297c02ed4fd4224bcd7caefece682ad&quot;,
+          &quot;invocation_id_after&quot;: &quot;6297c02ed4fd4224bcd7caefece682ad&quot;,
           &quot;process_namespace_inode&quot;: 4026532394,
           &quot;target_namespace_inode&quot;: 4026532394,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 7101620627,
-          &quot;sample_finished_ns&quot;: 7106853752,
+          &quot;sample_started_ns&quot;: 7109615794,
+          &quot;sample_finished_ns&quot;: 7114640919,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;memory_stage&quot;: &quot;committed_after_boot_before_foreign_policy_probe&quot;,
@@ -2493,19 +3384,19 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
     }
   ],
   &quot;vm_initial_state&quot;: &quot;Stopped&quot;,
-  &quot;wheel_sha256&quot;: &quot;c9d711c520de71f81a62e26cada17f956ace6865cdde55e17673a63eaf247d48&quot;,
+  &quot;wheel_sha256&quot;: &quot;8f027a9f14820e3acb9eb002d37e873830ab2431355e14daa584675e30d1bf1f&quot;,
   &quot;pending_vm_restart_clock&quot;: {
     &quot;clock&quot;: &quot;monotonic_ns&quot;,
-    &quot;started_ns&quot;: 65052217390125,
-    &quot;finished_ns&quot;: 65063848559708
+    &quot;started_ns&quot;: 67358763675916,
+    &quot;finished_ns&quot;: 67371369494125
   },
-  &quot;pending_vm_restart_control_seconds&quot;: 11.631169583,
+  &quot;pending_vm_restart_control_seconds&quot;: 12.605818209,
   &quot;committed_vm_restart_clock&quot;: {
     &quot;clock&quot;: &quot;monotonic_ns&quot;,
-    &quot;started_ns&quot;: 65063848562958,
-    &quot;finished_ns&quot;: 65076158066500
+    &quot;started_ns&quot;: 67371369497541,
+    &quot;finished_ns&quot;: 67383807530750
   },
-  &quot;committed_vm_restart_control_seconds&quot;: 12.309503542,
+  &quot;committed_vm_restart_control_seconds&quot;: 12.438033209,
   &quot;source_snapshot_removed&quot;: true,
   &quot;vm_final_state&quot;: &quot;Stopped&quot;,
   &quot;evidence_controls&quot;: [
@@ -2591,6 +3482,26 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
     },
     {
       &quot;name&quot;: &quot;wrong-poison-invocation&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;guard-admitted&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;foreign-rule-modified&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;uncertainty-hidden&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;old-confirmation-admitted&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;false-tcp-observation&quot;,
       &quot;rejected&quot;: true
     }
   ]

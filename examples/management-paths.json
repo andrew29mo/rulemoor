@@ -1,0 +1,6 @@
+{
+  "paths": [
+    {"name": "rulemoor-api", "port": 18443},
+    {"name": "ssh", "port": 22}
+  ]
+}

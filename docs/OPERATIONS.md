@@ -12,6 +12,10 @@ Create `/var/lib/rulemoor` owned by the service user with mode 0700. First initi
 
 The supplied `deploy/rulemoor.service` binds loopback by default. Review its management bind address and certificate before enabling remote operation. Copy it into the target's service-manager directory only after reviewing paths and permissions. The unit has been exercised under actual systemd, with a test-only network-namespace dependency/drop-in, in the retained isolated Linux VM deployment suite. This is not validation of every host’s boot/network/firewall ordering. It restarts failed processes, clears fault-test hooks, limits privileges to the backend requirements and uses a private state directory. The process lock is advisory, not a boundary against root.
 
+## Management-path preflight
+
+[Management preflight](MANAGEMENT_PREFLIGHT.md) is opt-in via `serve --management-paths FILE`; the sample unit remains compatible without it. Configure actual local IPv4 TCP destination ports, not a guessed client socket or public NAT port. A new apply that drops one is refused; foreign rules are inspected only and uncertain/conflicting results remain warnings. Plan/accepted apply responses include diagnostics, while fresh TLS confirmation remains mandatory. Configuration changes require a reviewed restart, and rollback/startup recovery are not blocked by this guard.
+
 ## Normal change procedure
 
 1. `status`: verify a terminal state and the expected base generation.

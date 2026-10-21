@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import secrets
+import selectors
 import re
 import signal
 import subprocess
@@ -71,6 +72,29 @@ class NftBackend:
                 return None
             raise RuntimeError('Cannot read nft table')
         return canonical(json.loads(r.stdout))
+
+    def inspect_ruleset(self):
+        # Never collect an unbounded host ruleset in memory or write it to reports.
+        p = subprocess.Popen(['nft', '-j', '-s', 'list', 'ruleset'], stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        data=bytearray(); end=time.monotonic()+2
+        try:
+            with selectors.DefaultSelector() as selector:
+                selector.register(p.stdout,selectors.EVENT_READ)
+                while True:
+                    if time.monotonic()>=end: raise RuntimeError('Ruleset inspection timed out')
+                    if not selector.select(min(.05,max(0,end-time.monotonic()))): continue
+                    chunk=os.read(p.stdout.fileno(),16384)
+                    if not chunk: break
+                    data.extend(chunk)
+                    if len(data)>1024*1024: raise RuntimeError('Ruleset inspection exceeded 1 MiB')
+            p.wait(timeout=max(.001,end-time.monotonic()))
+            if p.returncode: raise RuntimeError('Ruleset inspection failed')
+            return json.loads(data)
+        except subprocess.TimeoutExpired:
+            raise RuntimeError('Ruleset inspection timed out') from None
+        finally:
+            if p.poll() is None: p.kill()
+            p.wait(timeout=2);p.stdout.close()
 
     def check(self, policy, replace=True):
         self._direct(compile_policy(policy, replace), True)

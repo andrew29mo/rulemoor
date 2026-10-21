@@ -1,97 +1,139 @@
 {
   "schema": 1,
-  "run_id": "96508b08bb2e0723",
+  "run_id": "4447fa732873e1a8",
   "passed": true,
-  "source_sha256": "2577be96c26b221f1f07cad8c4c4bcffaca12c9f9198bc4a7ff0f13d99f3f80c",
+  "source_sha256": "decbbbc637af274add41fc1eb3c4e4b58159a331907eb6247956b29da7425561",
   "source_changed": false,
   "stages": [
     {
       "name": "native-contracts",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.466503625000769
+      "seconds": 4.740504458008218
     },
     {
       "name": "production-mutations",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.4631095840013586
+      "seconds": 5.471845292006037
     },
     {
       "name": "vm-initial",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.21760770899709314
+      "seconds": 0.27016437498969026
     },
     {
       "name": "vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 11.912599041999783
+      "seconds": 9.367360165997525
     },
     {
       "name": "image-build",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.7662752079995698
+      "seconds": 1.6869264579872834
     },
     {
       "name": "image-inspect",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.020835292001720518
+      "seconds": 0.02114945799985435
     },
     {
       "name": "container-create",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.028641333999985363
+      "seconds": 0.031797999996342696
     },
     {
       "name": "container-inspect",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.011658000003080815
+      "seconds": 0.011378459006664343
     },
     {
       "name": "linux-run",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 27.09472166699561
+      "seconds": 29.190757375006797
     },
     {
       "name": "container-state",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.012913500002468936
+      "seconds": 0.017038707999745384
     },
     {
       "name": "export",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.017128874998888932
+      "seconds": 0.022035332993254997
     },
     {
       "name": "container-remove",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.019498916000884492
+      "seconds": 0.020361625007353723
     },
     {
       "name": "vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.2203968340036226
+      "seconds": 2.3578439999982947
     },
     {
       "name": "vm-final",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.19455104200460482
+      "seconds": 0.26283008299651556
     }
   ],
   "scope": "Native macOS portable contracts + Colima Linux real kernel",
   "production_mutations": [
+    {
+      "name": "accept-null-file-configuration",
+      "test": "tests.test_diagnostics.DiagnosticTests.test_configuration_is_strict_bounded_and_copied",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "hide-unknown-actions-behind-nonmatch",
+      "test": "tests.test_diagnostics.DiagnosticTests.test_unknown_condition_cannot_hide_possible_drop",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "skip-management-admission",
+      "test": "tests.test_diagnostics.DiagnosticTests.test_first_match_and_default_guard_preserve_journal_and_kernel",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "ignore-external-uncertainty",
+      "test": "tests.test_diagnostics.DiagnosticTests.test_unknown_condition_cannot_hide_possible_drop",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "ignore-first-terminal-verdict",
+      "test": "tests.test_diagnostics.DiagnosticTests.test_first_verdict_and_new_connection_semantics",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "unbounded-ruleset-output",
+      "test": "tests.test_diagnostics.DiagnosticTests.test_ruleset_reader_bounds_bytes_timeout_and_nonzero_and_reaps",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
     {
       "name": "reserve-initial-operation-id",
       "test": "tests.test_startup_state.StartupStateTests.test_initial_operation_id_pending_restart_restores_baseline",
@@ -214,7 +256,7 @@
   ],
   "vm_initial_state": "Stopped",
   "image": {
-    "Id": "sha256:cbd2c34a4348c1034db918ddccb1a9db91b2e9e657cadac48ae238cc9504d1b2",
+    "Id": "sha256:8aedbb5711c9749f9a9615ea24b24e7f08d0ef649ecc2ec3463f2d46af54e37b",
     "Architecture": "arm64",
     "Os": "linux"
   },

@@ -256,6 +256,91 @@ MemoryAccounting=yes
             'boot_id': boot_id(), 'memory': memory()}
 
 
+def management_diagnostics():
+    """Configured production service: admission, foreign-rule diagnosis and real TCP."""
+    config=CONFIG/'management-paths.json'
+    config.write_text(json.dumps({'paths':[{'name':'api','port':18443},{'name':'probe','port':59999}]}))
+    drop=Path('/etc/systemd/system/rulemoor.service.d/20-management-paths.conf')
+    executable=next(line for line in Path('/etc/systemd/system/rulemoor.service').read_text().splitlines() if line.startswith('ExecStart='))
+    drop.write_text('[Service]\nExecStart=\n'+executable+' --management-paths /etc/rulemoor/management-paths.json\n')
+    cmd(['systemctl','daemon-reload']);cmd(['systemctl','reset-failed',UNIT]);cmd(['systemctl','restart',UNIT]);ready('COMMITTED')
+    listener=subprocess.Popen(['ip','netns','exec',NS,PYTHON,'-c',
+        'import socket;s=socket.socket();s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);s.bind(("127.0.0.1",59999));s.listen();\nwhile True:\n c,a=s.accept();c.close()'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    table='rm_preflight_external'
+    def foreign():
+        return canonical(json.loads(cmd(['ip','netns','exec',NS,'nft','-j','-s','list','table','ip',table]).stdout))
+    def install(priority,rule):
+        cmd(['ip','netns','exec',NS,'nft','delete','table','ip',table],check=False)
+        cmd(['ip','netns','exec',NS,'nft','-f','-'],input=f'table ip {table} {{\n chain input {{\n type filter hook input priority {priority}; policy accept;\n {rule}\n }}\n}}\n')
+    def probe():
+        code='import socket,json;s=socket.socket();s.settimeout(.25);e=s.connect_ex(("127.0.0.1",59999));s.close();print(json.dumps({"connected":e==0,"errno":e}))'
+        return json.loads(cmd(['ip','netns','exec',NS,PYTHON,'-c',code]).stdout)
+    try:
+        wait(lambda: probe()['connected']);before_probe=probe()
+        own_before=kernel();state_before=project(request())
+        plan=request('/plan',{'policy':BLOCK})
+        assert plan['diagnostics']['own_policy']['status']=='blocked'
+        request('/apply',{'op':'guard-denied','generation':state_before['generation'],'policy':BLOCK,'window':30},rejected=True)
+        own_after_denial=kernel();state_after=project(request())
+        assert own_before==own_after_denial==expected(BASE) and state_before==state_after
+        ordered={'default':'drop','rules':[{'port':18443,'verdict':'accept'},{'port':59999,'verdict':'accept'},{'port':18443,'verdict':'drop'}]}
+        ordered_plan=request('/plan',{'policy':ordered})
+        assert ordered_plan['diagnostics']['own_policy']['status']=='allowed'
+        observations=[]
+        for priority in (-100,10):
+            install(priority,'tcp dport 59999 drop')
+            original=foreign();blocked_probe=probe();assert not blocked_probe['connected']
+            began=time.monotonic_ns()
+            diag=request('/plan',{'policy':BASE})['diagnostics'];ended=time.monotonic_ns()
+            assert diag['external']['status']=='blocked' and not diag['reachability_verified']
+            assert diag['fresh_connection_confirmation_required']
+            assert foreign()==original
+            observations.append({'priority':priority,'diagnostics':diag,'foreign_before':original,'foreign_after':foreign(),'tcp_probe':blocked_probe,
+                                 'plan_clock':{'clock':'monotonic_ns','started_ns':began,'finished_ns':ended},'plan_observed_ms':(ended-began)/1e6})
+        install(10,'ip saddr 127.0.0.1 tcp dport 59999 drop')
+        original=foreign();uncertain=request('/plan',{'policy':BASE})['diagnostics']
+        assert uncertain['external']['status']=='risk' and not uncertain['reachability_verified']
+        # Keep an actual TLS connection open across an admitted change. Production
+        # CLI transport must confirm over a fresh connection; the old one gets 409.
+        code='''import http.client,json,ssl
+from pathlib import Path
+from rulemoor.cli import request
+base='https://127.0.0.1:18443';ca='/etc/rulemoor/server.pem';token=Path('/etc/rulemoor/token').read_text().strip()
+def call(path,payload=None):return request(base,ca,token,path,payload)
+c=http.client.HTTPSConnection('127.0.0.1',18443,context=ssl.create_default_context(cafile=ca),timeout=4)
+headers={'Authorization':'Bearer '+token,'Content-Type':'application/json'}
+c.request('GET','/status',headers=headers);r=c.getresponse();old_status=r.status;r.read()
+s=call('/status');p={'op':'guard-admitted','generation':s['generation'],'policy':{'default':'accept','rules':[{'port':59992,'verdict':'drop'}]},'window':60}
+pending=call('/apply',p);payload={k:pending[k] for k in ('op','generation','candidate_digest','challenge')}
+c.request('POST','/confirm',body=json.dumps(payload),headers=headers);r=c.getresponse();old_confirm=r.status;r.read();c.close()
+committed=call('/confirm',payload)
+print(json.dumps({'old_status':old_status,'old_confirm':old_confirm,'fresh_phase':committed['phase'],'generation':committed['generation']}))
+'''
+        freshness=json.loads(cmd(['ip','netns','exec',NS,PYTHON,'-c',code],cwd='/',timeout=15).stdout)
+        assert freshness['old_status']==200 and freshness['old_confirm']==409 and freshness['fresh_phase']=='COMMITTED'
+        allowed_kernel=kernel();allowed_state=project(request())
+        assert allowed_kernel==expected(NEXT) and foreign()==original
+        uncertain_after=foreign();still_blocked=probe();assert not still_blocked['connected']
+        sample=memory()
+        confirm(apply('after-diagnostics-baseline',BASE));assert kernel()==expected(BASE)
+        return {'configuration':'explicit-local-ipv4-tcp-ports','supported_configuration_override':True,
+                'denied_plan':plan['diagnostics'],'ordered_plan':ordered_plan['diagnostics'],
+                'state_before_denial':state_before,'state_after_denial':state_after,
+                'own_kernel_before':own_before,'own_kernel_after_denial':own_after_denial,
+                'tcp_probe_before_foreign_drop':before_probe,'foreign_priority_cases':observations,
+                'unsupported_condition':uncertain,'foreign_before_allowed_apply':original,'foreign_after_allowed_apply':uncertain_after,
+                'tcp_probe_after_unknown_condition':still_blocked,'confirmation':freshness,'memory':sample,
+                'own_kernel_after_allowed_apply':allowed_kernel,'state_after_allowed_apply':allowed_state,
+                'scope':'Actual installed service in VM namespace; loopback TCP, not WAN/NAT/bridge/legacy-firewall verification'}
+    finally:
+        cmd(['ip','netns','exec',NS,'nft','delete','table','ip',table],check=False)
+        listener.terminate()
+        try:listener.wait(timeout=2)
+        except subprocess.TimeoutExpired:listener.kill();listener.wait(timeout=2)
+        drop.unlink(missing_ok=True);config.unlink(missing_ok=True)
+        cmd(['systemctl','daemon-reload']);cmd(['systemctl','reset-failed',UNIT]);cmd(['systemctl','restart',UNIT]);ready()
+
+
 def poisoned_journal():
     """Known malformed state stays diagnostic; fixture reprovision is explicit."""
     import sqlite3
@@ -506,7 +591,7 @@ def cleanup():
 
 
 def main():
-    p = argparse.ArgumentParser(); p.add_argument('phase', choices=['setup','topology','poisoned_journal','restart_limit','crash','held_writer','prepare_pending_boot','after_pending_boot','after_committed_boot','cleanup'])
+    p = argparse.ArgumentParser(); p.add_argument('phase', choices=['setup','topology','management_diagnostics','poisoned_journal','restart_limit','crash','held_writer','prepare_pending_boot','after_pending_boot','after_committed_boot','cleanup'])
     a = p.parse_args(); assert os.geteuid() == 0
     result = globals()[a.phase]()
     if result is not None:

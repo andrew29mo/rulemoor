@@ -11,7 +11,8 @@ import threading
 import time
 import socket
 from .backend import NftBackend
-from .core import Controller, Conflict
+from .core import Controller, Conflict, PreflightRejected
+from .diagnostics import load_paths
 
 MAX_BODY = 16384
 MAX_CONNECTION_SECONDS = 5.0
@@ -173,6 +174,8 @@ class Handler(BaseHTTPRequestHandler):
             if set(data) != keys:
                 raise ValueError('Unexpected or missing request fields')
             self.answer(200, action())
+        except PreflightRejected as exc:
+            self.answer(409, {'error': str(exc), 'diagnostics':exc.diagnostics})
         except Conflict as exc:
             self.answer(409, {'error': str(exc)})
         except (ValueError, TypeError, KeyError) as exc:
@@ -195,11 +198,13 @@ def main():
     serve.add_argument('--cert', required=True)
     serve.add_argument('--key', required=True)
     serve.add_argument('--token-file', required=True)
+    serve.add_argument('--management-paths', help='Optional bounded JSON configuration of protected local IPv4 TCP ports')
     a = p.parse_args()
     if os.name != 'posix' or not hasattr(time, 'CLOCK_BOOTTIME') or not hasattr(os, 'pidfd_open'):
         p.error('The agent requires Linux CLOCK_BOOTTIME and pidfd support')
     os.umask(0o077)
-    c = Controller(a.state, NftBackend())
+    paths = load_paths(a.management_paths) if a.action=='serve' and a.management_paths else None
+    c = Controller(a.state, NftBackend(), management_paths=paths)
     server = None
     try:
         if a.action == 'init':

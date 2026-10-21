@@ -13,6 +13,7 @@ The practical use case is a remotely managed Linux machine where an incorrect TC
 - CLI and TLS API with a provisioned certificate and a shared operator bearer token. No plaintext API or certificate-verification bypass in the CLI.
 - Durable intent, bounded operation history, explicit confirmation/cancellation, deadline rollback and process-restart recovery.
 - Bounded persisted-state validation rejects malformed snapshots before process fencing or kernel writes; the original evidence remains intact.
+- Optional declared management-port preflight rejects candidates that block those NEW IPv4 TCP paths; read-only foreign nftables diagnostics report supported conflicts and uncertainty. [Enable and understand the limits](docs/MANAGEMENT_PREFLIGHT.md).
 - Unknown rules or uncertain ownership become `DEGRADED`, which blocks further changes rather than blindly overwriting them.
 
 ## Quick start
@@ -53,6 +54,8 @@ On a disposable Linux machine or network namespace, provision a private state di
   --ca /secure/server-ca.pem --token-file /secure/operator-token \
   confirm --op change-001 --generation 1
 ```
+
+To enable protected-port admission and foreign-rule diagnostics, provision the [management-path configuration](examples/management-paths.json) and add `--management-paths /etc/rulemoor/management-paths.json` to `serve`. Without it the report explicitly says `not_configured`; no path protection is inferred.
 
 Each CLI invocation uses new TLS connections. Confirmation verifies operation ID, generation, candidate digest, challenge, boot ID, deadline and connection freshness. A successful confirmation proves one management path only. An old keepalive or TCP connection queued before application is insufficient.
 

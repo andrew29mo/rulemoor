@@ -1,6 +1,6 @@
 # Agent-assisted startup and recovery review — 2026-10-21
 
-Reviewed starting commit: `1bdc75c`. Two read-only reviewers independently inspected production startup/stale-operation behavior and installed-service/report evidence. The main agent reproduced the findings, implemented the fixes and ran the system tests. Their agreement is not substituted for execution evidence; follow-up review of known fixes is not described as another blind review.
+Reviewed starting commit: `1bdc75c`. This records the startup review before the later management-preflight feature; latest executable-source evidence is in [deployment validation](DEPLOYMENT_VALIDATION.md). Two read-only reviewers independently inspected production startup/stale-operation behavior and installed-service/report evidence. The main agent reproduced the findings, implemented the fixes and ran the system tests. Their agreement is not substituted for execution evidence; follow-up review of known fixes is not described as another blind review.
 
 ## Findings and corrections
 
@@ -11,13 +11,13 @@ Reviewed starting commit: `1bdc75c`. Two read-only reviewers independently inspe
 
 The three new production regression methods produced six assertion failures against the prior implementation (two ID paths plus four inconsistent-baseline phases). Reverting initialization classification or removing the baseline/current guard is caught by an assertion mutation. A report regression separately challenges clock/boot boundaries. Three new evidence-corruption controls replace receipt timing, boot and invocation with inconsistent values; all must be rejected.
 
-## Current execution evidence
+## Execution evidence for this review (historical)
 
 - Same executable snapshot `2577be96c26b221f1f07cad8c4c4bcffaca12c9f9198bc4a7ff0f13d99f3f80c`: native macOS and Linux each pass **70 tests**, with no skips; **17 production mutations** are caught by assertions.
 - All **8 container Linux groups** and **17 container evidence controls** pass; installed production systemd execution separately passes **9 groups** and **21 evidence controls**.
 - Native/container run `96508b08bb2e0723`; installed-service VM run `436c8a5408819100`. Installed package hashes, complete stages, monotonic intervals, kernel readbacks, generations, stale-request traces and exact HTML/JSON equality are audited.
 - The pending journal is read on the new boot before Agent startup and compared with its pre-shutdown value. This distinguishes startup recovery from a rollback completed during orderly shutdown.
-- Both workflows clean up their fixtures and stop the VM. Private host logs, credentials, state databases and VM files stay ignored/local. Current metrics are recomputed from every retained trial; run-to-run differences are not described as improvements.
+- Both workflows clean up their fixtures and stop the VM. Private host logs, credentials, state databases and VM files stay ignored/local. Metrics in that run were recomputed from every retained trial; run-to-run differences are not described as improvements.
 
 ## Operational limits
 

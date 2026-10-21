@@ -81,6 +81,27 @@
     "run_id": "436c8a5408819100",
     "passed": true,
     "source_sha256": "2577be96c26b221f1f07cad8c4c4bcffaca12c9f9198bc4a7ff0f13d99f3f80c",
-    "note": "Current agent-reviewed source: nine actual-systemd groups, twenty-one corruption controls, legal initial-ID pending recovery and stale-request checks, fault-window-bounded receipts and boot/invocation-attributed memory. Two orderly boots; power loss/native segfault/hung I/O not tested."
+    "note": "Historical agent-reviewed source: nine actual-systemd groups, twenty-one corruption controls, legal initial-ID pending recovery and stale-request checks, fault-window-bounded receipts and boot/invocation-attributed memory. Two orderly boots; power loss/native segfault/hung I/O not tested. Superseded by configured management preflight."
+  },
+  {
+    "attempt": "management-preflight-initial",
+    "run_id": "ba47c0314a2bfbf8",
+    "passed": false,
+    "source_sha256": "e4c0b9bcc956faeeedce764f25b4989e32d0e28eb5505bae1176ebcae821592b",
+    "note": "Failed on disposable foreign-table fixture syntax before foreign-rule assertions. Production guard/ordered-plan probes had run, but no complete pass claimed. Cleanup succeeded and VM stopped; fixed fixture newlines before rerun."
+  },
+  {
+    "attempt": "management-preflight-20261021",
+    "run_id": "99904431cac27475",
+    "passed": true,
+    "source_sha256": "c3b7017db8c93be14202f8bdc86c7a159308ef46d8aec7b95e2ca2cc35e2163b",
+    "note": "Historical management-preflight source: ten installed-systemd groups, twenty-six evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim. Superseded by final conservative null-configuration and unknown-action handling."
+  },
+  {
+    "attempt": "management-preflight-final-20261021",
+    "run_id": "c1431001b6cffb89",
+    "passed": true,
+    "source_sha256": "decbbbc637af274add41fc1eb3c4e4b58159a331907eb6247956b29da7425561",
+    "note": "Current management-preflight source: ten installed-systemd groups, twenty-six evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim."
   }
 ]

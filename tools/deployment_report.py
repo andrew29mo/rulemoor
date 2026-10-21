@@ -7,16 +7,16 @@ from .evidence import fingerprint
 from .deployment_guest import BASE, NEXT, NEW
 from rulemoor.policy import expected
 
-PHASES = ['setup', 'poisoned_journal', 'restart_limit', 'crash', 'held_writer', 'prepare_pending_boot', 'after_pending_boot', 'after_committed_boot', 'cleanup']
+PHASES = ['setup', 'management_diagnostics', 'poisoned_journal', 'restart_limit', 'crash', 'held_writer', 'prepare_pending_boot', 'after_pending_boot', 'after_committed_boot', 'cleanup']
 
 STAGES = ['vm-initial','vm-start','preflight','guest-prerequisites','wheel-build','snapshot-upload',
-          'guest-setup','guest-poisoned_journal','guest-restart_limit','guest-crash','guest-held_writer','guest-prepare_pending_boot',
+          'guest-setup','guest-management_diagnostics','guest-poisoned_journal','guest-restart_limit','guest-crash','guest-held_writer','guest-prepare_pending_boot',
           'pending-vm-stop','pending-vm-start','guest-after_pending_boot',
           'committed-vm-stop','committed-vm-start','guest-after_committed_boot',
           'guest-cleanup','snapshot-remove','vm-final-stop','vm-final']
 CONTROL_NAMES = ['boot-identity','missing-case','stale-kernel','missing-cleanup','timeout','source',
                  'missing-stage','wrong-package-origin','wrong-preboot-journal','stale-pending-generation',
-                 'infinite-timing','missing-vm-interval','memory-identity','invalid-memory','poison-kernel-write','restart-still-running','failed-journal-changed','missing-limit-receipt','future-limit-receipt','unrelated-startup-memory','wrong-poison-invocation']
+                 'infinite-timing','missing-vm-interval','memory-identity','invalid-memory','poison-kernel-write','restart-still-running','failed-journal-changed','missing-limit-receipt','future-limit-receipt','unrelated-startup-memory','wrong-poison-invocation','guard-admitted','foreign-rule-modified','uncertainty-hidden','old-confirmation-admitted','false-tcp-observation']
 
 
 def positive(value):
@@ -71,6 +71,38 @@ def stale_trace(t, policy, require_confirmation):
 
 
 
+def preflight_evidence(row, boot):
+    assert row['configuration']=='explicit-local-ipv4-tcp-ports' and row['supported_configuration_override']
+    for diag in [row['denied_plan'],row['ordered_plan'],row['unsupported_condition'],*[r['diagnostics'] for r in row['foreign_priority_cases']]]:
+        assert diag['configuration']=='configured' and diag['fresh_connection_confirmation_required'] is True and diag['reachability_verified'] is False
+        assert diag['schema']==1 and [p['port'] for p in diag['own_policy']['paths']]==[18443,59999]
+    assert row['denied_plan']['own_policy']['status']=='blocked'
+    assert row['ordered_plan']['own_policy']['status']=='allowed'
+    assert row['state_before_denial']==row['state_after_denial']
+    assert row['state_before_denial']['phase']=='COMMITTED'
+    assert row['own_kernel_before']==row['own_kernel_after_denial']==expected(BASE)
+    assert row['tcp_probe_before_foreign_drop']['connected'] is True and row['tcp_probe_before_foreign_drop']['errno']==0
+    assert [r['priority'] for r in row['foreign_priority_cases']]==[-100,10]
+    for case in row['foreign_priority_cases']:
+        assert case['foreign_before']==case['foreign_after'] and case['foreign_before']
+        chain=next(r['chain'] for r in case['foreign_before'] if 'chain' in r)
+        assert chain['prio']==case['priority'] and chain['table']=='rm_preflight_external' and chain['hook']=='input'
+        rule=next(r['rule'] for r in case['foreign_before'] if 'rule' in r)
+        assert rule['expr']==[{'match':{'op':'==','left':{'payload':{'protocol':'tcp','field':'dport'}},'right':59999}},{'drop':None}]
+        assert case['diagnostics']['external']['status']=='blocked'
+        found=next(c for c in case['diagnostics']['external']['input_chains'] if c['table']=='rm_preflight_external')
+        assert found['priority']==case['priority'] and [p['status'] for p in found['paths']]==['no_observed_input_conflict','blocked']
+        assert case['tcp_probe']['connected'] is False and type(case['tcp_probe']['errno']) is int and case['tcp_probe']['errno']!=0
+        interval(case['plan_clock'],case['plan_observed_ms']/1000)
+    assert row['unsupported_condition']['external']['status']=='risk'
+    assert row['foreign_before_allowed_apply']==row['foreign_after_allowed_apply'] and row['foreign_before_allowed_apply']
+    assert row['tcp_probe_after_unknown_condition']['connected'] is False and row['tcp_probe_after_unknown_condition']['errno']!=0
+    c=row['confirmation'];assert c['old_status']==200 and c['old_confirm']==409 and c['fresh_phase']=='COMMITTED'
+    s=row['state_after_allowed_apply'];assert s['phase']=='COMMITTED' and s['generation']==c['generation']>row['state_before_denial']['generation']
+    assert row['own_kernel_after_allowed_apply']==expected(NEXT)
+    memory_sample(row['memory']);assert row['memory']['process_identity']['boot']==boot
+
+
 def verify(value, source):
     assert value['passed'] is True and value['source'] == source
     assert value['source_sha256'] == fingerprint(source) and not value['source_changed']
@@ -93,6 +125,7 @@ def verify(value, source):
     p = setup['unit_properties']
     assert p['Restart'] == 'on-failure' and p['KillMode'] == 'control-group' and p['NoNewPrivileges'] == 'yes'
     assert p['NetworkNamespacePath'] == '/run/netns/rm_deployment'
+    preflight_evidence(rows['management_diagnostics'],setup['boot_id'])
     poison, limited = rows['poisoned_journal'], rows['restart_limit']
     assert poison['diagnostic_phase']=='DEGRADED' and poison['original_snapshot_preserved'] and poison['mutations_rejected']
     assert poison['invocation_before']==poison['invocation_after']
@@ -198,6 +231,11 @@ def negative_controls(value, source):
         elif name=='future-limit-receipt':by_name['restart_limit']['start_limit_receipts'][0]['__MONOTONIC_TIMESTAMP']=str(10**30)
         elif name=='unrelated-startup-memory':by_name['restart_limit']['memory']['process_identity']['boot']='other-boot'
         elif name=='wrong-poison-invocation':by_name['poisoned_journal']['memory']['invocation_id']=by_name['poisoned_journal']['memory']['invocation_id_after']='other-invocation'
+        elif name=='guard-admitted':by_name['management_diagnostics']['denied_plan']['own_policy']['status']='allowed'
+        elif name=='foreign-rule-modified':by_name['management_diagnostics']['foreign_priority_cases'][0]['foreign_after']=[]
+        elif name=='uncertainty-hidden':by_name['management_diagnostics']['unsupported_condition']['external']['status']='no_observed_input_conflict'
+        elif name=='old-confirmation-admitted':by_name['management_diagnostics']['confirmation']['old_confirm']=200
+        elif name=='false-tcp-observation':by_name['management_diagnostics']['foreign_priority_cases'][0]['tcp_probe']['connected']=True
         elif name=='failed-journal-changed':by_name['restart_limit']['journal_while_failed']['phase']='ROLLED_BACK'
         try:verify(broken,source)
         except (AssertionError,KeyError):rows.append({'name':name,'rejected':True})
@@ -209,6 +247,8 @@ def render(value):
     rows = ''.join('<tr><td>' + html.escape(r['name']) + '</td><td>' + ('PASS' if r['passed'] else 'FAIL') + '</td></tr>' for r in value.get('cases', []))
     observations = ''
     by_name = {r['name']: r.get('evidence', {}) for r in value.get('cases', []) if r['passed']}
+    if 'management_diagnostics' in by_name:
+        observations += '<p>Configured management-port denial was rejected before mutation. Earlier/later foreign input drops were diagnosed and tested with real TCP; unsupported conditions remained risk. Foreign rules were unchanged. Old TLS confirmation was rejected; a fresh connection confirmed. These are namespace-local checks, not route/WAN reachability proof. Plan observations include CLI process and namespace overhead.</p>'
     if 'poisoned_journal' in by_name:
         observations += '<p>Malformed snapshot: DEGRADED; original data and kernel policy preserved. Test-only local reprovision is not automatic repair.</p>'
     if 'restart_limit' in by_name:

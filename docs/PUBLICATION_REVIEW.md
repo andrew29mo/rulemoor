@@ -4,9 +4,9 @@ Status: code, tests, documentation and current local evidence reconciled. The ow
 
 ## Current evidence
 
-- Native macOS and Linux each pass **70** production-core/API/tool tests from the same immutable executable snapshot. Portable kernel behavior is represented by a memory backend; actual nftables/network evidence comes from the Linux VM case groups.
+- Native macOS and Linux each pass **81** production-core/API/tool tests from the same immutable executable snapshot. Portable kernel behavior is represented by a memory backend; actual nftables/network evidence comes from the Linux VM case groups.
 - All **eight** real Linux nft/netns/TLS groups pass: atomicity, management connectivity, six crash boundaries/two foreign-policy cases, process recovery, backlog/response loss, storage faults, finite slow clients and measurement.
-- **Seventeen** production mutations are caught by assertion failures; **seventeen** malformed or missing-evidence controls are rejected. Optimized validation is refused rather than silently removing assertions.
+- **Twenty-three** production mutations are caught by assertion failures; **seventeen** malformed or missing-evidence controls are rejected. Optimized validation is refused rather than silently removing assertions.
 - Source fingerprints, individual test IDs, run IDs, raw trials, summary recomputation and exact HTML/JSON consistency are rechecked by `tools.audit_evidence`.
 - Both test namespaces have zero remaining workers after each case, before subsequent tests or measurements. Final namespace/container cleanup, unchanged container-root firewall and stopped VM are verified.
 - Built wheel modules are compared with the validated checkout; wheel and source distributions are checked for MIT metadata and matching license/notice files. Current records are in `reviews/mvp/` and `reviews/package-verification.json`.
@@ -56,7 +56,7 @@ Local macOS/Linux validation run `97f20111c14d7117` was re-audited against the u
 [Deployment validation](DEPLOYMENT_VALIDATION.md) adds installed-unit, automatic restart and orderly VM boot evidence. The earlier MIT/publication run references above are historical; `reviews/mvp/` now retains the latest same-source portable/container run and `reviews/deployment/` retains the separate actual-systemd VM run. Executable changes receive fresh validation; no abrupt power-loss recovery is claimed.
 
 
-The current startup-hardening update passes **70 tests per platform, seventeen production mutations, seventeen original evidence controls, eight container Linux groups and nine actual-systemd deployment groups with twenty-one additional evidence controls**. Both suites record executable snapshot `2577be96c26b221f1f07cad8c4c4bcffaca12c9f9198bc4a7ff0f13d99f3f80c`. The deployment run is `436c8a5408819100`; the native/container run is `96508b08bb2e0723`. Failed/superseded deployment attempts remain visible; current cleanup verifies removal and a stopped VM.
+The current management-preflight update passes **81 tests per platform, twenty-three production mutations, seventeen original evidence controls, eight container Linux groups and ten actual-systemd deployment groups with twenty-six additional evidence controls**. Both suites record executable snapshot `decbbbc637af274add41fc1eb3c4e4b58159a331907eb6247956b29da7425561`. The deployment run is `c1431001b6cffb89`; the native/container run is `4447fa732873e1a8`. Failed/superseded deployment attempts remain visible; current cleanup verifies removal and a stopped VM.
 
 ## Deployment evidence audit
 
@@ -66,6 +66,10 @@ The follow-up [deployment review](DEPLOYMENT_REVIEW.md) reproduced a checkout-sh
 
 A valid SQLite file containing an unusable JSON snapshot previously raised during startup. The snapshot now receives a 64 KiB bound and strict structural/policy/phase checks before fencing or kernel writes. Known invalid data is preserved and reported as DEGRADED. Six portable regressions and two production mutations challenge the guards; the installed real service also receives a JSON-list snapshot. The persistent missing-key case separately proves actual systemd rate limiting, unchanged pending rules/journal while stopped, and baseline recovery only after local repair/reset/start. Structured current-fault journal evidence is required because this systemd version retains Result=exit-code. Eighteen artifact-corruption controls include a missing rate-limit receipt. No unconditional crash recovery, CPU/log saturation protection, native segmentation-fault recovery, hung-I/O recovery or power-loss pass is claimed.
 
-## Agent-assisted startup review
+## Agent-assisted startup review (before management preflight)
 
 The [follow-up review](STARTUP_REVIEW.md) found and fixed a legal operation-ID compatibility regression, a missing unfinished baseline/current invariant, and gaps in rate-limit timestamp and new memory-sample attribution. The before-fix regressions failed by assertions. Both reviewers rechecked the targeted fixes; execution evidence comes from new same-source native/container and actual installed-service runs, not reviewer agreement. Current counts and artifacts are above. No native segmentation fault, hung I/O, sudden power loss, continuous availability or independent rollback capability is established.
+
+## Management preflight and read-only external diagnosis
+
+The new [opt-in management preflight](MANAGEMENT_PREFLIGHT.md) declares local IPv4 TCP ports and gates new own-policy changes before intent/kernel writes. Missing configuration is explicit; external conflicts/unknowns remain diagnostic warnings. Production readers are bounded and reaped, diagnostic response data is excluded from durable state, and new TLS confirmation remains mandatory. Tests exercise formal parsing/evaluation/Controller/API; the installed-service VM case additionally verifies actual TCP drops, foreign-rule preservation, uncertainty and old/fresh TLS confirmation. No agent review of this later feature, full topology simulation, WAN reachability or independent rollback is claimed. Current-source artifacts/metrics above supersede prior runs without claiming speed improvements.

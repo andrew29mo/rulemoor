@@ -11,6 +11,7 @@ import threading
 from contextlib import contextmanager
 from .backend import atomic_json, lock
 from .policy import validate, expected, digest, diff
+from .diagnostics import diagnose, validate_paths
 
 TERMINAL = ('COMMITTED', 'ROLLED_BACK')
 MAX_HISTORY = 64
@@ -20,6 +21,12 @@ MIN_FREE = 8 * 1024 * 1024
 
 class Conflict(RuntimeError):
     pass
+
+
+class PreflightRejected(Conflict):
+    def __init__(self, diagnostics):
+        super().__init__("Candidate blocks a configured management port")
+        self.diagnostics = diagnostics
 
 MAX_SNAPSHOT_BYTES = 65536
 
@@ -149,7 +156,8 @@ class Store:
 
 
 class Controller:
-    def __init__(self, root, backend, hook=None):
+    def __init__(self, root, backend, hook=None, management_paths=None):
+        self.management_paths = validate_paths(management_paths)
         self.root = Path(root)
         self.root.mkdir(parents=True, exist_ok=True, mode=0o700)
         if self.root.is_symlink() or self.root.stat().st_mode & 0o077:
@@ -261,7 +269,7 @@ class Controller:
                 raise Conflict('Policy drift')
             self.backend.check(p)
             return {'generation': self.s['generation'], 'candidate_digest': digest(expected(p)),
-                    'diff': diff(self.s['current'], p)}
+                    'diff': diff(self.s['current'], p), 'diagnostics':diagnose(p,self.management_paths,self.backend)}
 
     def apply(self, op, generation, policy, window):
         if not isinstance(op, str) or not re.fullmatch(r'[A-Za-z0-9_-]{1,64}', op):
@@ -277,9 +285,16 @@ class Controller:
             if prior:
                 if prior[0] != payload:
                     raise Conflict('Operation ID reused with different request')
-                return prior[1]
+                receipt=prior[1]
+                if self.management_paths:
+                    receipt={**receipt,'diagnostics':{**diagnose(p,self.management_paths,self.backend),'context':'receipt_lookup_no_reapply'}}
+                return receipt
             if self.s['phase'] not in TERMINAL or self.s['generation'] != generation:
                 raise Conflict('Unfinished operation or stale base generation')
+            diagnostics = diagnose(p,self.management_paths,self.backend)
+            diagnostics['context']='before_new_apply'
+            if diagnostics['own_policy']['status']=='blocked':
+                raise PreflightRejected(diagnostics)
             self._space()
             self.backend.check(p)
             baseline = self.backend.read()
@@ -327,7 +342,9 @@ class Controller:
                 raise
             finally:
                 os.close(fd)
-            return self.status()
+            receipt=self.status()
+            if self.management_paths:receipt['diagnostics']=diagnostics
+            return receipt
 
     def confirm(self, op, generation, candidate_digest, challenge, connected_at):
         with self.mutex:

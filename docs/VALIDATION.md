@@ -4,7 +4,7 @@
 
 `python -m tools.unit` runs production schema/compiler/core decisions, real local TLS API/CLI transport checks, and failure/timeout handling of the validation process wrapper. Memory-backend tests deliberately isolate state-machine contracts. They do not establish nft semantics, kernel reachability or native macOS agent performance. OpenSSL is needed to create temporary test certificates, which are deleted with the temporary directory.
 
-`python -m tools.mutations` copies source into isolated temporary directories, changes seventeen production decisions and requires an existing assertion to fail for each. Import/syntax failures, timeouts or a bare nonzero exit do not count as caught mutations.
+`python -m tools.mutations` copies source into isolated temporary directories, changes twenty-three production decisions and requires an existing assertion to fail for each. Import/syntax failures, timeouts or a bare nonzero exit do not count as caught mutations.
 
 ## Linux scope
 
@@ -58,7 +58,7 @@ A manual-only GitHub Actions workflow repeats portable contracts on Linux/macOS.
 
 The separate [deployment suite](DEPLOYMENT_VALIDATION.md) installs the production wheel and unit directly in an isolated Linux VM. It verifies systemd automatic restart, cgroup orphan cleanup, TLS readiness, stale operations, missing kernel rules after a changed boot ID, committed-policy restoration and foreign-policy refusal. This is not systemd simulated in a container. It restarts the selected VM twice and requires explicit selection of a stopped dedicated profile. It uses a different Linux userspace from the container suite; its memory/timing observations are reported separately. Power-loss recovery is not tested.
 
-The deployment auditor additionally requires the complete VM stage sequence, an isolated installed-package origin/hash probe, unchanged pending journal across the orderly reboot before Agent startup, raw pending/committed stale-request observations and monotonic timing endpoints. Its twenty-one corruption controls include omitted stages, false package origin, rolled-back pre-boot journal, stale generation, infinite/missing intervals and invalid memory identity. Four portable measurement/report regressions reject nonfinite values, inconsistent clocks and missing-duration-as-zero presentation.
+The deployment auditor additionally requires the complete VM stage sequence, an isolated installed-package origin/hash probe, unchanged pending journal across the orderly reboot before Agent startup, raw pending/committed stale-request observations and monotonic timing endpoints. Its twenty-six corruption controls include omitted stages, false package origin, rolled-back pre-boot journal, stale generation, infinite/missing intervals and invalid memory identity. Four portable measurement/report regressions reject nonfinite values, inconsistent clocks and missing-duration-as-zero presentation.
 
 ## Invalid snapshots and persistent startup failures
 
@@ -69,3 +69,7 @@ The actual-systemd suite separately checks diagnostic startup from a JSON-list s
 ## Agent-assisted startup/recovery review
 
 [The follow-up review](STARTUP_REVIEW.md) reproduces the legal `initial` operation-ID regression in both pending and committed state, rejects inconsistent unfinished baseline/current pairs before backend access, and bounds rate-limit receipts to the observed fault window. Three production regressions plus one report-boundary test extend the retained suite. Two additional production mutations independently reinstate the ID regression and remove the baseline guard. Actual installed-service restart-limit recovery uses `initial` as its pending operation ID; its baseline restoration and later stale-request rejection remain mandatory. Poison/repaired-service memory samples must belong to the setup boot; diagnostic invocation attribution is also required. These checks do not establish arbitrary journal repair or untested failure recovery.
+
+## Configured management diagnostics
+
+The [management preflight](MANAGEMENT_PREFLIGHT.md) tests exercise formal configuration parsing, NEW-connection policy order, read-only external rule modeling, conservative uncertainty, command bounds/reaping, Controller admission and local TLS error/confirmation paths. Six additional production mutations accept null configuration, hide an unknown action behind a later nonmatch, remove admission, hide uncertainty, ignore the first terminal verdict and remove the ruleset byte limit; each must fail an assertion. The installed-service VM suite adds a configured-service scenario with actual TCP and foreign rules at priorities -100 and 10, plus an unsupported address condition, rule preservation and old/fresh confirmation checks. Five additional report-corruption controls challenge denied admission, foreign-rule preservation, uncertainty, old confirmation rejection and observed TCP blocking. Container operation measurements remain unconfigured and are not an overhead baseline for this scenario.

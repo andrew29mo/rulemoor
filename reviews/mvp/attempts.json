@@ -116,6 +116,20 @@
     "run_id": "96508b08bb2e0723",
     "passed": true,
     "source_sha256": "2577be96c26b221f1f07cad8c4c4bcffaca12c9f9198bc4a7ff0f13d99f3f80c",
-    "note": "Current agent-reviewed source: 70 tests/platform, seventeen production mutations, seventeen container evidence controls, eight real Linux groups. Separate installed systemd suite uses legal initial ID and stricter attribution."
+    "note": "Historical agent-reviewed source: 70 tests/platform, seventeen production mutations, seventeen container evidence controls, eight real Linux groups. Separate installed systemd suite uses legal initial ID and stricter attribution. Superseded by configured management preflight."
+  },
+  {
+    "attempt": "management-preflight-20261021",
+    "run_id": "94d37c5352b7aa52",
+    "passed": true,
+    "source_sha256": "c3b7017db8c93be14202f8bdc86c7a159308ef46d8aec7b95e2ca2cc35e2163b",
+    "note": "Historical management-preflight source: 81 tests/platform, twenty-one production mutations, seventeen container evidence controls and eight real Linux groups. Configured service measurements are separate from this unconfigured operation benchmark. Superseded by final conservative null-configuration and unknown-action handling."
+  },
+  {
+    "attempt": "management-preflight-final-20261021",
+    "run_id": "4447fa732873e1a8",
+    "passed": true,
+    "source_sha256": "decbbbc637af274add41fc1eb3c4e4b58159a331907eb6247956b29da7425561",
+    "note": "Current management-preflight source: 81 tests/platform, twenty-three production mutations, seventeen container evidence controls and eight real Linux groups. Configured service measurements are separate from this unconfigured operation benchmark."
   }
 ]

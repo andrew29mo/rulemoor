@@ -9,6 +9,12 @@ from .evidence import ROOT, manifest, save
 from .process import run
 
 MUTATIONS = [
+    ('rulemoor/diagnostics.py', 'accept-null-file-configuration', " or value['paths'] is None", "", 'tests.test_diagnostics.DiagnosticTests.test_configuration_is_strict_bounded_and_copied'),
+    ('rulemoor/diagnostics.py', 'hide-unknown-actions-behind-nonmatch', "if unsupported:", "if unsupported and matched is not False:", 'tests.test_diagnostics.DiagnosticTests.test_unknown_condition_cannot_hide_possible_drop'),
+    ('rulemoor/core.py', 'skip-management-admission', "if diagnostics['own_policy']['status']=='blocked':", "if False:", 'tests.test_diagnostics.DiagnosticTests.test_first_match_and_default_guard_preserve_journal_and_kernel'),
+    ('rulemoor/diagnostics.py', 'ignore-external-uncertainty', "return 'risk'", "return 'no_observed_input_conflict'", 'tests.test_diagnostics.DiagnosticTests.test_unknown_condition_cannot_hide_possible_drop'),
+    ('rulemoor/diagnostics.py', 'ignore-first-terminal-verdict', "if matched is True:", "if False:", 'tests.test_diagnostics.DiagnosticTests.test_first_verdict_and_new_connection_semantics'),
+    ('rulemoor/backend.py', 'unbounded-ruleset-output', "if len(data)>1024*1024:", "if False:", 'tests.test_diagnostics.DiagnosticTests.test_ruleset_reader_bounds_bytes_timeout_and_nonzero_and_reaps'),
     ('rulemoor/core.py', 'reserve-initial-operation-id', "is_initialization = set(s)==common and s['op']=='initial' and s['candidate'] is None", "is_initialization = s['op']=='initial'", 'tests.test_startup_state.StartupStateTests.test_initial_operation_id_pending_restart_restores_baseline'),
     ('rulemoor/core.py', 'accept-mismatched-recovery-baseline', "if s['phase'] in {'PREPARED','APPLYING','AWAITING_CONFIRM','ROLLING_BACK','ROLLED_BACK'} and s['current']!=s['baseline']:", "if False:", 'tests.test_startup_state.StartupStateTests.test_unfinished_baseline_must_match_current_before_recovery'),
     ('rulemoor/core.py', 'skip-persisted-state-validation', 'return validate_snapshot(json.loads(raw, parse_constant=invalid_constant))', 'return json.loads(raw, parse_constant=invalid_constant)', 'tests.test_startup_state.StartupStateTests.test_invalid_policy_and_generation_are_diagnostic'),
