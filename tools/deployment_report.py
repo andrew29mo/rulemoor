@@ -16,7 +16,7 @@ STAGES = ['vm-initial','vm-start','preflight','guest-prerequisites','wheel-build
           'guest-cleanup','snapshot-remove','vm-final-stop','vm-final']
 CONTROL_NAMES = ['boot-identity','missing-case','stale-kernel','missing-cleanup','timeout','source',
                  'missing-stage','wrong-package-origin','wrong-preboot-journal','stale-pending-generation',
-                 'infinite-timing','missing-vm-interval','memory-identity','invalid-memory','poison-kernel-write','restart-still-running','failed-journal-changed','missing-limit-receipt']
+                 'infinite-timing','missing-vm-interval','memory-identity','invalid-memory','poison-kernel-write','restart-still-running','failed-journal-changed','missing-limit-receipt','future-limit-receipt','unrelated-startup-memory','wrong-poison-invocation']
 
 
 def positive(value):
@@ -45,6 +45,19 @@ def memory_sample(m):
     assert m['entrypoint'] == '/opt/rulemoor/venv/bin/rulemoor-agent' and m['cwd'] == '/'
     assert m['python_path_environment_clean'] is True and m['control_group'] == '/system.slice/rulemoor.service'
     assert 0 < m['sample_started_ns'] < m['sample_finished_ns']
+
+
+def rate_limit_receipts(limited, boot):
+    began=limited['failure_started_monotonic_ns']
+    observed=limited['observation_clock']['started_ns']
+    assert type(began) is int and type(observed) is int and 0<began<observed
+    assert isinstance(limited['start_limit_receipts'],list) and limited['start_limit_receipts']
+    for receipt in limited['start_limit_receipts']:
+        assert receipt['MESSAGE']=='rulemoor.service: Start request repeated too quickly.' and receipt['UNIT']=='rulemoor.service'
+        assert receipt['_BOOT_ID'].replace('-','')==boot.replace('-','')
+        raw=receipt['__MONOTONIC_TIMESTAMP']
+        assert isinstance(raw,str) and raw.isascii() and raw.isdecimal()
+        assert began<=int(raw)*1000<=observed
 
 
 def stale_trace(t, policy, require_confirmation):
@@ -87,15 +100,13 @@ def verify(value, source):
     assert poison['kernel_before']==poison['kernel_after_diagnostic']==expected(BASE)
     assert poison['fixture_only_reprovision_and_token_rotation'] and poison['production_auto_repair_claimed'] is False
     memory_sample(poison['memory'])
+    assert poison['memory']['process_identity']['boot']==setup['boot_id']
+    assert poison['memory']['invocation_id']==poison['invocation_after']
     assert limited['unit_limits']=={'Restart':'on-failure','RestartUSec':'1s','StartLimitIntervalUSec':'1min','StartLimitBurst':'5'}
     f, stable=limited['failed'],limited['stable']
     assert f['MainPID']==stable['MainPID']=='0' and f['ActiveState']==stable['ActiveState']=='failed'
     assert f['Result']==stable['Result'] and f['Result'] in ('exit-code','start-limit-hit') and f['NRestarts']==stable['NRestarts']
-    assert limited['start_limit_receipts']
-    for receipt in limited['start_limit_receipts']:
-        assert receipt['MESSAGE']=='rulemoor.service: Start request repeated too quickly.' and receipt['UNIT']=='rulemoor.service'
-        assert receipt['_BOOT_ID'].replace('-','')==setup['boot_id'].replace('-','')
-        assert int(receipt['__MONOTONIC_TIMESTAMP'])*1000>=limited['failure_started_monotonic_ns']
+    rate_limit_receipts(limited,setup['boot_id'])
     assert 1<=int(stable['NRestarts'])<=6
     interval(limited['observation_clock'],limited['observation_seconds']);assert limited['observation_seconds']>=2
     assert limited['journal_before_failure']==limited['journal_while_failed']
@@ -103,6 +114,7 @@ def verify(value, source):
     assert limited['blocked_start_exit_code']!=0 and limited['local_cause_fixed_and_reset_started']
     assert limited['restored_kernel']==expected(BASE) and limited['new_generation']>limited['recovered_generation']>limited['old_generation']
     stale_trace(limited['stale_trace'],NEW,True);memory_sample(limited['memory'])
+    assert limited['memory']['process_identity']['boot']==setup['boot_id']
     assert limited['segmentation_fault_tested'] is False and limited['uninterruptible_io_tested'] is False
     crash = rows['crash']; held = rows['held_writer']; pending = rows['after_pending_boot']; committed = rows['after_committed_boot']
     assert all(row['stale_requests_rejected_during_new_pending'] for row in (crash, held, pending))
@@ -183,6 +195,9 @@ def negative_controls(value, source):
         elif name=='poison-kernel-write':by_name['poisoned_journal']['kernel_after_diagnostic']=[]
         elif name=='restart-still-running':by_name['restart_limit']['stable']['MainPID']='123'
         elif name=='missing-limit-receipt':by_name['restart_limit']['start_limit_receipts']=[]
+        elif name=='future-limit-receipt':by_name['restart_limit']['start_limit_receipts'][0]['__MONOTONIC_TIMESTAMP']=str(10**30)
+        elif name=='unrelated-startup-memory':by_name['restart_limit']['memory']['process_identity']['boot']='other-boot'
+        elif name=='wrong-poison-invocation':by_name['poisoned_journal']['memory']['invocation_id']=by_name['poisoned_journal']['memory']['invocation_id_after']='other-invocation'
         elif name=='failed-journal-changed':by_name['restart_limit']['journal_while_failed']['phase']='ROLLED_BACK'
         try:verify(broken,source)
         except (AssertionError,KeyError):rows.append({'name':name,'rejected':True})

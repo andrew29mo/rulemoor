@@ -296,7 +296,7 @@ def poisoned_journal():
 
 def restart_limit():
     """Persistent real ExecStart failure must stop retrying, not pretend to heal."""
-    old=apply('limit-pending',NEXT,window=300)
+    old=apply('initial',NEXT,window=300)
     before_journal=journal_projection()
     cmd(['systemctl','reset-failed',UNIT]); config=props()
     key=CONFIG/'server.key'; unavailable=CONFIG/'server.key.unavailable'

@@ -1,6 +1,7 @@
 """Boundary checks for the production deployment evidence verifier."""
+import copy
 import unittest
-from tools.deployment_report import interval, positive, render
+from tools.deployment_report import interval, positive, render, rate_limit_receipts
 
 
 class MeasurementEvidenceTests(unittest.TestCase):
@@ -32,3 +33,16 @@ class MeasurementEvidenceTests(unittest.TestCase):
         self.assertIn('FAIL', page)
         self.assertIn('not observed committed', page)
         self.assertNotIn('0.00 s committed', page)
+
+    def test_limit_receipt_must_belong_to_fault_observation_window(self):
+        limited={'failure_started_monotonic_ns':1000000,
+                 'observation_clock':{'started_ns':3000000},
+                 'start_limit_receipts':[{'MESSAGE':'rulemoor.service: Start request repeated too quickly.',
+                    'UNIT':'rulemoor.service','_BOOT_ID':'test-boot','__MONOTONIC_TIMESTAMP':'2000'}]}
+        rate_limit_receipts(limited,'test-boot')
+        for timestamp in ('999','3001',str(10**30),'nan',True,2000):
+            bad=copy.deepcopy(limited);bad['start_limit_receipts'][0]['__MONOTONIC_TIMESTAMP']=timestamp
+            with self.subTest(timestamp=timestamp),self.assertRaises(AssertionError):rate_limit_receipts(bad,'test-boot')
+        bad=copy.deepcopy(limited);bad['failure_started_monotonic_ns']=True
+        with self.assertRaises(AssertionError):rate_limit_receipts(bad,'test-boot')
+        with self.assertRaises(AssertionError):rate_limit_receipts(limited,'unrelated-boot')

@@ -56,3 +56,43 @@ class StartupStateTests(unittest.TestCase):
             c.close();c=Controller(root,MemoryBackend())
             try:self.assertEqual(c.start()['phase'],'DEGRADED')
             finally:c.close()
+
+    def test_initial_operation_id_pending_restart_restores_baseline(self):
+        with tempfile.TemporaryDirectory() as root:
+            backend=MemoryBackend();c=Controller(root,backend);c.initialize(BASE)
+            old=c.apply('initial',0,NEXT,10);c.close()
+            c=Controller(root,backend)
+            try:
+                restored=c.start()
+                self.assertEqual(restored['phase'],'ROLLED_BACK')
+                self.assertGreater(restored['generation'],old['generation'])
+                self.assertEqual(backend.value,expected(BASE))
+                fresh=c.apply('new-after-initial',restored['generation'],NEXT,10)
+                with self.assertRaises(Conflict):c.cancel(old['op'],old['generation'])
+                with self.assertRaises(Conflict):c.confirm(**{k:old[k] for k in ('op','generation','candidate_digest','challenge')},connected_at=101.)
+                self.assertEqual(c.status(),fresh)
+                self.assertEqual(backend.value,expected(NEXT))
+            finally:c.close()
+
+    def test_initial_operation_id_confirmed_restart_remains_manageable(self):
+        with tempfile.TemporaryDirectory() as root:
+            backend=MemoryBackend();c=Controller(root,backend);c.initialize(BASE)
+            pending=c.apply('initial',0,NEXT,10)
+            c.confirm(**{k:pending[k] for k in ('op','generation','candidate_digest','challenge')},connected_at=101.)
+            c.close();c=Controller(root,backend)
+            try:
+                self.assertEqual(c.start()['phase'],'COMMITTED')
+                self.assertFalse(c.storage_failed)
+                self.assertEqual(backend.value,expected(NEXT))
+                self.assertEqual(c.plan(BASE)['generation'],pending['generation'])
+                self.assertEqual(c.apply('next-operation',pending['generation'],BASE,10)['phase'],'AWAITING_CONFIRM')
+            finally:c.close()
+
+    def test_unfinished_baseline_must_match_current_before_recovery(self):
+        with tempfile.TemporaryDirectory() as root:
+            c=Controller(root,MemoryBackend());c.initialize(BASE)
+            pending=c.apply('mismatch',0,NEXT,10);c.close()
+        for phase in ('PREPARED','APPLYING','AWAITING_CONFIRM','ROLLING_BACK'):
+            bad=copy.deepcopy(pending);bad['phase']=phase
+            bad['baseline']={'default':'accept','rules':[]}
+            with self.subTest(phase=phase):self.check_invalid(bad)

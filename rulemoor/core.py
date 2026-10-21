@@ -58,20 +58,24 @@ def validate_snapshot(s):
             if not valid: raise ValueError('Invalid journal clock')
     if s.get('reason') is not None and (not isinstance(s['reason'],str) or len(s['reason'])>2048):
         raise ValueError('Invalid diagnostic')
-    if not degraded and not {'phase','generation','op','current','candidate','executor_token','boot','reason'}.issubset(s):
+    common={'phase','generation','op','current','candidate','executor_token','boot','reason'}
+    if not degraded and not common.issubset(s):
         raise ValueError('Incomplete common state')
-    if not degraded and s['op']=='initial' and (s['phase'] not in {'INITIALIZING','COMMITTED'} or s['candidate'] is not None):
+    # 'initial' is also a legal caller-supplied operation ID. Only the exact
+    # provisioning shape is special; normal transactions retain their checks.
+    is_initialization = set(s)==common and s['op']=='initial' and s['candidate'] is None
+    if not degraded and is_initialization and (s['phase'] not in {'INITIALIZING','COMMITTED'} or s['executor_token'] is not None):
         raise ValueError('Invalid initialization state')
-    if not degraded and s['op']!='initial':
+    if not degraded and not is_initialization:
         required={'baseline','candidate','candidate_digest','request_hash','deadline'}
         if not required.issubset(s) or s['baseline'] is None or s['candidate'] is None:
             raise ValueError('Incomplete pending/rollback state')
         if s['candidate_digest'] != digest(expected(s['candidate'])):
             raise ValueError('Candidate digest mismatch')
-    if (s['phase']=='AWAITING_CONFIRM' or (s['phase']=='COMMITTED' and s['op']!='initial')) and not {'applied_at','challenge'}.issubset(s):
+    if (s['phase']=='AWAITING_CONFIRM' or (s['phase']=='COMMITTED' and not is_initialization)) and not {'applied_at','challenge'}.issubset(s):
         raise ValueError('Incomplete confirmation state')
-    if s['phase']=='ROLLED_BACK' and s['current']!=s['baseline']:
-        raise ValueError('Rollback policy mismatch')
+    if s['phase'] in {'PREPARED','APPLYING','AWAITING_CONFIRM','ROLLING_BACK','ROLLED_BACK'} and s['current']!=s['baseline']:
+        raise ValueError('Baseline/current policy mismatch')
     if s['phase']=='COMMITTED' and s.get('candidate') is not None and s['current']!=s['candidate']:
         raise ValueError('Committed policy mismatch')
     return s

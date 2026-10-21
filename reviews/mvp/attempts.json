@@ -109,6 +109,13 @@
     "run_id": "4a4471ad2201c278",
     "passed": true,
     "source_sha256": "8ec11da5478d2bada0534e4143e43e0b24f39cec0e06185e0ce81bf9cd4fcdcc",
-    "note": "66 tests/platform, fifteen production mutations, seventeen container evidence controls, eight Linux groups. Separate actual-systemd run covers malformed snapshot and persistent startup failure; no power-loss claim."
+    "note": "66 tests/platform, fifteen production mutations, seventeen container evidence controls, eight Linux groups. Separate actual-systemd run covers malformed snapshot and persistent startup failure; no power-loss claim. Superseded by agent-assisted startup review."
+  },
+  {
+    "attempt": "agent-startup-review-20261021",
+    "run_id": "96508b08bb2e0723",
+    "passed": true,
+    "source_sha256": "2577be96c26b221f1f07cad8c4c4bcffaca12c9f9198bc4a7ff0f13d99f3f80c",
+    "note": "Current agent-reviewed source: 70 tests/platform, seventeen production mutations, seventeen container evidence controls, eight real Linux groups. Separate installed systemd suite uses legal initial ID and stricter attribution."
   }
 ]

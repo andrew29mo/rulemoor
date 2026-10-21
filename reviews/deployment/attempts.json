@@ -74,6 +74,13 @@
     "run_id": "63577fe5d44f6b6b",
     "passed": true,
     "source_sha256": "8ec11da5478d2bada0534e4143e43e0b24f39cec0e06185e0ce81bf9cd4fcdcc",
-    "note": "Current same-source pass: nine actual-systemd groups and eighteen corruption controls. Structured current-fault rate-limit receipt, stable failed service, preserved pending state/candidate, explicit local repair/reset/start, stale-request fences and two orderly VM boots. No native segmentation fault, hung I/O or power loss tested."
+    "note": "Historical same-source pass: nine actual-systemd groups and eighteen corruption controls. Structured current-fault rate-limit receipt, stable failed service, preserved pending state/candidate, explicit local repair/reset/start, stale-request fences and two orderly VM boots. No native segmentation fault, hung I/O or power loss tested. Superseded by agent-assisted startup review."
+  },
+  {
+    "attempt": "agent-startup-review-20261021",
+    "run_id": "436c8a5408819100",
+    "passed": true,
+    "source_sha256": "2577be96c26b221f1f07cad8c4c4bcffaca12c9f9198bc4a7ff0f13d99f3f80c",
+    "note": "Current agent-reviewed source: nine actual-systemd groups, twenty-one corruption controls, legal initial-ID pending recovery and stale-request checks, fault-window-bounded receipts and boot/invocation-attributed memory. Two orderly boots; power loss/native segfault/hung I/O not tested."
   }
 ]
