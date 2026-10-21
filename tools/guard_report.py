@@ -2,8 +2,11 @@
 import copy
 import html
 import json
+import math
 from .evidence import fingerprint
 from .boot_report import installed_provenance,verify_native
+from .deployment_report import memory_sample,interval
+from rulemoor.core import TERMINAL
 from rulemoor.policy import expected,digest
 
 CASES=('setup','guard_setup','guard_portable','guard_failures','guard_delay','guard_crashes','guard_executor','guard_pending','guard_after_pending','guard_after_committed','guard_cleanup','cleanup')
@@ -14,6 +17,7 @@ STAGES=('vm-initial','vm-start','preflight','guest-prerequisites','wheel-build',
 
 
 def opened(r,j):
+    assert j['phase'] in TERMINAL and r['clock']=='monotonic_ns'
     assert r['status']=='OPEN' and r['phase']==j['phase'] and r['boot']==j['boot']
     assert r['generation']==j['generation'] and type(r['generation']) is int
     assert r['policy']==j['current'] and set(r['policy'])=={'ipv4','ipv6'}
@@ -25,6 +29,12 @@ def opened(r,j):
     assert r['addresses']==['192.0.2.42/24','2001:db8:88::2/64']
     times=[r[k] for k in ('started_ns','verified_ns','opened_ns','observed_ns')]
     assert all(type(t) is int and t>=0 for t in times) and times==sorted(times)
+
+
+def agent_memory(m,boot):
+    memory_sample(m)
+    assert m['process_identity']['boot']==boot
+    assert m['scope']=='Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM'
 
 
 def data(d):
@@ -45,15 +55,27 @@ def verify(v,source):
     assert v['scope']['power_loss_tested'] is False and v['scope']['early_boot_zero_gap_tested'] is False
     assert v['scope']['production_boot_guard_implemented'] is True
     assert [r['name'] for r in v['stages']]==list(STAGES)
-    assert all(r['exit_code']==0 and r['timed_out'] is False for r in v['stages'])
+    assert all(type(r['exit_code']) is int and r['exit_code']==0 and r['timed_out'] is False for r in v['stages'])
+    assert all(type(r['seconds']) in (int,float) and math.isfinite(r['seconds']) and r['seconds']>=0 for r in v['stages'])
     assert [r['name'] for r in v['cases']]==list(CASES) and all(r['passed'] is True for r in v['cases'])
     c={r['name']:r['evidence'] for r in v['cases']}
+    base=c['setup'];assert base['pid1']=='systemd' and base['installed_modules_match_source'] is True
+    installed_provenance(base['installed_package'],source)
+    assert base['production_unit_sha256']==source['deploy/rulemoor.service'] and base['namespace_only_override'] is True
+    props=base['unit_properties']
+    assert props['CapabilityBoundingSet']=='cap_kill cap_net_admin' and props['NoNewPrivileges']=='yes'
+    assert props['ProtectSystem']=='strict' and props['ProtectHome']==props['PrivateTmp']=='yes'
+    assert props['KillMode']=='control-group' and props['NetworkNamespacePath']=='/run/netns/rm_deployment'
+    assert props['ActiveState']=='active' and props['SubState']=='running' and props['ExecMainStatus']=='0'
+    agent_memory(base['memory'],base['boot_id'])
+    assert int(props['MainPID'])==base['memory']['process_identity']['pid']
     s=c['guard_setup'];installed_provenance(s['installed'],source)
     assert s['production_unit_sha256']==s['source_unit_sha256']==source['deploy/rulemoor-boot-guard.service']
     assert s['namespace_only_guard_override'] is True
     opened(s['opened']['receipt'],s['opened']['journal']);data(s['data'])
     assert s['opened']['receipt']['profile_digest']==digest(s['profile'])
     assert s['tls']['ipv4']==s['tls']['ipv6']==s['opened']['journal']
+    agent_memory(s['agent_memory'],s['opened']['journal']['boot'])
     p=c['guard_portable'];assert p['passed'] is True and p['platform']=='Linux' and p['source']==source
     assert p['source_sha256']==fingerprint(source) and p['tests']==len(p['test_ids'])==len(set(p['test_ids']))
     assert p['tests']>0 and all(p[k]==0 for k in ('errors','failures','skipped'))
@@ -87,11 +109,17 @@ def verify(v,source):
         assert mem['entrypoint']=='/opt/rulemoor/venv/bin/rulemoor-boot-guard'
         assert type(mem['rss_bytes']) is int and type(mem['vmhwm_bytes']) is int
         assert 0<mem['rss_bytes']<=mem['vmhwm_bytes']
+        assert mem['scope']=='VM production gate held in actual ip subprocess call; process only, excludes children; not normal whole-run peak'
         for k in ('boot','namespace_inode','ifindex'):
             assert r['link_before'][k]==r['link_after'][k]==r['receipt_after']['link'][k]
     fault=crashes['close_failure'];assert fault['receipt']['status']=='FAULTED' and fault['link']['up'] is True
     assert fault['unit']['ActiveState']=='failed' and fault['manual_rescue_link']['up'] is False
     for k in ('boot','namespace_inode','ifindex'):assert fault['link'][k]==fault['manual_rescue_link'][k]
+    rf=crashes['receipt_failure']
+    for name in ('open_cleanup','stop_cleanup'):
+        row=rf[name]
+        assert row['unit']['ActiveState']=='failed' and row['link']['up'] is False and row['receipt_path_is_directory'] is True
+    assert rf['open_cleanup']['exit_code']!=0 and rf['open_cleanup']['ip_trace']==['up','down','down']
     opened(crashes['reopened']['receipt'],crashes['reopened']['journal']);data(crashes['data'])
     e=c['guard_executor'];assert e['parent_returncode']==-9 and e['old_phase']=='APPLYING'
     assert e['orphan_observed_alive'] is True and e['retired_before_open_return'] is True
@@ -114,9 +142,9 @@ def verify(v,source):
         assert j['current']==before['journal_after_stop']['baseline' if kind=='pending' else 'current']
         opened(a['guard'],j);data(a['data']);assert a['tls']['ipv4']==a['tls']['ipv6']==j
         assert a['power_loss_tested'] is False
+        agent_memory(a['agent_memory'],j['boot'])
         clock=v[kind+'_restart_clock'];seconds=v[kind+'_restart_control_seconds']
-        assert clock['clock']=='monotonic_ns' and seconds>0
-        assert abs(seconds-(clock['finished_ns']-clock['started_ns'])/1e9)<1e-9
+        interval(clock,seconds)
     stale=c['guard_after_committed']['stale_confirmations']
     assert stale['rows']==[{'family':f,'status':409} for f in ('ipv4','ipv6')]
     assert stale['before']==stale['after'] and stale['kernel_before']==stale['kernel_after']
@@ -149,6 +177,21 @@ def negative_controls(v,source):
         ('one-family-preexisting',lambda x:case(x,'guard_after_pending')['pre_guard']['family_kernel'].update(ip6=[{'unexpected':True}])),
         ('source-drift',lambda x:x.update(source_sha256='0'*64)),
         ('cleanup-incomplete',lambda x:x.update(source_snapshot_removed=False))]
+    changes += [('receipt-open-error-still-up',lambda x:case(x,'guard_crashes')['receipt_failure']['open_cleanup']['link'].update(up=True)),
+                ('receipt-stop-error-still-up',lambda x:case(x,'guard_crashes')['receipt_failure']['stop_cleanup']['link'].update(up=True)),
+                ('receipt-error-never-injected',lambda x:case(x,'guard_crashes')['receipt_failure']['open_cleanup'].update(receipt_path_is_directory=False)),
+                ('receipt-stop-helper-skipped',lambda x:case(x,'guard_crashes')['receipt_failure']['open_cleanup'].update(ip_trace=['up','down']))]
+    def degraded(x):
+        s=case(x,'guard_setup')
+        for row in (s['opened']['receipt'],s['opened']['journal'],s['tls']['ipv4'],s['tls']['ipv6']):row['phase']='DEGRADED'
+    changes += [('degraded-open',degraded),('missing-base-service-evidence',lambda x:case(x,'setup').clear()),
+                ('wrong-agent-unit',lambda x:case(x,'setup').update(production_unit_sha256='0'*64)),
+                ('missing-agent-memory',lambda x:case(x,'guard_setup').pop('agent_memory')),
+                ('invalid-agent-memory',lambda x:case(x,'guard_after_pending')['agent_memory'].update(agent_rss_bytes=0)),
+                ('guard-memory-scope',lambda x:case(x,'guard_crashes')['kills'][0]['process_memory'].update(scope='whole VM peak')),
+                ('agent-memory-scope',lambda x:case(x,'guard_setup')['agent_memory'].update(scope='whole VM peak')),
+                ('unbounded-stage-time',lambda x:x['stages'][0].update(seconds=float('inf'))),
+                ('invalid-restart-clock',lambda x:x['pending_restart_clock'].update(started_ns=-1))]
     out=[]
     for n,mut in changes:
         x=copy.deepcopy(v);mut(x)

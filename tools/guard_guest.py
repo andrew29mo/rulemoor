@@ -306,9 +306,33 @@ def crashes():
     # Separate explicit local rescue, not an automatic-success claim.
     g.cmd(['ip','-n',g.NS,'link','set',DEV,'down']);fault['manual_rescue_link']=link();assert not link()['up']
     drop.unlink();ctl('daemon-reload')
+    # Make only the receipt destination unwritable by replacing it with a
+    # directory AFTER actual UP. This exercises unchanged installed Guard and
+    # ExecStopPost with real atomic_json EISDIR, not a mocked service entrypoint.
+    receipt_path=g.STATE/'boot-guard.json';trace=g.STATE/'test-receipt-close-trace'
+    wrapper.write_text('#!/bin/sh\nif test "$1" = link && test "$4" = rg0; then\n'
+                      ' if test "$5" = up; then\n /usr/sbin/ip "$@" || exit $?\n'
+                      ' rm '+str(receipt_path)+' && mkdir '+str(receipt_path)+' || exit $?\n'
+                      ' echo up >> '+str(trace)+'\n exit 0\n fi\n'
+                      ' if test "$5" = down; then echo down >> '+str(trace)+'; fi\nfi\nexec /usr/sbin/ip "$@"\n')
+    drop.write_text('[Service]\nEnvironment=PATH='+str(bins)+':/usr/sbin:/usr/bin:/sbin:/bin\n')
+    ctl('daemon-reload');ctl('reset-failed',UNIT)
+    failed_open=ctl('start',UNIT,check=False)
+    receipt_open={'exit_code':failed_open.returncode,'unit':props(),'link':link(),
+                  'receipt_path_is_directory':receipt_path.is_dir(),'ip_trace':trace.read_text().splitlines()}
+    assert receipt_open['exit_code']!=0 and receipt_open['unit']['ActiveState']=='failed' and not receipt_open['link']['up']
+    assert receipt_open['ip_trace']==['up','down','down'] and receipt_open['receipt_path_is_directory']
+    receipt_path.rmdir();drop.unlink();ctl('daemon-reload')
+    normal=start_guard();assert normal['exit_code']==0
+    receipt_path.unlink();receipt_path.mkdir()
+    stopped=ctl('stop',UNIT,check=False)
+    receipt_stop={'exit_code':stopped.returncode,'unit':props(),'link':link(),'receipt_path_is_directory':receipt_path.is_dir()}
+    assert receipt_stop['unit']['ActiveState']=='failed' and not receipt_stop['link']['up'] and receipt_stop['receipt_path_is_directory']
+    receipt_path.rmdir()
     reopened=start_guard();assert reopened['exit_code']==0
     ctl('start',g.UNIT);ready()
-    return {'kills':rows,'close_failure':fault,'reopened':reopened,'data':data_plane(),
+    return {'kills':rows,'close_failure':fault,'receipt_failure':{'open_cleanup':receipt_open,'stop_cleanup':receipt_stop,
+            'boundary':'Real atomic_json destination replacement fails EISDIR; not disk-full or power-loss emulation'},'reopened':reopened,'data':data_plane(),
             'injection':'PATH ip wrapper holds real subprocess call before/after actual UP; unit cgroup cleanup and formal ExecStopPost'}
 
 

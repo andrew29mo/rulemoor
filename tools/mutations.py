@@ -9,6 +9,7 @@ from .evidence import ROOT, manifest, save
 from .process import run
 
 MUTATIONS = [
+    ('rulemoor/boot_guard.py','receipt-error-skips-down', 'except Exception as exc:receipt_error=exc', 'except Exception as exc:raise', 'tests.test_boot_guard.GuardTests.test_receipt_failure_after_up_cannot_prevent_down'),
     ('rulemoor/diagnostics.py','dual-guard-uses-ipv4-policy', 'selected = p[family] if dual(p)', "selected = p['ipv4'] if dual(p)", 'tests.test_dual_diagnostics.DualDiagnosticTests.test_ipv4_allowed_does_not_mask_ipv6_own_block_or_unmanaged_family'),
     ('rulemoor/diagnostics.py','inet-nfproto-always-ipv4', "(right == family) if op == '==' else (right != family)", "(right == 'ipv4') if op == '==' else (right != 'ipv4')", 'tests.test_dual_diagnostics.DualDiagnosticTests.test_ip6_and_inet_nfproto_are_evaluated_per_family'),
     ('rulemoor/diagnostics.py','omit-ip6-external-chains', "family in ('ip', 'ip6', 'inet')", "family in ('ip', 'inet')", 'tests.test_dual_diagnostics.DualDiagnosticTests.test_ip6_and_inet_nfproto_are_evaluated_per_family'),

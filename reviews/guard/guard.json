@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "run_id": "81c4797c3ed238b4",
-  "recorded_at_utc": "2026-10-21T06:25:42.668116+00:00",
+  "run_id": "fcafb99bc50a8cb9",
+  "recorded_at_utc": "2026-10-21T06:48:28.427024+00:00",
   "passed": true,
   "source": {
     "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
@@ -11,7 +11,7 @@
     "pyproject.toml": "572e254cb34d4752e5aedc0f9db9cf78f527df31688bffc4d91cb15dc0b1f610",
     "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
     "rulemoor/backend.py": "3651ac005d7b381000a3c25ebd62720d0e9e53940504ba0ac98e6237e5336a95",
-    "rulemoor/boot_guard.py": "33de2a03c153905646648063308d6376ba2f8e0279ebf969585c7507e159da35",
+    "rulemoor/boot_guard.py": "18b31f14a4714fc4a017a01c41d866349f8fc986aeacebdd8e90ce68584e767d",
     "rulemoor/cli.py": "ba7cb4b7e9ffd70fda961c42aad491cd6d7bc538405e47f3d6d950af704314e5",
     "rulemoor/core.py": "aa49b9afaa124efab7b733be21ab44338a69720cd6a9a9bd4bed165a56a5cd6f",
     "rulemoor/diagnostics.py": "ab67627f725d953893d62d6c977e029f83460420ce4ea6fa5e1b28e2ab6fc800",
@@ -20,7 +20,7 @@
     "rulemoor/service.py": "6a1deccfecb310b31ba4d1721f0eb5f23202c1a764d7710dc052fcf26e880315",
     "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
-    "tests/test_boot_guard.py": "eb6a743d5ae2bab8d5b455796277a8dd9b8647585ae709189f68a1eca2e73888",
+    "tests/test_boot_guard.py": "eebcf92ddfdbf8bd5caa35836b1a0d897ee0b71e2b0297d84877201dbc2184ee",
     "tests/test_boot_report.py": "d3edb7cd058f8d70739e2e95b5806419cf177db115e52f0a0a6e312ca7c79bcd",
     "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
     "tests/test_deployment_audit.py": "dfdccf12ac9d5d323accb48b7b6a258e66c00d712e8c1ed567d6a8fbceaa86d2",
@@ -28,7 +28,7 @@
     "tests/test_dual_diagnostics.py": "382d39cdba7be498ac883d6784263afa5de2f32dea647a2d4235fb2b139d1952",
     "tests/test_dual_recovery.py": "28ace94c72e6c1453bf8147e9a63dec4f2b57dc49095af0df20b233eff30e49a",
     "tests/test_dual_stack.py": "eaea47d8c29bddeba8bdf901420a3c9aae7e32dbfaef26d78861fd73c76818d0",
-    "tests/test_guard_report.py": "5ace1017ba6e797da2f3b2a88939e4134f94ee41515a4094fa27c449620fb0c2",
+    "tests/test_guard_report.py": "fb4757b8999b72675bb42b0832e584aa3e71cf1b6998bdaff570e0b3ddb4058d",
     "tests/test_service_startup.py": "ed6f099450caa1268f47386bf138150e7a09c8a78c199f6a3e8c5fc79a6a3abf",
     "tests/test_startup_state.py": "eb4d74d1446c86b49b16639fcfc1713e8c63ca127b1e1831a838d1e876f5e950",
     "tests/test_tools.py": "c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5",
@@ -45,13 +45,13 @@
     "tools/dual_preflight.py": "1615aa027a83c1675f050b9d1733c1377e08545b1ea51b5238e3f741279d0676",
     "tools/dual_recovery.py": "cf1347783722d3e16d990ca0bd6f1a1e4272cfcc35d2b1ba7837eea66e103e8c",
     "tools/evidence.py": "428a5b51dfea21b9b0cbae1225b26998c4ca195af098e5869fdce747b66ce4bc",
-    "tools/guard_guest.py": "772522305db74d9edbfdb0a04bfd1d54087239467974f70618fdcf9055259cff",
-    "tools/guard_report.py": "f494ca0a3ae39aacdfcbdd8cc2836e2c94d5bf4093561ac9a020b3def9d7d55e",
+    "tools/guard_guest.py": "a5d517cc54997727f95e067787a1dee7e9ba9cf5816289e15e4049a0a5b87754",
+    "tools/guard_report.py": "56147bad6cd91f699a390dafefb86c9b90950e28b766c2646d4b750a1ddb918e",
     "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
     "tools/linux_cases.py": "49500a9697b81d5a1b9ba8651e4c1755474f6a49a213b95fce7ec55672cf0a79",
     "tools/linux_validate.py": "bf9c45eef35c9b4b9dcbd9f0958a9122fe020f8e818aa5d234f28e306c9c9313",
     "tools/local_entry.py": "f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911",
-    "tools/mutations.py": "90850d82081d2bfc2488f048e0522c1410ef9d4ec88ae72e7ff2aabbcbd6cfec",
+    "tools/mutations.py": "eef677aa327443bb50fe1baecafce2a2ed39fc93f0f5953177c58ceee2faa8fe",
     "tools/process.py": "6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f",
     "tools/report.py": "c4ac1749bef625b181c7de8dca183eae386871fd5ec23d0b475248fc69d16803",
     "tools/storage_fault.py": "0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0",
@@ -63,7 +63,7 @@
     "tools/validate_guard.py": "87bdd173cba592e4a9f8c119779a7d86a90fd7bb8d95aa444eec1ebc843b4dff",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "source_sha256": "b3524c2f36f5e3951cf0a8514e78eaa8736dbc525caead06ef8f557afc244618",
+  "source_sha256": "369d57c25b23ad35b696f4e9f32437896c66dfaba6e49a989fa633faf9fddee0",
   "source_changed": false,
   "scope": {
     "execution": "Installed production Boot Guard/Agent + real systemd in isolated Linux VM veth namespaces",
@@ -78,151 +78,151 @@
       "name": "vm-initial",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.35058295899943914
+      "seconds": 0.25451574999897275
     },
     {
       "name": "vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.523823374998756
+      "seconds": 8.861262332997285
     },
     {
       "name": "preflight",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2433870829991065
+      "seconds": 0.23442395900201518
     },
     {
       "name": "guest-prerequisites",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.47275220799201634
+      "seconds": 0.5218075000011595
     },
     {
       "name": "wheel-build",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.1900870419922285
+      "seconds": 1.2640897919918643
     },
     {
       "name": "snapshot-upload",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.32421487499959767
+      "seconds": 0.3280901670077583
     },
     {
       "name": "guest-setup",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.9992966249992605
+      "seconds": 1.9350432499923045
     },
     {
       "name": "guest-guard_setup",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.604533083998831
+      "seconds": 1.5725335419992916
     },
     {
       "name": "guest-guard_portable",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 5.689368667008239
+      "seconds": 4.979511333003757
     },
     {
       "name": "guest-guard_failures",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.5549527919938555
+      "seconds": 1.5071852500113891
     },
     {
       "name": "guest-guard_delay",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 4.323475334007526
+      "seconds": 4.344475917008822
     },
     {
       "name": "guest-guard_crashes",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.104428291990189
+      "seconds": 2.3483810830075527
     },
     {
       "name": "guest-guard_executor",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 3.5942662919987924
+      "seconds": 3.452299958007643
     },
     {
       "name": "guest-guard_pending",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.6118114169948967
+      "seconds": 0.669918499988853
     },
     {
       "name": "pending-vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.508543166986783
+      "seconds": 2.491716042000917
     },
     {
       "name": "pending-vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.587607708992437
+      "seconds": 10.35697683300532
     },
     {
       "name": "guest-guard_after_pending",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.1865372920001391
+      "seconds": 1.1534024580032565
     },
     {
       "name": "committed-vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.44623975000286
+      "seconds": 2.479535709004267
     },
     {
       "name": "committed-vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.346908667008393
+      "seconds": 9.423649167001713
     },
     {
       "name": "guest-guard_after_committed",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.0384879579942208
+      "seconds": 1.027917665996938
     },
     {
       "name": "guest-guard_cleanup",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.4893742079875665
+      "seconds": 0.47860179099370725
     },
     {
       "name": "guest-cleanup",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.4402390000032028
+      "seconds": 0.5055554999999003
     },
     {
       "name": "snapshot-remove",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2455903749942081
+      "seconds": 0.2309454159985762
     },
     {
       "name": "vm-final-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.428515541992965
+      "seconds": 2.564266166999005
     },
     {
       "name": "vm-final",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2577125829993747
+      "seconds": 0.18876649999583606
     }
   ],
   "cases": [
@@ -247,7 +247,7 @@
             "rulemoor/cli.py": "ba7cb4b7e9ffd70fda961c42aad491cd6d7bc538405e47f3d6d950af704314e5",
             "rulemoor/policy.py": "2e73cb8ff8cbee9fe959fa744c187c713582d2cb517c11979591708d09d4a1b5",
             "rulemoor/diagnostics.py": "ab67627f725d953893d62d6c977e029f83460420ce4ea6fa5e1b28e2ab6fc800",
-            "rulemoor/boot_guard.py": "33de2a03c153905646648063308d6376ba2f8e0279ebf969585c7507e159da35",
+            "rulemoor/boot_guard.py": "18b31f14a4714fc4a017a01c41d866349f8fc986aeacebdd8e90ce68584e767d",
             "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03"
           }
         },
@@ -256,12 +256,12 @@
         "unit_properties": {
           "Restart": "on-failure",
           "RestartUSec": "1s",
-          "MainPID": "1657",
+          "MainPID": "1660",
           "Result": "success",
           "NRestarts": "0",
           "ExecMainStatus": "0",
           "ControlGroup": "/system.slice/rulemoor.service",
-          "MemoryCurrent": "11239424",
+          "MemoryCurrent": "11247616",
           "CapabilityBoundingSet": "cap_kill cap_net_admin",
           "PrivateTmp": "yes",
           "ProtectHome": "yes",
@@ -274,27 +274,27 @@
           "StartLimitIntervalUSec": "1min",
           "StartLimitBurst": "5"
         },
-        "boot_id": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+        "boot_id": "05520c6d-4aa5-474c-9895-91b5440d28f4",
         "memory": {
-          "agent_rss_bytes": 23289856,
-          "agent_vmhwm_bytes": 23289856,
-          "service_cgroup_memory_current_bytes": 11198464,
+          "agent_rss_bytes": 23269376,
+          "agent_vmhwm_bytes": 23269376,
+          "service_cgroup_memory_current_bytes": 11202560,
           "process_identity": {
-            "pid": 1657,
-            "start_ticks": 1105,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1660,
+            "start_ticks": 1030,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
-          "main_pid_after": 1657,
-          "invocation_id": "5b5a0baa393a4fca81ef93a6d52af136",
-          "invocation_id_after": "5b5a0baa393a4fca81ef93a6d52af136",
+          "main_pid_after": 1660,
+          "invocation_id": "5a9957cfea024683a5bb8bb962af054c",
+          "invocation_id_after": "5a9957cfea024683a5bb8bb962af054c",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 11162301421,
-          "sample_finished_ns": 11166438004,
+          "sample_started_ns": 10409715629,
+          "sample_finished_ns": 10413730338,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         }
       }
@@ -313,7 +313,7 @@
             "rulemoor/cli.py": "ba7cb4b7e9ffd70fda961c42aad491cd6d7bc538405e47f3d6d950af704314e5",
             "rulemoor/policy.py": "2e73cb8ff8cbee9fe959fa744c187c713582d2cb517c11979591708d09d4a1b5",
             "rulemoor/diagnostics.py": "ab67627f725d953893d62d6c977e029f83460420ce4ea6fa5e1b28e2ab6fc800",
-            "rulemoor/boot_guard.py": "33de2a03c153905646648063308d6376ba2f8e0279ebf969585c7507e159da35",
+            "rulemoor/boot_guard.py": "18b31f14a4714fc4a017a01c41d866349f8fc986aeacebdd8e90ce68584e767d",
             "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03"
           }
         },
@@ -339,22 +339,22 @@
             "MemoryPeak": "[not set]",
             "ActiveState": "active",
             "SubState": "exited",
-            "InvocationID": "f34b0067a5ec40dbb1950538a8fa5816"
+            "InvocationID": "d69a63b42a5240adb32e32da0eb38599"
           },
           "link": {
             "up": true,
             "ifindex": 2,
             "namespace_inode": 4026532410,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "receipt": {
             "schema": 1,
             "status": "OPEN",
             "profile_digest": "20942459f988731c028c62e2dc790a13166a68cbf99bb102f8bcdf99161a9645",
             "clock": "monotonic_ns",
-            "observed_ns": 11988800421,
+            "observed_ns": 11220055755,
             "link": {
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
               "namespace_inode": 4026532410,
               "host_namespace_inode": 4026531840,
               "ifindex": 2,
@@ -364,7 +364,7 @@
               "up": true
             },
             "verified_link": {
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
               "namespace_inode": 4026532410,
               "host_namespace_inode": 4026531840,
               "ifindex": 2,
@@ -373,7 +373,7 @@
               "kind": "veth",
               "up": false
             },
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "generation": 0,
             "phase": "COMMITTED",
             "policy": {
@@ -672,9 +672,9 @@
               "192.0.2.42/24",
               "2001:db8:88::2/64"
             ],
-            "started_ns": 11973501296,
-            "verified_ns": 11983438296,
-            "opened_ns": 11985476504
+            "started_ns": 11207206005,
+            "verified_ns": 11214939463,
+            "opened_ns": 11216702296
           },
           "kernel": [
             {
@@ -935,7 +935,7 @@
             "phase": "COMMITTED",
             "generation": 0,
             "op": "initial",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -980,7 +980,7 @@
             "phase": "COMMITTED",
             "generation": 0,
             "op": "initial",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -1023,7 +1023,7 @@
             "phase": "COMMITTED",
             "generation": 0,
             "op": "initial",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -1095,14 +1095,14 @@
             }
           ],
           "listener_identity_before": {
-            "pid": 1810,
-            "start_ticks": 1191,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1813,
+            "start_ticks": 1114,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "listener_identity_after": {
-            "pid": 1810,
-            "start_ticks": 1191,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1813,
+            "start_ticks": 1114,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "listening_socket_counts": {
             "19001": 2,
@@ -1110,25 +1110,25 @@
           }
         },
         "agent_memory": {
-          "agent_rss_bytes": 23408640,
-          "agent_vmhwm_bytes": 23408640,
-          "service_cgroup_memory_current_bytes": 11313152,
+          "agent_rss_bytes": 23318528,
+          "agent_vmhwm_bytes": 23318528,
+          "service_cgroup_memory_current_bytes": 11235328,
           "process_identity": {
-            "pid": 1843,
-            "start_ticks": 1200,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1846,
+            "start_ticks": 1123,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
-          "main_pid_after": 1843,
-          "invocation_id": "80180e2727e049a19581ebf70d19266e",
-          "invocation_id_after": "80180e2727e049a19581ebf70d19266e",
+          "main_pid_after": 1846,
+          "invocation_id": "5e3cd4c497524fde9d3a4f90155a22cc",
+          "invocation_id_after": "5e3cd4c497524fde9d3a4f90155a22cc",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 12765705380,
-          "sample_finished_ns": 12773048505,
+          "sample_started_ns": 11982844672,
+          "sample_finished_ns": 11989068880,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         }
       }
@@ -1138,7 +1138,7 @@
       "passed": true,
       "evidence": {
         "passed": true,
-        "tests": 130,
+        "tests": 132,
         "test_ids": [
           "test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections",
           "test_api.APITests.test_authentication",
@@ -1159,7 +1159,9 @@
           "test_boot_guard.GuardTests.test_pending_recovery_uses_production_controller",
           "test_boot_guard.GuardTests.test_post_up_failure_closes",
           "test_boot_guard.GuardTests.test_profile_is_private_bounded_and_explicit",
+          "test_boot_guard.GuardTests.test_receipt_failure_after_up_cannot_prevent_down",
           "test_boot_guard.GuardTests.test_stale_receipt_never_authorizes_open",
+          "test_boot_guard.GuardTests.test_stop_receipt_failure_still_closes_and_reports_failure",
           "test_boot_report.BootReportTests.test_failed_start_requires_observed_closed_interface",
           "test_boot_report.BootReportTests.test_incomplete_report_is_not_success",
           "test_boot_report.BootReportTests.test_kill_requires_same_process_invocation_both_locks_and_closed_identity",
@@ -1274,7 +1276,7 @@
         "failures": 0,
         "errors": 0,
         "skipped": 0,
-        "seconds": 5.386106753,
+        "seconds": 4.617641668999999,
         "source": {
           "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
           "deploy/rulemoor-agent-guard.conf": "2d65f04daaed0912c4e80dfa12650e04eb5b70e33f45ff2b8f6ebffd94d38fec",
@@ -1283,7 +1285,7 @@
           "pyproject.toml": "572e254cb34d4752e5aedc0f9db9cf78f527df31688bffc4d91cb15dc0b1f610",
           "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
           "rulemoor/backend.py": "3651ac005d7b381000a3c25ebd62720d0e9e53940504ba0ac98e6237e5336a95",
-          "rulemoor/boot_guard.py": "33de2a03c153905646648063308d6376ba2f8e0279ebf969585c7507e159da35",
+          "rulemoor/boot_guard.py": "18b31f14a4714fc4a017a01c41d866349f8fc986aeacebdd8e90ce68584e767d",
           "rulemoor/cli.py": "ba7cb4b7e9ffd70fda961c42aad491cd6d7bc538405e47f3d6d950af704314e5",
           "rulemoor/core.py": "aa49b9afaa124efab7b733be21ab44338a69720cd6a9a9bd4bed165a56a5cd6f",
           "rulemoor/diagnostics.py": "ab67627f725d953893d62d6c977e029f83460420ce4ea6fa5e1b28e2ab6fc800",
@@ -1292,7 +1294,7 @@
           "rulemoor/service.py": "6a1deccfecb310b31ba4d1721f0eb5f23202c1a764d7710dc052fcf26e880315",
           "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
           "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
-          "tests/test_boot_guard.py": "eb6a743d5ae2bab8d5b455796277a8dd9b8647585ae709189f68a1eca2e73888",
+          "tests/test_boot_guard.py": "eebcf92ddfdbf8bd5caa35836b1a0d897ee0b71e2b0297d84877201dbc2184ee",
           "tests/test_boot_report.py": "d3edb7cd058f8d70739e2e95b5806419cf177db115e52f0a0a6e312ca7c79bcd",
           "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
           "tests/test_deployment_audit.py": "dfdccf12ac9d5d323accb48b7b6a258e66c00d712e8c1ed567d6a8fbceaa86d2",
@@ -1300,7 +1302,7 @@
           "tests/test_dual_diagnostics.py": "382d39cdba7be498ac883d6784263afa5de2f32dea647a2d4235fb2b139d1952",
           "tests/test_dual_recovery.py": "28ace94c72e6c1453bf8147e9a63dec4f2b57dc49095af0df20b233eff30e49a",
           "tests/test_dual_stack.py": "eaea47d8c29bddeba8bdf901420a3c9aae7e32dbfaef26d78861fd73c76818d0",
-          "tests/test_guard_report.py": "5ace1017ba6e797da2f3b2a88939e4134f94ee41515a4094fa27c449620fb0c2",
+          "tests/test_guard_report.py": "fb4757b8999b72675bb42b0832e584aa3e71cf1b6998bdaff570e0b3ddb4058d",
           "tests/test_service_startup.py": "ed6f099450caa1268f47386bf138150e7a09c8a78c199f6a3e8c5fc79a6a3abf",
           "tests/test_startup_state.py": "eb4d74d1446c86b49b16639fcfc1713e8c63ca127b1e1831a838d1e876f5e950",
           "tests/test_tools.py": "c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5",
@@ -1317,13 +1319,13 @@
           "tools/dual_preflight.py": "1615aa027a83c1675f050b9d1733c1377e08545b1ea51b5238e3f741279d0676",
           "tools/dual_recovery.py": "cf1347783722d3e16d990ca0bd6f1a1e4272cfcc35d2b1ba7837eea66e103e8c",
           "tools/evidence.py": "428a5b51dfea21b9b0cbae1225b26998c4ca195af098e5869fdce747b66ce4bc",
-          "tools/guard_guest.py": "772522305db74d9edbfdb0a04bfd1d54087239467974f70618fdcf9055259cff",
-          "tools/guard_report.py": "f494ca0a3ae39aacdfcbdd8cc2836e2c94d5bf4093561ac9a020b3def9d7d55e",
+          "tools/guard_guest.py": "a5d517cc54997727f95e067787a1dee7e9ba9cf5816289e15e4049a0a5b87754",
+          "tools/guard_report.py": "56147bad6cd91f699a390dafefb86c9b90950e28b766c2646d4b750a1ddb918e",
           "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
           "tools/linux_cases.py": "49500a9697b81d5a1b9ba8651e4c1755474f6a49a213b95fce7ec55672cf0a79",
           "tools/linux_validate.py": "bf9c45eef35c9b4b9dcbd9f0958a9122fe020f8e818aa5d234f28e306c9c9313",
           "tools/local_entry.py": "f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911",
-          "tools/mutations.py": "90850d82081d2bfc2488f048e0522c1410ef9d4ec88ae72e7ff2aabbcbd6cfec",
+          "tools/mutations.py": "eef677aa327443bb50fe1baecafce2a2ed39fc93f0f5953177c58ceee2faa8fe",
           "tools/process.py": "6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f",
           "tools/report.py": "c4ac1749bef625b181c7de8dca183eae386871fd5ec23d0b475248fc69d16803",
           "tools/storage_fault.py": "0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0",
@@ -1335,12 +1337,12 @@
           "tools/validate_guard.py": "87bdd173cba592e4a9f8c119779a7d86a90fd7bb8d95aa444eec1ebc843b4dff",
           "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
         },
-        "source_sha256": "b3524c2f36f5e3951cf0a8514e78eaa8736dbc525caead06ef8f557afc244618",
+        "source_sha256": "369d57c25b23ad35b696f4e9f32437896c66dfaba6e49a989fa633faf9fddee0",
         "run_id": null,
         "platform": "Linux",
         "architecture": "aarch64",
         "python": "3.12.3",
-        "test_process_peak_rss_bytes": 36941824,
+        "test_process_peak_rss_bytes": 37216256,
         "scope": "Portable production-core contracts with a memory backend; not real nft or network performance"
       }
     },
@@ -1352,7 +1354,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 1,
           "op": "guard-write-fault",
-          "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+          "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -1558,22 +1560,22 @@
             "MemoryPeak": "[not set]",
             "ActiveState": "failed",
             "SubState": "failed",
-            "InvocationID": "f35082ae2dd24a29a827e574c87210de"
+            "InvocationID": "e8a1da5b03464ab18e3fb116a153bc9e"
           },
           "link": {
             "up": false,
             "ifindex": 2,
             "namespace_inode": 4026532410,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "receipt": {
             "schema": 1,
             "status": "CLOSED",
             "profile_digest": "20942459f988731c028c62e2dc790a13166a68cbf99bb102f8bcdf99161a9645",
             "clock": "monotonic_ns",
-            "observed_ns": 19075521883,
+            "observed_ns": 17548684841,
             "link": {
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
               "namespace_inode": 4026532410,
               "host_namespace_inode": 4026531840,
               "ifindex": 2,
@@ -1698,7 +1700,7 @@
             "phase": "DEGRADED",
             "generation": 2,
             "op": "guard-write-fault",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -1798,22 +1800,22 @@
             "MemoryPeak": "[not set]",
             "ActiveState": "active",
             "SubState": "exited",
-            "InvocationID": "31dbcec893054e038953ff49bbe57c13"
+            "InvocationID": "997e15055eee4449a075019544e0662d"
           },
           "link": {
             "up": true,
             "ifindex": 2,
             "namespace_inode": 4026532410,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "receipt": {
             "schema": 1,
             "status": "OPEN",
             "profile_digest": "20942459f988731c028c62e2dc790a13166a68cbf99bb102f8bcdf99161a9645",
             "clock": "monotonic_ns",
-            "observed_ns": 19272155550,
+            "observed_ns": 17732548925,
             "link": {
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
               "namespace_inode": 4026532410,
               "host_namespace_inode": 4026531840,
               "ifindex": 2,
@@ -1823,7 +1825,7 @@
               "up": true
             },
             "verified_link": {
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
               "namespace_inode": 4026532410,
               "host_namespace_inode": 4026531840,
               "ifindex": 2,
@@ -1832,7 +1834,7 @@
               "kind": "veth",
               "up": false
             },
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "generation": 2,
             "phase": "ROLLED_BACK",
             "policy": {
@@ -2131,9 +2133,9 @@
               "192.0.2.42/24",
               "2001:db8:88::2/64"
             ],
-            "started_ns": 19228229883,
-            "verified_ns": 19265936091,
-            "opened_ns": 19268619133
+            "started_ns": 17691406716,
+            "verified_ns": 17727073133,
+            "opened_ns": 17728900716
           },
           "kernel": [
             {
@@ -2394,7 +2396,7 @@
             "phase": "ROLLED_BACK",
             "generation": 2,
             "op": "guard-write-fault",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -2512,14 +2514,14 @@
             }
           ],
           "listener_identity_before": {
-            "pid": 1810,
-            "start_ticks": 1191,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1813,
+            "start_ticks": 1114,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "listener_identity_after": {
-            "pid": 1810,
-            "start_ticks": 1191,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1813,
+            "start_ticks": 1114,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "listening_socket_counts": {
             "19001": 2,
@@ -2542,22 +2544,22 @@
             "MemoryPeak": "[not set]",
             "ActiveState": "active",
             "SubState": "exited",
-            "InvocationID": "93641194534f408aa5b9b8dc7d2f6856"
+            "InvocationID": "8734e08424f444a791fdd8076580c5a7"
           },
           "link": {
             "up": true,
             "ifindex": 2,
             "namespace_inode": 4026532410,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "receipt": {
             "schema": 1,
             "status": "OPEN",
             "profile_digest": "20942459f988731c028c62e2dc790a13166a68cbf99bb102f8bcdf99161a9645",
             "clock": "monotonic_ns",
-            "observed_ns": 20413181717,
+            "observed_ns": 18957875300,
             "link": {
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
               "namespace_inode": 4026532410,
               "host_namespace_inode": 4026531840,
               "ifindex": 2,
@@ -2567,7 +2569,7 @@
               "up": true
             },
             "verified_link": {
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
               "namespace_inode": 4026532410,
               "host_namespace_inode": 4026531840,
               "ifindex": 2,
@@ -2576,7 +2578,7 @@
               "kind": "veth",
               "up": false
             },
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "generation": 2,
             "phase": "ROLLED_BACK",
             "policy": {
@@ -2875,9 +2877,9 @@
               "192.0.2.42/24",
               "2001:db8:88::2/64"
             ],
-            "started_ns": 20397800633,
-            "verified_ns": 20406325925,
-            "opened_ns": 20409612175
+            "started_ns": 18941256259,
+            "verified_ns": 18951267050,
+            "opened_ns": 18954407634
           },
           "kernel": [
             {
@@ -3138,7 +3140,7 @@
             "phase": "ROLLED_BACK",
             "generation": 2,
             "op": "guard-write-fault",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3230,10 +3232,10 @@
           "Result": "exit-code",
           "ExecMainStatus": "1",
           "MemoryCurrent": "[not set]",
-          "MemoryPeak": "262144",
+          "MemoryPeak": "368640",
           "ActiveState": "activating",
           "SubState": "auto-restart",
-          "InvocationID": "f0db2cf687fc46aeb98b9cc2f53a1b6f"
+          "InvocationID": "a925858a99cf41b4a9c51ed08315e2b5"
         },
         "tls_unavailable_observed": true,
         "data_without_agent": {
@@ -3268,14 +3270,14 @@
             }
           ],
           "listener_identity_before": {
-            "pid": 1810,
-            "start_ticks": 1191,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1813,
+            "start_ticks": 1114,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "listener_identity_after": {
-            "pid": 1810,
-            "start_ticks": 1191,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1813,
+            "start_ticks": 1114,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "listening_socket_counts": {
             "19001": 2,
@@ -3287,17 +3289,17 @@
             "MainPID": "0",
             "Result": "success",
             "ExecMainStatus": "0",
-            "MemoryCurrent": "262144",
-            "MemoryPeak": "262144",
+            "MemoryCurrent": "524288",
+            "MemoryPeak": "524288",
             "ActiveState": "activating",
             "SubState": "start-pre",
-            "InvocationID": "87cb0e52e91e4e7b8e07bd59c83bd98e"
+            "InvocationID": "fdf68dd00c9d439985474921030a76e4"
           },
           "link": {
             "up": true,
             "ifindex": 2,
             "namespace_inode": 4026532410,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "kernel": [
             {
@@ -3586,14 +3588,14 @@
               }
             ],
             "listener_identity_before": {
-              "pid": 1810,
-              "start_ticks": 1191,
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+              "pid": 1813,
+              "start_ticks": 1114,
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
             },
             "listener_identity_after": {
-              "pid": 1810,
-              "start_ticks": 1191,
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+              "pid": 1813,
+              "start_ticks": 1114,
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
             },
             "listening_socket_counts": {
               "19001": 2,
@@ -3606,7 +3608,7 @@
             "phase": "ROLLED_BACK",
             "generation": 2,
             "op": "guard-write-fault",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3695,7 +3697,7 @@
             "phase": "ROLLED_BACK",
             "generation": 2,
             "op": "guard-write-fault",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3786,7 +3788,7 @@
             "phase": "ROLLED_BACK",
             "generation": 2,
             "op": "guard-write-fault",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3875,7 +3877,7 @@
             "phase": "ROLLED_BACK",
             "generation": 2,
             "op": "guard-write-fault",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3963,8 +3965,8 @@
         },
         "guard_receipt_unchanged": true,
         "restart_link_monitor": {
-          "subscribed_ns": 23479282343,
-          "finished_ns": 23682929802,
+          "subscribed_ns": 21960244427,
+          "finished_ns": 22167394885,
           "namespace_inode": 4026532410,
           "events": []
         },
@@ -4000,14 +4002,14 @@
             }
           ],
           "listener_identity_before": {
-            "pid": 1810,
-            "start_ticks": 1191,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1813,
+            "start_ticks": 1114,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "listener_identity_after": {
-            "pid": 1810,
-            "start_ticks": 1191,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1813,
+            "start_ticks": 1114,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "listening_socket_counts": {
             "19001": 2,
@@ -4024,39 +4026,39 @@
           {
             "point": "before-up",
             "unit_before": {
-              "MainPID": "2409",
+              "MainPID": "2411",
               "Result": "success",
               "ExecMainStatus": "0",
-              "MemoryCurrent": "8536064",
-              "MemoryPeak": "10047488",
+              "MemoryCurrent": "8749056",
+              "MemoryPeak": "10170368",
               "ActiveState": "activating",
               "SubState": "start",
-              "InvocationID": "cd70eac52edd47fd9e2735e3efea74c7"
+              "InvocationID": "c76baece1a8b4b788151d023a539c0d3"
             },
             "main_identity": {
-              "pid": 2409,
-              "start_ticks": 2489,
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+              "pid": 2411,
+              "start_ticks": 2330,
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
             },
             "child_identity": {
-              "pid": 2421,
-              "start_ticks": 2493,
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+              "pid": 2424,
+              "start_ticks": 2334,
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
             },
             "link_before": {
               "up": false,
               "ifindex": 2,
               "namespace_inode": 4026532410,
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
             },
             "process_memory": {
               "identity": {
-                "pid": 2409,
-                "start_ticks": 2489,
-                "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+                "pid": 2411,
+                "start_ticks": 2330,
+                "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
               },
-              "rss_bytes": 18694144,
-              "vmhwm_bytes": 18694144,
+              "rss_bytes": 18685952,
+              "vmhwm_bytes": 18685952,
               "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-boot-guard",
               "scope": "VM production gate held in actual ip subprocess call; process only, excludes children; not normal whole-run peak"
             },
@@ -4065,19 +4067,19 @@
               "Result": "signal",
               "ExecMainStatus": "9",
               "MemoryCurrent": "[not set]",
-              "MemoryPeak": "10047488",
+              "MemoryPeak": "10170368",
               "ActiveState": "failed",
               "SubState": "failed",
-              "InvocationID": "cd70eac52edd47fd9e2735e3efea74c7"
+              "InvocationID": "c76baece1a8b4b788151d023a539c0d3"
             },
             "receipt_after": {
               "schema": 1,
               "status": "CLOSED",
               "profile_digest": "20942459f988731c028c62e2dc790a13166a68cbf99bb102f8bcdf99161a9645",
               "clock": "monotonic_ns",
-              "observed_ns": 24973683427,
+              "observed_ns": 23384246969,
               "link": {
-                "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+                "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
                 "namespace_inode": 4026532410,
                 "host_namespace_inode": 4026531840,
                 "ifindex": 2,
@@ -4091,46 +4093,46 @@
               "up": false,
               "ifindex": 2,
               "namespace_inode": 4026532410,
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
             },
             "child_retired": true
           },
           {
             "point": "after-up",
             "unit_before": {
-              "MainPID": "2514",
+              "MainPID": "2516",
               "Result": "success",
               "ExecMainStatus": "0",
-              "MemoryCurrent": "8695808",
-              "MemoryPeak": "10170368",
+              "MemoryCurrent": "8777728",
+              "MemoryPeak": "10072064",
               "ActiveState": "activating",
               "SubState": "start",
-              "InvocationID": "6016c473dcbd408fb4c64eea9a2e2adf"
+              "InvocationID": "58cef7bbbf74447aae4c36d0b3de53f0"
             },
             "main_identity": {
-              "pid": 2514,
-              "start_ticks": 2518,
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+              "pid": 2516,
+              "start_ticks": 2359,
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
             },
             "child_identity": {
-              "pid": 2525,
-              "start_ticks": 2522,
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+              "pid": 2527,
+              "start_ticks": 2362,
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
             },
             "link_before": {
               "up": true,
               "ifindex": 2,
               "namespace_inode": 4026532410,
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
             },
             "process_memory": {
               "identity": {
-                "pid": 2514,
-                "start_ticks": 2518,
-                "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+                "pid": 2516,
+                "start_ticks": 2359,
+                "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
               },
-              "rss_bytes": 18698240,
-              "vmhwm_bytes": 18698240,
+              "rss_bytes": 18706432,
+              "vmhwm_bytes": 18706432,
               "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-boot-guard",
               "scope": "VM production gate held in actual ip subprocess call; process only, excludes children; not normal whole-run peak"
             },
@@ -4139,19 +4141,19 @@
               "Result": "signal",
               "ExecMainStatus": "9",
               "MemoryCurrent": "[not set]",
-              "MemoryPeak": "10170368",
+              "MemoryPeak": "10072064",
               "ActiveState": "failed",
               "SubState": "failed",
-              "InvocationID": "6016c473dcbd408fb4c64eea9a2e2adf"
+              "InvocationID": "58cef7bbbf74447aae4c36d0b3de53f0"
             },
             "receipt_after": {
               "schema": 1,
               "status": "CLOSED",
               "profile_digest": "20942459f988731c028c62e2dc790a13166a68cbf99bb102f8bcdf99161a9645",
               "clock": "monotonic_ns",
-              "observed_ns": 25263382344,
+              "observed_ns": 23677173719,
               "link": {
-                "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+                "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
                 "namespace_inode": 4026532410,
                 "host_namespace_inode": 4026531840,
                 "ifindex": 2,
@@ -4165,7 +4167,7 @@
               "up": false,
               "ifindex": 2,
               "namespace_inode": 4026532410,
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
             },
             "child_retired": true
           }
@@ -4180,28 +4182,76 @@
             "MemoryPeak": "[not set]",
             "ActiveState": "failed",
             "SubState": "failed",
-            "InvocationID": "9036f4915798436b965d8e815e531c9c"
+            "InvocationID": "e5b677c6df354fb88f1f8ed513d0318a"
           },
           "receipt": {
             "schema": 1,
             "status": "FAULTED",
             "profile_digest": "20942459f988731c028c62e2dc790a13166a68cbf99bb102f8bcdf99161a9645",
             "clock": "monotonic_ns",
-            "observed_ns": 25558229844,
+            "observed_ns": 23961150594,
             "reason": "Cannot verify interface DOWN; local recovery required"
           },
           "link": {
             "up": true,
             "ifindex": 2,
             "namespace_inode": 4026532410,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "manual_rescue_link": {
             "up": false,
             "ifindex": 2,
             "namespace_inode": 4026532410,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           }
+        },
+        "receipt_failure": {
+          "open_cleanup": {
+            "exit_code": 1,
+            "unit": {
+              "MainPID": "0",
+              "Result": "exit-code",
+              "ExecMainStatus": "1",
+              "MemoryCurrent": "[not set]",
+              "MemoryPeak": "[not set]",
+              "ActiveState": "failed",
+              "SubState": "failed",
+              "InvocationID": "70eb0c3e5618434bb420549a99d3da8f"
+            },
+            "link": {
+              "up": false,
+              "ifindex": 2,
+              "namespace_inode": 4026532410,
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
+            },
+            "receipt_path_is_directory": true,
+            "ip_trace": [
+              "up",
+              "down",
+              "down"
+            ]
+          },
+          "stop_cleanup": {
+            "exit_code": 0,
+            "unit": {
+              "MainPID": "0",
+              "Result": "exit-code",
+              "ExecMainStatus": "0",
+              "MemoryCurrent": "[not set]",
+              "MemoryPeak": "[not set]",
+              "ActiveState": "failed",
+              "SubState": "failed",
+              "InvocationID": "040dcc8e18fc47f5b81acde427f45421"
+            },
+            "link": {
+              "up": false,
+              "ifindex": 2,
+              "namespace_inode": 4026532410,
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
+            },
+            "receipt_path_is_directory": true
+          },
+          "boundary": "Real atomic_json destination replacement fails EISDIR; not disk-full or power-loss emulation"
         },
         "reopened": {
           "exit_code": 0,
@@ -4213,22 +4263,22 @@
             "MemoryPeak": "[not set]",
             "ActiveState": "active",
             "SubState": "exited",
-            "InvocationID": "d957677b1b8e4baabef8279ebc7eab34"
+            "InvocationID": "bfea827849da4128ac26c1eb253c3389"
           },
           "link": {
             "up": true,
             "ifindex": 2,
             "namespace_inode": 4026532410,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "receipt": {
             "schema": 1,
             "status": "OPEN",
             "profile_digest": "20942459f988731c028c62e2dc790a13166a68cbf99bb102f8bcdf99161a9645",
             "clock": "monotonic_ns",
-            "observed_ns": 25716646136,
+            "observed_ns": 24455616761,
             "link": {
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
               "namespace_inode": 4026532410,
               "host_namespace_inode": 4026531840,
               "ifindex": 2,
@@ -4238,7 +4288,7 @@
               "up": true
             },
             "verified_link": {
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
               "namespace_inode": 4026532410,
               "host_namespace_inode": 4026531840,
               "ifindex": 2,
@@ -4247,7 +4297,7 @@
               "kind": "veth",
               "up": false
             },
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "generation": 2,
             "phase": "ROLLED_BACK",
             "policy": {
@@ -4546,9 +4596,9 @@
               "192.0.2.42/24",
               "2001:db8:88::2/64"
             ],
-            "started_ns": 25700452594,
-            "verified_ns": 25711255344,
-            "opened_ns": 25713191761
+            "started_ns": 24439506886,
+            "verified_ns": 24449197886,
+            "opened_ns": 24452247344
           },
           "kernel": [
             {
@@ -4809,7 +4859,7 @@
             "phase": "ROLLED_BACK",
             "generation": 2,
             "op": "guard-write-fault",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -4927,14 +4977,14 @@
             }
           ],
           "listener_identity_before": {
-            "pid": 1810,
-            "start_ticks": 1191,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1813,
+            "start_ticks": 1114,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "listener_identity_after": {
-            "pid": 1810,
-            "start_ticks": 1191,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1813,
+            "start_ticks": 1114,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "listening_socket_counts": {
             "19001": 2,
@@ -4949,15 +4999,15 @@
       "passed": true,
       "evidence": {
         "old_identity": {
-          "pid": 2760,
-          "start_ticks": 2697,
-          "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+          "pid": 2912,
+          "start_ticks": 2559,
+          "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
         },
         "old_phase": "APPLYING",
         "parent_returncode": -9,
         "orphan_observed_alive": true,
         "retired_before_open_return": true,
-        "retired_at_ns": 27102978095,
+        "retired_at_ns": 25702878970,
         "opened": {
           "exit_code": 0,
           "unit": {
@@ -4968,22 +5018,22 @@
             "MemoryPeak": "[not set]",
             "ActiveState": "active",
             "SubState": "exited",
-            "InvocationID": "cd27491c83d3446e8a5ccc7d9e05f046"
+            "InvocationID": "13e06fe3bb7c4895bc46bdfee9353e7d"
           },
           "link": {
             "up": true,
             "ifindex": 2,
             "namespace_inode": 4026532410,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "receipt": {
             "schema": 1,
             "status": "OPEN",
             "profile_digest": "20942459f988731c028c62e2dc790a13166a68cbf99bb102f8bcdf99161a9645",
             "clock": "monotonic_ns",
-            "observed_ns": 27093897137,
+            "observed_ns": 25693421178,
             "link": {
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
               "namespace_inode": 4026532410,
               "host_namespace_inode": 4026531840,
               "ifindex": 2,
@@ -4993,7 +5043,7 @@
               "up": true
             },
             "verified_link": {
-              "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+              "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
               "namespace_inode": 4026532410,
               "host_namespace_inode": 4026531840,
               "ifindex": 2,
@@ -5002,7 +5052,7 @@
               "kind": "veth",
               "up": false
             },
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "generation": 4,
             "phase": "ROLLED_BACK",
             "policy": {
@@ -5301,9 +5351,9 @@
               "192.0.2.42/24",
               "2001:db8:88::2/64"
             ],
-            "started_ns": 27063108553,
-            "verified_ns": 27086078470,
-            "opened_ns": 27090587262
+            "started_ns": 25662779678,
+            "verified_ns": 25688311845,
+            "opened_ns": 25689983887
           },
           "kernel": [
             {
@@ -5564,7 +5614,7 @@
             "phase": "ROLLED_BACK",
             "generation": 4,
             "op": "guard-old-writer",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -5654,7 +5704,7 @@
           "phase": "COMMITTED",
           "generation": 5,
           "op": "guard-new-after-orphan",
-          "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+          "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -5784,8 +5834,8 @@
             "ipv6"
           ]
         },
-        "release_ns": 27317226053,
-        "observed_ns": 29431358388,
+        "release_ns": 25904590512,
+        "observed_ns": 28015852721,
         "kernel_before_release": [
           {
             "table": {
@@ -6424,14 +6474,14 @@
             }
           ],
           "listener_identity_before": {
-            "pid": 1810,
-            "start_ticks": 1191,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1813,
+            "start_ticks": 1114,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "listener_identity_after": {
-            "pid": 1810,
-            "start_ticks": 1191,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "pid": 1813,
+            "start_ticks": 1114,
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "listening_socket_counts": {
             "19001": 2,
@@ -6444,12 +6494,12 @@
       "name": "guard_pending",
       "passed": true,
       "evidence": {
-        "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+        "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
         "journal_before_stop": {
           "phase": "AWAITING_CONFIRM",
           "generation": 6,
           "op": "guard-partial-boot",
-          "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+          "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -6556,7 +6606,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 6,
           "op": "guard-partial-boot",
-          "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+          "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -6774,7 +6824,7 @@
           "up": false,
           "ifindex": 2,
           "namespace_inode": 4026532410,
-          "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+          "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
         },
         "agent_stopped": true
       }
@@ -6784,12 +6834,12 @@
       "passed": true,
       "evidence": {
         "before": {
-          "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+          "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
           "journal_before_stop": {
             "phase": "AWAITING_CONFIRM",
             "generation": 6,
             "op": "guard-partial-boot",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -6896,7 +6946,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 6,
             "op": "guard-partial-boot",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -7114,17 +7164,17 @@
             "up": false,
             "ifindex": 2,
             "namespace_inode": 4026532410,
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd"
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4"
           },
           "agent_stopped": true
         },
         "pre_guard": {
-          "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e",
+          "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6",
           "link": {
             "up": false,
             "ifindex": 2,
-            "namespace_inode": 4026532335,
-            "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e"
+            "namespace_inode": 4026532334,
+            "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6"
           },
           "kernel": null,
           "family_kernel": {
@@ -7135,7 +7185,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 6,
             "op": "guard-partial-boot",
-            "boot": "c0cfd90f-213f-4027-9872-d8d0871371dd",
+            "boot": "05520c6d-4aa5-474c-9895-91b5440d28f4",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -7244,10 +7294,10 @@
           "status": "OPEN",
           "profile_digest": "20942459f988731c028c62e2dc790a13166a68cbf99bb102f8bcdf99161a9645",
           "clock": "monotonic_ns",
-          "observed_ns": 464255791,
+          "observed_ns": 464997249,
           "link": {
-            "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e",
-            "namespace_inode": 4026532335,
+            "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6",
+            "namespace_inode": 4026532334,
             "host_namespace_inode": 4026531840,
             "ifindex": 2,
             "interface": "rg0",
@@ -7256,8 +7306,8 @@
             "up": true
           },
           "verified_link": {
-            "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e",
-            "namespace_inode": 4026532335,
+            "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6",
+            "namespace_inode": 4026532334,
             "host_namespace_inode": 4026531840,
             "ifindex": 2,
             "interface": "rg0",
@@ -7265,7 +7315,7 @@
             "kind": "veth",
             "up": false
           },
-          "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e",
+          "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6",
           "generation": 7,
           "phase": "ROLLED_BACK",
           "policy": {
@@ -7620,15 +7670,15 @@
             "192.0.2.42/24",
             "2001:db8:88::2/64"
           ],
-          "started_ns": 405709583,
-          "verified_ns": 459358166,
-          "opened_ns": 460972374
+          "started_ns": 401397332,
+          "verified_ns": 460047499,
+          "opened_ns": 461726832
         },
         "journal": {
           "phase": "ROLLED_BACK",
           "generation": 7,
           "op": "guard-partial-boot",
-          "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e",
+          "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -7736,7 +7786,7 @@
             "phase": "ROLLED_BACK",
             "generation": 7,
             "op": "guard-partial-boot",
-            "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e",
+            "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -7843,7 +7893,7 @@
             "phase": "ROLLED_BACK",
             "generation": 7,
             "op": "guard-partial-boot",
-            "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e",
+            "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -7979,14 +8029,14 @@
             }
           ],
           "listener_identity_before": {
-            "pid": 488,
-            "start_ticks": 286,
-            "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e"
+            "pid": 492,
+            "start_ticks": 402,
+            "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6"
           },
           "listener_identity_after": {
-            "pid": 488,
-            "start_ticks": 286,
-            "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e"
+            "pid": 492,
+            "start_ticks": 402,
+            "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6"
           },
           "listening_socket_counts": {
             "19001": 2,
@@ -7994,25 +8044,25 @@
           }
         },
         "agent_memory": {
-          "agent_rss_bytes": 23351296,
-          "agent_vmhwm_bytes": 23351296,
-          "service_cgroup_memory_current_bytes": 11534336,
+          "agent_rss_bytes": 23248896,
+          "agent_vmhwm_bytes": 23248896,
+          "service_cgroup_memory_current_bytes": 11411456,
           "process_identity": {
-            "pid": 492,
-            "start_ticks": 286,
-            "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e"
+            "pid": 493,
+            "start_ticks": 402,
+            "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6"
           },
-          "main_pid_after": 492,
-          "invocation_id": "f9aec13b80a845a0905721b690a2045d",
-          "invocation_id_after": "f9aec13b80a845a0905721b690a2045d",
-          "process_namespace_inode": 4026532335,
-          "target_namespace_inode": 4026532335,
+          "main_pid_after": 493,
+          "invocation_id": "e13e0cf9a05c44e0ab75faf2cef002b5",
+          "invocation_id_after": "e13e0cf9a05c44e0ab75faf2cef002b5",
+          "process_namespace_inode": 4026532334,
+          "target_namespace_inode": 4026532334,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 7689031544,
-          "sample_finished_ns": 7696285044,
+          "sample_started_ns": 8669984253,
+          "sample_finished_ns": 8676832211,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "power_loss_tested": false,
@@ -8020,7 +8070,7 @@
           "phase": "COMMITTED",
           "generation": 8,
           "op": "guard-final-before-boot",
-          "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e",
+          "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -8181,12 +8231,12 @@
       "passed": true,
       "evidence": {
         "before": {
-          "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e",
+          "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6",
           "journal_after_stop": {
             "phase": "COMMITTED",
             "generation": 8,
             "op": "guard-final-before-boot",
-            "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e",
+            "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -8694,17 +8744,17 @@
           "link": {
             "up": false,
             "ifindex": 2,
-            "namespace_inode": 4026532335,
-            "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e"
+            "namespace_inode": 4026532334,
+            "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6"
           }
         },
         "pre_guard": {
-          "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f",
+          "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1",
           "link": {
             "up": false,
             "ifindex": 2,
             "namespace_inode": 4026532334,
-            "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f"
+            "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1"
           },
           "kernel": null,
           "family_kernel": {
@@ -8715,7 +8765,7 @@
             "phase": "COMMITTED",
             "generation": 8,
             "op": "guard-final-before-boot",
-            "boot": "4f59580f-3cdd-4b01-9daa-4c7fa10bc53e",
+            "boot": "784e759a-56ba-4735-9e04-61cfcb3816c6",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -8875,9 +8925,9 @@
           "status": "OPEN",
           "profile_digest": "20942459f988731c028c62e2dc790a13166a68cbf99bb102f8bcdf99161a9645",
           "clock": "monotonic_ns",
-          "observed_ns": 462733541,
+          "observed_ns": 454118291,
           "link": {
-            "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f",
+            "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1",
             "namespace_inode": 4026532334,
             "host_namespace_inode": 4026531840,
             "ifindex": 2,
@@ -8887,7 +8937,7 @@
             "up": true
           },
           "verified_link": {
-            "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f",
+            "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1",
             "namespace_inode": 4026532334,
             "host_namespace_inode": 4026531840,
             "ifindex": 2,
@@ -8896,7 +8946,7 @@
             "kind": "veth",
             "up": false
           },
-          "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f",
+          "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1",
           "generation": 9,
           "phase": "COMMITTED",
           "policy": {
@@ -9307,15 +9357,15 @@
             "192.0.2.42/24",
             "2001:db8:88::2/64"
           ],
-          "started_ns": 408228374,
-          "verified_ns": 456818333,
-          "opened_ns": 459119583
+          "started_ns": 399324874,
+          "verified_ns": 448826833,
+          "opened_ns": 450719666
         },
         "journal": {
           "phase": "COMMITTED",
           "generation": 9,
           "op": "guard-final-before-boot",
-          "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f",
+          "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -9474,7 +9524,7 @@
             "phase": "COMMITTED",
             "generation": 9,
             "op": "guard-final-before-boot",
-            "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f",
+            "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -9632,7 +9682,7 @@
             "phase": "COMMITTED",
             "generation": 9,
             "op": "guard-final-before-boot",
-            "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f",
+            "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -9819,14 +9869,14 @@
             }
           ],
           "listener_identity_before": {
-            "pid": 490,
-            "start_ticks": 338,
-            "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f"
+            "pid": 491,
+            "start_ticks": 288,
+            "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1"
           },
           "listener_identity_after": {
-            "pid": 490,
-            "start_ticks": 338,
-            "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f"
+            "pid": 491,
+            "start_ticks": 288,
+            "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1"
           },
           "listening_socket_counts": {
             "19001": 2,
@@ -9834,25 +9884,25 @@
           }
         },
         "agent_memory": {
-          "agent_rss_bytes": 23265280,
-          "agent_vmhwm_bytes": 23265280,
-          "service_cgroup_memory_current_bytes": 11427840,
+          "agent_rss_bytes": 23339008,
+          "agent_vmhwm_bytes": 23339008,
+          "service_cgroup_memory_current_bytes": 11493376,
           "process_identity": {
-            "pid": 493,
-            "start_ticks": 338,
-            "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f"
+            "pid": 492,
+            "start_ticks": 288,
+            "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1"
           },
-          "main_pid_after": 493,
-          "invocation_id": "239037647f5246d4b1e186884c9f6f2b",
-          "invocation_id_after": "239037647f5246d4b1e186884c9f6f2b",
+          "main_pid_after": 492,
+          "invocation_id": "1734f07bb16147c48ab2a159401101d4",
+          "invocation_id_after": "1734f07bb16147c48ab2a159401101d4",
           "process_namespace_inode": 4026532334,
           "target_namespace_inode": 4026532334,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 7667520378,
-          "sample_finished_ns": 7675407128,
+          "sample_started_ns": 7590350836,
+          "sample_finished_ns": 7597831961,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "power_loss_tested": false,
@@ -9871,7 +9921,7 @@
             "phase": "COMMITTED",
             "generation": 9,
             "op": "guard-final-before-boot",
-            "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f",
+            "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -10029,7 +10079,7 @@
             "phase": "COMMITTED",
             "generation": 9,
             "op": "guard-final-before-boot",
-            "boot": "f2d9781d-2c55-4b11-aebe-b9b34c08587f",
+            "boot": "94f83a04-6375-4634-8e8c-091c8bc77de1",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -10910,19 +10960,19 @@
     }
   ],
   "vm_initial_state": "Stopped",
-  "wheel_sha256": "f2d3400df49be3e6e4aa42c14b907a7d70e01c2f7e38de6690ec5d47f5ade737",
+  "wheel_sha256": "1eb30bfe0aaaee5de5571f1725413ac849f17f26d318f53794663f7d38847505",
   "pending_restart_clock": {
     "clock": "monotonic_ns",
-    "started_ns": 82716693177333,
-    "finished_ns": 82730015686708
+    "started_ns": 84081137041458,
+    "finished_ns": 84095179135375
   },
-  "pending_restart_control_seconds": 13.322509375,
+  "pending_restart_control_seconds": 14.042093917,
   "committed_restart_clock": {
     "clock": "monotonic_ns",
-    "started_ns": 82730015689500,
-    "finished_ns": 82742898127291
+    "started_ns": 84095179139708,
+    "finished_ns": 84108160625583
   },
-  "committed_restart_control_seconds": 12.882437791,
+  "committed_restart_control_seconds": 12.981485875,
   "source_snapshot_removed": true,
   "vm_final_state": "Stopped",
   "evidence_controls": [
@@ -11020,6 +11070,58 @@
     },
     {
       "name": "cleanup-incomplete",
+      "rejected": true
+    },
+    {
+      "name": "receipt-open-error-still-up",
+      "rejected": true
+    },
+    {
+      "name": "receipt-stop-error-still-up",
+      "rejected": true
+    },
+    {
+      "name": "receipt-error-never-injected",
+      "rejected": true
+    },
+    {
+      "name": "receipt-stop-helper-skipped",
+      "rejected": true
+    },
+    {
+      "name": "degraded-open",
+      "rejected": true
+    },
+    {
+      "name": "missing-base-service-evidence",
+      "rejected": true
+    },
+    {
+      "name": "wrong-agent-unit",
+      "rejected": true
+    },
+    {
+      "name": "missing-agent-memory",
+      "rejected": true
+    },
+    {
+      "name": "invalid-agent-memory",
+      "rejected": true
+    },
+    {
+      "name": "guard-memory-scope",
+      "rejected": true
+    },
+    {
+      "name": "agent-memory-scope",
+      "rejected": true
+    },
+    {
+      "name": "unbounded-stage-time",
+      "rejected": true
+    },
+    {
+      "name": "invalid-restart-clock",
       "rejected": true
     }
   ]

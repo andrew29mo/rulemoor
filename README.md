@@ -100,7 +100,9 @@ Rulemoor's authored source and documentation are available under the [MIT Licens
 [Boot Guard MVP](docs/BOOT_GUARD.md) adds an installed production entry point and
 systemd unit for a single isolated static dual-stack veth profile. It reuses
 journal recovery/executor fencing, verifies both kernel policies before UP, and
-records CLOSED after verified closure, or FAULTED when closure cannot be verified. The default Agent deployment is
+records CLOSED after verified closure, or attempts FAULTED when closure cannot be verified.
+Receipt write failure does not skip DOWN and still fails the service; actual link/unit
+inspection is required when the receipt is stale. The default Agent deployment is
 unchanged; opt-in configuration reserves interface activation to Rulemoor.
 
 The isolated VM suite covers actual production backend recovery-write rejection,

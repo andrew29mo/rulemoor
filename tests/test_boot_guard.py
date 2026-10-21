@@ -3,10 +3,12 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
+from rulemoor.backend import atomic_json
 from rulemoor.boot_guard import Guard, load_profile
 from rulemoor.core import Controller, Store
 from rulemoor.backend import lock
-from test_core import MemoryBackend
+from tests.test_core import MemoryBackend
 
 PROFILE={'version':1,'interface':'rg0','mac':'02:00:00:77:00:02',
          'namespace':'/run/netns/test','activation_owner':'rulemoor-exclusive','ipv4':'192.0.2.42/24','ipv6':'2001:db8:88::2/64'}
@@ -69,6 +71,29 @@ class GuardTests(unittest.TestCase):
         self.g.open();self.link.fail_close=True
         with self.assertRaises(RuntimeError):self.g.close()
         self.assertTrue(self.link.up);self.assertEqual(self.receipt()['status'],'FAULTED')
+    def test_receipt_failure_after_up_cannot_prevent_down(self):
+        for errno in (5,28,30):
+            with self.subTest(errno=errno):
+                def write(path,value):
+                    if value['status'] in ('OPEN','CLOSING','CLOSED','FAULTED'):
+                        raise OSError(errno,'injected receipt failure')
+                    atomic_json(path,value)
+                with patch('rulemoor.boot_guard.atomic_json',side_effect=write):
+                    with self.assertRaises(OSError):self.g.open()
+                self.assertFalse(self.link.up)
+    def test_stop_receipt_failure_still_closes_and_reports_failure(self):
+        self.g.open()
+        with patch('rulemoor.boot_guard.atomic_json',side_effect=OSError(28,'no space')):
+            with self.assertRaises(OSError):self.g.close()
+        self.assertFalse(self.link.up)
+        # A transient CLOSING failure still fails the command, despite CLOSED.
+        self.g.open()
+        def write(path,value):
+            if value['status']=='CLOSING':raise OSError(5,'write failed')
+            atomic_json(path,value)
+        with patch('rulemoor.boot_guard.atomic_json',side_effect=write):
+            with self.assertRaises(OSError):self.g.close()
+        self.assertFalse(self.link.up);self.assertEqual(self.receipt()['status'],'CLOSED')
     def test_stale_receipt_never_authorizes_open(self):
         self.g.receipt.write_text('{"status":"OPEN","generation":999,"boot":"old"}')
         self.b.value=None

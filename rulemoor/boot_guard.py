@@ -120,14 +120,21 @@ class Guard:
         return value
 
     def close_locked(self):
+        receipt_error=None
         try:
             before=self.interface.read()
-            self.record('CLOSING',link=before)
+            # Observations must never be a prerequisite for closing the link.
+            # Preserve a failed write as a service failure even if DOWN succeeds.
+            try:self.record('CLOSING',link=before)
+            except Exception as exc:receipt_error=exc
             after=self.interface.set_up(False)
-            return self.record('CLOSED',link=after)
         except Exception:
-            self.record('FAULTED',reason='Cannot verify interface DOWN; local recovery required')
+            try:self.record('FAULTED',reason='Cannot verify interface DOWN; local recovery required')
+            except Exception:pass  # Keep the actual interface failure, not a logging error.
             raise
+        closed=self.record('CLOSED',link=after)
+        if receipt_error is not None:raise receipt_error
+        return closed
 
     def close(self):
         fd=lock(self.root/'guard.lock')

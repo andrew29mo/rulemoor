@@ -91,7 +91,9 @@ remain prerequisite experiments, not production backend recovery-write tests.
 The opt-in [production gate](BOOT_GUARD.md) now implements the separate early
 recovery entry point for the bounded static-veth profile. It uses Controller.start
 rather than a separate recovery engine, holds the existing locks through paired
-policy and link readbacks, and closes or reports FAULTED on failure. The normal
+policy and link readbacks. Receipt write failures do not skip DOWN, and an
+unverified close attempts FAULTED; unavailable receipt storage leaves no fresh
+status guarantee. The normal
 Agent reacquires ownership afterward. Earlier exploration sections describe the
 historical prototype, not the installed feature's complete validation. Whole-host
 zero-gap and hard power-loss behavior remain outside established evidence.

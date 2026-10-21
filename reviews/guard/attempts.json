@@ -78,6 +78,30 @@
       "source_snapshot_removed": true,
       "vm_final_state": "Stopped",
       "cleanup_error_present": false
+    },
+    {
+      "attempt": "audit-before-test-import-fix",
+      "run_id": "7596479e6e6f7366",
+      "source_sha256": "0603c7dd8936a39edd04b15f9ce4435bcee83db2707631fbab3ac7057c8d297c",
+      "passed": true,
+      "failed_cases": [],
+      "source_snapshot_removed": true,
+      "vm_final_state": "Stopped",
+      "cleanup_error_present": false,
+      "mutation_suite_passed": false,
+      "mutation_failure": "New fully-qualified Boot Guard test could not import test_core; import error was not counted as regression detection"
+    },
+    {
+      "attempt": "audit-final",
+      "run_id": "fcafb99bc50a8cb9",
+      "source_sha256": "369d57c25b23ad35b696f4e9f32437896c66dfaba6e49a989fa633faf9fddee0",
+      "passed": true,
+      "failed_cases": [],
+      "source_snapshot_removed": true,
+      "vm_final_state": "Stopped",
+      "cleanup_error_present": false,
+      "mutation_suite_passed": true,
+      "mutations": 33
     }
   ]
 }

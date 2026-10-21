@@ -59,7 +59,12 @@ stateDiagram-v2
 
 Systemd `ExecStopPost` also closes the interface after process/startup failure.
 Startup and stop have explicit timeouts; cgroup cleanup precedes the stop helper.
-This does not guarantee cleanup when the kernel or storage cannot execute it.
+Receipt writes are not prerequisites for DOWN: CLOSING/CLOSED write errors still
+fail the service, but cannot skip the identified interface's close attempt. If
+receipt storage fails, an old OPEN receipt can remain; inspect the actual unit
+and link, never treat cached status as readiness. A failed DOWN preserves its
+original error even if recording FAULTED also fails. This does not guarantee
+cleanup when the kernel, interface commands or required configuration cannot execute it.
 A normal Agent restart does not restart the active gate or flap the interface.
 An explicit gate stop stops its dependent Agent and closes the controlled link;
 it does not flush firewall rules or change foreign tables.
@@ -156,6 +161,13 @@ Linux VM. It tests:
   Releasing its old marker after retirement cannot overwrite the successor during
   the finite observation. It does not prove a live obsolete writer resumed safely
   or cover every possible kernel interruption.
+* **Receipt write failure:** after actual UP, an ip wrapper replaces only the
+  receipt destination with a directory. The unchanged atomic JSON replacement
+  fails with EISDIR; both open-error cleanup and formal ExecStopPost still issue
+  DOWN. A separate normal-service stop with the same destination fault also
+  closes the interface while the unit fails. This is a real destination error,
+  not an ENOSPC/EIO, disk exhaustion or power-loss VM test. Portable tests inject
+  ENOSPC/EIO/EROFS at the production receipt writer boundary.
 * **Dual-stack data plane:** a separate peer namespace sends actual echo canaries
   to a permitted port over IPv4 and IPv6. Both denied-port probes must time out
   while the same listener remains alive and both sockets are shown listening;
@@ -202,7 +214,10 @@ Final run details and measured scopes are recorded with the
 samples; Guard RSS/VmHWM are explicitly labeled held-point samples, excluding
 children and not establishing a normal whole-run peak; guard MemoryPeak, if numeric, is a service cgroup peak including children
 and charged memory. They are not interchangeable, and neither is whole-VM RSS.
-Gate intervals include Python, SQLite, nft subprocesses and interface readbacks;
+Gate intervals begin inside Guard.open and end at the monotonic observation
+before writing the final OPEN receipt. They include recovery, SQLite, nft
+subprocesses and interface readbacks, but exclude Python startup/imports, profile
+loading, root setup and the final OPEN receipt write/fsync;
 VM stop/start control intervals include VM/controller/verification work. No speedup,
 RSS reduction, production availability or latency bound is claimed.
 
