@@ -4,7 +4,7 @@ Rulemoor 0.1 is an early controlled-environment MVP. Treat firewall administrati
 
 The API requires TLS and a private bearer-token file. The CLI verifies the server certificate. There is one trusted-operator role; no RBAC, SSO, tenant isolation, replay-resistant per-request signatures, credential rotation service or distributed authorization is implemented. Do not expose the service directly to an untrusted network. Revoking a token requires provisioning a replacement and restarting the service.
 
-State, key and token directories must be private. Status/history contain operational configuration and confirmation challenges; treat responses as sensitive even though default logs omit bodies, credentials and client addresses. Reports from the bundled tests contain documentation-range test addresses only. Actual operational reports should not be uploaded without review.
+State, key and token directories must be private. Status/history contain operational configuration and confirmation challenges; treat responses as sensitive even though default logs omit bodies, credentials and client addresses. Reports from the bundled tests contain documentation-range or loopback test addresses only. Actual operational reports should not be uploaded without review.
 
 Management preflight is opt-in and checks declared local IPv4 TCP ports, not full routes or external reachability. Foreign nftables inspection is read-only, bounded and point-in-time; unavailable/uncertain results are warnings, and only an own-policy port denial gates new apply. Its responses may reveal bounded chain/service names and protected ports; restrict them to trusted operators. No API request can enable, edit or bypass the startup configuration, and new TLS confirmation remains required.
 

@@ -25,7 +25,7 @@ Prior agent-assisted findings and their historical evidence are in [AGENT_REVIEW
 
 Current tracked contents and reachable Git-history blobs were inspected for unexpected binaries/large files, private keys, common GitHub/cloud credential formats, personal home paths and private contact addresses. No findings were observed. Git commit authors use the owner's GitHub noreply address. These checks are not a guarantee of detecting every possible secret format.
 
-No virtual environment, raw host log, generated certificate/key, state database, toolchain download, VM disk, personal AGENTS/settings file or orchestration log is tracked. The structured test artifacts contain documentation-range addresses and test process identities; actual credentials are not retained. Runtime/build outputs remain ignored. No model/data asset or vendored runtime dependency was added.
+No virtual environment, raw host log, generated certificate/key, state database, toolchain download, VM disk, personal AGENTS/settings file or orchestration log is tracked. The structured test artifacts contain documentation-range/loopback addresses and test process identities; actual credentials are not retained. Runtime/build outputs remain ignored. No model/data asset or vendored runtime dependency was added.
 
 ## License and access
 
