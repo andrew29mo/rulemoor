@@ -94,3 +94,19 @@ Important boundaries:
 ## License
 
 Rulemoor's authored source and documentation are available under the [MIT License](LICENSE), copyright (c) 2026 Andrew Yuan. Third-party tools retain their own licenses; see [third-party notices](THIRD_PARTY_NOTICES.md).
+
+## Opt-in early policy load and interface gate
+
+[Boot Guard MVP](docs/BOOT_GUARD.md) adds an installed production entry point and
+systemd unit for a single isolated static dual-stack veth profile. It reuses
+journal recovery/executor fencing, verifies both kernel policies before UP, and
+records CLOSED after verified closure, or FAULTED when closure cannot be verified. The default Agent deployment is
+unchanged; opt-in configuration reserves interface activation to Rulemoor.
+
+The isolated VM suite covers actual production backend recovery-write rejection,
+a delayed orphan executor, independent IPv4/IPv6 allow/deny canaries and fresh TLS,
+and orderly restarts for partial-confirmation and committed states. See
+[retained evidence](reviews/guard/README.md) for actual results and limitations.
+This does not establish whole-host early-boot zero-gap or sudden power-loss
+recovery. [Earlier design experiments](docs/BOOT_GUARD_EXPLORATION.md) and their
+[review](docs/BOOT_GUARD_REVIEW.md) retain their original historical scope.

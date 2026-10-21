@@ -208,6 +208,9 @@ def topology():
         from tools import dual_recovery
         dual_recovery.topology();pre['dual_tables']=dual_recovery.families()
         assert pre['dual_tables']=={'ip':None,'ip6':None}
+    if (FIXTURE/'guard-mvp-mode.json').exists():
+        from tools import guard_guest
+        guard_guest.topology()
     save('pre-agent-boot',pre)
 
 

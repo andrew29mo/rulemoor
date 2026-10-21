@@ -1,0 +1,4051 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Rulemoor boot design experiments</title><style>body{font:16px system-ui;max-width:1000px;margin:40px auto;padding:20px}td,th{padding:8px;border:1px solid #ccc}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style><h1>Boot design experiments: PASS</h1><p>Experimental orchestration with installed production Controller/Agent. Isolated Linux VM veth; not a production Boot Guard. No early-boot zero-gap or sudden power-loss claim. Timings describe single control/observation intervals, not recovery SLAs. No RSS comparison or performance benefit is established.</p><p>PASS means expected observations, including unsafe counterexamples: a skipped prerequisite and competing activation open the interface. Injected cleanup failure leaves it UP/FAULTED until a separately observed manual close. Post-UP crash cleanup does not establish zero exposure. Direct nft prerequisite faults do not test production backend recovery-write failure.</p><table><tr><th>Case</th><th>Observation</th></tr><tr><td>setup</td><td>PASS</td></tr><tr><td>setup_probe</td><td>PASS</td></tr><tr><td>failures</td><td>PASS</td></tr><tr><td>ownership</td><td>PASS</td></tr><tr><td>crashes</td><td>PASS</td></tr><tr><td>handoff</td><td>PASS</td></tr><tr><td>after_boot</td><td>PASS</td></tr><tr><td>cleanup_probe</td><td>PASS</td></tr><tr><td>cleanup</td><td>PASS</td></tr></table><h2>Receipts</h2><pre>{
+  &quot;schema&quot;: 1,
+  &quot;run_id&quot;: &quot;eb08f5581fec7bc0&quot;,
+  &quot;recorded_at_utc&quot;: &quot;2026-10-21T05:46:09.054753+00:00&quot;,
+  &quot;passed&quot;: true,
+  &quot;source&quot;: {
+    &quot;Dockerfile&quot;: &quot;3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec&quot;,
+    &quot;deploy/rulemoor.service&quot;: &quot;9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625&quot;,
+    &quot;pyproject.toml&quot;: &quot;6be68097d0f9be7dc9b693b0e0f17f50669e339897a16da9ea422d583f6170c8&quot;,
+    &quot;rulemoor/__init__.py&quot;: &quot;021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03&quot;,
+    &quot;rulemoor/backend.py&quot;: &quot;3651ac005d7b381000a3c25ebd62720d0e9e53940504ba0ac98e6237e5336a95&quot;,
+    &quot;rulemoor/cli.py&quot;: &quot;ba7cb4b7e9ffd70fda961c42aad491cd6d7bc538405e47f3d6d950af704314e5&quot;,
+    &quot;rulemoor/core.py&quot;: &quot;aa49b9afaa124efab7b733be21ab44338a69720cd6a9a9bd4bed165a56a5cd6f&quot;,
+    &quot;rulemoor/diagnostics.py&quot;: &quot;ab67627f725d953893d62d6c977e029f83460420ce4ea6fa5e1b28e2ab6fc800&quot;,
+    &quot;rulemoor/executor.py&quot;: &quot;9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd&quot;,
+    &quot;rulemoor/policy.py&quot;: &quot;2e73cb8ff8cbee9fe959fa744c187c713582d2cb517c11979591708d09d4a1b5&quot;,
+    &quot;rulemoor/service.py&quot;: &quot;6a1deccfecb310b31ba4d1721f0eb5f23202c1a764d7710dc052fcf26e880315&quot;,
+    &quot;tests/__init__.py&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;,
+    &quot;tests/test_api.py&quot;: &quot;b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a&quot;,
+    &quot;tests/test_boot_report.py&quot;: &quot;d3edb7cd058f8d70739e2e95b5806419cf177db115e52f0a0a6e312ca7c79bcd&quot;,
+    &quot;tests/test_core.py&quot;: &quot;99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb&quot;,
+    &quot;tests/test_deployment_audit.py&quot;: &quot;dfdccf12ac9d5d323accb48b7b6a258e66c00d712e8c1ed567d6a8fbceaa86d2&quot;,
+    &quot;tests/test_diagnostics.py&quot;: &quot;1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7&quot;,
+    &quot;tests/test_dual_diagnostics.py&quot;: &quot;382d39cdba7be498ac883d6784263afa5de2f32dea647a2d4235fb2b139d1952&quot;,
+    &quot;tests/test_dual_recovery.py&quot;: &quot;28ace94c72e6c1453bf8147e9a63dec4f2b57dc49095af0df20b233eff30e49a&quot;,
+    &quot;tests/test_dual_stack.py&quot;: &quot;eaea47d8c29bddeba8bdf901420a3c9aae7e32dbfaef26d78861fd73c76818d0&quot;,
+    &quot;tests/test_service_startup.py&quot;: &quot;ed6f099450caa1268f47386bf138150e7a09c8a78c199f6a3e8c5fc79a6a3abf&quot;,
+    &quot;tests/test_startup_state.py&quot;: &quot;eb4d74d1446c86b49b16639fcfc1713e8c63ca127b1e1831a838d1e876f5e950&quot;,
+    &quot;tests/test_tools.py&quot;: &quot;c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5&quot;,
+    &quot;tools/__init__.py&quot;: &quot;eaa085436674003155fc118cbc47372cae61fb5523098d828a448e71a2e60dac&quot;,
+    &quot;tools/agent_driver.py&quot;: &quot;6ab01068cf71fd154041b8faa01043d65778f30bb43ce3e9fe3316a4c6a88c77&quot;,
+    &quot;tools/audit_deployment.py&quot;: &quot;3030b50941a804ce2b0f1ae74ae415592e9e6075756b34f94535bda9e1f53bed&quot;,
+    &quot;tools/audit_evidence.py&quot;: &quot;20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617&quot;,
+    &quot;tools/boot_exploration.py&quot;: &quot;67bc6413b4067dd456511374c209b5f23b4d1837b58c87d18711464a4c8cbd5b&quot;,
+    &quot;tools/boot_report.py&quot;: &quot;c73f4ecb84df1ad668b31c93d9b96b812f3bdc1ab6f7970cf9c5a2f8b5b4f20c&quot;,
+    &quot;tools/client_driver.py&quot;: &quot;5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44&quot;,
+    &quot;tools/colima-lock.json&quot;: &quot;fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d&quot;,
+    &quot;tools/deployment_guest.py&quot;: &quot;9faa2d0eef78ecc73705f8a37f1437e29129aacba5d8fbc0129c92bb0c4e12d9&quot;,
+    &quot;tools/deployment_report.py&quot;: &quot;28fe603a4a1f9d294cbf43e6504eba10a4124744887195a1d7426f7b9eada8d2&quot;,
+    &quot;tools/dual_preflight.py&quot;: &quot;1615aa027a83c1675f050b9d1733c1377e08545b1ea51b5238e3f741279d0676&quot;,
+    &quot;tools/dual_recovery.py&quot;: &quot;cf1347783722d3e16d990ca0bd6f1a1e4272cfcc35d2b1ba7837eea66e103e8c&quot;,
+    &quot;tools/evidence.py&quot;: &quot;d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b&quot;,
+    &quot;tools/install_colima.py&quot;: &quot;70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb&quot;,
+    &quot;tools/linux_cases.py&quot;: &quot;49500a9697b81d5a1b9ba8651e4c1755474f6a49a213b95fce7ec55672cf0a79&quot;,
+    &quot;tools/linux_validate.py&quot;: &quot;bf9c45eef35c9b4b9dcbd9f0958a9122fe020f8e818aa5d234f28e306c9c9313&quot;,
+    &quot;tools/local_entry.py&quot;: &quot;f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911&quot;,
+    &quot;tools/mutations.py&quot;: &quot;90850d82081d2bfc2488f048e0522c1410ef9d4ec88ae72e7ff2aabbcbd6cfec&quot;,
+    &quot;tools/process.py&quot;: &quot;6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f&quot;,
+    &quot;tools/report.py&quot;: &quot;c4ac1749bef625b181c7de8dca183eae386871fd5ec23d0b475248fc69d16803&quot;,
+    &quot;tools/storage_fault.py&quot;: &quot;0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0&quot;,
+    &quot;tools/unit.py&quot;: &quot;ade259d94052f2c69685c35210af0444c44a76e81c51640dc5f212da6a5282fd&quot;,
+    &quot;tools/validate-deployment&quot;: &quot;e3995176226e017ff2c6e36fd52c163b6e968ca539737420edfa7d5f9fcbe412&quot;,
+    &quot;tools/validate-local&quot;: &quot;45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c&quot;,
+    &quot;tools/validate_boot.py&quot;: &quot;133c69b17e0784a03f804e77efb3ad6ec39737ea0e06aa00fecf1147377a4cfe&quot;,
+    &quot;tools/validate_deployment.py&quot;: &quot;a8e03f1563b4660ee1c1acf2a99d38ac66e6a284392f597cc6ad7138094fe067&quot;,
+    &quot;tools/validate_local.py&quot;: &quot;51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1&quot;
+  },
+  &quot;source_sha256&quot;: &quot;a300356be0c7e71f18aec8979cd95c9c53ef93bab388f7201bea6f10758f99a7&quot;,
+  &quot;source_changed&quot;: false,
+  &quot;scope&quot;: {
+    &quot;execution&quot;: &quot;Experimental gate + installed production Controller/Agent in isolated Linux VM veth namespace&quot;,
+    &quot;reboot_method&quot;: &quot;One orderly Colima VM stop/start; pending state retained without Controller.shutdown&quot;,
+    &quot;power_loss_tested&quot;: false,
+    &quot;native_macos_deployment_tested&quot;: false,
+    &quot;early_boot_zero_gap_tested&quot;: false,
+    &quot;production_boot_guard_implemented&quot;: false
+  },
+  &quot;stages&quot;: [
+    {
+      &quot;name&quot;: &quot;vm-initial&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.3470778750051977
+    },
+    {
+      &quot;name&quot;: &quot;vm-start&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 10.801157915993826
+    },
+    {
+      &quot;name&quot;: &quot;preflight&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.332526083002449
+    },
+    {
+      &quot;name&quot;: &quot;guest-prerequisites&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.4534624160005478
+    },
+    {
+      &quot;name&quot;: &quot;wheel-build&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 1.3436634579993552
+    },
+    {
+      &quot;name&quot;: &quot;snapshot-upload&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.21884016699914355
+    },
+    {
+      &quot;name&quot;: &quot;guest-setup&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 2.1355366249918006
+    },
+    {
+      &quot;name&quot;: &quot;guest-setup_probe&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.6065129579947097
+    },
+    {
+      &quot;name&quot;: &quot;guest-failures&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 2.905701459007105
+    },
+    {
+      &quot;name&quot;: &quot;guest-ownership&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 7.400089125003433
+    },
+    {
+      &quot;name&quot;: &quot;guest-crashes&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 1.4379277919942979
+    },
+    {
+      &quot;name&quot;: &quot;guest-handoff&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.7233320829982404
+    },
+    {
+      &quot;name&quot;: &quot;probe-vm-stop&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 2.556650124999578
+    },
+    {
+      &quot;name&quot;: &quot;probe-vm-start&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 8.486775333993137
+    },
+    {
+      &quot;name&quot;: &quot;guest-after_boot&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.6695034999866039
+    },
+    {
+      &quot;name&quot;: &quot;guest-cleanup_probe&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.7806532079994213
+    },
+    {
+      &quot;name&quot;: &quot;guest-cleanup&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.4629490840015933
+    },
+    {
+      &quot;name&quot;: &quot;snapshot-remove&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.23557766700105276
+    },
+    {
+      &quot;name&quot;: &quot;vm-final-stop&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 2.4121947920066305
+    },
+    {
+      &quot;name&quot;: &quot;vm-final&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 0.18776087499281857
+    }
+  ],
+  &quot;cases&quot;: [
+    {
+      &quot;name&quot;: &quot;setup&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;pid1&quot;: &quot;systemd&quot;,
+        &quot;systemd&quot;: &quot;systemd 255 (255.4-1ubuntu8.15)&quot;,
+        &quot;kernel&quot;: &quot;6.8.0-117-generic&quot;,
+        &quot;architecture&quot;: &quot;aarch64&quot;,
+        &quot;python&quot;: &quot;3.12.3&quot;,
+        &quot;nft&quot;: &quot;nftables v1.0.9 (Old Doc Yak #3)&quot;,
+        &quot;installed_modules_match_source&quot;: true,
+        &quot;installed_package&quot;: {
+          &quot;origin&quot;: &quot;/opt/rulemoor/venv/lib/python3.12/site-packages/rulemoor&quot;,
+          &quot;hashes&quot;: {
+            &quot;rulemoor/service.py&quot;: &quot;6a1deccfecb310b31ba4d1721f0eb5f23202c1a764d7710dc052fcf26e880315&quot;,
+            &quot;rulemoor/core.py&quot;: &quot;aa49b9afaa124efab7b733be21ab44338a69720cd6a9a9bd4bed165a56a5cd6f&quot;,
+            &quot;rulemoor/backend.py&quot;: &quot;3651ac005d7b381000a3c25ebd62720d0e9e53940504ba0ac98e6237e5336a95&quot;,
+            &quot;rulemoor/executor.py&quot;: &quot;9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd&quot;,
+            &quot;rulemoor/cli.py&quot;: &quot;ba7cb4b7e9ffd70fda961c42aad491cd6d7bc538405e47f3d6d950af704314e5&quot;,
+            &quot;rulemoor/policy.py&quot;: &quot;2e73cb8ff8cbee9fe959fa744c187c713582d2cb517c11979591708d09d4a1b5&quot;,
+            &quot;rulemoor/diagnostics.py&quot;: &quot;ab67627f725d953893d62d6c977e029f83460420ce4ea6fa5e1b28e2ab6fc800&quot;,
+            &quot;rulemoor/__init__.py&quot;: &quot;021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03&quot;
+          }
+        },
+        &quot;production_unit_sha256&quot;: &quot;9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625&quot;,
+        &quot;namespace_only_override&quot;: true,
+        &quot;unit_properties&quot;: {
+          &quot;Restart&quot;: &quot;on-failure&quot;,
+          &quot;RestartUSec&quot;: &quot;1s&quot;,
+          &quot;MainPID&quot;: &quot;1658&quot;,
+          &quot;Result&quot;: &quot;success&quot;,
+          &quot;NRestarts&quot;: &quot;0&quot;,
+          &quot;ExecMainStatus&quot;: &quot;0&quot;,
+          &quot;ControlGroup&quot;: &quot;/system.slice/rulemoor.service&quot;,
+          &quot;MemoryCurrent&quot;: &quot;11223040&quot;,
+          &quot;CapabilityBoundingSet&quot;: &quot;cap_kill cap_net_admin&quot;,
+          &quot;PrivateTmp&quot;: &quot;yes&quot;,
+          &quot;ProtectHome&quot;: &quot;yes&quot;,
+          &quot;ProtectSystem&quot;: &quot;strict&quot;,
+          &quot;NoNewPrivileges&quot;: &quot;yes&quot;,
+          &quot;NetworkNamespacePath&quot;: &quot;/run/netns/rm_deployment&quot;,
+          &quot;KillMode&quot;: &quot;control-group&quot;,
+          &quot;ActiveState&quot;: &quot;active&quot;,
+          &quot;SubState&quot;: &quot;running&quot;,
+          &quot;StartLimitIntervalUSec&quot;: &quot;1min&quot;,
+          &quot;StartLimitBurst&quot;: &quot;5&quot;
+        },
+        &quot;boot_id&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;,
+        &quot;memory&quot;: {
+          &quot;agent_rss_bytes&quot;: 23285760,
+          &quot;agent_vmhwm_bytes&quot;: 23285760,
+          &quot;service_cgroup_memory_current_bytes&quot;: 11214848,
+          &quot;process_identity&quot;: {
+            &quot;pid&quot;: 1658,
+            &quot;start_ticks&quot;: 1247,
+            &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+          },
+          &quot;main_pid_after&quot;: 1658,
+          &quot;invocation_id&quot;: &quot;50f509d72f4a4b20b94c81b3ca687db7&quot;,
+          &quot;invocation_id_after&quot;: &quot;50f509d72f4a4b20b94c81b3ca687db7&quot;,
+          &quot;process_namespace_inode&quot;: 4026532410,
+          &quot;target_namespace_inode&quot;: 4026532410,
+          &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
+          &quot;cwd&quot;: &quot;/&quot;,
+          &quot;python_path_environment_clean&quot;: true,
+          &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
+          &quot;sample_started_ns&quot;: 12591376546,
+          &quot;sample_finished_ns&quot;: 12595589421,
+          &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
+        }
+      }
+    },
+    {
+      &quot;name&quot;: &quot;setup_probe&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;installed_modules&quot;: {
+          &quot;origin&quot;: &quot;/opt/rulemoor/venv/lib/python3.12/site-packages/rulemoor&quot;,
+          &quot;hashes&quot;: {
+            &quot;rulemoor/service.py&quot;: &quot;6a1deccfecb310b31ba4d1721f0eb5f23202c1a764d7710dc052fcf26e880315&quot;,
+            &quot;rulemoor/core.py&quot;: &quot;aa49b9afaa124efab7b733be21ab44338a69720cd6a9a9bd4bed165a56a5cd6f&quot;,
+            &quot;rulemoor/backend.py&quot;: &quot;3651ac005d7b381000a3c25ebd62720d0e9e53940504ba0ac98e6237e5336a95&quot;,
+            &quot;rulemoor/executor.py&quot;: &quot;9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd&quot;,
+            &quot;rulemoor/cli.py&quot;: &quot;ba7cb4b7e9ffd70fda961c42aad491cd6d7bc538405e47f3d6d950af704314e5&quot;,
+            &quot;rulemoor/policy.py&quot;: &quot;2e73cb8ff8cbee9fe959fa744c187c713582d2cb517c11979591708d09d4a1b5&quot;,
+            &quot;rulemoor/diagnostics.py&quot;: &quot;ab67627f725d953893d62d6c977e029f83460420ce4ea6fa5e1b28e2ab6fc800&quot;,
+            &quot;rulemoor/__init__.py&quot;: &quot;021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03&quot;
+          }
+        },
+        &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;,
+        &quot;initial_link&quot;: {
+          &quot;ifindex&quot;: 3,
+          &quot;up&quot;: false,
+          &quot;namespace_inode&quot;: 4026532469,
+          &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+        },
+        &quot;systemd&quot;: &quot;systemd 255 (255.4-1ubuntu8.15)&quot;
+      }
+    },
+    {
+      &quot;name&quot;: &quot;failures&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;failures&quot;: [
+          {
+            &quot;fault&quot;: &quot;journal&quot;,
+            &quot;exit_code&quot;: 1,
+            &quot;unit&quot;: {
+              &quot;MainPID&quot;: &quot;0&quot;,
+              &quot;Result&quot;: &quot;exit-code&quot;,
+              &quot;ExecMainStatus&quot;: &quot;1&quot;,
+              &quot;ActiveState&quot;: &quot;failed&quot;,
+              &quot;SubState&quot;: &quot;failed&quot;,
+              &quot;InvocationID&quot;: &quot;0257b5514b664702b57a5c91e0ecfae6&quot;
+            },
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;started_ns&quot;: 13550525588,
+            &quot;finished_ns&quot;: 13617622338,
+            &quot;cleanup&quot;: {
+              &quot;status&quot;: &quot;CLOSED&quot;,
+              &quot;link&quot;: {
+                &quot;ifindex&quot;: 3,
+                &quot;up&quot;: false,
+                &quot;namespace_inode&quot;: 4026532469,
+                &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+              }
+            }
+          },
+          {
+            &quot;fault&quot;: &quot;nft&quot;,
+            &quot;exit_code&quot;: 1,
+            &quot;unit&quot;: {
+              &quot;MainPID&quot;: &quot;0&quot;,
+              &quot;Result&quot;: &quot;exit-code&quot;,
+              &quot;ExecMainStatus&quot;: &quot;1&quot;,
+              &quot;ActiveState&quot;: &quot;failed&quot;,
+              &quot;SubState&quot;: &quot;failed&quot;,
+              &quot;InvocationID&quot;: &quot;6bdbb5cd4fdb4df29d17769adadbd20e&quot;
+            },
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;cleanup&quot;: {
+              &quot;status&quot;: &quot;CLOSED&quot;,
+              &quot;link&quot;: {
+                &quot;ifindex&quot;: 3,
+                &quot;up&quot;: false,
+                &quot;namespace_inode&quot;: 4026532469,
+                &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+              }
+            }
+          },
+          {
+            &quot;fault&quot;: &quot;timeout&quot;,
+            &quot;exit_code&quot;: 1,
+            &quot;unit&quot;: {
+              &quot;MainPID&quot;: &quot;0&quot;,
+              &quot;Result&quot;: &quot;timeout&quot;,
+              &quot;ExecMainStatus&quot;: &quot;15&quot;,
+              &quot;ActiveState&quot;: &quot;failed&quot;,
+              &quot;SubState&quot;: &quot;failed&quot;,
+              &quot;InvocationID&quot;: &quot;161025f649be4ec899e2fce72c6c7923&quot;
+            },
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;started_ns&quot;: 13929628963,
+            &quot;finished_ns&quot;: 15245127672,
+            &quot;cleanup&quot;: {
+              &quot;status&quot;: &quot;CLOSED&quot;,
+              &quot;link&quot;: {
+                &quot;ifindex&quot;: 3,
+                &quot;up&quot;: false,
+                &quot;namespace_inode&quot;: 4026532469,
+                &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+              }
+            }
+          },
+          {
+            &quot;fault&quot;: &quot;ipv6-drift&quot;,
+            &quot;exit_code&quot;: 1,
+            &quot;unit&quot;: {
+              &quot;MainPID&quot;: &quot;0&quot;,
+              &quot;Result&quot;: &quot;exit-code&quot;,
+              &quot;ExecMainStatus&quot;: &quot;1&quot;,
+              &quot;ActiveState&quot;: &quot;failed&quot;,
+              &quot;SubState&quot;: &quot;failed&quot;,
+              &quot;InvocationID&quot;: &quot;1695b9b39cf344289d7f8d2bfd00bce5&quot;
+            },
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;started_ns&quot;: 15380442006,
+            &quot;finished_ns&quot;: 15453244797,
+            &quot;cleanup&quot;: {
+              &quot;status&quot;: &quot;CLOSED&quot;,
+              &quot;link&quot;: {
+                &quot;ifindex&quot;: 3,
+                &quot;up&quot;: false,
+                &quot;namespace_inode&quot;: 4026532469,
+                &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+              }
+            },
+            &quot;kernel_before&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59998
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;meta&quot;: {
+                            &quot;key&quot;: &quot;l4proto&quot;
+                          }
+                        },
+                        &quot;right&quot;: &quot;ipv6-icmp&quot;
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ],
+            &quot;kernel_drift&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59998
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;meta&quot;: {
+                            &quot;key&quot;: &quot;l4proto&quot;
+                          }
+                        },
+                        &quot;right&quot;: &quot;ipv6-icmp&quot;
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59997
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ],
+            &quot;kernel_after&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59998
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;meta&quot;: {
+                            &quot;key&quot;: &quot;l4proto&quot;
+                          }
+                        },
+                        &quot;right&quot;: &quot;ipv6-icmp&quot;
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59997
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            &quot;fault&quot;: &quot;ipv6-batch&quot;,
+            &quot;exit_code&quot;: 1,
+            &quot;unit&quot;: {
+              &quot;MainPID&quot;: &quot;0&quot;,
+              &quot;Result&quot;: &quot;exit-code&quot;,
+              &quot;ExecMainStatus&quot;: &quot;1&quot;,
+              &quot;ActiveState&quot;: &quot;failed&quot;,
+              &quot;SubState&quot;: &quot;failed&quot;,
+              &quot;InvocationID&quot;: &quot;e9961635cc6d419fbbc7c04eb3f6c303&quot;
+            },
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;cleanup&quot;: {
+              &quot;status&quot;: &quot;CLOSED&quot;,
+              &quot;link&quot;: {
+                &quot;ifindex&quot;: 3,
+                &quot;up&quot;: false,
+                &quot;namespace_inode&quot;: 4026532469,
+                &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+              }
+            },
+            &quot;kernel_before&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59998
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;meta&quot;: {
+                            &quot;key&quot;: &quot;l4proto&quot;
+                          }
+                        },
+                        &quot;right&quot;: &quot;ipv6-icmp&quot;
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ],
+            &quot;kernel_after&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59998
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;meta&quot;: {
+                            &quot;key&quot;: &quot;l4proto&quot;
+                          }
+                        },
+                        &quot;right&quot;: &quot;ipv6-icmp&quot;
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        &quot;condition_skip_counterexample&quot;: {
+          &quot;exit_code&quot;: 0,
+          &quot;unit&quot;: {
+            &quot;MainPID&quot;: &quot;0&quot;,
+            &quot;Result&quot;: &quot;success&quot;,
+            &quot;ExecMainStatus&quot;: &quot;0&quot;,
+            &quot;ActiveState&quot;: &quot;inactive&quot;,
+            &quot;SubState&quot;: &quot;dead&quot;,
+            &quot;InvocationID&quot;: &quot;&quot;
+          },
+          &quot;link&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: true,
+            &quot;namespace_inode&quot;: 4026532469,
+            &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+          }
+        },
+        &quot;repaired&quot;: {
+          &quot;exit_code&quot;: 0,
+          &quot;unit&quot;: {
+            &quot;MainPID&quot;: &quot;0&quot;,
+            &quot;Result&quot;: &quot;success&quot;,
+            &quot;ExecMainStatus&quot;: &quot;0&quot;,
+            &quot;ActiveState&quot;: &quot;active&quot;,
+            &quot;SubState&quot;: &quot;exited&quot;,
+            &quot;InvocationID&quot;: &quot;aa8b54b2e3c14016b9af4b26ed889831&quot;
+          },
+          &quot;link&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: true,
+            &quot;namespace_inode&quot;: 4026532469,
+            &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+          },
+          &quot;started_ns&quot;: 16037522964,
+          &quot;finished_ns&quot;: 16083081006,
+          &quot;cleanup&quot;: null,
+          &quot;receipt&quot;: {
+            &quot;status&quot;: &quot;OPEN&quot;,
+            &quot;receipt&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;,
+              &quot;generation&quot;: 0,
+              &quot;policy_digest&quot;: &quot;9fd1c1a55e35d38b4053f15182e99ae6c76323f59eb79af169130d72edd10587&quot;,
+              &quot;phase&quot;: &quot;COMMITTED&quot;,
+              &quot;clock&quot;: &quot;monotonic_ns&quot;,
+              &quot;verified_ns&quot;: 16066682756
+            },
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: true,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;kernel&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59998
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;meta&quot;: {
+                            &quot;key&quot;: &quot;l4proto&quot;
+                          }
+                        },
+                        &quot;right&quot;: &quot;ipv6-icmp&quot;
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ],
+            &quot;started_ns&quot;: 16062418173,
+            &quot;opened_ns&quot;: 16072320256,
+            &quot;finished_ns&quot;: 16074848756
+          }
+        }
+      }
+    },
+    {
+      &quot;name&quot;: &quot;ownership&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;observations&quot;: [
+          {
+            &quot;action&quot;: &quot;manual-start&quot;,
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;networkd&quot;: {
+              &quot;MainPID&quot;: &quot;2386&quot;,
+              &quot;Result&quot;: &quot;success&quot;,
+              &quot;ExecMainStatus&quot;: &quot;0&quot;,
+              &quot;ActiveState&quot;: &quot;active&quot;,
+              &quot;SubState&quot;: &quot;running&quot;,
+              &quot;InvocationID&quot;: &quot;fdfc93b3280b4608886daf686aeb56e0&quot;
+            }
+          },
+          {
+            &quot;action&quot;: &quot;manual-restart-closed&quot;,
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;networkd&quot;: {
+              &quot;MainPID&quot;: &quot;2393&quot;,
+              &quot;Result&quot;: &quot;success&quot;,
+              &quot;ExecMainStatus&quot;: &quot;0&quot;,
+              &quot;ActiveState&quot;: &quot;active&quot;,
+              &quot;SubState&quot;: &quot;running&quot;,
+              &quot;InvocationID&quot;: &quot;9654cc1e3694439f951616ccc49e4cd8&quot;
+            }
+          },
+          {
+            &quot;action&quot;: &quot;manual-restart-open&quot;,
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: true,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;networkd&quot;: {
+              &quot;MainPID&quot;: &quot;2454&quot;,
+              &quot;Result&quot;: &quot;success&quot;,
+              &quot;ExecMainStatus&quot;: &quot;0&quot;,
+              &quot;ActiveState&quot;: &quot;active&quot;,
+              &quot;SubState&quot;: &quot;running&quot;,
+              &quot;InvocationID&quot;: &quot;d1f50510e2ab4742b50edd7901ceb6d7&quot;
+            }
+          },
+          {
+            &quot;action&quot;: &quot;manual-reconfigure-closed&quot;,
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;networkd&quot;: {
+              &quot;MainPID&quot;: &quot;2463&quot;,
+              &quot;Result&quot;: &quot;success&quot;,
+              &quot;ExecMainStatus&quot;: &quot;0&quot;,
+              &quot;ActiveState&quot;: &quot;active&quot;,
+              &quot;SubState&quot;: &quot;running&quot;,
+              &quot;InvocationID&quot;: &quot;c70604d56cab42ad94a17edb8b3c1247&quot;
+            }
+          },
+          {
+            &quot;action&quot;: &quot;competing-up-counterexample&quot;,
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: true,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;networkd&quot;: {
+              &quot;MainPID&quot;: &quot;2473&quot;,
+              &quot;Result&quot;: &quot;success&quot;,
+              &quot;ExecMainStatus&quot;: &quot;0&quot;,
+              &quot;ActiveState&quot;: &quot;active&quot;,
+              &quot;SubState&quot;: &quot;running&quot;,
+              &quot;InvocationID&quot;: &quot;1798cf6e2003462d98121db4bf289dcb&quot;
+            }
+          },
+          {
+            &quot;action&quot;: &quot;networkd-stop-leaves-open&quot;,
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: true,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;networkd&quot;: {
+              &quot;MainPID&quot;: &quot;0&quot;,
+              &quot;Result&quot;: &quot;success&quot;,
+              &quot;ExecMainStatus&quot;: &quot;0&quot;,
+              &quot;ActiveState&quot;: &quot;inactive&quot;,
+              &quot;SubState&quot;: &quot;dead&quot;,
+              &quot;InvocationID&quot;: &quot;&quot;
+            }
+          }
+        ],
+        &quot;delay&quot;: {
+          &quot;started_ns&quot;: 17149534256,
+          &quot;finished_ns&quot;: 23522287676,
+          &quot;during&quot;: {
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: true,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;kernel&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59998
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;meta&quot;: {
+                            &quot;key&quot;: &quot;l4proto&quot;
+                          }
+                        },
+                        &quot;right&quot;: &quot;ipv6-icmp&quot;
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ],
+            &quot;agent&quot;: {
+              &quot;MainPID&quot;: &quot;0&quot;,
+              &quot;Result&quot;: &quot;success&quot;,
+              &quot;ExecMainStatus&quot;: &quot;0&quot;,
+              &quot;ActiveState&quot;: &quot;activating&quot;,
+              &quot;SubState&quot;: &quot;start-pre&quot;,
+              &quot;InvocationID&quot;: &quot;f02c128ad34a4b909f2b2b2b10ae1370&quot;
+            }
+          },
+          &quot;after&quot;: {
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: true,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;kernel&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59998
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;meta&quot;: {
+                            &quot;key&quot;: &quot;l4proto&quot;
+                          }
+                        },
+                        &quot;right&quot;: &quot;ipv6-icmp&quot;
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ],
+            &quot;agent&quot;: {
+              &quot;MainPID&quot;: &quot;2645&quot;,
+              &quot;Result&quot;: &quot;success&quot;,
+              &quot;ExecMainStatus&quot;: &quot;0&quot;,
+              &quot;ActiveState&quot;: &quot;active&quot;,
+              &quot;SubState&quot;: &quot;running&quot;,
+              &quot;InvocationID&quot;: &quot;f02c128ad34a4b909f2b2b2b10ae1370&quot;
+            },
+            &quot;agent_namespace_inode&quot;: 4026532469
+          },
+          &quot;restarted&quot;: {
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: true,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;kernel&quot;: [
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59998
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;table&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;name&quot;: &quot;rulemoor&quot;
+                }
+              },
+              {
+                &quot;chain&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;name&quot;: &quot;input&quot;,
+                  &quot;type&quot;: &quot;filter&quot;,
+                  &quot;hook&quot;: &quot;input&quot;,
+                  &quot;prio&quot;: 0,
+                  &quot;policy&quot;: &quot;drop&quot;
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;in&quot;,
+                        &quot;left&quot;: {
+                          &quot;ct&quot;: {
+                            &quot;key&quot;: &quot;state&quot;
+                          }
+                        },
+                        &quot;right&quot;: [
+                          &quot;established&quot;,
+                          &quot;related&quot;
+                        ]
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;meta&quot;: {
+                            &quot;key&quot;: &quot;l4proto&quot;
+                          }
+                        },
+                        &quot;right&quot;: &quot;ipv6-icmp&quot;
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 18443
+                      }
+                    },
+                    {
+                      &quot;accept&quot;: null
+                    }
+                  ]
+                }
+              },
+              {
+                &quot;rule&quot;: {
+                  &quot;family&quot;: &quot;ip6&quot;,
+                  &quot;table&quot;: &quot;rulemoor&quot;,
+                  &quot;chain&quot;: &quot;input&quot;,
+                  &quot;expr&quot;: [
+                    {
+                      &quot;match&quot;: {
+                        &quot;op&quot;: &quot;==&quot;,
+                        &quot;left&quot;: {
+                          &quot;payload&quot;: {
+                            &quot;protocol&quot;: &quot;tcp&quot;,
+                            &quot;field&quot;: &quot;dport&quot;
+                          }
+                        },
+                        &quot;right&quot;: 59999
+                      }
+                    },
+                    {
+                      &quot;drop&quot;: null
+                    }
+                  ]
+                }
+              }
+            ],
+            &quot;agent&quot;: {
+              &quot;MainPID&quot;: &quot;2662&quot;,
+              &quot;Result&quot;: &quot;success&quot;,
+              &quot;ExecMainStatus&quot;: &quot;0&quot;,
+              &quot;ActiveState&quot;: &quot;active&quot;,
+              &quot;SubState&quot;: &quot;running&quot;,
+              &quot;InvocationID&quot;: &quot;b620cb6e9e5247e7ad82ff979e57436f&quot;
+            }
+          },
+          &quot;scope&quot;: &quot;installed formal Agent and policy/link in same namespace; endpoint observations&quot;
+        }
+      }
+    },
+    {
+      &quot;name&quot;: &quot;crashes&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;kills&quot;: [
+          {
+            &quot;point&quot;: &quot;before-up&quot;,
+            &quot;held&quot;: {
+              &quot;point&quot;: &quot;before-up&quot;,
+              &quot;pid&quot;: 2729
+            },
+            &quot;link_before&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;contending_controller_exit&quot;: 7,
+            &quot;owner_lock_contender&quot;: {
+              &quot;exit_code&quot;: 7,
+              &quot;blocked&quot;: true
+            },
+            &quot;writer_lock_contender&quot;: {
+              &quot;exit_code&quot;: 7,
+              &quot;blocked&quot;: true
+            },
+            &quot;unit_before&quot;: {
+              &quot;MainPID&quot;: &quot;2729&quot;,
+              &quot;Result&quot;: &quot;success&quot;,
+              &quot;ExecMainStatus&quot;: &quot;0&quot;,
+              &quot;ActiveState&quot;: &quot;activating&quot;,
+              &quot;SubState&quot;: &quot;start&quot;,
+              &quot;InvocationID&quot;: &quot;13f8fae58e59426ab26c40eb52e55902&quot;
+            },
+            &quot;process_before&quot;: {
+              &quot;pid&quot;: 2729,
+              &quot;start_ticks&quot;: 2398,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;process_namespace_inode&quot;: 4026532469,
+            &quot;signal_clock&quot;: {
+              &quot;clock&quot;: &quot;monotonic_ns&quot;,
+              &quot;sent_ns&quot;: 24053554968,
+              &quot;observed_closed_ns&quot;: 24099757843
+            },
+            &quot;unit&quot;: {
+              &quot;MainPID&quot;: &quot;0&quot;,
+              &quot;Result&quot;: &quot;signal&quot;,
+              &quot;ExecMainStatus&quot;: &quot;9&quot;,
+              &quot;ActiveState&quot;: &quot;failed&quot;,
+              &quot;SubState&quot;: &quot;failed&quot;,
+              &quot;InvocationID&quot;: &quot;13f8fae58e59426ab26c40eb52e55902&quot;
+            },
+            &quot;cleanup&quot;: {
+              &quot;status&quot;: &quot;CLOSED&quot;,
+              &quot;link&quot;: {
+                &quot;ifindex&quot;: 3,
+                &quot;up&quot;: false,
+                &quot;namespace_inode&quot;: 4026532469,
+                &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+              }
+            },
+            &quot;link_after&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;reopened&quot;: {
+              &quot;exit_code&quot;: 0,
+              &quot;unit&quot;: {
+                &quot;MainPID&quot;: &quot;0&quot;,
+                &quot;Result&quot;: &quot;success&quot;,
+                &quot;ExecMainStatus&quot;: &quot;0&quot;,
+                &quot;ActiveState&quot;: &quot;active&quot;,
+                &quot;SubState&quot;: &quot;exited&quot;,
+                &quot;InvocationID&quot;: &quot;edfc988eccdc462098cb6ccad5d76629&quot;
+              },
+              &quot;link&quot;: {
+                &quot;ifindex&quot;: 3,
+                &quot;up&quot;: true,
+                &quot;namespace_inode&quot;: 4026532469,
+                &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+              },
+              &quot;started_ns&quot;: 24187819218,
+              &quot;finished_ns&quot;: 24231358635,
+              &quot;cleanup&quot;: null
+            }
+          },
+          {
+            &quot;point&quot;: &quot;after-up&quot;,
+            &quot;held&quot;: {
+              &quot;point&quot;: &quot;after-up&quot;,
+              &quot;pid&quot;: 2849
+            },
+            &quot;link_before&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: true,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;contending_controller_exit&quot;: 7,
+            &quot;owner_lock_contender&quot;: {
+              &quot;exit_code&quot;: 7,
+              &quot;blocked&quot;: true
+            },
+            &quot;writer_lock_contender&quot;: {
+              &quot;exit_code&quot;: 7,
+              &quot;blocked&quot;: true
+            },
+            &quot;unit_before&quot;: {
+              &quot;MainPID&quot;: &quot;2849&quot;,
+              &quot;Result&quot;: &quot;success&quot;,
+              &quot;ExecMainStatus&quot;: &quot;0&quot;,
+              &quot;ActiveState&quot;: &quot;activating&quot;,
+              &quot;SubState&quot;: &quot;start&quot;,
+              &quot;InvocationID&quot;: &quot;57d6d767e32648d3ad78e75a5caf393d&quot;
+            },
+            &quot;process_before&quot;: {
+              &quot;pid&quot;: 2849,
+              &quot;start_ticks&quot;: 2435,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;process_namespace_inode&quot;: 4026532469,
+            &quot;signal_clock&quot;: {
+              &quot;clock&quot;: &quot;monotonic_ns&quot;,
+              &quot;sent_ns&quot;: 24418405260,
+              &quot;observed_closed_ns&quot;: 24464808718
+            },
+            &quot;unit&quot;: {
+              &quot;MainPID&quot;: &quot;0&quot;,
+              &quot;Result&quot;: &quot;signal&quot;,
+              &quot;ExecMainStatus&quot;: &quot;9&quot;,
+              &quot;ActiveState&quot;: &quot;failed&quot;,
+              &quot;SubState&quot;: &quot;failed&quot;,
+              &quot;InvocationID&quot;: &quot;57d6d767e32648d3ad78e75a5caf393d&quot;
+            },
+            &quot;cleanup&quot;: {
+              &quot;status&quot;: &quot;CLOSED&quot;,
+              &quot;link&quot;: {
+                &quot;ifindex&quot;: 3,
+                &quot;up&quot;: false,
+                &quot;namespace_inode&quot;: 4026532469,
+                &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+              }
+            },
+            &quot;link_after&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            },
+            &quot;reopened&quot;: {
+              &quot;exit_code&quot;: 0,
+              &quot;unit&quot;: {
+                &quot;MainPID&quot;: &quot;0&quot;,
+                &quot;Result&quot;: &quot;success&quot;,
+                &quot;ExecMainStatus&quot;: &quot;0&quot;,
+                &quot;ActiveState&quot;: &quot;active&quot;,
+                &quot;SubState&quot;: &quot;exited&quot;,
+                &quot;InvocationID&quot;: &quot;fdce42d90d954b858b2771e410ca91fa&quot;
+              },
+              &quot;link&quot;: {
+                &quot;ifindex&quot;: 3,
+                &quot;up&quot;: true,
+                &quot;namespace_inode&quot;: 4026532469,
+                &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+              },
+              &quot;started_ns&quot;: 24558266677,
+              &quot;finished_ns&quot;: 24606212593,
+              &quot;cleanup&quot;: null
+            }
+          }
+        ],
+        &quot;post_up_exception&quot;: {
+          &quot;exit_code&quot;: 1,
+          &quot;unit&quot;: {
+            &quot;MainPID&quot;: &quot;0&quot;,
+            &quot;Result&quot;: &quot;exit-code&quot;,
+            &quot;ExecMainStatus&quot;: &quot;1&quot;,
+            &quot;ActiveState&quot;: &quot;failed&quot;,
+            &quot;SubState&quot;: &quot;failed&quot;,
+            &quot;InvocationID&quot;: &quot;6da8d8a9723e4f898e7ec820b087465b&quot;
+          },
+          &quot;link&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: false,
+            &quot;namespace_inode&quot;: 4026532469,
+            &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+          },
+          &quot;started_ns&quot;: 24723124302,
+          &quot;finished_ns&quot;: 24804174760,
+          &quot;cleanup&quot;: {
+            &quot;status&quot;: &quot;CLOSED&quot;,
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532469,
+              &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+            }
+          }
+        },
+        &quot;close_failure&quot;: {
+          &quot;exit_code&quot;: 1,
+          &quot;unit&quot;: {
+            &quot;MainPID&quot;: &quot;0&quot;,
+            &quot;Result&quot;: &quot;exit-code&quot;,
+            &quot;ExecMainStatus&quot;: &quot;1&quot;,
+            &quot;ActiveState&quot;: &quot;failed&quot;,
+            &quot;SubState&quot;: &quot;failed&quot;,
+            &quot;InvocationID&quot;: &quot;d3006f89e9e04d8684df4f81620c1362&quot;
+          },
+          &quot;cleanup&quot;: {
+            &quot;status&quot;: &quot;FAULTED&quot;,
+            &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+          },
+          &quot;link&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: true,
+            &quot;namespace_inode&quot;: 4026532469,
+            &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+          },
+          &quot;manual_rescue_link&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: false,
+            &quot;namespace_inode&quot;: 4026532469,
+            &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+          }
+        },
+        &quot;scope&quot;: &quot;observed post-UP window exists; ExecStopPost cleanup, not zero exposure&quot;
+      }
+    },
+    {
+      &quot;name&quot;: &quot;handoff&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;,
+        &quot;journal&quot;: {
+          &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
+          &quot;generation&quot;: 1,
+          &quot;op&quot;: &quot;boot-probe-pending&quot;,
+          &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;,
+          &quot;current&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59998,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59999,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            }
+          },
+          &quot;baseline&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59998,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59999,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            }
+          },
+          &quot;candidate&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;accept&quot;,
+              &quot;rules&quot;: []
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;accept&quot;,
+              &quot;rules&quot;: []
+            }
+          },
+          &quot;confirmed_families&quot;: []
+        },
+        &quot;kernel&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;meta&quot;: {
+                        &quot;key&quot;: &quot;l4proto&quot;
+                      }
+                    },
+                    &quot;right&quot;: &quot;ipv6-icmp&quot;
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;old_receipt&quot;: {
+          &quot;ifindex&quot;: 3,
+          &quot;up&quot;: false,
+          &quot;namespace_inode&quot;: 4026532469,
+          &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;,
+          &quot;generation&quot;: 0,
+          &quot;policy_digest&quot;: &quot;9fd1c1a55e35d38b4053f15182e99ae6c76323f59eb79af169130d72edd10587&quot;,
+          &quot;phase&quot;: &quot;COMMITTED&quot;,
+          &quot;clock&quot;: &quot;monotonic_ns&quot;,
+          &quot;verified_ns&quot;: 25335091802
+        },
+        &quot;link&quot;: {
+          &quot;ifindex&quot;: 3,
+          &quot;up&quot;: false,
+          &quot;namespace_inode&quot;: 4026532469,
+          &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+        }
+      }
+    },
+    {
+      &quot;name&quot;: &quot;after_boot&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;before&quot;: {
+          &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;,
+          &quot;journal&quot;: {
+            &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
+            &quot;generation&quot;: 1,
+            &quot;op&quot;: &quot;boot-probe-pending&quot;,
+            &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;,
+            &quot;current&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59998,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59999,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;baseline&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59998,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59999,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;candidate&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;accept&quot;,
+                &quot;rules&quot;: []
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;accept&quot;,
+                &quot;rules&quot;: []
+              }
+            },
+            &quot;confirmed_families&quot;: []
+          },
+          &quot;kernel&quot;: [
+            {
+              &quot;table&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;name&quot;: &quot;rulemoor&quot;
+              }
+            },
+            {
+              &quot;chain&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;name&quot;: &quot;input&quot;,
+                &quot;type&quot;: &quot;filter&quot;,
+                &quot;hook&quot;: &quot;input&quot;,
+                &quot;prio&quot;: 0,
+                &quot;policy&quot;: &quot;accept&quot;
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;in&quot;,
+                      &quot;left&quot;: {
+                        &quot;ct&quot;: {
+                          &quot;key&quot;: &quot;state&quot;
+                        }
+                      },
+                      &quot;right&quot;: [
+                        &quot;established&quot;,
+                        &quot;related&quot;
+                      ]
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;table&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;name&quot;: &quot;rulemoor&quot;
+              }
+            },
+            {
+              &quot;chain&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;name&quot;: &quot;input&quot;,
+                &quot;type&quot;: &quot;filter&quot;,
+                &quot;hook&quot;: &quot;input&quot;,
+                &quot;prio&quot;: 0,
+                &quot;policy&quot;: &quot;accept&quot;
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;in&quot;,
+                      &quot;left&quot;: {
+                        &quot;ct&quot;: {
+                          &quot;key&quot;: &quot;state&quot;
+                        }
+                      },
+                      &quot;right&quot;: [
+                        &quot;established&quot;,
+                        &quot;related&quot;
+                      ]
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;==&quot;,
+                      &quot;left&quot;: {
+                        &quot;meta&quot;: {
+                          &quot;key&quot;: &quot;l4proto&quot;
+                        }
+                      },
+                      &quot;right&quot;: &quot;ipv6-icmp&quot;
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            }
+          ],
+          &quot;old_receipt&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: false,
+            &quot;namespace_inode&quot;: 4026532469,
+            &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;,
+            &quot;generation&quot;: 0,
+            &quot;policy_digest&quot;: &quot;9fd1c1a55e35d38b4053f15182e99ae6c76323f59eb79af169130d72edd10587&quot;,
+            &quot;phase&quot;: &quot;COMMITTED&quot;,
+            &quot;clock&quot;: &quot;monotonic_ns&quot;,
+            &quot;verified_ns&quot;: 25335091802
+          },
+          &quot;link&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: false,
+            &quot;namespace_inode&quot;: 4026532469,
+            &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;
+          }
+        },
+        &quot;pre_agent&quot;: {
+          &quot;link&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: false,
+            &quot;namespace_inode&quot;: 4026532399,
+            &quot;boot&quot;: &quot;ea85c8de-7f57-43ca-b977-df9a9258d215&quot;
+          },
+          &quot;journal&quot;: {
+            &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
+            &quot;generation&quot;: 1,
+            &quot;op&quot;: &quot;boot-probe-pending&quot;,
+            &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;,
+            &quot;current&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59998,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59999,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;baseline&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59998,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59999,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;candidate&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;accept&quot;,
+                &quot;rules&quot;: []
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;accept&quot;,
+                &quot;rules&quot;: []
+              }
+            },
+            &quot;confirmed_families&quot;: []
+          },
+          &quot;kernel&quot;: {
+            &quot;nftables&quot;: [
+              {
+                &quot;metainfo&quot;: {
+                  &quot;version&quot;: &quot;1.0.9&quot;,
+                  &quot;release_name&quot;: &quot;Old Doc Yak #3&quot;,
+                  &quot;json_schema_version&quot;: 1
+                }
+              }
+            ]
+          }
+        },
+        &quot;after&quot;: {
+          &quot;status&quot;: &quot;OPEN&quot;,
+          &quot;receipt&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: false,
+            &quot;namespace_inode&quot;: 4026532399,
+            &quot;boot&quot;: &quot;ea85c8de-7f57-43ca-b977-df9a9258d215&quot;,
+            &quot;generation&quot;: 2,
+            &quot;policy_digest&quot;: &quot;9fd1c1a55e35d38b4053f15182e99ae6c76323f59eb79af169130d72edd10587&quot;,
+            &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
+            &quot;clock&quot;: &quot;monotonic_ns&quot;,
+            &quot;verified_ns&quot;: 2502061292
+          },
+          &quot;link&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: true,
+            &quot;namespace_inode&quot;: 4026532399,
+            &quot;boot&quot;: &quot;ea85c8de-7f57-43ca-b977-df9a9258d215&quot;
+          },
+          &quot;kernel&quot;: [
+            {
+              &quot;table&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;name&quot;: &quot;rulemoor&quot;
+              }
+            },
+            {
+              &quot;chain&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;name&quot;: &quot;input&quot;,
+                &quot;type&quot;: &quot;filter&quot;,
+                &quot;hook&quot;: &quot;input&quot;,
+                &quot;prio&quot;: 0,
+                &quot;policy&quot;: &quot;drop&quot;
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;in&quot;,
+                      &quot;left&quot;: {
+                        &quot;ct&quot;: {
+                          &quot;key&quot;: &quot;state&quot;
+                        }
+                      },
+                      &quot;right&quot;: [
+                        &quot;established&quot;,
+                        &quot;related&quot;
+                      ]
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;==&quot;,
+                      &quot;left&quot;: {
+                        &quot;payload&quot;: {
+                          &quot;protocol&quot;: &quot;tcp&quot;,
+                          &quot;field&quot;: &quot;dport&quot;
+                        }
+                      },
+                      &quot;right&quot;: 18443
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;==&quot;,
+                      &quot;left&quot;: {
+                        &quot;payload&quot;: {
+                          &quot;protocol&quot;: &quot;tcp&quot;,
+                          &quot;field&quot;: &quot;dport&quot;
+                        }
+                      },
+                      &quot;right&quot;: 59998
+                    }
+                  },
+                  {
+                    &quot;drop&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;table&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;name&quot;: &quot;rulemoor&quot;
+              }
+            },
+            {
+              &quot;chain&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;name&quot;: &quot;input&quot;,
+                &quot;type&quot;: &quot;filter&quot;,
+                &quot;hook&quot;: &quot;input&quot;,
+                &quot;prio&quot;: 0,
+                &quot;policy&quot;: &quot;drop&quot;
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;in&quot;,
+                      &quot;left&quot;: {
+                        &quot;ct&quot;: {
+                          &quot;key&quot;: &quot;state&quot;
+                        }
+                      },
+                      &quot;right&quot;: [
+                        &quot;established&quot;,
+                        &quot;related&quot;
+                      ]
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;==&quot;,
+                      &quot;left&quot;: {
+                        &quot;meta&quot;: {
+                          &quot;key&quot;: &quot;l4proto&quot;
+                        }
+                      },
+                      &quot;right&quot;: &quot;ipv6-icmp&quot;
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;==&quot;,
+                      &quot;left&quot;: {
+                        &quot;payload&quot;: {
+                          &quot;protocol&quot;: &quot;tcp&quot;,
+                          &quot;field&quot;: &quot;dport&quot;
+                        }
+                      },
+                      &quot;right&quot;: 18443
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;==&quot;,
+                      &quot;left&quot;: {
+                        &quot;payload&quot;: {
+                          &quot;protocol&quot;: &quot;tcp&quot;,
+                          &quot;field&quot;: &quot;dport&quot;
+                        }
+                      },
+                      &quot;right&quot;: 59999
+                    }
+                  },
+                  {
+                    &quot;drop&quot;: null
+                  }
+                ]
+              }
+            }
+          ],
+          &quot;started_ns&quot;: 2459742500,
+          &quot;opened_ns&quot;: 2504112500,
+          &quot;finished_ns&quot;: 2506666667
+        },
+        &quot;journal_after&quot;: {
+          &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
+          &quot;generation&quot;: 2,
+          &quot;op&quot;: &quot;boot-probe-pending&quot;,
+          &quot;boot&quot;: &quot;ea85c8de-7f57-43ca-b977-df9a9258d215&quot;,
+          &quot;current&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59998,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59999,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            }
+          },
+          &quot;baseline&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59998,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59999,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            }
+          },
+          &quot;candidate&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;accept&quot;,
+              &quot;rules&quot;: []
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;accept&quot;,
+              &quot;rules&quot;: []
+            }
+          },
+          &quot;confirmed_families&quot;: []
+        },
+        &quot;stale_receipt_supplied&quot;: {
+          &quot;ifindex&quot;: 3,
+          &quot;up&quot;: false,
+          &quot;namespace_inode&quot;: 4026532469,
+          &quot;boot&quot;: &quot;7effc57f-5570-4908-9599-feecb74b30c0&quot;,
+          &quot;generation&quot;: 0,
+          &quot;policy_digest&quot;: &quot;9fd1c1a55e35d38b4053f15182e99ae6c76323f59eb79af169130d72edd10587&quot;,
+          &quot;phase&quot;: &quot;COMMITTED&quot;,
+          &quot;clock&quot;: &quot;monotonic_ns&quot;,
+          &quot;verified_ns&quot;: 25335091802
+        },
+        &quot;stale_receipt_revalidated&quot;: {
+          &quot;ifindex&quot;: 3,
+          &quot;up&quot;: false,
+          &quot;namespace_inode&quot;: 4026532399,
+          &quot;boot&quot;: &quot;ea85c8de-7f57-43ca-b977-df9a9258d215&quot;,
+          &quot;generation&quot;: 2,
+          &quot;policy_digest&quot;: &quot;9fd1c1a55e35d38b4053f15182e99ae6c76323f59eb79af169130d72edd10587&quot;,
+          &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
+          &quot;clock&quot;: &quot;monotonic_ns&quot;,
+          &quot;verified_ns&quot;: 6243277835
+        },
+        &quot;stale_receipt_revalidation&quot;: {
+          &quot;status&quot;: &quot;OPEN&quot;,
+          &quot;receipt&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: false,
+            &quot;namespace_inode&quot;: 4026532399,
+            &quot;boot&quot;: &quot;ea85c8de-7f57-43ca-b977-df9a9258d215&quot;,
+            &quot;generation&quot;: 2,
+            &quot;policy_digest&quot;: &quot;9fd1c1a55e35d38b4053f15182e99ae6c76323f59eb79af169130d72edd10587&quot;,
+            &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
+            &quot;clock&quot;: &quot;monotonic_ns&quot;,
+            &quot;verified_ns&quot;: 6243277835
+          },
+          &quot;link&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: true,
+            &quot;namespace_inode&quot;: 4026532399,
+            &quot;boot&quot;: &quot;ea85c8de-7f57-43ca-b977-df9a9258d215&quot;
+          },
+          &quot;kernel&quot;: [
+            {
+              &quot;table&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;name&quot;: &quot;rulemoor&quot;
+              }
+            },
+            {
+              &quot;chain&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;name&quot;: &quot;input&quot;,
+                &quot;type&quot;: &quot;filter&quot;,
+                &quot;hook&quot;: &quot;input&quot;,
+                &quot;prio&quot;: 0,
+                &quot;policy&quot;: &quot;drop&quot;
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;in&quot;,
+                      &quot;left&quot;: {
+                        &quot;ct&quot;: {
+                          &quot;key&quot;: &quot;state&quot;
+                        }
+                      },
+                      &quot;right&quot;: [
+                        &quot;established&quot;,
+                        &quot;related&quot;
+                      ]
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;==&quot;,
+                      &quot;left&quot;: {
+                        &quot;payload&quot;: {
+                          &quot;protocol&quot;: &quot;tcp&quot;,
+                          &quot;field&quot;: &quot;dport&quot;
+                        }
+                      },
+                      &quot;right&quot;: 18443
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;==&quot;,
+                      &quot;left&quot;: {
+                        &quot;payload&quot;: {
+                          &quot;protocol&quot;: &quot;tcp&quot;,
+                          &quot;field&quot;: &quot;dport&quot;
+                        }
+                      },
+                      &quot;right&quot;: 59998
+                    }
+                  },
+                  {
+                    &quot;drop&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;table&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;name&quot;: &quot;rulemoor&quot;
+              }
+            },
+            {
+              &quot;chain&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;name&quot;: &quot;input&quot;,
+                &quot;type&quot;: &quot;filter&quot;,
+                &quot;hook&quot;: &quot;input&quot;,
+                &quot;prio&quot;: 0,
+                &quot;policy&quot;: &quot;drop&quot;
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;in&quot;,
+                      &quot;left&quot;: {
+                        &quot;ct&quot;: {
+                          &quot;key&quot;: &quot;state&quot;
+                        }
+                      },
+                      &quot;right&quot;: [
+                        &quot;established&quot;,
+                        &quot;related&quot;
+                      ]
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;==&quot;,
+                      &quot;left&quot;: {
+                        &quot;meta&quot;: {
+                          &quot;key&quot;: &quot;l4proto&quot;
+                        }
+                      },
+                      &quot;right&quot;: &quot;ipv6-icmp&quot;
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;==&quot;,
+                      &quot;left&quot;: {
+                        &quot;payload&quot;: {
+                          &quot;protocol&quot;: &quot;tcp&quot;,
+                          &quot;field&quot;: &quot;dport&quot;
+                        }
+                      },
+                      &quot;right&quot;: 18443
+                    }
+                  },
+                  {
+                    &quot;accept&quot;: null
+                  }
+                ]
+              }
+            },
+            {
+              &quot;rule&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rulemoor&quot;,
+                &quot;chain&quot;: &quot;input&quot;,
+                &quot;expr&quot;: [
+                  {
+                    &quot;match&quot;: {
+                      &quot;op&quot;: &quot;==&quot;,
+                      &quot;left&quot;: {
+                        &quot;payload&quot;: {
+                          &quot;protocol&quot;: &quot;tcp&quot;,
+                          &quot;field&quot;: &quot;dport&quot;
+                        }
+                      },
+                      &quot;right&quot;: 59999
+                    }
+                  },
+                  {
+                    &quot;drop&quot;: null
+                  }
+                ]
+              }
+            }
+          ],
+          &quot;started_ns&quot;: 6238846668,
+          &quot;opened_ns&quot;: 6246116793,
+          &quot;finished_ns&quot;: 6248634502
+        },
+        &quot;same_boot_namespace_recreation&quot;: {
+          &quot;old_inode&quot;: 4026532399,
+          &quot;old_namespace_pinned&quot;: true,
+          &quot;new_link&quot;: {
+            &quot;ifindex&quot;: 3,
+            &quot;up&quot;: false,
+            &quot;namespace_inode&quot;: 4026532529,
+            &quot;boot&quot;: &quot;ea85c8de-7f57-43ca-b977-df9a9258d215&quot;
+          },
+          &quot;rejected&quot;: {
+            &quot;exit_code&quot;: 1,
+            &quot;unit&quot;: {
+              &quot;MainPID&quot;: &quot;0&quot;,
+              &quot;Result&quot;: &quot;exit-code&quot;,
+              &quot;ExecMainStatus&quot;: &quot;1&quot;,
+              &quot;ActiveState&quot;: &quot;failed&quot;,
+              &quot;SubState&quot;: &quot;failed&quot;,
+              &quot;InvocationID&quot;: &quot;cbde3c69a6a249b9bec7644dc44532a0&quot;
+            },
+            &quot;link&quot;: {
+              &quot;ifindex&quot;: 3,
+              &quot;up&quot;: false,
+              &quot;namespace_inode&quot;: 4026532529,
+              &quot;boot&quot;: &quot;ea85c8de-7f57-43ca-b977-df9a9258d215&quot;
+            },
+            &quot;started_ns&quot;: 6390199627,
+            &quot;finished_ns&quot;: 6461027419,
+            &quot;cleanup&quot;: {
+              &quot;status&quot;: &quot;CLOSED&quot;,
+              &quot;link&quot;: {
+                &quot;ifindex&quot;: 3,
+                &quot;up&quot;: false,
+                &quot;namespace_inode&quot;: 4026532529,
+                &quot;boot&quot;: &quot;ea85c8de-7f57-43ca-b977-df9a9258d215&quot;
+              }
+            }
+          }
+        },
+        &quot;power_loss_tested&quot;: false
+      }
+    },
+    {
+      &quot;name&quot;: &quot;cleanup_probe&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;namespace_removed&quot;: true,
+        &quot;units_removed&quot;: true,
+        &quot;root_firewall_unchanged&quot;: true
+      }
+    },
+    {
+      &quot;name&quot;: &quot;cleanup&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;dual_client_namespace_removed&quot;: true,
+        &quot;namespace_removed&quot;: true,
+        &quot;service_stopped_and_removed&quot;: true,
+        &quot;credentials_and_state_removed&quot;: true,
+        &quot;vm_root_firewall_unchanged&quot;: true
+      }
+    }
+  ],
+  &quot;vm_initial_state&quot;: &quot;Stopped&quot;,
+  &quot;wheel_sha256&quot;: &quot;f991760f41b1dc9101cf6617dc38235b1ec92d13b7bbd36cc5acc2f2ccc1c52a&quot;,
+  &quot;vm_restart_clock&quot;: {
+    &quot;clock&quot;: &quot;monotonic_ns&quot;,
+    &quot;started_ns&quot;: 80338140126250,
+    &quot;finished_ns&quot;: 80349874387666
+  },
+  &quot;vm_restart_control_seconds&quot;: 11.734261416,
+  &quot;source_snapshot_removed&quot;: true,
+  &quot;vm_final_state&quot;: &quot;Stopped&quot;,
+  &quot;evidence_controls&quot;: [
+    {
+      &quot;name&quot;: &quot;missing-case&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;timeout&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;claim-zero-gap&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;source-drift&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;cleanup-failed&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;failed-open&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;missing-second-family&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;wrong-boot&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;fake-preboot-rollback&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;crash-remained-open&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;false-closed&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;wrong-digest&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;wrong-namespace&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;missing-stages&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;duplicate-stage&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;non-kill-exit&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;wrong-killed-pid&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;wrong-invocation&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;cleanup-still-up&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;cleanup-wrong-identity&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;writer-not-blocked&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;stale-generation&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;stale-digest&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;stale-namespace&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;reused-namespace&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;recreated-wrong-boot&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;source-import&quot;,
+      &quot;rejected&quot;: true
+    }
+  ]
+}</pre></html>

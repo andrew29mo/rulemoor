@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def manifest():
     files = [p for directory in ('rulemoor', 'tests', 'tools') for p in (ROOT / directory).rglob('*.py')]
-    files += [ROOT / name for name in ('pyproject.toml', 'Dockerfile', 'deploy/rulemoor.service', 'tools/validate-local', 'tools/validate-deployment', 'tools/colima-lock.json')]
+    files += [ROOT / name for name in ('pyproject.toml', 'Dockerfile', 'deploy/rulemoor.service', 'deploy/rulemoor-boot-guard.service', 'deploy/rulemoor-agent-guard.conf', 'tools/validate-local', 'tools/validate-deployment', 'tools/colima-lock.json')]
     return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(files)}
 
 

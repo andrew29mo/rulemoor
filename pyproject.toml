@@ -14,6 +14,7 @@ license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
 [project.scripts]
 rulemoor = "rulemoor.cli:main"
 rulemoor-agent = "rulemoor.service:main"
+rulemoor-boot-guard = "rulemoor.boot_guard:main"
 
 [tool.setuptools]
 packages = ["rulemoor"]

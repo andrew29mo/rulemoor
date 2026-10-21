@@ -1,0 +1,34 @@
+[Unit]
+Description=Rulemoor opt-in isolated interface startup gate
+DefaultDependencies=no
+After=local-fs.target
+Before=network-pre.target shutdown.target
+Wants=network-pre.target
+Conflicts=shutdown.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=oneshot
+User=root
+NetworkNamespacePath=/run/netns/rulemoor-guard
+UMask=0077
+RuntimeDirectory=rulemoor-boot-guard
+RuntimeDirectoryMode=0700
+ExecStartPre=+/opt/rulemoor/venv/bin/rulemoor-boot-guard --state /var/lib/rulemoor --profile /etc/rulemoor/boot-guard.json anchor
+ExecStart=/opt/rulemoor/venv/bin/rulemoor-boot-guard --state /var/lib/rulemoor --profile /etc/rulemoor/boot-guard.json open
+ExecStopPost=/opt/rulemoor/venv/bin/rulemoor-boot-guard --state /var/lib/rulemoor --profile /etc/rulemoor/boot-guard.json close
+RemainAfterExit=yes
+TimeoutStartSec=20
+TimeoutStopSec=10
+KillMode=control-group
+NoNewPrivileges=true
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_KILL
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/rulemoor
+UnsetEnvironment=RULEMOOR_FAULT
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,83 @@
+{
+  "scope": "Different development snapshots; not comparable performance trials. Raw logs remain local/private.",
+  "runs": [
+    {
+      "attempt": "a",
+      "run_id": "138659b9d3675f60",
+      "source_sha256": "c44e9a2ac44f1451ef64f3754104146add11e134cc32636f80f8f3c12797703f",
+      "passed": false,
+      "failed_cases": [
+        "guard_setup"
+      ],
+      "source_snapshot_removed": true,
+      "vm_final_state": "Stopped",
+      "cleanup_error_present": false
+    },
+    {
+      "attempt": "b",
+      "run_id": "6a4da9cde18eda39",
+      "source_sha256": "167f4bb99c3181cb3e6c9fcd5a8ba39325a347752d4edc416bedcf346e76d09e",
+      "passed": false,
+      "failed_cases": [
+        "guard_setup"
+      ],
+      "source_snapshot_removed": true,
+      "vm_final_state": "Stopped",
+      "cleanup_error_present": false
+    },
+    {
+      "attempt": "c",
+      "run_id": "6ef774df7be4e0f7",
+      "source_sha256": "53a587f9913ca7cf4e53e7d83bbf38fd350cd385006e18e6eda1b3b490d8b855",
+      "passed": false,
+      "failed_cases": [
+        "guard_failures"
+      ],
+      "source_snapshot_removed": true,
+      "vm_final_state": "Stopped",
+      "cleanup_error_present": false
+    },
+    {
+      "attempt": "d",
+      "run_id": "e00f4662baf72a7f",
+      "source_sha256": "f87ac48914143b3f44717d775637af673b8ab3452233d2657d8da0b878cd1cbd",
+      "passed": false,
+      "failed_cases": [
+        "guard_failures"
+      ],
+      "source_snapshot_removed": true,
+      "vm_final_state": "Stopped",
+      "cleanup_error_present": false
+    },
+    {
+      "attempt": "e",
+      "run_id": "afc732c1ecdb7f5d",
+      "source_sha256": "029a95589838f750eba1d7deb509dc9a31771169e088e9ed0c196bca1598c9d1",
+      "passed": true,
+      "failed_cases": [],
+      "source_snapshot_removed": true,
+      "vm_final_state": "Stopped",
+      "cleanup_error_present": false
+    },
+    {
+      "attempt": "final-functional",
+      "run_id": "28ef2164c8fa676b",
+      "source_sha256": "fa15fd1aea8f8181619db1152432643b0d252a6a59426ce32e1b651e70d6b5dd",
+      "passed": true,
+      "failed_cases": [],
+      "source_snapshot_removed": true,
+      "vm_final_state": "Stopped",
+      "cleanup_error_present": false
+    },
+    {
+      "attempt": "release",
+      "run_id": "81c4797c3ed238b4",
+      "source_sha256": "b3524c2f36f5e3951cf0a8514e78eaa8736dbc525caead06ef8f557afc244618",
+      "passed": true,
+      "failed_cases": [],
+      "source_snapshot_removed": true,
+      "vm_final_state": "Stopped",
+      "cleanup_error_present": false
+    }
+  ]
+}

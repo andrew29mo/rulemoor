@@ -68,3 +68,30 @@ A bounded read-only `nft -j -s list ruleset` snapshot supplies foreign-chain dia
 ## Dual boot and delayed writer evidence
 
 The [recovery extension](DUAL_RECOVERY.md) exercises the existing production boot/fencing paths without adding a separate state machine. It preserves an unfinished partial receipt through an orderly VM restart and captures both absent tables plus the persistent journal before Agent startup. A deliberately orphaned executor outside the service cgroup must be retired by the installed Agent before writer ownership and a distinct successor. The finite late-release observation checks both tables; it is not power-loss or arbitrary privileged-writer protection.
+
+## Proposed early policy load and interface gate
+
+[Four isolated-VM design experiments](BOOT_GUARD_EXPLORATION.md) now exercise
+failed prerequisites, interface activation authority, crashes around UP, and
+checked ownership release/reacquisition plus orderly reboot. They reuse the
+installed production recovery path; the gate itself remains experimental and is
+not included in the installed service. The revised proposal separates restoration,
+link readiness and API readiness, retains locks through final verification/UP,
+and requires DOWN readback or an explicit FAULTED state on failed cleanup.
+Boot Guard, whole-host zero-gap protection and power-loss recovery are not claimed.
+
+The [exploration review](BOOT_GUARD_REVIEW.md) strengthens the evidence boundary:
+exact execution stages, same process/invocation SIGKILL, both ownership locks,
+same-interface close readback and fully rebound fresh receipts. A success flag
+alone cannot make an incomplete HTML report pass. The direct nft failure cases
+remain prerequisite experiments, not production backend recovery-write tests.
+
+## Installed Boot Guard MVP
+
+The opt-in [production gate](BOOT_GUARD.md) now implements the separate early
+recovery entry point for the bounded static-veth profile. It uses Controller.start
+rather than a separate recovery engine, holds the existing locks through paired
+policy and link readbacks, and closes or reports FAULTED on failure. The normal
+Agent reacquires ownership afterward. Earlier exploration sections describe the
+historical prototype, not the installed feature's complete validation. Whole-host
+zero-gap and hard power-loss behavior remain outside established evidence.
