@@ -65,4 +65,5 @@ These are namespace-local Linux VM observations. No WAN/NAT/bridge/legacy-firewa
 The [dual-stack slice](DUAL_STACK.md) does not extend this evaluator to IPv6. It evaluates only the IPv4 policy component and explicitly emits ipv6_preflight: not_implemented. Separate fresh IPv6 confirmation and common-deadline rollback are required; an IPv4 diagnostic must not be read as a passing IPv6 preflight.
 
 
-Retained source `070976a8e9a8c48a33aedfaaf911ec8454cb429297bd3a68c64fb2236f007af7`: native/container run `a2ec14eb678b07ce` (98 tests per platform, 28 production mutations); installed-service run `7c8d9444bf76328b` (11 groups, 43 report controls). The initial foreign-fixture syntax failure is disclosed in attempt history; it is not a complete pass.
+
+Retained executable source `c64749f0c951d14513ccc3e1cf18c0dc171c19e28310c259b6da4eb767a146ec`; native/container run `1ad17fa8d1bfd28b` (102 tests per platform, 29 production mutations); installed-service run `2d6bce1eafd34363` (14 groups, 51 report controls). Exact JSON/HTML and all cleanup checks are audited.

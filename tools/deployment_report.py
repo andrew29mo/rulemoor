@@ -7,18 +7,19 @@ from .evidence import fingerprint
 from .deployment_guest import BASE, NEXT, NEW
 from rulemoor.policy import expected
 
-PHASES = ['setup', 'management_diagnostics', 'dual_stack', 'poisoned_journal', 'restart_limit', 'crash', 'held_writer', 'prepare_pending_boot', 'after_pending_boot', 'after_committed_boot', 'cleanup']
+PHASES = ['setup', 'management_diagnostics', 'dual_stack', 'poisoned_journal', 'restart_limit', 'crash', 'held_writer', 'prepare_pending_boot', 'after_pending_boot', 'after_committed_boot', 'prepare_dual_boot', 'after_dual_boot', 'dual_held_executor', 'cleanup']
 
 STAGES = ['vm-initial','vm-start','preflight','guest-prerequisites','wheel-build','snapshot-upload',
           'guest-setup','guest-management_diagnostics','guest-dual_stack','guest-poisoned_journal','guest-restart_limit','guest-crash','guest-held_writer','guest-prepare_pending_boot',
           'pending-vm-stop','pending-vm-start','guest-after_pending_boot',
           'committed-vm-stop','committed-vm-start','guest-after_committed_boot',
+          'guest-prepare_dual_boot','dual-pending-vm-stop','dual-pending-vm-start','guest-after_dual_boot','guest-dual_held_executor',
           'guest-cleanup','snapshot-remove','vm-final-stop','vm-final']
 CONTROL_NAMES = ['boot-identity','missing-case','stale-kernel','missing-cleanup','timeout','source',
                  'missing-stage','wrong-package-origin','wrong-preboot-journal','stale-pending-generation',
                  'infinite-timing','missing-vm-interval','memory-identity','invalid-memory','poison-kernel-write','restart-still-running','failed-journal-changed','missing-limit-receipt','future-limit-receipt','unrelated-startup-memory','wrong-poison-invocation','guard-admitted','foreign-rule-modified','uncertainty-hidden','old-confirmation-admitted','false-tcp-observation',
                  'connection-refused','missing-tcp-recovery','changed-tcp-listener','configuration-recovery-skipped','dual-v4-masks-v6','dual-wrong-rollback','dual-wrong-transport','dual-foreign-modified','dual-missing-timing','dual-partial-crash-not-restored','dual-missing-cleanup',
-                 'dual-invalid-restart-identity','dual-failure-wrong-boot','dual-unrelated-success-operation','dual-success-wrong-boot','dual-skipped-generation','dual-stale-kernel-modified']
+                 'dual-invalid-restart-identity','dual-failure-wrong-boot','dual-unrelated-success-operation','dual-success-wrong-boot','dual-skipped-generation','dual-stale-kernel-modified','dual-reboot-pre-agent-journal','dual-reboot-missing-family','dual-reboot-fresh-family','dual-reboot-wrong-boot','dual-orphan-did-not-survive','dual-orphan-not-retired','dual-orphan-overwrites-one-family','dual-orphan-missing-release-clock']
 
 
 def positive(value):
@@ -244,6 +245,81 @@ def dual_evidence(row, boot):
         assert any(r.get('table',{}).get('name')=='rm_dual_foreign' and r['table']['family']==family for r in raw)
 
 
+def recovery_stale_observations(observations, paths, state, policy):
+    assert [r['path'] for r in observations]==list(paths)
+    for row in observations:
+        assert type(row['status']) is int and row['status']==409
+        assert row['before']==row['after']==state
+        assert row['kernel_before']==row['kernel_after']==expected(policy)
+
+
+def dual_boot_recovery(prep, row):
+    from .dual_recovery import INITIAL, BASELINE, PENDING, SUCCESSOR
+    old_boot,new_boot=row['boot_id_before'],row['boot_id_after']
+    assert old_boot==prep['boot_id'] and old_boot!=new_boot and type(new_boot) is str and new_boot
+    baseline=prep['committed_baseline'];pending=prep['pending_before_stop']
+    for s in (baseline,pending,prep['pending_after_stop']):dual_projection_identity(s,old_boot)
+    assert baseline['op']=='dual-recovery-baseline' and baseline['phase']=='COMMITTED'
+    assert baseline['generation']==1 and baseline['current']==baseline['candidate']==BASELINE and baseline['baseline']==INITIAL and baseline['confirmed_families']==['ipv4','ipv6']
+    assert prep['baseline_kernel']==expected(BASELINE)
+    assert pending['op']=='dual-pending-before-boot' and pending['generation']==baseline['generation']+1
+    assert pending['phase']=='AWAITING_CONFIRM' and pending['confirmed_families']==['ipv4']
+    assert pending['current']==pending['baseline']==BASELINE and pending['candidate']==PENDING
+    assert prep['pending_after_stop']==pending
+    assert prep['kernel_before_stop']==prep['kernel_after_stop']==expected(PENDING)
+    assert prep['unit_enabled'] is True and prep['unit_after_stop']['MainPID']=='0'
+    assert prep['unit_after_stop']['KillMode']=='control-group'
+    assert prep['stop_method']=='SIGKILL with Restart=no; no graceful rollback'
+    assert row['journal_before_agent']==pending and row['tables_before_agent']=={'ip':None,'ip6':None}
+    restored=row['restored'];dual_projection_identity(restored,new_boot)
+    assert restored=={**pending,'phase':'ROLLED_BACK','generation':pending['generation']+1,'boot':new_boot}
+    assert row['restored_kernel']==expected(BASELINE)
+    assert row['fresh_tls']=={'ipv4':restored,'ipv6':restored}
+    successor=row['successor_pending'];committed=row['successor_committed']
+    for s in (successor,committed):dual_projection_identity(s,new_boot)
+    assert successor=={**restored,'phase':'AWAITING_CONFIRM','generation':restored['generation']+1,
+                         'op':'dual-after-boot-successor','candidate':SUCCESSOR,'confirmed_families':[]}
+    recovery_stale_observations(row['stale_observations'],('/confirm','/cancel','/apply'),successor,SUCCESSOR)
+    assert committed=={**successor,'phase':'COMMITTED','current':SUCCESSOR,'confirmed_families':['ipv4','ipv6']}
+    assert row['committed_kernel']==expected(SUCCESSOR)
+    memory_sample(row['memory']);assert row['memory']['process_identity']['boot']==new_boot
+
+
+def dual_orphan_recovery(row, boot, baseline):
+    from .dual_recovery import SUCCESSOR, LATE, FINAL
+    assert row['baseline']==baseline and baseline['current']==SUCCESSOR
+    pending=row['pending'];restored=row['restored']
+    for s in (pending,restored,row['successor_pending'],row['successor_committed']):dual_projection_identity(s,boot)
+    assert pending=={**baseline,'phase':'APPLYING','generation':baseline['generation']+1,
+                       'op':'dual-held-orphan','current':SUCCESSOR,'baseline':SUCCESSOR,'candidate':LATE,'confirmed_families':[]}
+    old=row['old_executor_identity'];agent=row['held_agent_identity']
+    process_identity(old,boot);process_identity(agent,boot);assert old!=agent
+    assert row['after_agent_kill_identity']==old and row['writer_lock_held_before_recovery'] is True
+    cgroups=row['old_executor_cgroup']
+    assert isinstance(cgroups,list) and cgroups and all(isinstance(c,str) and '/system.slice/rulemoor.service' not in c for c in cgroups)
+    assert row['kernel_before_recovery']==expected(SUCCESSOR)
+    assert restored=={**pending,'phase':'ROLLED_BACK','generation':pending['generation']+1}
+    assert row['restored_kernel']==expected(SUCCESSOR) and row['writer_lock_free_after_recovery'] is True
+    for name in ('identity_after_recovery','identity_before_release','identity_after_release'):
+        value=row[name]
+        if value is not None:process_identity(value,boot)
+        assert value!=old
+    new=row['successor_pending'];committed=row['successor_committed']
+    assert new=={**restored,'phase':'AWAITING_CONFIRM','generation':restored['generation']+1,
+                   'op':'dual-after-orphan-new','candidate':FINAL,'confirmed_families':[]}
+    assert committed=={**new,'phase':'COMMITTED','current':FINAL,'confirmed_families':['ipv4','ipv6']}
+    recovery_stale_observations(row['pending_stale_observations'],('/cancel','/apply'),new,FINAL)
+    recovery_stale_observations(row['committed_stale_observations'],('/cancel','/apply'),committed,FINAL)
+    assert row['journal_before_release']==row['journal_after_release']==committed
+    assert row['kernel_before_release']==row['kernel_after_release']==expected(FINAL)
+    interval(row['release_clock'],row['release_observation_seconds']);assert row['release_observation_seconds']>=2
+    memory_sample(row['memory']);assert row['memory']['process_identity']['boot']==boot
+    assert row['memory']['process_identity'] not in (old,agent)
+    for family in ('ipv4','ipv6'):
+        from rulemoor.policy import digest
+        assert len({digest(p[family]) for p in (SUCCESSOR,LATE,FINAL)})==3
+
+
 def verify(value, source):
     assert value['passed'] is True and value['source'] == source
     assert value['source_sha256'] == fingerprint(source) and not value['source_changed']
@@ -304,11 +380,14 @@ def verify(value, source):
     stale_trace(crash['stale_trace'], NEW, True)
     stale_trace(held['stale_trace'], BASE, False)
     stale_trace(pending['stale_trace'], NEW, True)
+    dual_boot_recovery(rows['prepare_dual_boot'],rows['after_dual_boot'])
+    assert rows['prepare_dual_boot']['boot_id']==committed['boot_id_after']
+    dual_orphan_recovery(rows['dual_held_executor'],rows['after_dual_boot']['boot_id_after'],rows['after_dual_boot']['successor_committed'])
     durations = {x['name']:x['seconds'] for x in value['stages']}
-    for prefix, guest in (('pending','guest-after_pending_boot'),('committed','guest-after_committed_boot')):
+    for prefix, guest in (('pending','guest-after_pending_boot'),('committed','guest-after_committed_boot'),('dual_pending','guest-after_dual_boot')):
         seconds = value[prefix+'_vm_restart_control_seconds']
         interval(value[prefix+'_vm_restart_clock'], seconds)
-        assert seconds >= sum(durations[k] for k in (prefix+'-vm-stop',prefix+'-vm-start',guest))
+        assert seconds >= sum(durations[k] for k in (prefix.replace('_','-')+'-vm-stop',prefix.replace('_','-')+'-vm-start',guest))
     assert held['test_only_fault_override'] and held['old_executor_retired'] and held['systemd_cgroup_restart_observed']
     assert held['late_release_did_not_overwrite_new_policy'] and held['stale_requests_rejected']
     assert held['old_executor_identity'] and held['old_executor_identity_after'] != held['old_executor_identity']
@@ -338,7 +417,7 @@ def verify(value, source):
     assert committed['restored_kernel'] == expected(NEW)
     assert committed['same_boot_foreign_policy_preserved'] and committed['foreign_kernel'] == committed['kernel_after_restart']
     assert committed['foreign_kernel'] != expected(NEW)
-    assert set(rows['cleanup']) == {'namespace_removed', 'service_stopped_and_removed', 'credentials_and_state_removed', 'vm_root_firewall_unchanged'}
+    assert set(rows['cleanup']) == {'namespace_removed', 'service_stopped_and_removed', 'credentials_and_state_removed', 'vm_root_firewall_unchanged','dual_client_namespace_removed'}
     assert all(x is True for x in rows['cleanup'].values()) and value['source_snapshot_removed']
     for row in (setup, crash, pending, committed):
         memory_sample(row['memory'])
@@ -389,6 +468,16 @@ def negative_controls(value, source):
         elif name=='dual-foreign-modified':by_name['dual_stack']['foreign_after']=[]
         elif name=='dual-missing-timing':del by_name['dual_stack']['success']['confirmation_clock']['partial_ns']
         elif name=='dual-partial-crash-not-restored':by_name['dual_stack']['recovered']['phase']='COMMITTED'
+        elif name=='dual-reboot-pre-agent-journal':by_name['after_dual_boot']['journal_before_agent']['phase']='ROLLED_BACK'
+        elif name=='dual-reboot-missing-family':by_name['after_dual_boot']['restored_kernel']=[]
+        elif name=='dual-reboot-fresh-family':del by_name['after_dual_boot']['fresh_tls']['ipv6']
+        elif name=='dual-reboot-wrong-boot':by_name['after_dual_boot']['boot_id_after']=by_name['after_dual_boot']['boot_id_before']
+        elif name=='dual-orphan-did-not-survive':by_name['dual_held_executor']['after_agent_kill_identity']=None
+        elif name=='dual-orphan-not-retired':by_name['dual_held_executor']['identity_after_recovery']=by_name['dual_held_executor']['old_executor_identity']
+        elif name=='dual-orphan-overwrites-one-family':
+            from .dual_recovery import FINAL, LATE
+            by_name['dual_held_executor']['kernel_after_release']=expected({'ipv4':FINAL['ipv4'],'ipv6':LATE['ipv6']})
+        elif name=='dual-orphan-missing-release-clock':del by_name['dual_held_executor']['release_clock']
         elif name=='dual-invalid-restart-identity':
             by_name['dual_stack']['identity_after_restart']={'pid':0,'start_ticks':0,'boot':by_name['setup']['boot_id']}
         elif name=='dual-failure-wrong-boot':
@@ -420,6 +509,12 @@ def render(value):
         d=by_name['dual_stack'];s=d['success']
         observations += '<p>Dual-stack static veth peers: repeated IPv4 confirmation could not mask a blocked fresh IPv6 connection; both policies rolled back at the common deadline. Old IPv4/IPv6 TLS and family spoofing were rejected. Fresh IPv4 partial + IPv6 confirmation committed; partial-confirmation SIGKILL restored the prior dual commit. Foreign tables remained unchanged.</p>'
         observations += f'<p>Single observed dual confirmation round trips: IPv4 partial {s["partial_ms"]:.2f} ms; IPv6 final commit {s["commit_ms"]:.2f} ms. Different state transitions, not a family performance comparison. Includes fresh TLS and durable writes; client-process startup excluded. Static-neighbour discovery observed; routed PMTU, SLAAC, dual-stack VM boot and power loss were not tested.</p>'
+    if 'after_dual_boot' in by_name:
+        seconds=value.get('dual_pending_vm_restart_control_seconds')
+        text=f'{seconds:.2f} s' if seconds is not None else 'not yet observed'
+        observations += '<p>Dual partial-confirmation VM reboot: pre-Agent journal still pending, both owned tables absent before service startup; both baseline policies restored and fresh IPv4/IPv6 TLS succeeded. Orderly VM stop/start plus validation: '+text+' (one observation including control/probing, not a recovery bound).</p>'
+    if 'dual_held_executor' in by_name:
+        observations += '<p>Dual delayed orphan executor: deliberately kept outside the service cgroup and alive with writer.lock after its Agent was killed. The installed systemd Agent retired it before restoring the known baseline. A distinct two-family successor survived releasing the retired intent and a finite '+f"{by_name['dual_held_executor']['release_observation_seconds']:.2f} s"+' observation. This is explicit fault injection, not sudden power-loss or arbitrary-hang recovery.</p>'
     if 'poisoned_journal' in by_name:
         observations += '<p>Malformed snapshot: DEGRADED; original data and kernel policy preserved. Test-only local reprovision is not automatic repair.</p>'
     if 'restart_limit' in by_name:

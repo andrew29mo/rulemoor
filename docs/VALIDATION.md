@@ -4,7 +4,7 @@
 
 `python -m tools.unit` runs production schema/compiler/core decisions, real local TLS API/CLI transport checks, and failure/timeout handling of the validation process wrapper. Memory-backend tests deliberately isolate state-machine contracts. They do not establish nft semantics, kernel reachability or native macOS agent performance. OpenSSL is needed to create temporary test certificates, which are deleted with the temporary directory.
 
-`python -m tools.mutations` copies source into isolated temporary directories, changes twenty-eight production decisions and requires an existing assertion to fail for each. Import/syntax failures, timeouts or a bare nonzero exit do not count as caught mutations.
+`python -m tools.mutations` copies source into isolated temporary directories, changes twenty-nine production decisions and requires an existing assertion to fail for each. Import/syntax failures, timeouts or a bare nonzero exit do not count as caught mutations.
 
 ## Linux scope
 
@@ -83,3 +83,7 @@ The management-preflight follow-up additionally tests the formal service main en
 ## Dual evidence review follow-up
 
 The [dual review](DUAL_REVIEW.md) strengthens artifact provenance across process identity, boot, operation and generation. Two portable methods exercise the formal identity/projection validators. The VM fixture reads journal and both kernel tables immediately before/after each rejected stale confirm/cancel/apply, before legitimate confirmation. Six new artifact-corruption controls challenge invalid restart identity, unrelated boot/op, skipped generation and a changed stale-request kernel readback. The original production dual implementation is unchanged; the broader control count is not evidence of new untested recovery capabilities.
+
+## Dual VM boot and real orphan writer
+
+[Dual recovery](DUAL_RECOVERY.md) adds a third orderly VM stop/start with pre-Agent pending journal readback and two absent tables, then fresh two-family access after baseline restoration. A real held executor is deliberately left outside the unit cgroup; it must survive its original Agent, hold writer.lock, and be retired by the production systemd Agent before a distinct successor. Immediate stale-request readbacks and post-release observations preserve both policies. Four portable methods cover normal-commit partial boot recovery, required retirement/refused admission, real lock observation and one-family artifact mutation. An additional production mutation removes retirement; eight extra evidence-corruption controls challenge the new raw receipts. Power-loss recovery remains untested.

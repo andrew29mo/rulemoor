@@ -9,6 +9,7 @@ from .evidence import ROOT, manifest, save
 from .process import run
 
 MUTATIONS = [
+    ('rulemoor/core.py','skip-dual-executor-retirement', 'self.backend.retire(self.root, self.s)', 'pass', 'tests.test_dual_recovery.DualRecoveryTests.test_inflight_dual_executor_must_retire_before_successor_admission'),
     ('rulemoor/core.py','dual-v4-only-commit', "self.s['confirmed_families']==['ipv4','ipv6']", "bool(self.s['confirmed_families'])", 'tests.test_dual_stack.DualCoreTests.test_ipv4_repetition_cannot_commit_or_extend_deadline'),
     ('rulemoor/core.py','dual-forget-partial-confirmations', "self.s = before", "pass", 'tests.test_dual_stack.DualCoreTests.test_partial_confirmation_failure_is_not_persisted_in_memory'),
     ('rulemoor/service.py','dual-v4-impersonates-v6', "transport_family='ipv6' if self.server.address_family==socket.AF_INET6 else 'ipv4'", "transport_family='ipv6'", 'tests.test_dual_stack.DualAPITests.test_real_transports_old_connections_and_body_spoof'),

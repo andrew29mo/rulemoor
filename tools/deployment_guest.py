@@ -19,6 +19,11 @@ import time
 from rulemoor.backend import identity, boot_id
 from rulemoor.policy import expected, canonical, compile_policy
 
+# Direct VM entrypoints run from /: append only fixture helpers after installed
+# site-packages. Production rulemoor is already imported from the installed wheel.
+if __package__ in (None, ''):
+    sys.path.append(str(Path(__file__).resolve().parents[1]))
+
 SOURCE = Path('/opt/rulemoor-validation')
 STATE = Path('/var/lib/rulemoor')
 FIXTURE = Path('/var/lib/rulemoor-validation')
@@ -198,7 +203,12 @@ def topology():
     assert FIXTURE.is_dir()
     cmd(['ip', 'netns', 'add', NS]); cmd(['ip', '-n', NS, 'link', 'set', 'lo', 'up'])
     assert kernel() is None
-    save('pre-agent-boot', {'boot_id': boot_id(), 'owned_table_absent': True, 'journal': journal_projection()})
+    pre={'boot_id':boot_id(),'owned_table_absent':True,'journal':journal_projection()}
+    if (FIXTURE/'dual-recovery-mode.json').exists():
+        from tools import dual_recovery
+        dual_recovery.topology();pre['dual_tables']=dual_recovery.families()
+        assert pre['dual_tables']=={'ip':None,'ip6':None}
+    save('pre-agent-boot',pre)
 
 
 def setup():
@@ -813,10 +823,27 @@ def after_committed_boot():
             'restored_kernel': restored_kernel, 'foreign_kernel': foreign, 'kernel_after_restart': kernel()}
 
 
+def prepare_dual_boot():
+    from tools.dual_recovery import prepare
+    return prepare()
+
+
+def after_dual_boot():
+    from tools.dual_recovery import after_boot
+    return after_boot()
+
+
+def dual_held_executor():
+    from tools.dual_recovery import held_executor
+    return held_executor()
+
+
 def cleanup():
     assert load('ownership') == {'fixture': 'rulemoor-deployment-v1'}
     cmd(['systemctl', 'disable', '--now', UNIT], check=False)
     cmd(['systemctl', 'stop', 'rulemoor-test-namespace.service'], check=False)
+    from tools.dual_recovery import cleanup as dual_cleanup
+    dual_cleanup_result=dual_cleanup()
     pids = cmd(['ip', 'netns', 'pids', NS], check=False).stdout.split()
     for pid in pids:
         os.kill(int(pid), signal.SIGKILL)
@@ -833,12 +860,12 @@ def cleanup():
         shutil.rmtree(p, ignore_errors=True)
     assert unchanged, 'VM root firewall changed outside fixture namespace'
     shutil.rmtree(FIXTURE)
-    return {'namespace_removed': True, 'service_stopped_and_removed': True,
+    return {**dual_cleanup_result,'namespace_removed': True, 'service_stopped_and_removed': True,
             'credentials_and_state_removed': True, 'vm_root_firewall_unchanged': True}
 
 
 def main():
-    p = argparse.ArgumentParser(); p.add_argument('phase', choices=['setup','topology','management_diagnostics','dual_stack','poisoned_journal','restart_limit','crash','held_writer','prepare_pending_boot','after_pending_boot','after_committed_boot','cleanup'])
+    p = argparse.ArgumentParser(); p.add_argument('phase', choices=['setup','topology','management_diagnostics','dual_stack','poisoned_journal','restart_limit','crash','held_writer','prepare_pending_boot','after_pending_boot','after_committed_boot','prepare_dual_boot','after_dual_boot','dual_held_executor','cleanup'])
     a = p.parse_args(); assert os.geteuid() == 0
     result = globals()[a.phase]()
     if result is not None:

@@ -130,6 +130,20 @@
     "run_id": "7c8d9444bf76328b",
     "passed": true,
     "source_sha256": "070976a8e9a8c48a33aedfaaf911ec8454cb429297bd3a68c64fb2236f007af7",
-    "note": "Current dual-stack source: eleven installed-systemd groups, forty-three evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim."
+    "note": "Historical dual-stack source: eleven installed-systemd groups, forty-three evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim. Superseded by dual VM boot and forced-orphan recovery evidence."
+  },
+  {
+    "attempt": "dual-recovery-helper-import-20261021",
+    "run_id": "ba77b629d43c03a6",
+    "passed": false,
+    "source_sha256": "4b93071f9ef59f25c7f64f8303e163f4d4397fa7e4eb4f9249eb85eeb943f5e5",
+    "note": "Failed before new recovery cases: direct guest-file entry could not import its tools helper. Cleanup retry succeeded, snapshot removed and VM stopped. Fixed by appending fixture helper path after installed site-packages; not counted as passed evidence."
+  },
+  {
+    "attempt": "dual-recovery-20261021",
+    "run_id": "2d6bce1eafd34363",
+    "passed": true,
+    "source_sha256": "c64749f0c951d14513ccc3e1cf18c0dc171c19e28310c259b6da4eb767a146ec",
+    "note": "Current dual recovery source: 14 actual-systemd groups, 51 evidence controls, three orderly VM stop/start cycles including a partially confirmed dual deployment, and real orphan executor pidfd retirement outside the unit cgroup. No power-loss pass claimed."
   }
 ]

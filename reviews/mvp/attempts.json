@@ -151,6 +151,13 @@
     "run_id": "a2ec14eb678b07ce",
     "passed": true,
     "source_sha256": "070976a8e9a8c48a33aedfaaf911ec8454cb429297bd3a68c64fb2236f007af7",
-    "note": "Current dual-stack source: 98 tests/platform, twenty-eight production mutations, seventeen container evidence controls and eight real Linux groups. Configured service measurements are separate from this unconfigured operation benchmark."
+    "note": "Historical dual-stack source: 98 tests/platform, twenty-eight production mutations, seventeen container evidence controls and eight real Linux groups. Configured service measurements are separate from this unconfigured operation benchmark. Superseded by dual VM boot and forced-orphan recovery evidence."
+  },
+  {
+    "attempt": "dual-recovery-20261021",
+    "run_id": "1ad17fa8d1bfd28b",
+    "passed": true,
+    "source_sha256": "c64749f0c951d14513ccc3e1cf18c0dc171c19e28310c259b6da4eb767a146ec",
+    "note": "Current dual recovery source: 102 tests per platform, 29 assertion mutations, 17 original evidence controls and 8 real container Linux groups. Operation benchmark remains unconfigured legacy IPv4."
   }
 ]

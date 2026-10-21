@@ -64,3 +64,7 @@ A bounded read-only `nft -j -s list ruleset` snapshot supplies foreign-chain dia
 ## Opt-in dual-stack transaction
 
 [Dual mode](DUAL_STACK.md) owns paired ip/ip6 tables in one nft batch, with one journal/generation/deadline and separate durable family confirmations. Its IPv6-only socket excludes mapped IPv4, and confirmation uses the actual transport family. Partial confirmation remains AWAITING_CONFIRM; timeout/restart restores the entire baseline. Existing IPv4 installs are not automatically migrated. Full IPv6 preflight remains unimplemented; ICMPv6 is accepted explicitly in this TCP-focused slice. The old IPv4 architecture sections describe legacy mode.
+
+## Dual boot and delayed writer evidence
+
+The [recovery extension](DUAL_RECOVERY.md) exercises the existing production boot/fencing paths without adding a separate state machine. It preserves an unfinished partial receipt through an orderly VM restart and captures both absent tables plus the persistent journal before Agent startup. A deliberately orphaned executor outside the service cgroup must be retired by the installed Agent before writer ownership and a distinct successor. The finite late-release observation checks both tables; it is not power-loss or arbitrary privileged-writer protection.

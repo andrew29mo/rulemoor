@@ -23,7 +23,7 @@ from .deployment_report import verify, render, negative_controls
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--toolchain', default=str(ROOT / 'results/local/toolchain/bin'))
-    p.add_argument('--colima-home', required=True, help='Dedicated existing Colima home; VM will be restarted twice')
+    p.add_argument('--colima-home', required=True, help='Dedicated existing Colima home; VM will be restarted three times')
     p.add_argument('--profile', default='relay')
     p.add_argument('--output', required=True)
     p.add_argument('--allow-vm-restarts', action='store_true', required=True)
@@ -117,6 +117,12 @@ def main():
         phase('after_committed_boot'); ended=time.monotonic_ns()
         value['committed_vm_restart_clock']={'clock':'monotonic_ns','started_ns':began,'finished_ns':ended}
         value['committed_vm_restart_control_seconds']=(ended-began)/1e9
+        phase('prepare_dual_boot')
+        began=time.monotonic_ns();call('dual-pending-vm-stop',[colima,'stop',a.profile],timeout=120);start('dual-pending-vm-start')
+        phase('after_dual_boot');ended=time.monotonic_ns()
+        value['dual_pending_vm_restart_clock']={'clock':'monotonic_ns','started_ns':began,'finished_ns':ended}
+        value['dual_pending_vm_restart_control_seconds']=(ended-began)/1e9
+        phase('dual_held_executor')
         phase('cleanup'); cleanup_done=True
         value['passed']=True
     except BaseException as exc:

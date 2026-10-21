@@ -4,7 +4,7 @@ This suite runs the production service under actual systemd in a dedicated Colim
 
 ## Run and audit
 
-Use a previously provisioned, stopped, dedicated VM with no running containers or existing Rulemoor installation. The selected VM is restarted twice. Do not share the selected profile with another active task.
+Use a previously provisioned, stopped, dedicated VM with no running containers or existing Rulemoor installation. The selected VM is restarted three times. Do not share the selected profile with another active task.
 
 ```sh
 PYTHON=.venv/bin/python tools/validate-deployment \
@@ -22,7 +22,7 @@ The runner makes an immutable executable snapshot, builds a wheel, installs it i
 
 ## Cases and distinguishing observations
 
-The configured [management diagnostic scenario](MANAGEMENT_PREFLIGHT.md) runs immediately after setup, before the existing recovery cases. It enables the production `--management-paths` argument using a fixture-only service drop-in, refuses an own-policy block, diagnoses real foreign input drops at priorities -100 and 10, preserves foreign rules and requires fresh TLS confirmation. Its TCP listener/probes are namespace-local. Each foreign-drop observation requires the same live listener and success → timeout → success after removing only the fixture table; refusal is not evidence of a drop. Missing/null management configuration is separately introduced while a change is pending, then MainPID is SIGKILLed: startup must restore baseline before refusing API admission. Configuration repair/reset/start must recover service. It removes the configuration override and disposable foreign table before the recovery cases. All eleven groups are required.
+The configured [management diagnostic scenario](MANAGEMENT_PREFLIGHT.md) runs immediately after setup, before the existing recovery cases. It enables the production `--management-paths` argument using a fixture-only service drop-in, refuses an own-policy block, diagnoses real foreign input drops at priorities -100 and 10, preserves foreign rules and requires fresh TLS confirmation. Its TCP listener/probes are namespace-local. Each foreign-drop observation requires the same live listener and success → timeout → success after removing only the fixture table; refusal is not evidence of a drop. Missing/null management configuration is separately introduced while a change is pending, then MainPID is SIGKILLed: startup must restore baseline before refusing API admission. Configuration repair/reset/start must recover service. It removes the configuration override and disposable foreign table before the recovery cases. All fourteen groups are required.
 
 1. **Installed unit:** actual systemd PID 1, installed package byte equality, exact production unit digest, sandbox/capability checks and TLS readiness.
 2. **Configured management diagnostics:** production service with declared ports, rejected own-policy block, ordered allow, real TCP probes against earlier/later foreign drops, conservative unsupported-condition diagnosis, unchanged foreign rules and old/fresh TLS confirmation. The same group includes missing/null admission-configuration recovery through the installed entrypoint; its supported argument override is removed before the other recovery cases.
@@ -34,8 +34,11 @@ The configured [management diagnostic scenario](MANAGEMENT_PREFLIGHT.md) runs im
 8. **Pending boot preparation:** install an unconfirmed candidate, then stop the agent with a temporary SIGKILL/no-restart override. Verify its journal is still pending and the candidate is still in the kernel. After reboot, the namespace bootstrap reads a safe projection of the durable journal before starting the agent; it must still exactly match the stopped pending state. Remove the override before restarting the VM. This prevents a graceful shutdown rollback from masquerading as boot recovery.
 9. **Pending VM boot:** orderly VM stop/start, changed kernel boot ID, namespace created with no owned table before the agent starts, enabled unit starts automatically, baseline reconstructed and generation advanced. Retain the journal before the agent starts, then the actual kernel/generation and rejected request paths while challenging a newer pending and committed policy with pre-boot requests.
 10. **Committed VM boot:** a second orderly VM stop/start must recreate the confirmed policy and advance the generation. An old base is rejected. A subsequently installed foreign table is retained with DEGRADED status after service restart.
-11. **Cleanup:** disable/remove the service and fixture, remove namespace workers, credentials, private state, installed package and source snapshot; verify the VM root firewall is unchanged and stop the VM.
-Nonzero commands, timeout, missing cases/stages, changed sources, unchanged boot identity, altered pre-agent journal, stale kernel output, nonfinite/inconsistent measurements, wrong process identity or cleanup failure cannot produce a passing report. Forty-three deliberate evidence-corruption controls challenge the verifier. JSON and HTML are generated from the same observations and rechecked byte-for-byte by the auditor. Raw host logs and private operational receipts remain ignored/local; shared artifacts exclude credentials and confirmation challenges. Interrupted VM-manager/host failures can require manual recovery; stopping the driver forcibly is not a guaranteed cleanup path.
+11. **Dual partial boot preparation:** explicitly fresh dual fixture, normal two-family committed baseline, different candidate confirmed only through IPv4, SIGKILL/no-restart service stop, unchanged pending journal and both candidate tables before shutdown.
+12. **Dual pending VM boot:** third orderly stop/start, changed boot ID, both tables absent and unchanged pending journal read before automatically starting the installed dual Agent; both baseline tables and fresh IPv4/IPv6 TLS recover. Stale pre-boot requests cannot alter a distinct successor.
+13. **Dual orphan executor:** installed production Controller/executor held before nft write outside the service cgroup; kill only its Agent, observe the executor alive and writer.lock held, then start the installed systemd Agent and require pidfd retirement/free writer ownership before a distinct dual successor. Release the retired intent and verify unchanged journal/tables for a finite observation.
+14. **Cleanup:** disable/remove the service and fixture, remove namespace workers, credentials, private state, installed package and source snapshot; verify the VM root firewall is unchanged and stop the VM.
+Nonzero commands, timeout, missing cases/stages, changed sources, unchanged boot identity, altered pre-agent journal, stale kernel output, nonfinite/inconsistent measurements, wrong process identity or cleanup failure cannot produce a passing report. Fifty-one deliberate evidence-corruption controls challenge the verifier. JSON and HTML are generated from the same observations and rechecked byte-for-byte by the auditor. Raw host logs and private operational receipts remain ignored/local; shared artifacts exclude credentials and confirmation challenges. Interrupted VM-manager/host failures can require manual recovery; stopping the driver forcibly is not a guaranteed cleanup path.
 
 ## Measurements and limits
 
@@ -47,42 +50,49 @@ These measurements come from VM system services (configured 4 vCPU / 6 GiB), sep
 
 [Evidence review and corrections](DEPLOYMENT_REVIEW.md) · [Retained JSON](../reviews/deployment/deployment.json) · [HTML report](../reviews/deployment/report.html) · [Attempt history](../reviews/deployment/attempts.json)
 
+
 ## Retained observations
 
-Run `7c8d9444bf76328b`, source `070976a8e9a8c48a33aedfaaf911ec8454cb429297bd3a68c64fb2236f007af7`. Kernel 6.8.0-117-generic/aarch64, Python 3.12.3, systemd 255 (255.4-1ubuntu8.15), nftables v1.0.9 (Old Doc Yak #3). All eleven case groups and forty-three evidence-corruption controls passed. Installed site-packages module hashes match this source.
+Run `2d6bce1eafd34363`, source `c64749f0c951d14513ccc3e1cf18c0dc171c19e28310c259b6da4eb767a146ec`. Kernel 6.8.0-117-generic/aarch64, Python 3.12.3, systemd 255 (255.4-1ubuntu8.15), nftables v1.0.9 (Old Doc Yak #3). All fourteen case groups and fifty-one evidence-corruption controls passed. Installed site-packages module hashes match this source. The first helper-import attempt failed and was cleaned/stopped; it remains in attempt history.
 
-Configured management diagnostics rejected an own-policy management-port block without changing state/kernel policy. A first-match ordered allow remained allowed. Disposable external input chains at priorities -100 and 10 both blocked a real fresh TCP connect to the probe port and were diagnosed as blocked. An unsupported source-address condition remained risk. Each drop required the same live listener and success before/after removing only the fixture table; connection refusal was rejected. Foreign rules were identical before/after diagnosis and an admitted policy change. Both missing/null configuration trials retained pending journal/candidate rules immediately before SIGKILL, restored BASE on restart before API refusal, reached the bounded start limit, and recovered service after local configuration repair/reset/start. The old TLS confirmation returned 409 and a fresh connection committed. This checks loopback within the VM namespace, not external routes or WAN.
+Configured management admission/foreign-rule diagnosis retained same-listener success → timeout → success after removing only fixture rules. Unknown conditions remained risk, old TLS confirmation was refused, a fresh connection committed, and foreign rules remained unchanged. These observations remain namespace-local.
 
-| Foreign chain priority | Observed plan ms | New TCP connect | Diagnostic |
-|---|---:|---|---|
-| -100 | 55.72 | blocked | blocked |
-| 10 | 60.77 | blocked | blocked |
+| Foreign priority | Observed plan ms |
+|---|---:|
+| -100 | 53.58 |
+| 10 | 56.49 |
 
-Each interval has raw monotonic endpoints and includes namespace/CLI process startup, TLS, kernel preflight and inventory. These are single observations for different fixture conditions, not isolated inspection cost or comparative performance. The unconfigured container benchmark has a different timing scope.
+Plan observations include CLI process/namespace startup, TLS and checks. They are not isolated diagnostic CPU time or a paired comparison with the unconfigured legacy container benchmark.
 
-The malformed snapshot produced DEGRADED with unchanged rules/data. The legal pending ID `initial` survived sustained missing-key startup failure. The failed unit retained MainPID=0, Result=exit-code, NRestarts=6 for **2.21 s** without another restart. Its bounded current-boot receipt establishes rate-limit refusal; candidate rules and pending journal remained until local cause repair plus explicit reset/start restored the baseline. Stale requests did not overwrite a newer change. This is not independent rollback or arbitrary journal repair.
+Missing-key startup failure reached the real start limit and remained stopped for 2.21 s before local cause repair/reset/start. A separate legacy Agent SIGKILL trial reached observed fresh TLS in 1219.3 ms, with baseline readback afterward. Neither is a recovery upper bound.
 
-A separate Agent SIGKILL trial reached observed fresh TLS readiness in **1164.0 ms**, with baseline readback timestamped afterward. Orderly VM stop/start plus validation took **11.67 s** (pending) and **12.49 s** (committed), each one observation including probing/control overhead. These are not recovery upper bounds. The raw uptime field is kernel uptime, not Agent startup latency.
+| Orderly VM stop/start + validation | Observed seconds |
+|---|---:|
+| Legacy IPv4 pending | 12.73 |
+| Legacy IPv4 committed | 11.52 |
+| Dual partial confirmation | 12.63 |
 
-| Observation stage | Agent RSS MiB | Agent VmHWM MiB | Service cgroup MiB |
+Each is one host-monotonic interval including Colima, SSH, namespace setup, probing and assertions. No power removal is performed.
+
+The original dual confirmation case still observes IPv6 timeout errno 11 with repeated IPv4 partial confirmation, followed by both-policy timeout restoration. Its separate IPv4 partial / IPv6 final confirmation round trips were 4.65 / 4.12 ms; these are different state transitions, not a family speed comparison.
+
+The new dual reboot retained AWAITING_CONFIRM with only ipv4 recorded before shutdown and before new-boot Agent startup. Both tables were absent before startup. Recovery restored the last normal commit and advanced generation 2 → 3; fresh IPv4/IPv6 TLS agreed. Immediate stale-request readbacks preserved the later dual successor.
+
+The held executor survived its temporary Agent outside rulemoor.service with writer.lock held. The installed Agent retired its recorded identity and freed writer ownership before a different successor committed. Releasing the old intent left both kernel tables and journal unchanged for 2.101 s. The executor was already retired before release; this is not a claim that a live stale writer safely resumed.
+
+| Stage | Agent RSS MiB | Agent VmHWM MiB | Service cgroup MiB |
 |---|---:|---:|---:|
 | setup | 22.20 | 22.20 | 10.68 |
-| management_diagnostics | 23.04 | 23.04 | 11.86 |
-| dual_stack | 23.54 | 23.54 | 12.27 |
+| management_diagnostics | 23.14 | 23.14 | 11.97 |
+| dual_stack | 23.54 | 23.54 | 12.41 |
 | poisoned_journal | 22.31 | 22.31 | 10.77 |
-| restart_limit | 22.86 | 22.86 | 11.59 |
-| crash | 22.86 | 22.86 | 11.59 |
-| after_pending_boot | 22.82 | 22.82 | 11.98 |
-| after_committed_boot | 22.20 | 22.20 | 11.01 |
+| restart_limit | 22.88 | 22.88 | 11.58 |
+| crash | 22.77 | 22.77 | 11.47 |
+| after_pending_boot | 22.73 | 22.73 | 11.87 |
+| after_committed_boot | 22.18 | 22.18 | 11.03 |
+| after_dual_boot | 22.95 | 22.95 | 12.11 |
+| dual_held_executor | 23.00 | 23.00 | 11.65 |
 
-The configured diagnostic sample belongs to its stable service invocation. Restart-limit memory is sampled after local recovery. All memory samples are joined to the appropriate boot; process/cgroup/VM memory scopes remain distinct. CPU/log saturation, large real-world ruleset performance, WAN/NAT/bridge/legacy firewall behavior, native segmentation faults, uninterruptible I/O and power loss were not tested. Historical failed/superseded attempts remain visible.
+Samples retain stable service PID/start/boot/invocation and cgroup/namespace association. New dual recovery samples belong to the third boot, not the setup boot. Agent VmHWM excludes children/client/VM; cgroup accounting differs from Agent RSS and total VM RAM. Run-to-run differences are not optimization claims.
 
-## Dual-stack observations
-
-The installed dual-mode service used static IPv4/IPv6 veth peers. IPv6 connect returned errno 11 while repeated IPv4 confirmations remained AWAITING_CONFIRM with only ipv4 recorded. Core kernel-restoration completion was observed 46.78 ms after the common deadline; fresh TLS then succeeded in both families. This is one controlled observation, not a deadline/recovery upper bound.
-
-A separate successful operation observed IPv4 partial confirmation in 5.48 ms and IPv6 final commit in 4.27 ms. These include fresh TLS and durable state writes but exclude client-process startup. The state transitions differ, so these are not a paired family performance comparison. Agent RSS/VmHWM and service-cgroup memory for that stable dual service are listed separately above.
-
-A partial-confirmation SIGKILL restored the last dual commit with a newer generation; stale confirm/cancel/apply requests could not change a distinct successor. Both foreign marker tables were unchanged. Static neighbour discovery was observed after cache flush, and the temporary client namespace/veth were removed. This does not establish dual VM reboot, routed PMTU, SLAAC/RA filtering, WAN, native segmentation-fault, hung-I/O, early-boot or power-loss recovery.
-
-The [agent-assisted dual review](DUAL_REVIEW.md) additionally requires valid restarted process identity and matching boot/operation/generation across every dual receipt. Each stale confirm/cancel/apply exports its journal and both kernel tables immediately before and after rejection; legitimate confirmations occur only afterward. Six added corruption controls challenge those links and changed kernel evidence.
+[Dual boot/orphan method and boundaries](DUAL_RECOVERY.md). Committed-only dual VM boot, other executor/kernel boundaries, routed PMTU, SLAAC/RA policy, general firewall compatibility, sudden power loss, uninterruptible I/O, fail-closed early boot and uninterrupted connections remain unestablished.

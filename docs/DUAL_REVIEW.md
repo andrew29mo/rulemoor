@@ -1,5 +1,7 @@
 # Agent-assisted dual-stack review — 2026-10-21
 
+This records the review before the later [dual VM boot/orphan recovery extension](DUAL_RECOVERY.md); limits below describe that review stage.
+
 Reviewed starting commit: `bf82380`. Two read-only agents independently inspected the formal implementation and the deployment evidence before receiving proposed fixes. One ran all 96 original portable tests, including real IPv4/IPv6 loopback TLS; the other challenged copied deployment artifacts. Later checks of identified fixes are follow-up review, not another independent first pass. Reviewer agreement is not execution evidence.
 
 ## Findings and changes
@@ -20,6 +22,6 @@ The current compiler deliberately accepts all ICMPv6 before user TCP rules, as w
 
 Actual VM evidence uses the installed systemd service and static cross-namespace IPv4/IPv6 peers. Repeated IPv4 confirmation while fresh IPv6 is blocked, whole-policy timeout restoration, two-family commit, partial-confirmation SIGKILL recovery, stale requests and preserved foreign tables are checked. Native macOS tests exercise portable logic/TLS, not a Linux firewall Agent.
 
-Dual-stack VM reboot and a delayed old dual executor are still not exercised by the VM suite. The legacy IPv4 reboot/held-executor cases must not be presented as direct dual-stack tests. Portable dual reboot state tests and the shared production fencing code provide narrower evidence. Power loss, routed PMTU, SLAAC/RA filtering, uninterrupted connections, general firewall compatibility, hung I/O and arbitrary startup failures remain unestablished. No new speedup, recovery upper bound or production-readiness claim is made. Agent RSS/VmHWM, service-cgroup memory and total VM memory retain distinct scopes.
+At that review stage, dual-stack VM reboot and a delayed old dual executor were not exercised by the VM suite; the later [extension](DUAL_RECOVERY.md) adds bounded direct evidence. The legacy IPv4 reboot/held-executor cases must not be presented as direct dual-stack tests. Portable dual reboot state tests and the shared production fencing code provide narrower evidence. Power loss, routed PMTU, SLAAC/RA filtering, uninterrupted connections, general firewall compatibility, hung I/O and arbitrary startup failures remain unestablished. No new speedup, recovery upper bound or production-readiness claim is made. Agent RSS/VmHWM, service-cgroup memory and total VM memory retain distinct scopes.
 
-Retained executable source `070976a8e9a8c48a33aedfaaf911ec8454cb429297bd3a68c64fb2236f007af7`; macOS/Linux run `a2ec14eb678b07ce` (98 tests per platform, 28 production mutations); installed-service run `7c8d9444bf76328b` (11 groups, 43 report controls). The same-source JSON/HTML and stable-process memory observations are audited; the VM is cleaned and stopped.
+Historical review executable source `070976a8e9a8c48a33aedfaaf911ec8454cb429297bd3a68c64fb2236f007af7`; macOS/Linux run `a2ec14eb678b07ce` (98 tests per platform, 28 production mutations); installed-service run `7c8d9444bf76328b` (11 groups, 43 report controls). The same-source JSON/HTML and stable-process memory observations are audited; the VM is cleaned and stopped.
