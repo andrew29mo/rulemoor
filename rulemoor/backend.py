@@ -10,7 +10,7 @@ import signal
 import subprocess
 import sys
 import time
-from .policy import TABLE, canonical, compile_policy
+from .policy import TABLE, canonical, compile_policy, dual
 
 
 def clock():
@@ -64,14 +64,24 @@ class NftBackend:
     clock = staticmethod(clock)
     boot = staticmethod(boot_id)
 
+    def __init__(self, dual_stack=False):
+        self.dual_stack = dual_stack
+
+    def assert_policy(self, policy):
+        if dual(policy) != self.dual_stack:
+            raise RuntimeError('Policy and backend mode differ; no automatic migration')
+
     def read(self):
-        r = subprocess.run(['nft', '-j', '-s', 'list', 'table', 'ip', TABLE],
-                           capture_output=True, text=True, timeout=2)
-        if r.returncode:
-            if 'No such file or directory' in r.stderr:
-                return None
-            raise RuntimeError('Cannot read nft table')
-        return canonical(json.loads(r.stdout))
+        rows = []
+        for family in (('ip','ip6') if self.dual_stack else ('ip',)):
+            r = subprocess.run(['nft', '-j', '-s', 'list', 'table', family, TABLE],
+                               capture_output=True, text=True, timeout=2)
+            if r.returncode:
+                if 'No such file or directory' in r.stderr:
+                    continue
+                raise RuntimeError('Cannot read nft table')
+            rows.extend(canonical(json.loads(r.stdout)))
+        return rows or None
 
     def inspect_ruleset(self):
         # Never collect an unbounded host ruleset in memory or write it to reports.
@@ -97,6 +107,7 @@ class NftBackend:
             p.wait(timeout=2);p.stdout.close()
 
     def check(self, policy, replace=True):
+        self.assert_policy(policy)
         self._direct(compile_policy(policy, replace), True)
 
     def _direct(self, script, check=False):
@@ -110,6 +121,7 @@ class NftBackend:
         self._direct(compile_policy(policy, False))
 
     def execute(self, root, state, policy, writer_fd, persist, hook):
+        self.assert_policy(policy)
         token = secrets.token_hex(16)
         state['executor_token'] = token
         persist('executor_intent')

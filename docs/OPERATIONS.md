@@ -2,7 +2,7 @@
 
 ## Deployment prerequisites
 
-Start in a disposable Linux VM or namespace. Keep console access independent of Rulemoor. The initial backend was exercised on Linux 6.8/aarch64 and nftables 1.0.6; other versions require the real-kernel suite, not just portable tests. Use one controller and do not let another manager edit `ip rulemoor`.
+Start in a disposable Linux VM or namespace. Keep console access independent of Rulemoor. The initial backend was exercised on Linux 6.8/aarch64 and nftables 1.0.6; other versions require the real-kernel suite, not just portable tests. Use one controller and do not let another manager edit `ip rulemoor` (or either paired table in dual mode).
 
 Install Python 3.12 and nftables using the target system's package manager. To install command entry points, create `/opt/rulemoor/venv` and run its `pip install /path/to/checkout`. Runtime Python dependencies are standard-library only; building uses setuptools. The example unit references these installed entry points. The repository also runs directly with `python -m rulemoor.service` and `python -m rulemoor.cli`.
 
@@ -55,3 +55,7 @@ The 4 MiB state-directory budget is an admission guard, not a disk quota or prom
 Kernel nftables state is volatile. On a changed boot ID, after obtaining writer ownership, the controller recreates an absent owned table using the durable current policy for a terminal operation, or the baseline for an unfinished operation. Intent is committed before creation; readback is required before becoming ready. Pending changes are rolled back, never resumed. The boot ID is updated and the generation advances, including for a previously committed policy, to reject pre-boot base generations.
 
 This exception does not apply to an absent table within the same boot, a preexisting foreign table, interrupted initial provisioning, unreadable journals or a prior DEGRADED state. These still block writes and require operator recovery. Do not configure another boot-time firewall loader to race with Rulemoor. The service starts after `network.target`; there can be an interval without its owned rules before startup. It is not a guarantee of fail-closed early boot, uninterrupted access, or a substitute for console recovery.
+
+## Fresh dual-stack deployment
+
+Follow [DUAL_STACK.md](DUAL_STACK.md) for the separate fresh-install mode, schema, two listeners and family-specific CLI confirmations. Both tables must belong exclusively to this installation; no online migration/adoption is provided. Partial family confirmation does not commit or extend the deadline. Inspect both owned tables during local recovery. Actual VM reboot evidence elsewhere in this document is legacy IPv4; the dual slice adds installed-service process restart and cross-veth confirmation evidence, not a dual-stack reboot qualification.

@@ -3,7 +3,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
-from .policy import TABLE, validate
+from .policy import TABLE, validate, dual
 
 MAX_PATH_BYTES = 4096
 MAX_PATHS = 8
@@ -45,6 +45,7 @@ def load_paths(path):
 
 def own_paths(policy, paths):
     p = validate(policy)
+    if dual(p): p = p['ipv4']  # This optional guard remains explicitly IPv4-only.
     out = []
     for path in paths:
         hit = next(((i, r['verdict']) for i, r in enumerate(p['rules']) if r['port'] == path['port']), None)
@@ -172,6 +173,8 @@ def external_paths(raw, paths):
 def diagnose(policy, paths, backend):
     result = {'schema':1,'scope':SCOPE,'configuration':'configured' if paths else 'not_configured',
               'fresh_connection_confirmation_required':True,'reachability_verified':False}
+    if dual(policy):
+        result['ipv6_preflight'] = 'not_implemented'
     if not paths:
         return {**result,'own_policy':{'status':'not_configured','paths':[]},'external':{'status':'not_configured'}}
     result['own_policy'] = own_paths(policy, paths)

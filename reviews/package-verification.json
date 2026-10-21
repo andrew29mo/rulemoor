@@ -2,14 +2,14 @@
   "version": "0.1.0",
   "wheel_modules_match_validated_source": true,
   "cli_and_agent_entrypoints_present": true,
-  "source_sha256": "ac398e4379e004285a44459268cd555940bee5b0cf898ba5b47315f723729e8d",
+  "source_sha256": "2173a5bb28d7610399e9d5479fb68e24d0eff6bf26c28fd84fc22acef8a4bb99",
   "license_expression": "MIT",
   "wheel_and_sdist_include_matching_license_and_notices": true,
   "third_party_runtime_requirements": [],
   "artifacts": {
-    "rulemoor-0.1.0-py3-none-any.whl": "703c47264f3bf58a5f237db1299650a075a9fd35158d6eb72e61962c17ae4da9",
-    "rulemoor-0.1.0.tar.gz": "217f1df35a8f0c150d2a3107f69d1a062dd155c0a46ff9a460c0ba858a50055e"
+    "rulemoor-0.1.0-py3-none-any.whl": "43e986052fe29e46e05a2b0146a60b5656d9f8911209c0dcbb422b81e377ad30",
+    "rulemoor-0.1.0.tar.gz": "ba43ffcc287d62a113724329b70b8908adff8152d84ba3106c39646c94903889"
   },
   "distribution_privacy_scan_passed": true,
-  "note": "Rebuilt after agent-reviewed startup ordering, NEW/ESTABLISHED diagnostics and installed-service evidence fixes. Wheel modules equal validated source; MIT, notices, entrypoints and no third-party Python runtime dependencies checked. Distribution contents scanned for private paths, credential formats and forbidden runtime files. Same-source actual-systemd evidence verifies installed module hashes independently."
+  "note": "Rebuilt after the explicit dual-stack minimum slice; earlier agent reviews do not cover this later feature. Wheel modules equal validated source; MIT, notices, entrypoints and no third-party Python runtime dependencies checked. Distribution contents scanned for private paths, credential formats and forbidden runtime files. Same-source actual-systemd evidence verifies installed module hashes independently."
 }

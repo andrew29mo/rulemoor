@@ -2,16 +2,23 @@
 import argparse
 import http.client
 import json
+import ipaddress
 from pathlib import Path
 import ssl
 from urllib.parse import urlsplit
 from .service import secret_file
 
 
-def request(url, ca, token, path, payload=None):
+def request(url, ca, token, path, payload=None, family=None):
     parsed = urlsplit(url)
     if parsed.scheme != 'https' or not parsed.hostname or parsed.path not in ('', '/') or parsed.query or parsed.fragment or parsed.username:
         raise ValueError('Use an HTTPS origin without path, credentials or query')
+    if family is not None:
+        if family not in ('ipv4','ipv6'):
+            raise ValueError('Unknown transport family')
+        # Literal endpoints remove DNS/Happy-Eyeballs fallback ambiguity.
+        if ipaddress.ip_address(parsed.hostname).version != (4 if family=='ipv4' else 6):
+            raise ValueError('Requested family does not match the literal endpoint')
     context = ssl.create_default_context(cafile=ca)
     conn = http.client.HTTPSConnection(parsed.hostname, parsed.port or 443, context=context, timeout=5)
     try:
@@ -34,6 +41,7 @@ def main():
     p = argparse.ArgumentParser(description='Confirmed network changes with Rulemoor')
     p.add_argument('--url', required=True)
     p.add_argument('--ca', required=True)
+    p.add_argument('--family',choices=['ipv4','ipv6'],help='Require an IP-literal endpoint of this family; no fallback')
     p.add_argument('--token-file', required=True)
     sub = p.add_subparsers(dest='action', required=True)
     sub.add_parser('status')
@@ -54,7 +62,7 @@ def main():
     a = p.parse_args()
     token = secret_file(a.token_file)
     def call(path, payload=None):
-        return request(a.url, a.ca, token, path, payload)
+        return request(a.url, a.ca, token, path, payload, family=a.family)
     try:
         if a.action in ('status', 'history'):
             value = call('/' + a.action)

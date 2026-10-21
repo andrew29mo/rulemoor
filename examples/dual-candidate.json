@@ -1,0 +1,36 @@
+{
+  "ipv4": {
+    "default": "drop",
+    "rules": [
+      {
+        "port": 18443,
+        "verdict": "accept"
+      },
+      {
+        "port": 22,
+        "verdict": "accept"
+      },
+      {
+        "port": 8080,
+        "verdict": "accept"
+      }
+    ]
+  },
+  "ipv6": {
+    "default": "drop",
+    "rules": [
+      {
+        "port": 18443,
+        "verdict": "accept"
+      },
+      {
+        "port": 22,
+        "verdict": "accept"
+      },
+      {
+        "port": 8080,
+        "verdict": "accept"
+      }
+    ]
+  }
+}

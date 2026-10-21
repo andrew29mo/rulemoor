@@ -38,7 +38,7 @@ The current established TLS socket is not sufficient: policy compilation still a
 
 ## External inspection model and budgets
 
-Inspection executes only `nft -j -s list ruleset` in the agent's existing network namespace. It reads through bounded pipes with a 1 MiB accepted-output limit and a two-second read deadline; a final read chunk can exceed that limit before rejection. Failure cleanup kills and reaps the child in the tested process-failure cases. Hung kernel I/O is not tested. The evaluator accepts at most 4096 JSON entries and reports at most 64 input chains and 64 unassessed-hook entries; truncation is explicit. It never invokes a foreign-table mutation. The normal policy compiler still replaces only `ip rulemoor`.
+Inspection executes only `nft -j -s list ruleset` in the agent's existing network namespace. It reads through bounded pipes with a 1 MiB accepted-output limit and a two-second read deadline; a final read chunk can exceed that limit before rejection. Failure cleanup kills and reaps the child in the tested process-failure cases. Hung kernel I/O is not tested. The evaluator accepts at most 4096 JSON entries and reports at most 64 input chains and 64 unassessed-hook entries; truncation is explicit. It never invokes a foreign-table mutation. The legacy compiler replaces only `ip rulemoor`; explicitly enabled dual mode replaces its owned ip/ip6 pair. Inspection never mutates foreign tables.
 
 The evaluator follows rule order and terminal accept/drop/reject for supported exact TCP destination-port matches, TCP/UDP protocol checks, IPv4/IPv6 family checks and conntrack-state checks for NEW and ESTABLISHED ingress. A certain block of either modeled state is reported as blocked; otherwise an uncertain state remains risk. RELATED/INVALID/untracked packet behavior is not a complete connection simulation. It evaluates relevant `ip` and `inet` input base chains separately: another chain can drop a packet even after an earlier accept. Supported nonmatching rules are skipped. Unknown actions remain uncertain even if a later condition appears not to match, because an earlier action could rewrite that condition’s packet fields. Conditional addresses/interfaces, sets, jumps and other unsupported expressions remain uncertain rather than being assumed harmless. Counters/logging do not themselves create a verdict.
 
@@ -59,4 +59,9 @@ Current run IDs, source fingerprint, measurements and results are retained in [d
 These are namespace-local Linux VM observations. No WAN/NAT/bridge/legacy-firewall compatibility, every firewall product, production availability, power-loss, native segmentation-fault or hung-I/O recovery is established.
 
 
-Retained source `ac398e4379e004285a44459268cd555940bee5b0cf898ba5b47315f723729e8d`: native/container run `6ed204f4e6c8dead` (85 tests per platform, 25 production mutations); installed-service run `d1c7c0713b157000` (10 groups, 30 report controls). The initial foreign-fixture syntax failure is disclosed in attempt history; it is not a complete pass.
+
+## Dual-mode limitation
+
+The [dual-stack slice](DUAL_STACK.md) does not extend this evaluator to IPv6. It evaluates only the IPv4 policy component and explicitly emits ipv6_preflight: not_implemented. Separate fresh IPv6 confirmation and common-deadline rollback are required; an IPv4 diagnostic must not be read as a passing IPv6 preflight.
+
+Retained source `2173a5bb28d7610399e9d5479fb68e24d0eff6bf26c28fd84fc22acef8a4bb99`: native/container run `6b3e22b361d2e101` (96 tests per platform, 28 production mutations); installed-service run `6e80d14cf5601c9f` (11 groups, 37 report controls). The initial foreign-fixture syntax failure is disclosed in attempt history; it is not a complete pass.

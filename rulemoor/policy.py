@@ -7,7 +7,15 @@ TABLE = 'rulemoor'
 MAX_RULES = 32
 
 
+def dual(value):
+    return isinstance(value, dict) and set(value) == {'ipv4', 'ipv6'}
+
+
 def validate(value):
+    if dual(value):
+        if any(dual(value[k]) for k in ('ipv4','ipv6')):
+            raise ValueError('Nested dual policies are not supported')
+        return {k:validate(value[k]) for k in ('ipv4','ipv6')}
     if not isinstance(value, dict) or set(value) != {'default', 'rules'}:
         raise ValueError('Policy requires exactly default and rules')
     if value['default'] not in ('accept', 'drop'):
@@ -29,6 +37,13 @@ def validate(value):
 
 def compile_policy(value, replace=True):
     p = validate(value)
+    if dual(p):
+        # Both families are replaced in the same nft batch/transaction.
+        v4 = compile_policy(p['ipv4'], replace)
+        v6 = compile_policy(p['ipv6'], replace).replace('table ip ', 'table ip6 ')
+        # Explicit MVP choice: preserve IPv6 control traffic, not an ICMPv6 firewall.
+        v6 = v6.replace('ct state established,related accept', 'ct state established,related accept\n  meta l4proto ipv6-icmp accept')
+        return v4 + v6
     rules = ['ct state established,related accept']
     rules += [f"tcp dport {r['port']} {r['verdict']}" for r in p['rules']]
     prefix = f'delete table ip {TABLE}\n' if replace else ''
@@ -37,6 +52,14 @@ def compile_policy(value, replace=True):
 
 def expected(value):
     p = validate(value)
+    if dual(p):
+        v4 = expected(p['ipv4'])
+        v6 = json.loads(json.dumps(expected(p['ipv6'])))
+        for row in v6:
+            next(iter(row.values()))['family'] = 'ip6'
+        base = {'family':'ip6','table':TABLE,'chain':'input'}
+        v6.insert(3, {'rule':{**base,'expr':[{'match':{'op':'==','left':{'meta':{'key':'l4proto'}},'right':'ipv6-icmp'}},{'accept':None}]}})
+        return v4 + v6
     base = {'family': 'ip', 'table': TABLE, 'chain': 'input'}
     rows = [{'table': {'family': 'ip', 'name': TABLE}},
             {'chain': {'family': 'ip', 'table': TABLE, 'name': 'input',

@@ -47,12 +47,18 @@ class Server(ThreadingHTTPServer):
         # misclassified as fresh merely because userspace accepted it later.
         peers = set()
         port = self.server_address[1]
-        for line in Path('/proc/net/tcp').read_text().splitlines()[1:]:
+        ipv6 = self.address_family == socket.AF_INET6
+        for line in Path('/proc/net/tcp6' if ipv6 else '/proc/net/tcp').read_text().splitlines()[1:]:
             fields = line.split()
             local, remote, state = fields[1:4]
             if int(local.split(':')[1], 16) == port and state != '0A':
                 addr, remote_port = remote.split(':')
-                peers.add((socket.inet_ntoa(bytes.fromhex(addr)[::-1]), int(remote_port, 16)))
+                raw = bytes.fromhex(addr)
+                if ipv6:
+                    raw = b''.join(raw[i:i+4][::-1] for i in range(0,16,4))
+                else:
+                    raw = raw[::-1]
+                peers.add((socket.inet_ntop(self.address_family,raw), int(remote_port, 16)))
         self.blocked_peers = peers
 
     def handle_error(self, request, client_address):
@@ -101,6 +107,15 @@ class Server(ThreadingHTTPServer):
             super().shutdown_request(request)
         finally:
             self.slots.release()
+
+
+class Server6(Server):
+    address_family = socket.AF_INET6
+
+    def server_bind(self):
+        # A mapped IPv4 connection must never count as IPv6 evidence.
+        self.socket.setsockopt(socket.IPPROTO_IPV6,socket.IPV6_V6ONLY,1)
+        super().server_bind()
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -164,11 +179,12 @@ class Handler(BaseHTTPRequestHandler):
             routes = {'/plan': ({'policy'}, lambda: c.plan(data['policy'])),
                       '/apply': ({'op', 'generation', 'policy', 'window'}, lambda: c.apply(**data)),
                       '/confirm': ({'op', 'generation', 'candidate_digest', 'challenge'},
-                                   lambda: c.confirm(**data, connected_at=self.connected_at)),
+                                   lambda: c.confirm(**data, connected_at=self.connected_at,
+                                       transport_family='ipv6' if self.server.address_family==socket.AF_INET6 else 'ipv4')),
                       '/cancel': ({'op', 'generation'}, lambda: c.cancel(**data))}
             if self.path not in routes:
                 return self.answer(404, {'error': 'Not found'})
-            if self.path == '/confirm' and self.client_address in self.server.blocked_peers:
+            if self.path == '/confirm' and self.client_address[:2] in self.server.blocked_peers:
                 raise Conflict('Connection existed before the post-apply connection snapshot')
             keys, action = routes[self.path]
             if set(data) != keys:
@@ -192,8 +208,11 @@ def main():
     sub = p.add_subparsers(dest='action', required=True)
     init = sub.add_parser('init')
     init.add_argument('--policy', required=True)
+    init.add_argument('--dual-stack', action='store_true', help='Fresh paired ip/ip6 ownership; no in-place migration')
     serve = sub.add_parser('serve')
     serve.add_argument('--listen', default='127.0.0.1')
+    serve.add_argument('--dual-stack', action='store_true')
+    serve.add_argument('--listen6', default='::1', help='IPv6-only listener in dual mode')
     serve.add_argument('--port', type=int, default=18443)
     serve.add_argument('--cert', required=True)
     serve.add_argument('--key', required=True)
@@ -203,8 +222,8 @@ def main():
     if os.name != 'posix' or not hasattr(time, 'CLOCK_BOOTTIME') or not hasattr(os, 'pidfd_open'):
         p.error('The agent requires Linux CLOCK_BOOTTIME and pidfd support')
     os.umask(0o077)
-    c = Controller(a.state, NftBackend())
-    server = None
+    c = Controller(a.state, NftBackend(dual_stack=a.dual_stack))
+    servers = []
     try:
         if a.action == 'init':
             print(json.dumps(c.initialize(json.loads(Path(a.policy).read_text()))))
@@ -220,21 +239,26 @@ def main():
         # Invalid configuration still prevents the API from accepting new work.
         c.start()
         c.management_paths = load_paths(a.management_paths) if a.management_paths else None
-        server = Server((a.listen, a.port), c, token, context)
+        servers.append(Server((a.listen, a.port), c, token, context))
+        if a.dual_stack:
+            servers.append(Server6((a.listen6, a.port), c, token, context))
         def hook(point):
             if point == 'awaiting-confirm':
-                server.snapshot_connections()
+                for server in servers:
+                    server.snapshot_connections()
             if os.environ.get('RULEMOOR_FAULT') == point:
                 (c.root / (point + '.reached')).touch()
                 while not (c.root / (point + '.go')).exists():
                     time.sleep(.005)
         c.hook = hook
-        server.timeout = .05
+        for server in servers:
+            server.timeout = .025 if a.dual_stack else .05
         stop = threading.Event()
         for sig in (signal.SIGTERM, signal.SIGINT):
             signal.signal(sig, lambda *_: stop.set())
         while not stop.is_set():
-            server.handle_request()
+            for server in servers:
+                server.handle_request()
             try:
                 c.tick()
             except Exception:
@@ -244,7 +268,7 @@ def main():
         with c.mutex:
             c.shutdown()
     finally:
-        if server:
+        for server in servers:
             server.server_close()
         c.close()
 

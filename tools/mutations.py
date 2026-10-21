@@ -9,6 +9,9 @@ from .evidence import ROOT, manifest, save
 from .process import run
 
 MUTATIONS = [
+    ('rulemoor/core.py','dual-v4-only-commit', "self.s['confirmed_families']==['ipv4','ipv6']", "bool(self.s['confirmed_families'])", 'tests.test_dual_stack.DualCoreTests.test_ipv4_repetition_cannot_commit_or_extend_deadline'),
+    ('rulemoor/core.py','dual-forget-partial-confirmations', "self.s = before", "pass", 'tests.test_dual_stack.DualCoreTests.test_partial_confirmation_failure_is_not_persisted_in_memory'),
+    ('rulemoor/service.py','dual-v4-impersonates-v6', "transport_family='ipv6' if self.server.address_family==socket.AF_INET6 else 'ipv4'", "transport_family='ipv6'", 'tests.test_dual_stack.DualAPITests.test_real_transports_old_connections_and_body_spoof'),
     ('rulemoor/diagnostics.py', 'ignore-established-input-block', "for state in ('new','established')", "for state in ('new',)", 'tests.test_diagnostics.DiagnosticTests.test_established_ingress_block_is_not_hidden_by_new_accept'),
     ('rulemoor/service.py', 'skip-service-startup-recovery', '        c.start()', '        pass', 'tests.test_service_startup.ServiceStartupTests.test_invalid_management_file_cannot_prevent_pending_recovery'),
     ('rulemoor/diagnostics.py', 'accept-null-file-configuration', " or value['paths'] is None", "", 'tests.test_diagnostics.DiagnosticTests.test_configuration_is_strict_bounded_and_copied'),

@@ -1,5 +1,7 @@
 # Agent-assisted management-preflight review — 2026-10-21
 
+This records the management-preflight review before the later [dual-stack slice](DUAL_STACK.md). It is not an agent review of that later feature.
+
 Reviewed starting commit: `1a5adf3`. Two read-only agents independently reviewed production logic and installed-service evidence before receiving a proposed diagnosis. They later rechecked known fixes. A bounded worker changed the deployment fixture/verifier; the main agent changed production startup/state modeling, regression tests and documentation, then ran the frozen-source suites. Agreement between agents is not execution evidence.
 
 ## Findings and corrections

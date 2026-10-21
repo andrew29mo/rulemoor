@@ -1,25 +1,25 @@
 # Observed MVP measurements
 
-Retained run: `6ed204f4e6c8dead`. Executable snapshot: `ac398e4379e004285a44459268cd555940bee5b0cf898ba5b47315f723729e8d`.
+Retained run: `6b3e22b361d2e101`. Executable snapshot: `2173a5bb28d7610399e9d5479fb68e24d0eff6bf26c28fd84fc22acef8a4bb99`.
 
 Environment: Linux 6.8.0-117-generic/aarch64, Python 3.12.14, nftables 1.0.6, inside a Colima VM. Container limits: 2 vCPU, 768 MiB. No native macOS agent-performance claim.
 
 | Operation | Trials | Median ms | Minimum–maximum ms |
 |---|---:|---:|---:|
-| plan | 10 | 11.63 | 8.27–16.15 |
-| apply | 10 | 46.18 | 41.45–50.80 |
-| confirm | 5 | 3.79 | 3.67–4.69 |
-| cancel | 5 | 30.81 | 29.46–32.14 |
+| plan | 10 | 11.69 | 8.79–17.95 |
+| apply | 10 | 46.83 | 43.80–57.04 |
+| confirm | 5 | 4.23 | 3.64–4.42 |
+| cancel | 5 | 31.72 | 30.58–34.86 |
 
 Each timed operation includes a fresh TLS connection, request/response and its relevant kernel checks and FULL-sync journal work. Client Python startup and the status fetch used to prepare each trial are outside the timer. Confirm timing uses the payload returned by apply; it does not include the extra status fetch performed by the interactive CLI confirm subcommand. These are endpoint round trips through the production CLI transport, not complete command-launch timings. One sequential client alternates between two one-rule policies, so every application changes the rule. Five operations are confirmed, five cancelled. Service readiness is the only warmup; every trial is retained. Ten samples are exploratory, not a tail-latency or throughput characterization. No competing-product baseline, speedup or production SLA is claimed.
 
-Agent initial RSS: 22.84 MiB; final RSS and kernel VmHWM: 23.54 MiB / 23.54 MiB. This excludes transient nft children, client processes, container services and the VM. It is not total deployment memory.
+Agent initial RSS: 22.85 MiB; final RSS and kernel VmHWM: 23.56 MiB / 23.56 MiB. This excludes transient nft children, client processes, container services and the VM. It is not total deployment memory.
 
 State directory after ten trials: 347,881 logical bytes, 372,736 allocated bytes (364 KiB). Includes the 256 KiB reserve and test TLS material. It excludes the container image, VM disk and Python installation; it is not a deployment-size claim.
 
-In one management-loss test with a 3-second window, rollback started 42.9 ms after the deadline and rule restoration was verified 91.3 ms after it. A subsequent fresh management request succeeded. Reachability-completion delay was not separately timestamped. These are single-run observations, not recovery-time upper bounds.
+In one management-loss test with a 3-second window, rollback started 13.1 ms after the deadline and rule restoration was verified 58.1 ms after it. A subsequent fresh management request succeeded. Reachability-completion delay was not separately timestamped. These are single-run observations, not recovery-time upper bounds.
 
-Native macOS and Linux each passed 85 tests on the same source snapshot. Twenty-five production mutations and seventeen evidence-corruption controls were rejected. Real-kernel cases additionally cover six crash boundaries, two foreign-policy cases, backlog and response-loss scenarios, real executor timeout and actual bounded-tmpfs ENOSPC. macOS test-process peak RSS is retained for provenance only, and must not be compared to Linux daemon VmHWM.
+Native macOS and Linux each passed 96 tests on the same source snapshot. Twenty-eight production mutations and seventeen evidence-corruption controls were rejected. Real-kernel cases additionally cover six crash boundaries, two foreign-policy cases, backlog and response-loss scenarios, real executor timeout and actual bounded-tmpfs ENOSPC. macOS test-process peak RSS is retained for provenance only, and must not be compared to Linux daemon VmHWM.
 
 [Raw records](../reviews/mvp/combined.json) · [HTML report](../reviews/mvp/report.html)
 
@@ -29,4 +29,4 @@ The current regression run checks that both test namespaces have no remaining wo
 
 This retained run includes the new-boot recovery implementation and its regressions. The container operation workload is unchanged; timing differences between runs are not evidence of a performance change. Separate actual-systemd/VM restart observations are in [DEPLOYMENT_VALIDATION.md](DEPLOYMENT_VALIDATION.md).
 
-This operation benchmark has no management-path configuration: its diagnostics explicitly say not_configured, and no global inventory is read. Configured installed-service plan observations include CLI startup/namespace overhead and are reported separately in deployment validation. They are not a paired overhead comparison.
+This operation benchmark uses legacy IPv4 mode with no management-path configuration: its diagnostics explicitly say not_configured, and no global inventory is read. Configured installed-service plan observations include CLI startup/namespace overhead and are reported separately in deployment validation. They are not a paired overhead comparison.

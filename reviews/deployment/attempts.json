@@ -109,6 +109,20 @@
     "run_id": "d1c7c0713b157000",
     "passed": true,
     "source_sha256": "ac398e4379e004285a44459268cd555940bee5b0cf898ba5b47315f723729e8d",
-    "note": "Current management-preflight source: ten installed-systemd groups, thirty evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim."
+    "note": "Historical management-preflight source: ten installed-systemd groups, thirty evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim. Superseded by the explicit dual-stack minimum slice; earlier agent review does not cover later dual changes."
+  },
+  {
+    "attempt": "dual-stack-preliminary-20261021",
+    "run_id": "87a512dc7415bcfc",
+    "passed": true,
+    "source_sha256": "cc843f7cb62b4ab0ddb3f2aba7e55170eeb8626f142140935a56849dce2594e4",
+    "note": "Passed preliminary dual slice. Superseded by final same-source suites with semantic second-family transaction failure and explicit client/veth cleanup checks; no preliminary metrics are published as current."
+  },
+  {
+    "attempt": "dual-stack-minimum-slice-20261021",
+    "run_id": "6e80d14cf5601c9f",
+    "passed": true,
+    "source_sha256": "2173a5bb28d7610399e9d5479fb68e24d0eff6bf26c28fd84fc22acef8a4bb99",
+    "note": "Current dual-stack source: eleven installed-systemd groups, thirty-seven evidence controls; configured admission, earlier/later foreign drops, actual TCP, conservative unknown condition, foreign-rule preservation and old/fresh confirmation. Recovery still passes; no WAN/power-loss/native-crash/hung-I/O claim."
   }
 ]

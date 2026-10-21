@@ -17,7 +17,7 @@ import sys
 import time
 
 from rulemoor.backend import identity, boot_id
-from rulemoor.policy import expected, canonical
+from rulemoor.policy import expected, canonical, compile_policy
 
 SOURCE = Path('/opt/rulemoor-validation')
 STATE = Path('/var/lib/rulemoor')
@@ -150,7 +150,7 @@ def journal_projection():
 
 
 def project(state):
-    return {key: state[key] for key in ('phase', 'generation', 'op', 'boot', 'current', 'baseline', 'candidate') if key in state}
+    return {key: state[key] for key in ('phase', 'generation', 'op', 'boot', 'current', 'baseline', 'candidate', 'confirmed_families') if key in state}
 
 
 def installed_modules():
@@ -413,6 +413,159 @@ print(json.dumps({'old_status':old_status,'old_confirm':old_confirm,'fresh_phase
         cmd(['systemctl','daemon-reload']);cmd(['systemctl','reset-failed',UNIT]);cmd(['systemctl','restart',UNIT]);ready()
 
 
+def dual_stack():
+    """Fresh dual deployment, actual two-family TLS across disposable veth peers."""
+    client_ns='rm_dual_client'
+    baseline={'ipv4':{'default':'drop','rules':[{'port':18443,'verdict':'accept'},{'port':59991,'verdict':'drop'}]},
+              'ipv6':{'default':'drop','rules':[{'port':18443,'verdict':'accept'},{'port':59991,'verdict':'drop'}]}}
+    blocked={'ipv4':{'default':'drop','rules':[{'port':18443,'verdict':'accept'},{'port':59992,'verdict':'drop'}]},
+             'ipv6':{'default':'drop','rules':[]}}
+    candidate={'ipv4':blocked['ipv4'],'ipv6':{'default':'drop','rules':[{'port':18443,'verdict':'accept'},{'port':59993,'verdict':'drop'}]}}
+    drop=Path('/etc/systemd/system/rulemoor.service.d/30-dual-stack.conf')
+    cmd(['systemctl','stop',UNIT]);assert props()['MainPID']=='0'
+    backup=FIXTURE/'legacy-state';shutil.copytree(STATE,backup);shutil.rmtree(STATE)
+    cert=(CONFIG/'server.pem').read_bytes();key=(CONFIG/'server.key').read_bytes()
+    def dual_kernel():
+        return sum((canonical(json.loads(cmd(['ip','netns','exec',NS,'nft','-j','-s','list','table',family,'rulemoor']).stdout)) for family in ('ip','ip6')),[])
+    def peer(code,*args):
+        return json.loads(cmd(['ip','netns','exec',client_ns,PYTHON,'-c',code,*args],cwd='/',timeout=20).stdout)
+    common='''import http.client,json,ssl,socket,time
+from pathlib import Path
+from rulemoor.cli import request
+ca='/etc/rulemoor/server.pem';token=Path('/etc/rulemoor/token').read_text().strip()
+urls={'ipv4':'https://192.0.2.2:18443','ipv6':'https://[2001:db8:44::2]:18443'}
+def call(f,path='/status',payload=None):return request(urls[f],ca,token,path,payload,family=f)
+def projection(s):return {k:s[k] for k in ('phase','generation','op','boot','current','baseline','candidate','confirmed_families') if k in s}
+def payload(s):return {k:s[k] for k in ('op','generation','candidate_digest','challenge')}
+'''
+    foreign_name='rm_dual_foreign'
+    cleanup_evidence={}
+    def foreign():
+        return [canonical(json.loads(cmd(['ip','netns','exec',NS,'nft','-j','-s','list','table',family,foreign_name]).stdout)) for family in ('ip','ip6')]
+    try:
+        policy=FIXTURE/'dual-baseline.json';policy.write_text(json.dumps(baseline))
+        adoption=cmd(['ip','netns','exec',NS,'/opt/rulemoor/venv/bin/rulemoor-agent','--state',FIXTURE/'adopt-refused','init','--dual-stack','--policy',policy],check=False)
+        legacy_preserved=kernel();assert adoption.returncode!=0 and legacy_preserved==expected(BASE)
+        cmd(['ip','netns','exec',NS,'nft','delete','table','ip','rulemoor'])
+        cmd(['ip','netns','add',client_ns]);cmd(['ip','-n',client_ns,'link','set','lo','up'])
+        cmd(['ip','-n',NS,'link','add','rmds','type','veth','peer','name','rmdc','netns',client_ns])
+        for ns,dev,v4,v6 in ((NS,'rmds','192.0.2.2/24','2001:db8:44::2/64'),(client_ns,'rmdc','192.0.2.1/24','2001:db8:44::1/64')):
+            cmd(['ip','-n',ns,'addr','add',v4,'dev',dev]);cmd(['ip','-n',ns,'-6','addr','add',v6,'dev',dev,'nodad']);cmd(['ip','-n',ns,'link','set',dev,'up'])
+        cmd(['openssl','req','-x509','-newkey','rsa:2048','-nodes','-days','1','-keyout',CONFIG/'server.key','-out',CONFIG/'server.pem','-subj','/CN=rulemoor-test','-addext','subjectAltName=IP:127.0.0.1,IP:::1,IP:192.0.2.2,IP:2001:db8:44::2'])
+        (CONFIG/'server.key').chmod(0o600)
+        policy=FIXTURE/'dual-baseline.json';policy.write_text(json.dumps(baseline))
+        cmd(['ip','netns','exec',NS,'/opt/rulemoor/venv/bin/rulemoor-agent','--state',STATE,'init','--dual-stack','--policy',policy])
+        executable=next(line for line in Path('/etc/systemd/system/rulemoor.service').read_text().splitlines() if line.startswith('ExecStart='))
+        drop.write_text('[Service]\nExecStart=\n'+executable.replace('--listen 127.0.0.1','--listen 0.0.0.0')+' --dual-stack --listen6 ::\n')
+        cmd(['systemctl','daemon-reload']);cmd(['systemctl','reset-failed',UNIT]);cmd(['systemctl','start',UNIT]);ready('COMMITTED')
+        for family in ('ip','ip6'):
+            cmd(['ip','netns','exec',NS,'nft','-f','-'],input=f'table {family} {foreign_name} {{\n chain marker {{\n }}\n}}\n')
+        foreign_before=foreign();initial_kernel=dual_kernel();assert initial_kernel==expected(baseline)
+        # A rejected second-family batch must leave the first family unchanged.
+        broken=compile_policy(candidate)+'\nadd rule ip6 rulemoor missing_chain tcp dport 12345 drop\n'
+        atomic=cmd(['ip','netns','exec',NS,'nft','-f','-'],input=broken,check=False)
+        atomic_after=dual_kernel();assert atomic.returncode!=0 and atomic_after==initial_kernel
+        initial=peer(common+"print(json.dumps({f:projection(call(f)) for f in urls}))")
+        assert initial['ipv4']==initial['ipv6'] and initial['ipv4']['phase']=='COMMITTED'
+        invocation_before=props();start_identity=identity(int(invocation_before['MainPID']))
+        # Held old TLS sockets can traverse established rules, but cannot confirm.
+        script=common+'''
+import sys
+old={}
+for f,host in (('ipv4','192.0.2.2'),('ipv6','2001:db8:44::2')):
+ c=http.client.HTTPSConnection(host,18443,context=ssl.create_default_context(cafile=ca),timeout=2)
+ c.request('GET','/status',headers={'Authorization':'Bearer '+token});r=c.getresponse();assert r.status==200;r.read();old[f]=c
+p=json.loads(sys.argv[1]);state=call('ipv4');s=call('ipv4','/apply',{'op':'dual-v6-blocked','generation':state['generation'],'policy':p,'window':5})
+receipts={}
+for f,c in old.items():
+ c.request('POST','/confirm',json.dumps(payload(s)),{'Authorization':'Bearer '+token,'Content-Type':'application/json'})
+ r=c.getresponse();receipts[f]=r.status;r.read();c.close();assert receipts[f]==409
+partials=[]
+for _ in range(2):
+ v=call('ipv4','/confirm',payload(s));assert v['phase']=='AWAITING_CONFIRM' and v['confirmed_families']==['ipv4'];partials.append(projection(v))
+try:call('ipv4','/confirm',{**payload(s),'transport_family':'ipv6'})
+except RuntimeError as e:spoof=str(e).startswith('400:')
+else:spoof=False
+assert spoof
+sock=socket.socket(socket.AF_INET6,socket.SOCK_STREAM);sock.settimeout(.25);errno=sock.connect_ex(('2001:db8:44::2',18443));sock.close();assert errno in (11,110)
+print(json.dumps({'pending':projection(s),'partial':partials,'old_confirmation_status':receipts,'spoof_rejected':spoof,'ipv6_connect_errno':errno,'deadline':s['deadline']}))
+'''
+        failure=peer(script,json.dumps(blocked));pending_kernel=dual_kernel();assert pending_kernel==expected(blocked)
+        assert identity(int(props()['MainPID']))==start_identity
+        wait(lambda: request()['phase']=='ROLLED_BACK',timeout=12)
+        restored_full=request();restored=project(restored_full);restored_kernel=dual_kernel();assert restored_kernel==expected(baseline)
+        rollback_clock={k:restored_full[k] for k in ('deadline','rollback_started_at','rollback_completed_at')}
+        rollback_clock.update(clock='CLOCK_BOOTTIME',observed_at=time.clock_gettime(time.CLOCK_BOOTTIME))
+        fresh_after=peer(common+"print(json.dumps({f:projection(call(f)) for f in urls}))")
+        assert fresh_after['ipv4']==fresh_after['ipv6']==restored
+        after_timeout_identity=identity(int(props()['MainPID']));assert after_timeout_identity==start_identity
+        # Clear neighbour entries; fresh IPv6 access must recreate them over veth.
+        cmd(['ip','-n',NS,'-6','neigh','flush','dev','rmds']);cmd(['ip','-n',client_ns,'-6','neigh','flush','dev','rmdc'])
+        success=peer(common+'''
+import sys
+s0=call('ipv4');s=call('ipv4','/apply',{'op':'dual-both-success','generation':s0['generation'],'policy':json.loads(sys.argv[1]),'window':10})
+p=payload(s);began=time.monotonic_ns();v4=call('ipv4','/confirm',p);middle=time.monotonic_ns();v6=call('ipv6','/confirm',p);ended=time.monotonic_ns()
+assert v4['phase']=='AWAITING_CONFIRM' and v6['phase']=='COMMITTED'
+print(json.dumps({'ipv4_partial':projection(v4),'ipv6_committed':projection(v6),'confirmation_clock':{'clock':'monotonic_ns','started_ns':began,'partial_ns':middle,'finished_ns':ended},'partial_ms':(middle-began)/1e6,'commit_ms':(ended-middle)/1e6}))
+''',json.dumps(candidate))
+        committed_kernel=dual_kernel();assert committed_kernel==expected(candidate)
+        neighbours=cmd(['ip','-n',client_ns,'-6','neigh','show','dev','rmdc']).stdout.strip()
+        assert '2001:db8:44::2' in neighbours and 'lladdr' in neighbours
+        sample=memory();assert sample['process_identity']==start_identity
+        # A partially confirmed successor must restore the entire last commit on restart.
+        partial=peer(common+'''
+import sys
+state=call('ipv4');s=call('ipv4','/apply',{'op':'dual-partial-crash','generation':state['generation'],'policy':json.loads(sys.argv[1]),'window':60})
+Path('/var/lib/rulemoor-validation/dual-old-receipt.json').write_text(json.dumps(s))
+p=call('ipv4','/confirm',payload(s));assert p['phase']=='AWAITING_CONFIRM'
+print(json.dumps({'pending':projection(p)}))
+''',json.dumps(baseline))['pending']
+        before_kill=journal_projection();before_kill_kernel=dual_kernel();assert before_kill==partial and before_kill_kernel==expected(baseline)
+        cmd(['systemctl','kill','--kill-whom=main','--signal=SIGKILL',UNIT]);recovered=project(ready('ROLLED_BACK'))
+        after_identity=identity(int(props()['MainPID']));recovered_kernel=dual_kernel()
+        assert after_identity!=start_identity and recovered_kernel==expected(candidate) and recovered['generation']>partial['generation']
+        newer={'ipv4':{'default':'drop','rules':candidate['ipv4']['rules']+[{'port':59994,'verdict':'drop'}]},
+               'ipv6':{'default':'drop','rules':candidate['ipv6']['rules']+[{'port':59995,'verdict':'drop'}]}}
+        stale=peer(common+'''
+import sys
+old=json.loads(Path('/var/lib/rulemoor-validation/dual-old-receipt.json').read_text());assert old['generation']==json.loads(sys.argv[1])['generation'];new=call('ipv4','/apply',{'op':'dual-newer','generation':call('ipv4')['generation'],'policy':json.loads(sys.argv[2]),'window':20})
+before=projection(call('ipv4'));reject=[]
+for path,p in (('/confirm',payload(old)),('/cancel',{'op':old['op'],'generation':old['generation']}),('/apply',{'op':'dual-old-base','generation':old['generation'],'policy':json.loads(sys.argv[2]),'window':20})):
+ try:call('ipv4',path,p)
+ except RuntimeError as e:assert str(e).startswith('409:');reject.append(path)
+assert projection(call('ipv4'))==before
+call('ipv4','/confirm',payload(new));end=call('ipv6','/confirm',payload(new))
+print(json.dumps({'rejected':reject,'before':before,'after':projection(end)}))
+''',json.dumps(partial),json.dumps(newer))
+        stale_kernel=dual_kernel();assert stale_kernel==expected(newer)
+        foreign_after=foreign();assert foreign_after==foreign_before
+        return {'mode':'fresh-dual-no-migration','cleanup':cleanup_evidence,'legacy_adoption_exit_code':adoption.returncode,'legacy_table_after_refused_init':legacy_preserved,'baseline':baseline,'blocked_candidate':blocked,'candidate':candidate,
+                'initial':initial,'initial_kernel':initial_kernel,'atomic_rejection_exit_code':atomic.returncode,
+                'kernel_after_atomic_rejection':atomic_after,'failure':failure,'pending_kernel':pending_kernel,
+                'restored':restored,'restored_kernel':restored_kernel,'fresh_after_rollback':fresh_after,'rollback_clock':rollback_clock,
+                'same_service_identity_during_timeout':start_identity,'identity_after_timeout':after_timeout_identity,'success':success,'committed_kernel':committed_kernel,
+                'ipv6_neighbour_observation':neighbours,'memory':sample,
+                'partial_before_kill':before_kill,'kernel_before_kill':before_kill_kernel,'signal':'SIGKILL',
+                'identity_after_restart':after_identity,'recovered':recovered,'recovered_kernel':recovered_kernel,
+                'stale':stale,'newer':newer,'kernel_after_stale':stale_kernel,'foreign_before':foreign_before,'foreign_after':foreign_after,
+                'scope':'Static veth peers, installed systemd service; not WAN, routed PMTU, SLAAC, dual boot or power-loss testing'}
+    finally:
+        cmd(['systemctl','stop',UNIT],check=False)
+        for family in ('ip','ip6'):
+            for table in ('rulemoor',foreign_name):cmd(['ip','netns','exec',NS,'nft','delete','table',family,table],check=False)
+        for pid in cmd(['ip','netns','pids',client_ns],check=False).stdout.split():
+            os.kill(int(pid),signal.SIGKILL)
+        cmd(['ip','netns','delete',client_ns],check=False);cmd(['ip','-n',NS,'link','delete','rmds'],check=False)
+        assert client_ns not in [line.split()[0] for line in cmd(['ip','netns','list']).stdout.splitlines()]
+        assert 'rmds' not in [r['ifname'] for r in json.loads(cmd(['ip','-n',NS,'-j','link','show']).stdout)]
+        shutil.rmtree(STATE,ignore_errors=True);shutil.copytree(backup,STATE);shutil.rmtree(backup)
+        (CONFIG/'server.pem').write_bytes(cert);(CONFIG/'server.key').write_bytes(key);(CONFIG/'server.key').chmod(0o600)
+        # Fixture restores the original known kernel before resuming its legacy unit.
+        cmd(['ip','netns','exec',NS,'nft','-f','-'],input=compile_policy(BASE,False))
+        drop.unlink(missing_ok=True);cmd(['systemctl','daemon-reload']);cmd(['systemctl','reset-failed',UNIT]);cmd(['systemctl','start',UNIT]);ready()
+        cleanup_evidence.update(client_namespace_removed=True,veth_removed=True,legacy_state_and_unit_restored=True)
+
+
 def poisoned_journal():
     """Known malformed state stays diagnostic; fixture reprovision is explicit."""
     import sqlite3
@@ -663,7 +816,7 @@ def cleanup():
 
 
 def main():
-    p = argparse.ArgumentParser(); p.add_argument('phase', choices=['setup','topology','management_diagnostics','poisoned_journal','restart_limit','crash','held_writer','prepare_pending_boot','after_pending_boot','after_committed_boot','cleanup'])
+    p = argparse.ArgumentParser(); p.add_argument('phase', choices=['setup','topology','management_diagnostics','dual_stack','poisoned_journal','restart_limit','crash','held_writer','prepare_pending_boot','after_pending_boot','after_committed_boot','cleanup'])
     a = p.parse_args(); assert os.geteuid() == 0
     result = globals()[a.phase]()
     if result is not None:

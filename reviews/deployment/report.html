@@ -3,28 +3,29 @@
 <h1>Rulemoor deployment validation: PASS</h1>
 <p>Actual systemd in an isolated Linux VM. Firewall writes confined to a disposable network namespace.
 VM reboots are orderly stop/start, not power-loss tests. Timings are observations including probe/control overhead, not SLA bounds.
-Daemon/cgroup memory is distinct from total VM memory. No native macOS deployment claim.</p><table><tr><td>setup</td><td>PASS</td></tr><tr><td>management_diagnostics</td><td>PASS</td></tr><tr><td>poisoned_journal</td><td>PASS</td></tr><tr><td>restart_limit</td><td>PASS</td></tr><tr><td>crash</td><td>PASS</td></tr><tr><td>held_writer</td><td>PASS</td></tr><tr><td>prepare_pending_boot</td><td>PASS</td></tr><tr><td>after_pending_boot</td><td>PASS</td></tr><tr><td>after_committed_boot</td><td>PASS</td></tr><tr><td>cleanup</td><td>PASS</td></tr></table><p>Configured management-port denial was rejected before mutation. Earlier/later foreign input drops were diagnosed and tested with real TCP; unsupported conditions remained risk. Foreign rules were unchanged. Old TLS confirmation was rejected; a fresh connection confirmed. These are namespace-local checks, not route/WAN reachability proof. Plan observations include CLI process and namespace overhead.</p><p>Malformed snapshot: DEGRADED; original data and kernel policy preserved. Test-only local reprovision is not automatic repair.</p><p>Persistent missing-key startup failure: exit-code; pending candidate remains installed while stopped. No further restart observed for 2.21 s. Baseline recovery required local cause repair and explicit reset/start. Native segmentation fault and uninterruptible I/O were not tested.</p><p>Observed Agent SIGKILL to fresh TLS ready with restored baseline: 1371.1 ms (one trial; includes client probes and systemctl overhead).</p><p>Orderly VM stop/start plus post-boot validation: 11.63 s pending / 11.79 s committed (each observed case one trial; includes VM control, SSH and assertions, not boot-time bounds).</p><table><tr><th>Stage</th><th>Agent VmHWM MiB</th><th>Service cgroup MiB</th></tr><tr><td>setup</td><td>22.20</td><td>10.68</td></tr><tr><td>management_diagnostics</td><td>23.13</td><td>11.95</td></tr><tr><td>poisoned_journal</td><td>22.31</td><td>10.77</td></tr><tr><td>restart_limit</td><td>22.86</td><td>11.68</td></tr><tr><td>crash</td><td>22.75</td><td>11.44</td></tr><tr><td>after_pending_boot</td><td>22.83</td><td>11.98</td></tr><tr><td>after_committed_boot</td><td>22.20</td><td>11.03</td></tr></table><pre>{
+Daemon/cgroup memory is distinct from total VM memory. No native macOS deployment claim.</p><table><tr><td>setup</td><td>PASS</td></tr><tr><td>management_diagnostics</td><td>PASS</td></tr><tr><td>dual_stack</td><td>PASS</td></tr><tr><td>poisoned_journal</td><td>PASS</td></tr><tr><td>restart_limit</td><td>PASS</td></tr><tr><td>crash</td><td>PASS</td></tr><tr><td>held_writer</td><td>PASS</td></tr><tr><td>prepare_pending_boot</td><td>PASS</td></tr><tr><td>after_pending_boot</td><td>PASS</td></tr><tr><td>after_committed_boot</td><td>PASS</td></tr><tr><td>cleanup</td><td>PASS</td></tr></table><p>Configured management-port denial was rejected before mutation. Earlier/later foreign input drops were diagnosed and tested with real TCP; unsupported conditions remained risk. Foreign rules were unchanged. Old TLS confirmation was rejected; a fresh connection confirmed. These are namespace-local checks, not route/WAN reachability proof. Plan observations include CLI process and namespace overhead.</p><p>Dual-stack static veth peers: repeated IPv4 confirmation could not mask a blocked fresh IPv6 connection; both policies rolled back at the common deadline. Old IPv4/IPv6 TLS and family spoofing were rejected. Fresh IPv4 partial + IPv6 confirmation committed; partial-confirmation SIGKILL restored the prior dual commit. Foreign tables remained unchanged.</p><p>Single observed dual confirmation round trips: IPv4 partial 4.63 ms; IPv6 final commit 4.18 ms. Different state transitions, not a family performance comparison. Includes fresh TLS and durable writes; client-process startup excluded. Static-neighbour discovery observed; routed PMTU, SLAAC, dual-stack VM boot and power loss were not tested.</p><p>Malformed snapshot: DEGRADED; original data and kernel policy preserved. Test-only local reprovision is not automatic repair.</p><p>Persistent missing-key startup failure: exit-code; pending candidate remains installed while stopped. No further restart observed for 2.21 s. Baseline recovery required local cause repair and explicit reset/start. Native segmentation fault and uninterruptible I/O were not tested.</p><p>Observed Agent SIGKILL to fresh TLS ready with restored baseline: 1340.6 ms (one trial; includes client probes and systemctl overhead).</p><p>Orderly VM stop/start plus post-boot validation: 11.85 s pending / 11.61 s committed (each observed case one trial; includes VM control, SSH and assertions, not boot-time bounds).</p><table><tr><th>Stage</th><th>Agent VmHWM MiB</th><th>Service cgroup MiB</th></tr><tr><td>setup</td><td>22.20</td><td>10.68</td></tr><tr><td>management_diagnostics</td><td>23.06</td><td>11.89</td></tr><tr><td>dual_stack</td><td>23.54</td><td>12.32</td></tr><tr><td>poisoned_journal</td><td>22.31</td><td>10.76</td></tr><tr><td>restart_limit</td><td>22.73</td><td>11.46</td></tr><tr><td>crash</td><td>22.80</td><td>11.46</td></tr><tr><td>after_pending_boot</td><td>22.74</td><td>11.88</td></tr><tr><td>after_committed_boot</td><td>22.20</td><td>11.24</td></tr></table><pre>{
   &quot;schema&quot;: 1,
-  &quot;run_id&quot;: &quot;d1c7c0713b157000&quot;,
-  &quot;recorded_at_utc&quot;: &quot;2026-10-21T02:29:24.214797+00:00&quot;,
+  &quot;run_id&quot;: &quot;6e80d14cf5601c9f&quot;,
+  &quot;recorded_at_utc&quot;: &quot;2026-10-21T02:51:39.497310+00:00&quot;,
   &quot;passed&quot;: true,
   &quot;source&quot;: {
     &quot;Dockerfile&quot;: &quot;3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec&quot;,
     &quot;deploy/rulemoor.service&quot;: &quot;9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625&quot;,
     &quot;pyproject.toml&quot;: &quot;6be68097d0f9be7dc9b693b0e0f17f50669e339897a16da9ea422d583f6170c8&quot;,
     &quot;rulemoor/__init__.py&quot;: &quot;021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03&quot;,
-    &quot;rulemoor/backend.py&quot;: &quot;0f58dacb7eb35727d738367476044e0e72d58459b4bbe2113fa038608cb6e078&quot;,
-    &quot;rulemoor/cli.py&quot;: &quot;fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5&quot;,
-    &quot;rulemoor/core.py&quot;: &quot;01c601df1ea5d47b572d8c5eade72992d2725549f9ac960aba332e6c11a845ed&quot;,
-    &quot;rulemoor/diagnostics.py&quot;: &quot;0afe68131e4f0ae001634e5604e78c3a289a2962e660664bccddd13b7f2f8304&quot;,
+    &quot;rulemoor/backend.py&quot;: &quot;3651ac005d7b381000a3c25ebd62720d0e9e53940504ba0ac98e6237e5336a95&quot;,
+    &quot;rulemoor/cli.py&quot;: &quot;ba7cb4b7e9ffd70fda961c42aad491cd6d7bc538405e47f3d6d950af704314e5&quot;,
+    &quot;rulemoor/core.py&quot;: &quot;aa49b9afaa124efab7b733be21ab44338a69720cd6a9a9bd4bed165a56a5cd6f&quot;,
+    &quot;rulemoor/diagnostics.py&quot;: &quot;bcef653555e7cebbf5ded899e7934b4ae3b368fced7623808ab3cbe66543e2e2&quot;,
     &quot;rulemoor/executor.py&quot;: &quot;9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd&quot;,
-    &quot;rulemoor/policy.py&quot;: &quot;780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842&quot;,
-    &quot;rulemoor/service.py&quot;: &quot;4ceb2cdb744d4ce8c723570dfe9076037c98da3fd5bc4f4ac7ea7cfefddb9f63&quot;,
+    &quot;rulemoor/policy.py&quot;: &quot;2e73cb8ff8cbee9fe959fa744c187c713582d2cb517c11979591708d09d4a1b5&quot;,
+    &quot;rulemoor/service.py&quot;: &quot;d3f08ce85213caffbe640b0c8116c5967eaafef1dd55e6bad61d5ee5380b7ca3&quot;,
     &quot;tests/__init__.py&quot;: &quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;,
     &quot;tests/test_api.py&quot;: &quot;b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a&quot;,
     &quot;tests/test_core.py&quot;: &quot;99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb&quot;,
     &quot;tests/test_deployment_audit.py&quot;: &quot;2aded3ab9edee04e189d2a8d69b60876bef1b5ae09dcfffa84b672a8e08d073c&quot;,
     &quot;tests/test_diagnostics.py&quot;: &quot;1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7&quot;,
+    &quot;tests/test_dual_stack.py&quot;: &quot;e978ef28e9158d17b4235bd6466ff56afa4c235a6e14045a88f4ad4382255eb3&quot;,
     &quot;tests/test_service_startup.py&quot;: &quot;ed6f099450caa1268f47386bf138150e7a09c8a78c199f6a3e8c5fc79a6a3abf&quot;,
     &quot;tests/test_startup_state.py&quot;: &quot;eb4d74d1446c86b49b16639fcfc1713e8c63ca127b1e1831a838d1e876f5e950&quot;,
     &quot;tests/test_tools.py&quot;: &quot;c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5&quot;,
@@ -34,24 +35,24 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
     &quot;tools/audit_evidence.py&quot;: &quot;20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617&quot;,
     &quot;tools/client_driver.py&quot;: &quot;5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44&quot;,
     &quot;tools/colima-lock.json&quot;: &quot;fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d&quot;,
-    &quot;tools/deployment_guest.py&quot;: &quot;7cad6e35d6c724ec9af4269eabbe63dbfef03c0295359e022958699882910eab&quot;,
-    &quot;tools/deployment_report.py&quot;: &quot;29c7d2460f6653f2df855a8461ee8f46ea953201200fca7a4fcb293342297f60&quot;,
+    &quot;tools/deployment_guest.py&quot;: &quot;6fa024d5cb9595575e4cf8f9fd70ac45f194d0270e57ac032dcc5ec66f2b6b79&quot;,
+    &quot;tools/deployment_report.py&quot;: &quot;160fab38df670e23bacd45c7b1dfd370a62c9a297cfd35b8e55668f644fddb23&quot;,
     &quot;tools/evidence.py&quot;: &quot;d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b&quot;,
     &quot;tools/install_colima.py&quot;: &quot;70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb&quot;,
     &quot;tools/linux_cases.py&quot;: &quot;49500a9697b81d5a1b9ba8651e4c1755474f6a49a213b95fce7ec55672cf0a79&quot;,
     &quot;tools/linux_validate.py&quot;: &quot;bf9c45eef35c9b4b9dcbd9f0958a9122fe020f8e818aa5d234f28e306c9c9313&quot;,
     &quot;tools/local_entry.py&quot;: &quot;f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911&quot;,
-    &quot;tools/mutations.py&quot;: &quot;d44611f0e8655f6670e41c16562da746a42e3206fd6199c06e60e54ce005a4cd&quot;,
+    &quot;tools/mutations.py&quot;: &quot;982e0432e6c2ee1e2644df2446314869eee7717816bf7c26a3a9f794bc75cd4b&quot;,
     &quot;tools/process.py&quot;: &quot;6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f&quot;,
     &quot;tools/report.py&quot;: &quot;c4ac1749bef625b181c7de8dca183eae386871fd5ec23d0b475248fc69d16803&quot;,
     &quot;tools/storage_fault.py&quot;: &quot;0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0&quot;,
     &quot;tools/unit.py&quot;: &quot;ade259d94052f2c69685c35210af0444c44a76e81c51640dc5f212da6a5282fd&quot;,
     &quot;tools/validate-deployment&quot;: &quot;e3995176226e017ff2c6e36fd52c163b6e968ca539737420edfa7d5f9fcbe412&quot;,
     &quot;tools/validate-local&quot;: &quot;45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c&quot;,
-    &quot;tools/validate_deployment.py&quot;: &quot;f0f8226248432f75bb57c229df7e70dcad191ca42e8c254c7529efa7b67cce21&quot;,
+    &quot;tools/validate_deployment.py&quot;: &quot;b1a7a867d49d0baf7027e9a0c55c30efa78a90d5747467f4dd467e586407f8c8&quot;,
     &quot;tools/validate_local.py&quot;: &quot;51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1&quot;
   },
-  &quot;source_sha256&quot;: &quot;ac398e4379e004285a44459268cd555940bee5b0cf898ba5b47315f723729e8d&quot;,
+  &quot;source_sha256&quot;: &quot;2173a5bb28d7610399e9d5479fb68e24d0eff6bf26c28fd84fc22acef8a4bb99&quot;,
   &quot;source_changed&quot;: false,
   &quot;scope&quot;: {
     &quot;execution&quot;: &quot;Actual systemd in Colima Linux VM; isolated test network namespace&quot;,
@@ -64,139 +65,145 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;vm-initial&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.38533437499427237
+      &quot;seconds&quot;: 0.30086266600119416
     },
     {
       &quot;name&quot;: &quot;vm-start&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 9.821126082999399
+      &quot;seconds&quot;: 9.340357791996212
     },
     {
       &quot;name&quot;: &quot;preflight&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.23686945799272507
+      &quot;seconds&quot;: 0.3124569589999737
     },
     {
       &quot;name&quot;: &quot;guest-prerequisites&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.5262327499949606
+      &quot;seconds&quot;: 0.539101207992644
     },
     {
       &quot;name&quot;: &quot;wheel-build&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 1.219073792002746
+      &quot;seconds&quot;: 1.3649284170096507
     },
     {
       &quot;name&quot;: &quot;snapshot-upload&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.22191020799800754
+      &quot;seconds&quot;: 0.22293854200688656
     },
     {
       &quot;name&quot;: &quot;guest-setup&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 1.9857155419886112
+      &quot;seconds&quot;: 2.0689375000074506
     },
     {
       &quot;name&quot;: &quot;guest-management_diagnostics&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 15.997943333000876
+      &quot;seconds&quot;: 15.970587457995862
+    },
+    {
+      &quot;name&quot;: &quot;guest-dual_stack&quot;,
+      &quot;exit_code&quot;: 0,
+      &quot;timed_out&quot;: false,
+      &quot;seconds&quot;: 8.115969874997973
     },
     {
       &quot;name&quot;: &quot;guest-poisoned_journal&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.9373520420049317
+      &quot;seconds&quot;: 2.869427541998448
     },
     {
       &quot;name&quot;: &quot;guest-restart_limit&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 9.557073333999142
+      &quot;seconds&quot;: 9.540755416994216
     },
     {
       &quot;name&quot;: &quot;guest-crash&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.0951303750043735
+      &quot;seconds&quot;: 2.01193841600616
     },
     {
       &quot;name&quot;: &quot;guest-held_writer&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 4.456466207993799
+      &quot;seconds&quot;: 4.420983999996679
     },
     {
       &quot;name&quot;: &quot;guest-prepare_pending_boot&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.5143414580088574
+      &quot;seconds&quot;: 0.5820715839945478
     },
     {
       &quot;name&quot;: &quot;pending-vm-stop&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.4325310829881346
+      &quot;seconds&quot;: 2.4731514589948347
     },
     {
       &quot;name&quot;: &quot;pending-vm-start&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 8.55337291599426
+      &quot;seconds&quot;: 8.654257874994073
     },
     {
       &quot;name&quot;: &quot;guest-after_pending_boot&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.6212536249950062
+      &quot;seconds&quot;: 0.6813280839996878
     },
     {
       &quot;name&quot;: &quot;committed-vm-stop&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.5873936249990948
+      &quot;seconds&quot;: 2.589728584003751
     },
     {
       &quot;name&quot;: &quot;committed-vm-start&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 8.612983290993725
+      &quot;seconds&quot;: 8.483319917009794
     },
     {
       &quot;name&quot;: &quot;guest-after_committed_boot&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.56293545900553
+      &quot;seconds&quot;: 0.4974823340016883
     },
     {
       &quot;name&quot;: &quot;guest-cleanup&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.46189883300394285
+      &quot;seconds&quot;: 0.4404480829980457
     },
     {
       &quot;name&quot;: &quot;snapshot-remove&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.316501208988484
+      &quot;seconds&quot;: 0.2296895420004148
     },
     {
       &quot;name&quot;: &quot;vm-final-stop&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 2.398705624989816
+      &quot;seconds&quot;: 2.512638667001738
     },
     {
       &quot;name&quot;: &quot;vm-final&quot;,
       &quot;exit_code&quot;: 0,
       &quot;timed_out&quot;: false,
-      &quot;seconds&quot;: 0.2568389579973882
+      &quot;seconds&quot;: 0.17917245799617376
     }
   ],
   &quot;cases&quot;: [
@@ -214,13 +221,13 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         &quot;installed_package&quot;: {
           &quot;origin&quot;: &quot;/opt/rulemoor/venv/lib/python3.12/site-packages/rulemoor&quot;,
           &quot;hashes&quot;: {
-            &quot;rulemoor/service.py&quot;: &quot;4ceb2cdb744d4ce8c723570dfe9076037c98da3fd5bc4f4ac7ea7cfefddb9f63&quot;,
-            &quot;rulemoor/core.py&quot;: &quot;01c601df1ea5d47b572d8c5eade72992d2725549f9ac960aba332e6c11a845ed&quot;,
-            &quot;rulemoor/backend.py&quot;: &quot;0f58dacb7eb35727d738367476044e0e72d58459b4bbe2113fa038608cb6e078&quot;,
+            &quot;rulemoor/service.py&quot;: &quot;d3f08ce85213caffbe640b0c8116c5967eaafef1dd55e6bad61d5ee5380b7ca3&quot;,
+            &quot;rulemoor/core.py&quot;: &quot;aa49b9afaa124efab7b733be21ab44338a69720cd6a9a9bd4bed165a56a5cd6f&quot;,
+            &quot;rulemoor/backend.py&quot;: &quot;3651ac005d7b381000a3c25ebd62720d0e9e53940504ba0ac98e6237e5336a95&quot;,
             &quot;rulemoor/executor.py&quot;: &quot;9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd&quot;,
-            &quot;rulemoor/cli.py&quot;: &quot;fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5&quot;,
-            &quot;rulemoor/policy.py&quot;: &quot;780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842&quot;,
-            &quot;rulemoor/diagnostics.py&quot;: &quot;0afe68131e4f0ae001634e5604e78c3a289a2962e660664bccddd13b7f2f8304&quot;,
+            &quot;rulemoor/cli.py&quot;: &quot;ba7cb4b7e9ffd70fda961c42aad491cd6d7bc538405e47f3d6d950af704314e5&quot;,
+            &quot;rulemoor/policy.py&quot;: &quot;2e73cb8ff8cbee9fe959fa744c187c713582d2cb517c11979591708d09d4a1b5&quot;,
+            &quot;rulemoor/diagnostics.py&quot;: &quot;bcef653555e7cebbf5ded899e7934b4ae3b368fced7623808ab3cbe66543e2e2&quot;,
             &quot;rulemoor/__init__.py&quot;: &quot;021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03&quot;
           }
         },
@@ -229,12 +236,12 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         &quot;unit_properties&quot;: {
           &quot;Restart&quot;: &quot;on-failure&quot;,
           &quot;RestartUSec&quot;: &quot;1s&quot;,
-          &quot;MainPID&quot;: &quot;1655&quot;,
+          &quot;MainPID&quot;: &quot;1659&quot;,
           &quot;Result&quot;: &quot;success&quot;,
           &quot;NRestarts&quot;: &quot;0&quot;,
           &quot;ExecMainStatus&quot;: &quot;0&quot;,
           &quot;ControlGroup&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;MemoryCurrent&quot;: &quot;11223040&quot;,
+          &quot;MemoryCurrent&quot;: &quot;11436032&quot;,
           &quot;CapabilityBoundingSet&quot;: &quot;cap_kill cap_net_admin&quot;,
           &quot;PrivateTmp&quot;: &quot;yes&quot;,
           &quot;ProtectHome&quot;: &quot;yes&quot;,
@@ -247,27 +254,27 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;StartLimitIntervalUSec&quot;: &quot;1min&quot;,
           &quot;StartLimitBurst&quot;: &quot;5&quot;
         },
-        &quot;boot_id&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+        &quot;boot_id&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23281664,
-          &quot;agent_vmhwm_bytes&quot;: 23281664,
-          &quot;service_cgroup_memory_current_bytes&quot;: 11202560,
+          &quot;agent_rss_bytes&quot;: 23277568,
+          &quot;agent_vmhwm_bytes&quot;: 23277568,
+          &quot;service_cgroup_memory_current_bytes&quot;: 11198464,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 1655,
-            &quot;start_ticks&quot;: 1117,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+            &quot;pid&quot;: 1659,
+            &quot;start_ticks&quot;: 1093,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
           },
-          &quot;main_pid_after&quot;: 1655,
-          &quot;invocation_id&quot;: &quot;312f1bd276e84c99bcbbaccf5cec9ac7&quot;,
-          &quot;invocation_id_after&quot;: &quot;312f1bd276e84c99bcbbaccf5cec9ac7&quot;,
+          &quot;main_pid_after&quot;: 1659,
+          &quot;invocation_id&quot;: &quot;e67f469f564644b2bf065a352bbf512c&quot;,
+          &quot;invocation_id_after&quot;: &quot;e67f469f564644b2bf065a352bbf512c&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 11275936463,
-          &quot;sample_finished_ns&quot;: 11280988338,
+          &quot;sample_started_ns&quot;: 11041128337,
+          &quot;sample_finished_ns&quot;: 11045517670,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         }
       }
@@ -285,7 +292,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 3,
               &quot;op&quot;: &quot;configuration-recovery-missing&quot;,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -384,15 +391,15 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               }
             ],
             &quot;unit_before_kill&quot;: {
-              &quot;MainPID&quot;: &quot;1714&quot;,
-              &quot;InvocationID&quot;: &quot;ec1c021e38394fbd9ccaaf39f270647e&quot;,
+              &quot;MainPID&quot;: &quot;1718&quot;,
+              &quot;InvocationID&quot;: &quot;fe5e28eb87b24b2eb6031cdeacd254e1&quot;,
               &quot;ActiveState&quot;: &quot;active&quot;,
               &quot;Result&quot;: &quot;success&quot;,
               &quot;NRestarts&quot;: &quot;0&quot;
             },
             &quot;unit_at_kill&quot;: {
-              &quot;MainPID&quot;: &quot;1714&quot;,
-              &quot;InvocationID&quot;: &quot;ec1c021e38394fbd9ccaaf39f270647e&quot;,
+              &quot;MainPID&quot;: &quot;1718&quot;,
+              &quot;InvocationID&quot;: &quot;fe5e28eb87b24b2eb6031cdeacd254e1&quot;,
               &quot;ActiveState&quot;: &quot;active&quot;,
               &quot;Result&quot;: &quot;success&quot;,
               &quot;NRestarts&quot;: &quot;0&quot;
@@ -401,7 +408,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 3,
               &quot;op&quot;: &quot;configuration-recovery-missing&quot;,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -504,7 +511,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 4,
               &quot;op&quot;: &quot;configuration-recovery-missing&quot;,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -604,7 +611,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             ],
             &quot;failed_unit&quot;: {
               &quot;MainPID&quot;: &quot;0&quot;,
-              &quot;InvocationID&quot;: &quot;ab85f4532e9243f9a0ac3c12f6cacf21&quot;,
+              &quot;InvocationID&quot;: &quot;a9aa92f63a2344239e4c884289182359&quot;,
               &quot;ActiveState&quot;: &quot;failed&quot;,
               &quot;Result&quot;: &quot;exit-code&quot;,
               &quot;NRestarts&quot;: &quot;6&quot;
@@ -613,19 +620,19 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               {
                 &quot;MESSAGE&quot;: &quot;rulemoor.service: Start request repeated too quickly.&quot;,
                 &quot;UNIT&quot;: &quot;rulemoor.service&quot;,
-                &quot;_BOOT_ID&quot;: &quot;9dca9a86b0db4438a5bed03937187b49&quot;,
-                &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;19962180&quot;
+                &quot;_BOOT_ID&quot;: &quot;3a919b46a1f141698afb2ca2ce23e255&quot;,
+                &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;19753568&quot;
               }
             ],
-            &quot;failure_started_monotonic_ns&quot;: 13328858630,
-            &quot;failure_observed_monotonic_ns&quot;: 20093054800,
-            &quot;boot_before&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
-            &quot;boot_after&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+            &quot;failure_started_monotonic_ns&quot;: 13118675546,
+            &quot;failure_observed_monotonic_ns&quot;: 19891440091,
+            &quot;boot_before&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+            &quot;boot_after&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
             &quot;ready_after_repair&quot;: {
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 4,
               &quot;op&quot;: &quot;configuration-recovery-missing&quot;,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -661,7 +668,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 5,
               &quot;op&quot;: &quot;configuration-recovery-null&quot;,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -760,15 +767,15 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               }
             ],
             &quot;unit_before_kill&quot;: {
-              &quot;MainPID&quot;: &quot;2021&quot;,
-              &quot;InvocationID&quot;: &quot;b0a99fffc91b4116ad3fd6139c9ed73b&quot;,
+              &quot;MainPID&quot;: &quot;2023&quot;,
+              &quot;InvocationID&quot;: &quot;368d97b68e8842b183d348c6f6b0455d&quot;,
               &quot;ActiveState&quot;: &quot;active&quot;,
               &quot;Result&quot;: &quot;success&quot;,
               &quot;NRestarts&quot;: &quot;0&quot;
             },
             &quot;unit_at_kill&quot;: {
-              &quot;MainPID&quot;: &quot;2021&quot;,
-              &quot;InvocationID&quot;: &quot;b0a99fffc91b4116ad3fd6139c9ed73b&quot;,
+              &quot;MainPID&quot;: &quot;2023&quot;,
+              &quot;InvocationID&quot;: &quot;368d97b68e8842b183d348c6f6b0455d&quot;,
               &quot;ActiveState&quot;: &quot;active&quot;,
               &quot;Result&quot;: &quot;success&quot;,
               &quot;NRestarts&quot;: &quot;0&quot;
@@ -777,7 +784,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
               &quot;generation&quot;: 5,
               &quot;op&quot;: &quot;configuration-recovery-null&quot;,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -880,7 +887,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 6,
               &quot;op&quot;: &quot;configuration-recovery-null&quot;,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -980,7 +987,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             ],
             &quot;failed_unit&quot;: {
               &quot;MainPID&quot;: &quot;0&quot;,
-              &quot;InvocationID&quot;: &quot;7d131112dbe74d63993cbffe6103aa78&quot;,
+              &quot;InvocationID&quot;: &quot;18a6cb5446a24a4f80c821a15c24d0af&quot;,
               &quot;ActiveState&quot;: &quot;failed&quot;,
               &quot;Result&quot;: &quot;exit-code&quot;,
               &quot;NRestarts&quot;: &quot;6&quot;
@@ -989,19 +996,19 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               {
                 &quot;MESSAGE&quot;: &quot;rulemoor.service: Start request repeated too quickly.&quot;,
                 &quot;UNIT&quot;: &quot;rulemoor.service&quot;,
-                &quot;_BOOT_ID&quot;: &quot;9dca9a86b0db4438a5bed03937187b49&quot;,
-                &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;26949544&quot;
+                &quot;_BOOT_ID&quot;: &quot;3a919b46a1f141698afb2ca2ce23e255&quot;,
+                &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;26696935&quot;
               }
             ],
-            &quot;failure_started_monotonic_ns&quot;: 20295523633,
-            &quot;failure_observed_monotonic_ns&quot;: 26971038303,
-            &quot;boot_before&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
-            &quot;boot_after&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+            &quot;failure_started_monotonic_ns&quot;: 20092600508,
+            &quot;failure_observed_monotonic_ns&quot;: 26720557428,
+            &quot;boot_before&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+            &quot;boot_after&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
             &quot;ready_after_repair&quot;: {
               &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
               &quot;generation&quot;: 6,
               &quot;op&quot;: &quot;configuration-recovery-null&quot;,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
               &quot;current&quot;: {
                 &quot;default&quot;: &quot;accept&quot;,
                 &quot;rules&quot;: [
@@ -1114,7 +1121,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 0,
           &quot;op&quot;: &quot;initial&quot;,
-          &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -1130,7 +1137,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 0,
           &quot;op&quot;: &quot;initial&quot;,
-          &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -1281,9 +1288,9 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           }
         ],
         &quot;listener_identity&quot;: {
-          &quot;pid&quot;: 1720,
-          &quot;start_ticks&quot;: 1179,
-          &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+          &quot;pid&quot;: 1725,
+          &quot;start_ticks&quot;: 1154,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
         },
         &quot;tcp_probe_before_foreign_drop&quot;: {
           &quot;connected&quot;: true,
@@ -1291,17 +1298,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;listener_before&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1720,
-              &quot;start_ticks&quot;: 1179,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+              &quot;pid&quot;: 1725,
+              &quot;start_ticks&quot;: 1154,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
             }
           },
           &quot;listener_after&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1720,
-              &quot;start_ticks&quot;: 1179,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+              &quot;pid&quot;: 1725,
+              &quot;start_ticks&quot;: 1154,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
             }
           }
         },
@@ -1459,17 +1466,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;listener_before&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1720,
-                  &quot;start_ticks&quot;: 1179,
-                  &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+                  &quot;pid&quot;: 1725,
+                  &quot;start_ticks&quot;: 1154,
+                  &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
                 }
               },
               &quot;listener_after&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1720,
-                  &quot;start_ticks&quot;: 1179,
-                  &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+                  &quot;pid&quot;: 1725,
+                  &quot;start_ticks&quot;: 1154,
+                  &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
                 }
               }
             },
@@ -1479,17 +1486,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;listener_before&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1720,
-                  &quot;start_ticks&quot;: 1179,
-                  &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+                  &quot;pid&quot;: 1725,
+                  &quot;start_ticks&quot;: 1154,
+                  &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
                 }
               },
               &quot;listener_after&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1720,
-                  &quot;start_ticks&quot;: 1179,
-                  &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+                  &quot;pid&quot;: 1725,
+                  &quot;start_ticks&quot;: 1154,
+                  &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
                 }
               }
             },
@@ -1499,26 +1506,26 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;listener_before&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1720,
-                  &quot;start_ticks&quot;: 1179,
-                  &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+                  &quot;pid&quot;: 1725,
+                  &quot;start_ticks&quot;: 1154,
+                  &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
                 }
               },
               &quot;listener_after&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1720,
-                  &quot;start_ticks&quot;: 1179,
-                  &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+                  &quot;pid&quot;: 1725,
+                  &quot;start_ticks&quot;: 1154,
+                  &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
                 }
               }
             },
             &quot;plan_clock&quot;: {
               &quot;clock&quot;: &quot;monotonic_ns&quot;,
-              &quot;started_ns&quot;: 12227115130,
-              &quot;finished_ns&quot;: 12279776755
+              &quot;started_ns&quot;: 11994579504,
+              &quot;finished_ns&quot;: 12045597421
             },
-            &quot;plan_observed_ms&quot;: 52.661625
+            &quot;plan_observed_ms&quot;: 51.017917
           },
           {
             &quot;priority&quot;: 10,
@@ -1673,17 +1680,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;listener_before&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1720,
-                  &quot;start_ticks&quot;: 1179,
-                  &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+                  &quot;pid&quot;: 1725,
+                  &quot;start_ticks&quot;: 1154,
+                  &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
                 }
               },
               &quot;listener_after&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1720,
-                  &quot;start_ticks&quot;: 1179,
-                  &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+                  &quot;pid&quot;: 1725,
+                  &quot;start_ticks&quot;: 1154,
+                  &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
                 }
               }
             },
@@ -1693,17 +1700,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;listener_before&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1720,
-                  &quot;start_ticks&quot;: 1179,
-                  &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+                  &quot;pid&quot;: 1725,
+                  &quot;start_ticks&quot;: 1154,
+                  &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
                 }
               },
               &quot;listener_after&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1720,
-                  &quot;start_ticks&quot;: 1179,
-                  &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+                  &quot;pid&quot;: 1725,
+                  &quot;start_ticks&quot;: 1154,
+                  &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
                 }
               }
             },
@@ -1713,26 +1720,26 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
               &quot;listener_before&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1720,
-                  &quot;start_ticks&quot;: 1179,
-                  &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+                  &quot;pid&quot;: 1725,
+                  &quot;start_ticks&quot;: 1154,
+                  &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
                 }
               },
               &quot;listener_after&quot;: {
                 &quot;poll&quot;: null,
                 &quot;identity&quot;: {
-                  &quot;pid&quot;: 1720,
-                  &quot;start_ticks&quot;: 1179,
-                  &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+                  &quot;pid&quot;: 1725,
+                  &quot;start_ticks&quot;: 1154,
+                  &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
                 }
               }
             },
             &quot;plan_clock&quot;: {
               &quot;clock&quot;: &quot;monotonic_ns&quot;,
-              &quot;started_ns&quot;: 12577794713,
-              &quot;finished_ns&quot;: 12627185588
+              &quot;started_ns&quot;: 12339919212,
+              &quot;finished_ns&quot;: 12392951004
             },
-            &quot;plan_observed_ms&quot;: 49.390875
+            &quot;plan_observed_ms&quot;: 53.031792
           }
         ],
         &quot;unsupported_condition&quot;: {
@@ -1910,17 +1917,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;listener_before&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1720,
-              &quot;start_ticks&quot;: 1179,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+              &quot;pid&quot;: 1725,
+              &quot;start_ticks&quot;: 1154,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
             }
           },
           &quot;listener_after&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1720,
-              &quot;start_ticks&quot;: 1179,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+              &quot;pid&quot;: 1725,
+              &quot;start_ticks&quot;: 1154,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
             }
           }
         },
@@ -1930,17 +1937,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;listener_before&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1720,
-              &quot;start_ticks&quot;: 1179,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+              &quot;pid&quot;: 1725,
+              &quot;start_ticks&quot;: 1154,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
             }
           },
           &quot;listener_after&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1720,
-              &quot;start_ticks&quot;: 1179,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+              &quot;pid&quot;: 1725,
+              &quot;start_ticks&quot;: 1154,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
             }
           }
         },
@@ -1950,17 +1957,17 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;listener_before&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1720,
-              &quot;start_ticks&quot;: 1179,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+              &quot;pid&quot;: 1725,
+              &quot;start_ticks&quot;: 1154,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
             }
           },
           &quot;listener_after&quot;: {
             &quot;poll&quot;: null,
             &quot;identity&quot;: {
-              &quot;pid&quot;: 1720,
-              &quot;start_ticks&quot;: 1179,
-              &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+              &quot;pid&quot;: 1725,
+              &quot;start_ticks&quot;: 1154,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
             }
           }
         },
@@ -1971,25 +1978,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;generation&quot;: 1
         },
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 24256512,
-          &quot;agent_vmhwm_bytes&quot;: 24256512,
-          &quot;service_cgroup_memory_current_bytes&quot;: 12529664,
+          &quot;agent_rss_bytes&quot;: 24182784,
+          &quot;agent_vmhwm_bytes&quot;: 24182784,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12464128,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 1714,
-            &quot;start_ticks&quot;: 1169,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+            &quot;pid&quot;: 1718,
+            &quot;start_ticks&quot;: 1144,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
           },
-          &quot;main_pid_after&quot;: 1714,
-          &quot;invocation_id&quot;: &quot;ec1c021e38394fbd9ccaaf39f270647e&quot;,
-          &quot;invocation_id_after&quot;: &quot;ec1c021e38394fbd9ccaaf39f270647e&quot;,
+          &quot;main_pid_after&quot;: 1718,
+          &quot;invocation_id&quot;: &quot;fe5e28eb87b24b2eb6031cdeacd254e1&quot;,
+          &quot;invocation_id_after&quot;: &quot;fe5e28eb87b24b2eb6031cdeacd254e1&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 13095146547,
-          &quot;sample_finished_ns&quot;: 13100262422,
+          &quot;sample_started_ns&quot;: 12858062463,
+          &quot;sample_finished_ns&quot;: 12864961754,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;own_kernel_after_allowed_apply&quot;: [
@@ -2065,7 +2072,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 1,
           &quot;op&quot;: &quot;guard-admitted&quot;,
-          &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -2098,6 +2105,3153 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       }
     },
     {
+      &quot;name&quot;: &quot;dual_stack&quot;,
+      &quot;passed&quot;: true,
+      &quot;evidence&quot;: {
+        &quot;mode&quot;: &quot;fresh-dual-no-migration&quot;,
+        &quot;cleanup&quot;: {
+          &quot;client_namespace_removed&quot;: true,
+          &quot;veth_removed&quot;: true,
+          &quot;legacy_state_and_unit_restored&quot;: true
+        },
+        &quot;legacy_adoption_exit_code&quot;: 1,
+        &quot;legacy_table_after_refused_init&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;accept&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;baseline&quot;: {
+          &quot;ipv4&quot;: {
+            &quot;default&quot;: &quot;drop&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;port&quot;: 18443,
+                &quot;verdict&quot;: &quot;accept&quot;
+              },
+              {
+                &quot;port&quot;: 59991,
+                &quot;verdict&quot;: &quot;drop&quot;
+              }
+            ]
+          },
+          &quot;ipv6&quot;: {
+            &quot;default&quot;: &quot;drop&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;port&quot;: 18443,
+                &quot;verdict&quot;: &quot;accept&quot;
+              },
+              {
+                &quot;port&quot;: 59991,
+                &quot;verdict&quot;: &quot;drop&quot;
+              }
+            ]
+          }
+        },
+        &quot;blocked_candidate&quot;: {
+          &quot;ipv4&quot;: {
+            &quot;default&quot;: &quot;drop&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;port&quot;: 18443,
+                &quot;verdict&quot;: &quot;accept&quot;
+              },
+              {
+                &quot;port&quot;: 59992,
+                &quot;verdict&quot;: &quot;drop&quot;
+              }
+            ]
+          },
+          &quot;ipv6&quot;: {
+            &quot;default&quot;: &quot;drop&quot;,
+            &quot;rules&quot;: []
+          }
+        },
+        &quot;candidate&quot;: {
+          &quot;ipv4&quot;: {
+            &quot;default&quot;: &quot;drop&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;port&quot;: 18443,
+                &quot;verdict&quot;: &quot;accept&quot;
+              },
+              {
+                &quot;port&quot;: 59992,
+                &quot;verdict&quot;: &quot;drop&quot;
+              }
+            ]
+          },
+          &quot;ipv6&quot;: {
+            &quot;default&quot;: &quot;drop&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;port&quot;: 18443,
+                &quot;verdict&quot;: &quot;accept&quot;
+              },
+              {
+                &quot;port&quot;: 59993,
+                &quot;verdict&quot;: &quot;drop&quot;
+              }
+            ]
+          }
+        },
+        &quot;initial&quot;: {
+          &quot;ipv4&quot;: {
+            &quot;phase&quot;: &quot;COMMITTED&quot;,
+            &quot;generation&quot;: 0,
+            &quot;op&quot;: &quot;initial&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+            &quot;current&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;candidate&quot;: null
+          },
+          &quot;ipv6&quot;: {
+            &quot;phase&quot;: &quot;COMMITTED&quot;,
+            &quot;generation&quot;: 0,
+            &quot;op&quot;: &quot;initial&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+            &quot;current&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;candidate&quot;: null
+          }
+        },
+        &quot;initial_kernel&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;meta&quot;: {
+                        &quot;key&quot;: &quot;l4proto&quot;
+                      }
+                    },
+                    &quot;right&quot;: &quot;ipv6-icmp&quot;
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;atomic_rejection_exit_code&quot;: 1,
+        &quot;kernel_after_atomic_rejection&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;meta&quot;: {
+                        &quot;key&quot;: &quot;l4proto&quot;
+                      }
+                    },
+                    &quot;right&quot;: &quot;ipv6-icmp&quot;
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;failure&quot;: {
+          &quot;pending&quot;: {
+            &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
+            &quot;generation&quot;: 1,
+            &quot;op&quot;: &quot;dual-v6-blocked&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+            &quot;current&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;baseline&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;candidate&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: []
+              }
+            },
+            &quot;confirmed_families&quot;: []
+          },
+          &quot;partial&quot;: [
+            {
+              &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
+              &quot;generation&quot;: 1,
+              &quot;op&quot;: &quot;dual-v6-blocked&quot;,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+              &quot;current&quot;: {
+                &quot;ipv4&quot;: {
+                  &quot;default&quot;: &quot;drop&quot;,
+                  &quot;rules&quot;: [
+                    {
+                      &quot;port&quot;: 18443,
+                      &quot;verdict&quot;: &quot;accept&quot;
+                    },
+                    {
+                      &quot;port&quot;: 59991,
+                      &quot;verdict&quot;: &quot;drop&quot;
+                    }
+                  ]
+                },
+                &quot;ipv6&quot;: {
+                  &quot;default&quot;: &quot;drop&quot;,
+                  &quot;rules&quot;: [
+                    {
+                      &quot;port&quot;: 18443,
+                      &quot;verdict&quot;: &quot;accept&quot;
+                    },
+                    {
+                      &quot;port&quot;: 59991,
+                      &quot;verdict&quot;: &quot;drop&quot;
+                    }
+                  ]
+                }
+              },
+              &quot;baseline&quot;: {
+                &quot;ipv4&quot;: {
+                  &quot;default&quot;: &quot;drop&quot;,
+                  &quot;rules&quot;: [
+                    {
+                      &quot;port&quot;: 18443,
+                      &quot;verdict&quot;: &quot;accept&quot;
+                    },
+                    {
+                      &quot;port&quot;: 59991,
+                      &quot;verdict&quot;: &quot;drop&quot;
+                    }
+                  ]
+                },
+                &quot;ipv6&quot;: {
+                  &quot;default&quot;: &quot;drop&quot;,
+                  &quot;rules&quot;: [
+                    {
+                      &quot;port&quot;: 18443,
+                      &quot;verdict&quot;: &quot;accept&quot;
+                    },
+                    {
+                      &quot;port&quot;: 59991,
+                      &quot;verdict&quot;: &quot;drop&quot;
+                    }
+                  ]
+                }
+              },
+              &quot;candidate&quot;: {
+                &quot;ipv4&quot;: {
+                  &quot;default&quot;: &quot;drop&quot;,
+                  &quot;rules&quot;: [
+                    {
+                      &quot;port&quot;: 18443,
+                      &quot;verdict&quot;: &quot;accept&quot;
+                    },
+                    {
+                      &quot;port&quot;: 59992,
+                      &quot;verdict&quot;: &quot;drop&quot;
+                    }
+                  ]
+                },
+                &quot;ipv6&quot;: {
+                  &quot;default&quot;: &quot;drop&quot;,
+                  &quot;rules&quot;: []
+                }
+              },
+              &quot;confirmed_families&quot;: [
+                &quot;ipv4&quot;
+              ]
+            },
+            {
+              &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
+              &quot;generation&quot;: 1,
+              &quot;op&quot;: &quot;dual-v6-blocked&quot;,
+              &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+              &quot;current&quot;: {
+                &quot;ipv4&quot;: {
+                  &quot;default&quot;: &quot;drop&quot;,
+                  &quot;rules&quot;: [
+                    {
+                      &quot;port&quot;: 18443,
+                      &quot;verdict&quot;: &quot;accept&quot;
+                    },
+                    {
+                      &quot;port&quot;: 59991,
+                      &quot;verdict&quot;: &quot;drop&quot;
+                    }
+                  ]
+                },
+                &quot;ipv6&quot;: {
+                  &quot;default&quot;: &quot;drop&quot;,
+                  &quot;rules&quot;: [
+                    {
+                      &quot;port&quot;: 18443,
+                      &quot;verdict&quot;: &quot;accept&quot;
+                    },
+                    {
+                      &quot;port&quot;: 59991,
+                      &quot;verdict&quot;: &quot;drop&quot;
+                    }
+                  ]
+                }
+              },
+              &quot;baseline&quot;: {
+                &quot;ipv4&quot;: {
+                  &quot;default&quot;: &quot;drop&quot;,
+                  &quot;rules&quot;: [
+                    {
+                      &quot;port&quot;: 18443,
+                      &quot;verdict&quot;: &quot;accept&quot;
+                    },
+                    {
+                      &quot;port&quot;: 59991,
+                      &quot;verdict&quot;: &quot;drop&quot;
+                    }
+                  ]
+                },
+                &quot;ipv6&quot;: {
+                  &quot;default&quot;: &quot;drop&quot;,
+                  &quot;rules&quot;: [
+                    {
+                      &quot;port&quot;: 18443,
+                      &quot;verdict&quot;: &quot;accept&quot;
+                    },
+                    {
+                      &quot;port&quot;: 59991,
+                      &quot;verdict&quot;: &quot;drop&quot;
+                    }
+                  ]
+                }
+              },
+              &quot;candidate&quot;: {
+                &quot;ipv4&quot;: {
+                  &quot;default&quot;: &quot;drop&quot;,
+                  &quot;rules&quot;: [
+                    {
+                      &quot;port&quot;: 18443,
+                      &quot;verdict&quot;: &quot;accept&quot;
+                    },
+                    {
+                      &quot;port&quot;: 59992,
+                      &quot;verdict&quot;: &quot;drop&quot;
+                    }
+                  ]
+                },
+                &quot;ipv6&quot;: {
+                  &quot;default&quot;: &quot;drop&quot;,
+                  &quot;rules&quot;: []
+                }
+              },
+              &quot;confirmed_families&quot;: [
+                &quot;ipv4&quot;
+              ]
+            }
+          ],
+          &quot;old_confirmation_status&quot;: {
+            &quot;ipv4&quot;: 409,
+            &quot;ipv6&quot;: 409
+          },
+          &quot;spoof_rejected&quot;: true,
+          &quot;ipv6_connect_errno&quot;: 11,
+          &quot;deadline&quot;: 32.847736762
+        },
+        &quot;pending_kernel&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59992
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;meta&quot;: {
+                        &quot;key&quot;: &quot;l4proto&quot;
+                      }
+                    },
+                    &quot;right&quot;: &quot;ipv6-icmp&quot;
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;restored&quot;: {
+          &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
+          &quot;generation&quot;: 1,
+          &quot;op&quot;: &quot;dual-v6-blocked&quot;,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+          &quot;current&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59991,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59991,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            }
+          },
+          &quot;baseline&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59991,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59991,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            }
+          },
+          &quot;candidate&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59992,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: []
+            }
+          },
+          &quot;confirmed_families&quot;: [
+            &quot;ipv4&quot;
+          ]
+        },
+        &quot;restored_kernel&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;meta&quot;: {
+                        &quot;key&quot;: &quot;l4proto&quot;
+                      }
+                    },
+                    &quot;right&quot;: &quot;ipv6-icmp&quot;
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;fresh_after_rollback&quot;: {
+          &quot;ipv4&quot;: {
+            &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
+            &quot;generation&quot;: 1,
+            &quot;op&quot;: &quot;dual-v6-blocked&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+            &quot;current&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;baseline&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;candidate&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: []
+              }
+            },
+            &quot;confirmed_families&quot;: [
+              &quot;ipv4&quot;
+            ]
+          },
+          &quot;ipv6&quot;: {
+            &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
+            &quot;generation&quot;: 1,
+            &quot;op&quot;: &quot;dual-v6-blocked&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+            &quot;current&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;baseline&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;candidate&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: []
+              }
+            },
+            &quot;confirmed_families&quot;: [
+              &quot;ipv4&quot;
+            ]
+          }
+        },
+        &quot;rollback_clock&quot;: {
+          &quot;deadline&quot;: 32.847736762,
+          &quot;rollback_started_at&quot;: 32.863109764,
+          &quot;rollback_completed_at&quot;: 32.895181097,
+          &quot;clock&quot;: &quot;CLOCK_BOOTTIME&quot;,
+          &quot;observed_at&quot;: 32.938513181
+        },
+        &quot;same_service_identity_during_timeout&quot;: {
+          &quot;pid&quot;: 2344,
+          &quot;start_ticks&quot;: 2762,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
+        },
+        &quot;identity_after_timeout&quot;: {
+          &quot;pid&quot;: 2344,
+          &quot;start_ticks&quot;: 2762,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
+        },
+        &quot;success&quot;: {
+          &quot;ipv4_partial&quot;: {
+            &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
+            &quot;generation&quot;: 2,
+            &quot;op&quot;: &quot;dual-both-success&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+            &quot;current&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;baseline&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;candidate&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59993,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;confirmed_families&quot;: [
+              &quot;ipv4&quot;
+            ]
+          },
+          &quot;ipv6_committed&quot;: {
+            &quot;phase&quot;: &quot;COMMITTED&quot;,
+            &quot;generation&quot;: 2,
+            &quot;op&quot;: &quot;dual-both-success&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+            &quot;current&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59993,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;baseline&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59991,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;candidate&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59993,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;confirmed_families&quot;: [
+              &quot;ipv4&quot;,
+              &quot;ipv6&quot;
+            ]
+          },
+          &quot;confirmation_clock&quot;: {
+            &quot;clock&quot;: &quot;monotonic_ns&quot;,
+            &quot;started_ns&quot;: 33099708639,
+            &quot;partial_ns&quot;: 33104336681,
+            &quot;finished_ns&quot;: 33108516847
+          },
+          &quot;partial_ms&quot;: 4.628042,
+          &quot;commit_ms&quot;: 4.180166
+        },
+        &quot;committed_kernel&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59992
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;meta&quot;: {
+                        &quot;key&quot;: &quot;l4proto&quot;
+                      }
+                    },
+                    &quot;right&quot;: &quot;ipv6-icmp&quot;
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59993
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;ipv6_neighbour_observation&quot;: &quot;2001:db8:44::2 lladdr a2:52:b1:0b:1c:05 REACHABLE&quot;,
+        &quot;memory&quot;: {
+          &quot;agent_rss_bytes&quot;: 24686592,
+          &quot;agent_vmhwm_bytes&quot;: 24686592,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12914688,
+          &quot;process_identity&quot;: {
+            &quot;pid&quot;: 2344,
+            &quot;start_ticks&quot;: 2762,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
+          },
+          &quot;main_pid_after&quot;: 2344,
+          &quot;invocation_id&quot;: &quot;9f15a3efbb1f4aaba6d8b5d06850c784&quot;,
+          &quot;invocation_id_after&quot;: &quot;9f15a3efbb1f4aaba6d8b5d06850c784&quot;,
+          &quot;process_namespace_inode&quot;: 4026532410,
+          &quot;target_namespace_inode&quot;: 4026532410,
+          &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
+          &quot;cwd&quot;: &quot;/&quot;,
+          &quot;python_path_environment_clean&quot;: true,
+          &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
+          &quot;sample_started_ns&quot;: 33115506764,
+          &quot;sample_finished_ns&quot;: 33119958472,
+          &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
+        },
+        &quot;partial_before_kill&quot;: {
+          &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
+          &quot;generation&quot;: 3,
+          &quot;op&quot;: &quot;dual-partial-crash&quot;,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+          &quot;current&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59992,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59993,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            }
+          },
+          &quot;baseline&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59992,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59993,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            }
+          },
+          &quot;candidate&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59991,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59991,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            }
+          },
+          &quot;confirmed_families&quot;: [
+            &quot;ipv4&quot;
+          ]
+        },
+        &quot;kernel_before_kill&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;meta&quot;: {
+                        &quot;key&quot;: &quot;l4proto&quot;
+                      }
+                    },
+                    &quot;right&quot;: &quot;ipv6-icmp&quot;
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59991
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;signal&quot;: &quot;SIGKILL&quot;,
+        &quot;identity_after_restart&quot;: {
+          &quot;pid&quot;: 2659,
+          &quot;start_ticks&quot;: 3451,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
+        },
+        &quot;recovered&quot;: {
+          &quot;phase&quot;: &quot;ROLLED_BACK&quot;,
+          &quot;generation&quot;: 4,
+          &quot;op&quot;: &quot;dual-partial-crash&quot;,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+          &quot;current&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59992,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59993,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            }
+          },
+          &quot;baseline&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59992,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59993,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            }
+          },
+          &quot;candidate&quot;: {
+            &quot;ipv4&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59991,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            },
+            &quot;ipv6&quot;: {
+              &quot;default&quot;: &quot;drop&quot;,
+              &quot;rules&quot;: [
+                {
+                  &quot;port&quot;: 18443,
+                  &quot;verdict&quot;: &quot;accept&quot;
+                },
+                {
+                  &quot;port&quot;: 59991,
+                  &quot;verdict&quot;: &quot;drop&quot;
+                }
+              ]
+            }
+          },
+          &quot;confirmed_families&quot;: [
+            &quot;ipv4&quot;
+          ]
+        },
+        &quot;recovered_kernel&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59992
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;meta&quot;: {
+                        &quot;key&quot;: &quot;l4proto&quot;
+                      }
+                    },
+                    &quot;right&quot;: &quot;ipv6-icmp&quot;
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59993
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;stale&quot;: {
+          &quot;rejected&quot;: [
+            &quot;/confirm&quot;,
+            &quot;/cancel&quot;,
+            &quot;/apply&quot;
+          ],
+          &quot;before&quot;: {
+            &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
+            &quot;generation&quot;: 5,
+            &quot;op&quot;: &quot;dual-newer&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+            &quot;current&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59993,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;baseline&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59993,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;candidate&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59994,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59993,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59995,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;confirmed_families&quot;: []
+          },
+          &quot;after&quot;: {
+            &quot;phase&quot;: &quot;COMMITTED&quot;,
+            &quot;generation&quot;: 5,
+            &quot;op&quot;: &quot;dual-newer&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+            &quot;current&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59994,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59993,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59995,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;baseline&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59993,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;candidate&quot;: {
+              &quot;ipv4&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59992,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59994,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              },
+              &quot;ipv6&quot;: {
+                &quot;default&quot;: &quot;drop&quot;,
+                &quot;rules&quot;: [
+                  {
+                    &quot;port&quot;: 18443,
+                    &quot;verdict&quot;: &quot;accept&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59993,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  },
+                  {
+                    &quot;port&quot;: 59995,
+                    &quot;verdict&quot;: &quot;drop&quot;
+                  }
+                ]
+              }
+            },
+            &quot;confirmed_families&quot;: [
+              &quot;ipv4&quot;,
+              &quot;ipv6&quot;
+            ]
+          }
+        },
+        &quot;newer&quot;: {
+          &quot;ipv4&quot;: {
+            &quot;default&quot;: &quot;drop&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;port&quot;: 18443,
+                &quot;verdict&quot;: &quot;accept&quot;
+              },
+              {
+                &quot;port&quot;: 59992,
+                &quot;verdict&quot;: &quot;drop&quot;
+              },
+              {
+                &quot;port&quot;: 59994,
+                &quot;verdict&quot;: &quot;drop&quot;
+              }
+            ]
+          },
+          &quot;ipv6&quot;: {
+            &quot;default&quot;: &quot;drop&quot;,
+            &quot;rules&quot;: [
+              {
+                &quot;port&quot;: 18443,
+                &quot;verdict&quot;: &quot;accept&quot;
+              },
+              {
+                &quot;port&quot;: 59993,
+                &quot;verdict&quot;: &quot;drop&quot;
+              },
+              {
+                &quot;port&quot;: 59995,
+                &quot;verdict&quot;: &quot;drop&quot;
+              }
+            ]
+          }
+        },
+        &quot;kernel_after_stale&quot;: [
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59992
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59994
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;table&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;name&quot;: &quot;rulemoor&quot;
+            }
+          },
+          {
+            &quot;chain&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;name&quot;: &quot;input&quot;,
+              &quot;type&quot;: &quot;filter&quot;,
+              &quot;hook&quot;: &quot;input&quot;,
+              &quot;prio&quot;: 0,
+              &quot;policy&quot;: &quot;drop&quot;
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;in&quot;,
+                    &quot;left&quot;: {
+                      &quot;ct&quot;: {
+                        &quot;key&quot;: &quot;state&quot;
+                      }
+                    },
+                    &quot;right&quot;: [
+                      &quot;established&quot;,
+                      &quot;related&quot;
+                    ]
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;meta&quot;: {
+                        &quot;key&quot;: &quot;l4proto&quot;
+                      }
+                    },
+                    &quot;right&quot;: &quot;ipv6-icmp&quot;
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 18443
+                  }
+                },
+                {
+                  &quot;accept&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59993
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          },
+          {
+            &quot;rule&quot;: {
+              &quot;family&quot;: &quot;ip6&quot;,
+              &quot;table&quot;: &quot;rulemoor&quot;,
+              &quot;chain&quot;: &quot;input&quot;,
+              &quot;expr&quot;: [
+                {
+                  &quot;match&quot;: {
+                    &quot;op&quot;: &quot;==&quot;,
+                    &quot;left&quot;: {
+                      &quot;payload&quot;: {
+                        &quot;protocol&quot;: &quot;tcp&quot;,
+                        &quot;field&quot;: &quot;dport&quot;
+                      }
+                    },
+                    &quot;right&quot;: 59995
+                  }
+                },
+                {
+                  &quot;drop&quot;: null
+                }
+              ]
+            }
+          }
+        ],
+        &quot;foreign_before&quot;: [
+          [
+            {
+              &quot;table&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;name&quot;: &quot;rm_dual_foreign&quot;
+              }
+            },
+            {
+              &quot;chain&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rm_dual_foreign&quot;,
+                &quot;name&quot;: &quot;marker&quot;
+              }
+            }
+          ],
+          [
+            {
+              &quot;table&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;name&quot;: &quot;rm_dual_foreign&quot;
+              }
+            },
+            {
+              &quot;chain&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rm_dual_foreign&quot;,
+                &quot;name&quot;: &quot;marker&quot;
+              }
+            }
+          ]
+        ],
+        &quot;foreign_after&quot;: [
+          [
+            {
+              &quot;table&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;name&quot;: &quot;rm_dual_foreign&quot;
+              }
+            },
+            {
+              &quot;chain&quot;: {
+                &quot;family&quot;: &quot;ip&quot;,
+                &quot;table&quot;: &quot;rm_dual_foreign&quot;,
+                &quot;name&quot;: &quot;marker&quot;
+              }
+            }
+          ],
+          [
+            {
+              &quot;table&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;name&quot;: &quot;rm_dual_foreign&quot;
+              }
+            },
+            {
+              &quot;chain&quot;: {
+                &quot;family&quot;: &quot;ip6&quot;,
+                &quot;table&quot;: &quot;rm_dual_foreign&quot;,
+                &quot;name&quot;: &quot;marker&quot;
+              }
+            }
+          ]
+        ],
+        &quot;scope&quot;: &quot;Static veth peers, installed systemd service; not WAN, routed PMTU, SLAAC, dual boot or power-loss testing&quot;
+      }
+    },
+    {
       &quot;name&quot;: &quot;poisoned_journal&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
@@ -2106,8 +5260,8 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         &quot;diagnostic_reason&quot;: &quot;Unreadable journal; local operator recovery required&quot;,
         &quot;original_snapshot_preserved&quot;: true,
         &quot;mutations_rejected&quot;: true,
-        &quot;invocation_before&quot;: &quot;06e905800c6b4bb3950641d410e41115&quot;,
-        &quot;invocation_after&quot;: &quot;06e905800c6b4bb3950641d410e41115&quot;,
+        &quot;invocation_before&quot;: &quot;64bbf2fe110d40ffaa4e7933afa8d7dd&quot;,
+        &quot;invocation_after&quot;: &quot;64bbf2fe110d40ffaa4e7933afa8d7dd&quot;,
         &quot;restart_count_before&quot;: 0,
         &quot;restart_count_after&quot;: 0,
         &quot;kernel_before&quot;: [
@@ -2249,25 +5403,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           }
         ],
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23392256,
-          &quot;agent_vmhwm_bytes&quot;: 23392256,
-          &quot;service_cgroup_memory_current_bytes&quot;: 11292672,
+          &quot;agent_rss_bytes&quot;: 23396352,
+          &quot;agent_vmhwm_bytes&quot;: 23396352,
+          &quot;service_cgroup_memory_current_bytes&quot;: 11284480,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 2288,
-            &quot;start_ticks&quot;: 2767,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+            &quot;pid&quot;: 2770,
+            &quot;start_ticks&quot;: 3547,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
           },
-          &quot;main_pid_after&quot;: 2288,
-          &quot;invocation_id&quot;: &quot;06e905800c6b4bb3950641d410e41115&quot;,
-          &quot;invocation_id_after&quot;: &quot;06e905800c6b4bb3950641d410e41115&quot;,
+          &quot;main_pid_after&quot;: 2770,
+          &quot;invocation_id&quot;: &quot;64bbf2fe110d40ffaa4e7933afa8d7dd&quot;,
+          &quot;invocation_id_after&quot;: &quot;64bbf2fe110d40ffaa4e7933afa8d7dd&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 30011447471,
-          &quot;sample_finished_ns&quot;: 30020852638,
+          &quot;sample_started_ns&quot;: 37815121406,
+          &quot;sample_finished_ns&quot;: 37824267552,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;fixture_only_reprovision_and_token_rotation&quot;: true,
@@ -2301,26 +5455,26 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;Result&quot;: &quot;exit-code&quot;,
           &quot;ExecMainStatus&quot;: &quot;1&quot;
         },
-        &quot;failure_started_monotonic_ns&quot;: 30663523847,
+        &quot;failure_started_monotonic_ns&quot;: 38396427241,
         &quot;start_limit_receipts&quot;: [
           {
             &quot;MESSAGE&quot;: &quot;rulemoor.service: Start request repeated too quickly.&quot;,
             &quot;UNIT&quot;: &quot;rulemoor.service&quot;,
-            &quot;_BOOT_ID&quot;: &quot;9dca9a86b0db4438a5bed03937187b49&quot;,
-            &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;36981038&quot;
+            &quot;_BOOT_ID&quot;: &quot;3a919b46a1f141698afb2ca2ce23e255&quot;,
+            &quot;__MONOTONIC_TIMESTAMP&quot;: &quot;44771606&quot;
           }
         ],
         &quot;observation_clock&quot;: {
           &quot;clock&quot;: &quot;monotonic_ns&quot;,
-          &quot;started_ns&quot;: 37027511517,
-          &quot;finished_ns&quot;: 39238666724
+          &quot;started_ns&quot;: 44821983737,
+          &quot;finished_ns&quot;: 47034588047
         },
-        &quot;observation_seconds&quot;: 2.211155207,
+        &quot;observation_seconds&quot;: 2.21260431,
         &quot;journal_before_failure&quot;: {
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 1,
           &quot;op&quot;: &quot;initial&quot;,
-          &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -2353,7 +5507,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 1,
           &quot;op&quot;: &quot;initial&quot;,
-          &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -2530,7 +5684,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 3,
             &quot;op&quot;: &quot;after-limit-new&quot;,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -2563,7 +5717,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 3,
             &quot;op&quot;: &quot;after-limit-new&quot;,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -2665,7 +5819,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 3,
             &quot;op&quot;: &quot;after-limit-new&quot;,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -2775,25 +5929,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           ]
         },
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23973888,
-          &quot;agent_vmhwm_bytes&quot;: 23973888,
-          &quot;service_cgroup_memory_current_bytes&quot;: 12242944,
+          &quot;agent_rss_bytes&quot;: 23834624,
+          &quot;agent_vmhwm_bytes&quot;: 23834624,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12017664,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 2543,
-            &quot;start_ticks&quot;: 3925,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+            &quot;pid&quot;: 3021,
+            &quot;start_ticks&quot;: 4705,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
           },
-          &quot;main_pid_after&quot;: 2543,
-          &quot;invocation_id&quot;: &quot;752290f8bbaa45858d873f5e98ad3514&quot;,
-          &quot;invocation_id_after&quot;: &quot;752290f8bbaa45858d873f5e98ad3514&quot;,
+          &quot;main_pid_after&quot;: 3021,
+          &quot;invocation_id&quot;: &quot;33fc2fef71c046cd86cfe7b0224e0c10&quot;,
+          &quot;invocation_id_after&quot;: &quot;33fc2fef71c046cd86cfe7b0224e0c10&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 39779246707,
-          &quot;sample_finished_ns&quot;: 39783945291,
+          &quot;sample_started_ns&quot;: 47593031427,
+          &quot;sample_finished_ns&quot;: 47597677376,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;segmentation_fault_tested&quot;: false,
@@ -2817,7 +5971,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 7,
             &quot;op&quot;: &quot;after-crash-new&quot;,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -2850,7 +6004,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 7,
             &quot;op&quot;: &quot;after-crash-new&quot;,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -2952,7 +6106,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 7,
             &quot;op&quot;: &quot;after-crash-new&quot;,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -3061,33 +6215,33 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;apply&quot;
           ]
         },
-        &quot;kill_to_tls_ready_observed_ms&quot;: 1371.074126,
+        &quot;kill_to_tls_ready_observed_ms&quot;: 1340.584669,
         &quot;recovery_clock&quot;: {
           &quot;clock&quot;: &quot;monotonic_ns&quot;,
-          &quot;kill_started_ns&quot;: 40152737401,
-          &quot;tls_observed_ns&quot;: 41523811527,
-          &quot;baseline_verified_ns&quot;: 41529121866
+          &quot;kill_started_ns&quot;: 47981964637,
+          &quot;tls_observed_ns&quot;: 49322549306,
+          &quot;baseline_verified_ns&quot;: 49326081206
         },
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23859200,
-          &quot;agent_vmhwm_bytes&quot;: 23859200,
-          &quot;service_cgroup_memory_current_bytes&quot;: 11993088,
+          &quot;agent_rss_bytes&quot;: 23912448,
+          &quot;agent_vmhwm_bytes&quot;: 23912448,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12013568,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 2649,
-            &quot;start_ticks&quot;: 4140,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+            &quot;pid&quot;: 3127,
+            &quot;start_ticks&quot;: 4923,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
           },
-          &quot;main_pid_after&quot;: 2649,
-          &quot;invocation_id&quot;: &quot;ec768127e7e547cfac3f32f68b8feafe&quot;,
-          &quot;invocation_id_after&quot;: &quot;ec768127e7e547cfac3f32f68b8feafe&quot;,
+          &quot;main_pid_after&quot;: 3127,
+          &quot;invocation_id&quot;: &quot;4e408ed43bc7474285a3eac07bba2da2&quot;,
+          &quot;invocation_id_after&quot;: &quot;4e408ed43bc7474285a3eac07bba2da2&quot;,
           &quot;process_namespace_inode&quot;: 4026532410,
           &quot;target_namespace_inode&quot;: 4026532410,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 41879042906,
-          &quot;sample_finished_ns&quot;: 41883618692,
+          &quot;sample_started_ns&quot;: 49623830382,
+          &quot;sample_finished_ns&quot;: 49628327240,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;old_generation&quot;: 5,
@@ -3239,9 +6393,9 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;evidence&quot;: {
         &quot;test_only_fault_override&quot;: true,
         &quot;old_executor_identity&quot;: {
-          &quot;pid&quot;: 2756,
-          &quot;start_ticks&quot;: 4242,
-          &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;
+          &quot;pid&quot;: 3234,
+          &quot;start_ticks&quot;: 5015,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;
         },
         &quot;old_executor_retired&quot;: true,
         &quot;systemd_cgroup_restart_observed&quot;: true,
@@ -3255,7 +6409,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 10,
             &quot;op&quot;: &quot;after-held-new&quot;,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -3288,7 +6442,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 10,
             &quot;op&quot;: &quot;after-held-new&quot;,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -3390,7 +6544,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 10,
             &quot;op&quot;: &quot;after-held-new&quot;,
-            &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+            &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -3576,7 +6730,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;prepare_pending_boot&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
-        &quot;boot_id&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+        &quot;boot_id&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
         &quot;journal_pending_after_service_stop&quot;: true,
         &quot;candidate_still_installed&quot;: true,
         &quot;graceful_rollback_deliberately_bypassed&quot;: true,
@@ -3654,7 +6808,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 11,
           &quot;op&quot;: &quot;pending-before-boot&quot;,
-          &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -3690,14 +6844,14 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;after_pending_boot&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
-        &quot;boot_id_before&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
-        &quot;boot_id_after&quot;: &quot;d6db8d2c-f08e-41fd-86bf-e2c936a20d31&quot;,
+        &quot;boot_id_before&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
+        &quot;boot_id_after&quot;: &quot;f1f90f4d-a916-41c1-b736-a4731a591147&quot;,
         &quot;pre_agent_table_absent&quot;: true,
         &quot;journal_before_agent&quot;: {
           &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
           &quot;generation&quot;: 11,
           &quot;op&quot;: &quot;pending-before-boot&quot;,
-          &quot;boot&quot;: &quot;9dca9a86-b0db-4438-a5be-d03937187b49&quot;,
+          &quot;boot&quot;: &quot;3a919b46-a1f1-4169-8afb-2ca2ce23e255&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -3736,7 +6890,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 13,
             &quot;op&quot;: &quot;post-boot-new&quot;,
-            &quot;boot&quot;: &quot;d6db8d2c-f08e-41fd-86bf-e2c936a20d31&quot;,
+            &quot;boot&quot;: &quot;f1f90f4d-a916-41c1-b736-a4731a591147&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -3769,7 +6923,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;AWAITING_CONFIRM&quot;,
             &quot;generation&quot;: 13,
             &quot;op&quot;: &quot;post-boot-new&quot;,
-            &quot;boot&quot;: &quot;d6db8d2c-f08e-41fd-86bf-e2c936a20d31&quot;,
+            &quot;boot&quot;: &quot;f1f90f4d-a916-41c1-b736-a4731a591147&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -3871,7 +7025,7 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;phase&quot;: &quot;COMMITTED&quot;,
             &quot;generation&quot;: 13,
             &quot;op&quot;: &quot;post-boot-new&quot;,
-            &quot;boot&quot;: &quot;d6db8d2c-f08e-41fd-86bf-e2c936a20d31&quot;,
+            &quot;boot&quot;: &quot;f1f90f4d-a916-41c1-b736-a4731a591147&quot;,
             &quot;current&quot;: {
               &quot;default&quot;: &quot;accept&quot;,
               &quot;rules&quot;: [
@@ -3980,27 +7134,27 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
             &quot;apply&quot;
           ]
         },
-        &quot;vm_uptime_after_validation_seconds&quot;: 6.561610044,
+        &quot;vm_uptime_after_validation_seconds&quot;: 6.510808169,
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23941120,
-          &quot;agent_vmhwm_bytes&quot;: 23941120,
-          &quot;service_cgroup_memory_current_bytes&quot;: 12558336,
+          &quot;agent_rss_bytes&quot;: 23842816,
+          &quot;agent_vmhwm_bytes&quot;: 23842816,
+          &quot;service_cgroup_memory_current_bytes&quot;: 12455936,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 509,
-            &quot;start_ticks&quot;: 244,
-            &quot;boot&quot;: &quot;d6db8d2c-f08e-41fd-86bf-e2c936a20d31&quot;
+            &quot;pid&quot;: 508,
+            &quot;start_ticks&quot;: 189,
+            &quot;boot&quot;: &quot;f1f90f4d-a916-41c1-b736-a4731a591147&quot;
           },
-          &quot;main_pid_after&quot;: 509,
-          &quot;invocation_id&quot;: &quot;2f767d9206cb45d0939106acfee5e743&quot;,
-          &quot;invocation_id_after&quot;: &quot;2f767d9206cb45d0939106acfee5e743&quot;,
-          &quot;process_namespace_inode&quot;: 4026532394,
-          &quot;target_namespace_inode&quot;: 4026532394,
+          &quot;main_pid_after&quot;: 508,
+          &quot;invocation_id&quot;: &quot;ec215cd38a094a1e9a8e809faedffb2a&quot;,
+          &quot;invocation_id_after&quot;: &quot;ec215cd38a094a1e9a8e809faedffb2a&quot;,
+          &quot;process_namespace_inode&quot;: 4026532391,
+          &quot;target_namespace_inode&quot;: 4026532391,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 6561610544,
-          &quot;sample_finished_ns&quot;: 6566497794,
+          &quot;sample_started_ns&quot;: 6510808711,
+          &quot;sample_finished_ns&quot;: 6515935253,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;old_generation&quot;: 11,
@@ -4150,14 +7304,14 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
       &quot;name&quot;: &quot;after_committed_boot&quot;,
       &quot;passed&quot;: true,
       &quot;evidence&quot;: {
-        &quot;boot_id_before&quot;: &quot;d6db8d2c-f08e-41fd-86bf-e2c936a20d31&quot;,
-        &quot;boot_id_after&quot;: &quot;888e7753-10d0-42a0-932f-1094bb9a3576&quot;,
+        &quot;boot_id_before&quot;: &quot;f1f90f4d-a916-41c1-b736-a4731a591147&quot;,
+        &quot;boot_id_after&quot;: &quot;c1392ad4-432a-409a-97c4-162aae66f480&quot;,
         &quot;pre_agent_table_absent&quot;: true,
         &quot;journal_before_agent&quot;: {
           &quot;phase&quot;: &quot;COMMITTED&quot;,
           &quot;generation&quot;: 13,
           &quot;op&quot;: &quot;post-boot-new&quot;,
-          &quot;boot&quot;: &quot;d6db8d2c-f08e-41fd-86bf-e2c936a20d31&quot;,
+          &quot;boot&quot;: &quot;f1f90f4d-a916-41c1-b736-a4731a591147&quot;,
           &quot;current&quot;: {
             &quot;default&quot;: &quot;accept&quot;,
             &quot;rules&quot;: [
@@ -4191,25 +7345,25 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
         &quot;old_base_rejected&quot;: true,
         &quot;same_boot_foreign_policy_preserved&quot;: true,
         &quot;memory&quot;: {
-          &quot;agent_rss_bytes&quot;: 23273472,
-          &quot;agent_vmhwm_bytes&quot;: 23273472,
-          &quot;service_cgroup_memory_current_bytes&quot;: 11567104,
+          &quot;agent_rss_bytes&quot;: 23277568,
+          &quot;agent_vmhwm_bytes&quot;: 23277568,
+          &quot;service_cgroup_memory_current_bytes&quot;: 11784192,
           &quot;process_identity&quot;: {
-            &quot;pid&quot;: 501,
-            &quot;start_ticks&quot;: 197,
-            &quot;boot&quot;: &quot;888e7753-10d0-42a0-932f-1094bb9a3576&quot;
+            &quot;pid&quot;: 504,
+            &quot;start_ticks&quot;: 215,
+            &quot;boot&quot;: &quot;c1392ad4-432a-409a-97c4-162aae66f480&quot;
           },
-          &quot;main_pid_after&quot;: 501,
-          &quot;invocation_id&quot;: &quot;6f22f14a9f4e4e539310951837270b07&quot;,
-          &quot;invocation_id_after&quot;: &quot;6f22f14a9f4e4e539310951837270b07&quot;,
+          &quot;main_pid_after&quot;: 504,
+          &quot;invocation_id&quot;: &quot;a5a16524517a40c59d03a651cbd3cfcd&quot;,
+          &quot;invocation_id_after&quot;: &quot;a5a16524517a40c59d03a651cbd3cfcd&quot;,
           &quot;process_namespace_inode&quot;: 4026532394,
           &quot;target_namespace_inode&quot;: 4026532394,
           &quot;entrypoint&quot;: &quot;/opt/rulemoor/venv/bin/rulemoor-agent&quot;,
           &quot;cwd&quot;: &quot;/&quot;,
           &quot;python_path_environment_clean&quot;: true,
           &quot;control_group&quot;: &quot;/system.slice/rulemoor.service&quot;,
-          &quot;sample_started_ns&quot;: 6098218210,
-          &quot;sample_finished_ns&quot;: 6103539918,
+          &quot;sample_started_ns&quot;: 6026936669,
+          &quot;sample_finished_ns&quot;: 6032138461,
           &quot;scope&quot;: &quot;Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM&quot;
         },
         &quot;memory_stage&quot;: &quot;committed_after_boot_before_foreign_policy_probe&quot;,
@@ -4328,19 +7482,19 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
     }
   ],
   &quot;vm_initial_state&quot;: &quot;Stopped&quot;,
-  &quot;wheel_sha256&quot;: &quot;7738b2df6f3a8650d787810c03346d7dc482f852efe07733298dcce96dd872ce&quot;,
+  &quot;wheel_sha256&quot;: &quot;09a4f9555795505c0a7f19248d3d2be21181c701c6f0ce748f1b69b379a6217d&quot;,
   &quot;pending_vm_restart_clock&quot;: {
     &quot;clock&quot;: &quot;monotonic_ns&quot;,
-    &quot;started_ns&quot;: 68554594894333,
-    &quot;finished_ns&quot;: 68566225754208
+    &quot;started_ns&quot;: 69897638104500,
+    &quot;finished_ns&quot;: 69909485443875
   },
-  &quot;pending_vm_restart_control_seconds&quot;: 11.630859875,
+  &quot;pending_vm_restart_control_seconds&quot;: 11.847339375,
   &quot;committed_vm_restart_clock&quot;: {
     &quot;clock&quot;: &quot;monotonic_ns&quot;,
-    &quot;started_ns&quot;: 68566225762791,
-    &quot;finished_ns&quot;: 68578014918416
+    &quot;started_ns&quot;: 69909485449541,
+    &quot;finished_ns&quot;: 69921095793708
   },
-  &quot;committed_vm_restart_control_seconds&quot;: 11.789155625,
+  &quot;committed_vm_restart_control_seconds&quot;: 11.610344167,
   &quot;source_snapshot_removed&quot;: true,
   &quot;vm_final_state&quot;: &quot;Stopped&quot;,
   &quot;evidence_controls&quot;: [
@@ -4462,6 +7616,34 @@ Daemon/cgroup memory is distinct from total VM memory. No native macOS deploymen
     },
     {
       &quot;name&quot;: &quot;configuration-recovery-skipped&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;dual-v4-masks-v6&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;dual-wrong-rollback&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;dual-wrong-transport&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;dual-foreign-modified&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;dual-missing-timing&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;dual-partial-crash-not-restored&quot;,
+      &quot;rejected&quot;: true
+    },
+    {
+      &quot;name&quot;: &quot;dual-missing-cleanup&quot;,
       &quot;rejected&quot;: true
     }
   ]

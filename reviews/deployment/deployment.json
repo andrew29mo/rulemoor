@@ -1,25 +1,26 @@
 {
   "schema": 1,
-  "run_id": "d1c7c0713b157000",
-  "recorded_at_utc": "2026-10-21T02:29:24.214797+00:00",
+  "run_id": "6e80d14cf5601c9f",
+  "recorded_at_utc": "2026-10-21T02:51:39.497310+00:00",
   "passed": true,
   "source": {
     "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
     "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
     "pyproject.toml": "6be68097d0f9be7dc9b693b0e0f17f50669e339897a16da9ea422d583f6170c8",
     "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03",
-    "rulemoor/backend.py": "0f58dacb7eb35727d738367476044e0e72d58459b4bbe2113fa038608cb6e078",
-    "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
-    "rulemoor/core.py": "01c601df1ea5d47b572d8c5eade72992d2725549f9ac960aba332e6c11a845ed",
-    "rulemoor/diagnostics.py": "0afe68131e4f0ae001634e5604e78c3a289a2962e660664bccddd13b7f2f8304",
+    "rulemoor/backend.py": "3651ac005d7b381000a3c25ebd62720d0e9e53940504ba0ac98e6237e5336a95",
+    "rulemoor/cli.py": "ba7cb4b7e9ffd70fda961c42aad491cd6d7bc538405e47f3d6d950af704314e5",
+    "rulemoor/core.py": "aa49b9afaa124efab7b733be21ab44338a69720cd6a9a9bd4bed165a56a5cd6f",
+    "rulemoor/diagnostics.py": "bcef653555e7cebbf5ded899e7934b4ae3b368fced7623808ab3cbe66543e2e2",
     "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
-    "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
-    "rulemoor/service.py": "4ceb2cdb744d4ce8c723570dfe9076037c98da3fd5bc4f4ac7ea7cfefddb9f63",
+    "rulemoor/policy.py": "2e73cb8ff8cbee9fe959fa744c187c713582d2cb517c11979591708d09d4a1b5",
+    "rulemoor/service.py": "d3f08ce85213caffbe640b0c8116c5967eaafef1dd55e6bad61d5ee5380b7ca3",
     "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
     "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
     "tests/test_deployment_audit.py": "2aded3ab9edee04e189d2a8d69b60876bef1b5ae09dcfffa84b672a8e08d073c",
     "tests/test_diagnostics.py": "1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7",
+    "tests/test_dual_stack.py": "e978ef28e9158d17b4235bd6466ff56afa4c235a6e14045a88f4ad4382255eb3",
     "tests/test_service_startup.py": "ed6f099450caa1268f47386bf138150e7a09c8a78c199f6a3e8c5fc79a6a3abf",
     "tests/test_startup_state.py": "eb4d74d1446c86b49b16639fcfc1713e8c63ca127b1e1831a838d1e876f5e950",
     "tests/test_tools.py": "c4906425dbd96c221e57dd8d5cdbd98c8070163824f40e018074443974827eb5",
@@ -29,24 +30,24 @@
     "tools/audit_evidence.py": "20b49023c2694c979ad37233f72e01f72ff7dd58b3ed113ed74bf73a0d2ec617",
     "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
     "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
-    "tools/deployment_guest.py": "7cad6e35d6c724ec9af4269eabbe63dbfef03c0295359e022958699882910eab",
-    "tools/deployment_report.py": "29c7d2460f6653f2df855a8461ee8f46ea953201200fca7a4fcb293342297f60",
+    "tools/deployment_guest.py": "6fa024d5cb9595575e4cf8f9fd70ac45f194d0270e57ac032dcc5ec66f2b6b79",
+    "tools/deployment_report.py": "160fab38df670e23bacd45c7b1dfd370a62c9a297cfd35b8e55668f644fddb23",
     "tools/evidence.py": "d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b",
     "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
     "tools/linux_cases.py": "49500a9697b81d5a1b9ba8651e4c1755474f6a49a213b95fce7ec55672cf0a79",
     "tools/linux_validate.py": "bf9c45eef35c9b4b9dcbd9f0958a9122fe020f8e818aa5d234f28e306c9c9313",
     "tools/local_entry.py": "f274a29f4235409b07783e926829006a95f543e707a532f6070271a4de76f911",
-    "tools/mutations.py": "d44611f0e8655f6670e41c16562da746a42e3206fd6199c06e60e54ce005a4cd",
+    "tools/mutations.py": "982e0432e6c2ee1e2644df2446314869eee7717816bf7c26a3a9f794bc75cd4b",
     "tools/process.py": "6f18e837cb8213e16962e7105be32310f56938edcca60ca9d0327ea71139cb6f",
     "tools/report.py": "c4ac1749bef625b181c7de8dca183eae386871fd5ec23d0b475248fc69d16803",
     "tools/storage_fault.py": "0c25c5c89a4765fcbc359fadf8e625f3649091786decb47b57f2dd8b63fd7ff0",
     "tools/unit.py": "ade259d94052f2c69685c35210af0444c44a76e81c51640dc5f212da6a5282fd",
     "tools/validate-deployment": "e3995176226e017ff2c6e36fd52c163b6e968ca539737420edfa7d5f9fcbe412",
     "tools/validate-local": "45037275439d88ef280555573bffd0ceaa882d0343d9411a02f584f828ce0a1c",
-    "tools/validate_deployment.py": "f0f8226248432f75bb57c229df7e70dcad191ca42e8c254c7529efa7b67cce21",
+    "tools/validate_deployment.py": "b1a7a867d49d0baf7027e9a0c55c30efa78a90d5747467f4dd467e586407f8c8",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "source_sha256": "ac398e4379e004285a44459268cd555940bee5b0cf898ba5b47315f723729e8d",
+  "source_sha256": "2173a5bb28d7610399e9d5479fb68e24d0eff6bf26c28fd84fc22acef8a4bb99",
   "source_changed": false,
   "scope": {
     "execution": "Actual systemd in Colima Linux VM; isolated test network namespace",
@@ -59,139 +60,145 @@
       "name": "vm-initial",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.38533437499427237
+      "seconds": 0.30086266600119416
     },
     {
       "name": "vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.821126082999399
+      "seconds": 9.340357791996212
     },
     {
       "name": "preflight",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.23686945799272507
+      "seconds": 0.3124569589999737
     },
     {
       "name": "guest-prerequisites",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.5262327499949606
+      "seconds": 0.539101207992644
     },
     {
       "name": "wheel-build",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.219073792002746
+      "seconds": 1.3649284170096507
     },
     {
       "name": "snapshot-upload",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.22191020799800754
+      "seconds": 0.22293854200688656
     },
     {
       "name": "guest-setup",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.9857155419886112
+      "seconds": 2.0689375000074506
     },
     {
       "name": "guest-management_diagnostics",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 15.997943333000876
+      "seconds": 15.970587457995862
+    },
+    {
+      "name": "guest-dual_stack",
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 8.115969874997973
     },
     {
       "name": "guest-poisoned_journal",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.9373520420049317
+      "seconds": 2.869427541998448
     },
     {
       "name": "guest-restart_limit",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.557073333999142
+      "seconds": 9.540755416994216
     },
     {
       "name": "guest-crash",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.0951303750043735
+      "seconds": 2.01193841600616
     },
     {
       "name": "guest-held_writer",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 4.456466207993799
+      "seconds": 4.420983999996679
     },
     {
       "name": "guest-prepare_pending_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.5143414580088574
+      "seconds": 0.5820715839945478
     },
     {
       "name": "pending-vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.4325310829881346
+      "seconds": 2.4731514589948347
     },
     {
       "name": "pending-vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 8.55337291599426
+      "seconds": 8.654257874994073
     },
     {
       "name": "guest-after_pending_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.6212536249950062
+      "seconds": 0.6813280839996878
     },
     {
       "name": "committed-vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.5873936249990948
+      "seconds": 2.589728584003751
     },
     {
       "name": "committed-vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 8.612983290993725
+      "seconds": 8.483319917009794
     },
     {
       "name": "guest-after_committed_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.56293545900553
+      "seconds": 0.4974823340016883
     },
     {
       "name": "guest-cleanup",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.46189883300394285
+      "seconds": 0.4404480829980457
     },
     {
       "name": "snapshot-remove",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.316501208988484
+      "seconds": 0.2296895420004148
     },
     {
       "name": "vm-final-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.398705624989816
+      "seconds": 2.512638667001738
     },
     {
       "name": "vm-final",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2568389579973882
+      "seconds": 0.17917245799617376
     }
   ],
   "cases": [
@@ -209,13 +216,13 @@
         "installed_package": {
           "origin": "/opt/rulemoor/venv/lib/python3.12/site-packages/rulemoor",
           "hashes": {
-            "rulemoor/service.py": "4ceb2cdb744d4ce8c723570dfe9076037c98da3fd5bc4f4ac7ea7cfefddb9f63",
-            "rulemoor/core.py": "01c601df1ea5d47b572d8c5eade72992d2725549f9ac960aba332e6c11a845ed",
-            "rulemoor/backend.py": "0f58dacb7eb35727d738367476044e0e72d58459b4bbe2113fa038608cb6e078",
+            "rulemoor/service.py": "d3f08ce85213caffbe640b0c8116c5967eaafef1dd55e6bad61d5ee5380b7ca3",
+            "rulemoor/core.py": "aa49b9afaa124efab7b733be21ab44338a69720cd6a9a9bd4bed165a56a5cd6f",
+            "rulemoor/backend.py": "3651ac005d7b381000a3c25ebd62720d0e9e53940504ba0ac98e6237e5336a95",
             "rulemoor/executor.py": "9810a6f44e107f3f56d99ef6554b259dc127a44165cd6630f8477873986b10bd",
-            "rulemoor/cli.py": "fb2915efbb9af08f9a66c163866692e8b927a6496e4877ac6fa6beeb662dd0d5",
-            "rulemoor/policy.py": "780c424d0cb1881dd974cea14595abede16cb9c9c4f4eecf49d49b1c7ab8a842",
-            "rulemoor/diagnostics.py": "0afe68131e4f0ae001634e5604e78c3a289a2962e660664bccddd13b7f2f8304",
+            "rulemoor/cli.py": "ba7cb4b7e9ffd70fda961c42aad491cd6d7bc538405e47f3d6d950af704314e5",
+            "rulemoor/policy.py": "2e73cb8ff8cbee9fe959fa744c187c713582d2cb517c11979591708d09d4a1b5",
+            "rulemoor/diagnostics.py": "bcef653555e7cebbf5ded899e7934b4ae3b368fced7623808ab3cbe66543e2e2",
             "rulemoor/__init__.py": "021abd0b7171fcd0591d43cddab9ad912d52dc1a9d2dbf315d7e817556e98d03"
           }
         },
@@ -224,12 +231,12 @@
         "unit_properties": {
           "Restart": "on-failure",
           "RestartUSec": "1s",
-          "MainPID": "1655",
+          "MainPID": "1659",
           "Result": "success",
           "NRestarts": "0",
           "ExecMainStatus": "0",
           "ControlGroup": "/system.slice/rulemoor.service",
-          "MemoryCurrent": "11223040",
+          "MemoryCurrent": "11436032",
           "CapabilityBoundingSet": "cap_kill cap_net_admin",
           "PrivateTmp": "yes",
           "ProtectHome": "yes",
@@ -242,27 +249,27 @@
           "StartLimitIntervalUSec": "1min",
           "StartLimitBurst": "5"
         },
-        "boot_id": "9dca9a86-b0db-4438-a5be-d03937187b49",
+        "boot_id": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
         "memory": {
-          "agent_rss_bytes": 23281664,
-          "agent_vmhwm_bytes": 23281664,
-          "service_cgroup_memory_current_bytes": 11202560,
+          "agent_rss_bytes": 23277568,
+          "agent_vmhwm_bytes": 23277568,
+          "service_cgroup_memory_current_bytes": 11198464,
           "process_identity": {
-            "pid": 1655,
-            "start_ticks": 1117,
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            "pid": 1659,
+            "start_ticks": 1093,
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
           },
-          "main_pid_after": 1655,
-          "invocation_id": "312f1bd276e84c99bcbbaccf5cec9ac7",
-          "invocation_id_after": "312f1bd276e84c99bcbbaccf5cec9ac7",
+          "main_pid_after": 1659,
+          "invocation_id": "e67f469f564644b2bf065a352bbf512c",
+          "invocation_id_after": "e67f469f564644b2bf065a352bbf512c",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 11275936463,
-          "sample_finished_ns": 11280988338,
+          "sample_started_ns": 11041128337,
+          "sample_finished_ns": 11045517670,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         }
       }
@@ -280,7 +287,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 3,
               "op": "configuration-recovery-missing",
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -379,15 +386,15 @@
               }
             ],
             "unit_before_kill": {
-              "MainPID": "1714",
-              "InvocationID": "ec1c021e38394fbd9ccaaf39f270647e",
+              "MainPID": "1718",
+              "InvocationID": "fe5e28eb87b24b2eb6031cdeacd254e1",
               "ActiveState": "active",
               "Result": "success",
               "NRestarts": "0"
             },
             "unit_at_kill": {
-              "MainPID": "1714",
-              "InvocationID": "ec1c021e38394fbd9ccaaf39f270647e",
+              "MainPID": "1718",
+              "InvocationID": "fe5e28eb87b24b2eb6031cdeacd254e1",
               "ActiveState": "active",
               "Result": "success",
               "NRestarts": "0"
@@ -396,7 +403,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 3,
               "op": "configuration-recovery-missing",
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -499,7 +506,7 @@
               "phase": "ROLLED_BACK",
               "generation": 4,
               "op": "configuration-recovery-missing",
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -599,7 +606,7 @@
             ],
             "failed_unit": {
               "MainPID": "0",
-              "InvocationID": "ab85f4532e9243f9a0ac3c12f6cacf21",
+              "InvocationID": "a9aa92f63a2344239e4c884289182359",
               "ActiveState": "failed",
               "Result": "exit-code",
               "NRestarts": "6"
@@ -608,19 +615,19 @@
               {
                 "MESSAGE": "rulemoor.service: Start request repeated too quickly.",
                 "UNIT": "rulemoor.service",
-                "_BOOT_ID": "9dca9a86b0db4438a5bed03937187b49",
-                "__MONOTONIC_TIMESTAMP": "19962180"
+                "_BOOT_ID": "3a919b46a1f141698afb2ca2ce23e255",
+                "__MONOTONIC_TIMESTAMP": "19753568"
               }
             ],
-            "failure_started_monotonic_ns": 13328858630,
-            "failure_observed_monotonic_ns": 20093054800,
-            "boot_before": "9dca9a86-b0db-4438-a5be-d03937187b49",
-            "boot_after": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "failure_started_monotonic_ns": 13118675546,
+            "failure_observed_monotonic_ns": 19891440091,
+            "boot_before": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+            "boot_after": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
             "ready_after_repair": {
               "phase": "ROLLED_BACK",
               "generation": 4,
               "op": "configuration-recovery-missing",
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -656,7 +663,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 5,
               "op": "configuration-recovery-null",
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -755,15 +762,15 @@
               }
             ],
             "unit_before_kill": {
-              "MainPID": "2021",
-              "InvocationID": "b0a99fffc91b4116ad3fd6139c9ed73b",
+              "MainPID": "2023",
+              "InvocationID": "368d97b68e8842b183d348c6f6b0455d",
               "ActiveState": "active",
               "Result": "success",
               "NRestarts": "0"
             },
             "unit_at_kill": {
-              "MainPID": "2021",
-              "InvocationID": "b0a99fffc91b4116ad3fd6139c9ed73b",
+              "MainPID": "2023",
+              "InvocationID": "368d97b68e8842b183d348c6f6b0455d",
               "ActiveState": "active",
               "Result": "success",
               "NRestarts": "0"
@@ -772,7 +779,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 5,
               "op": "configuration-recovery-null",
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -875,7 +882,7 @@
               "phase": "ROLLED_BACK",
               "generation": 6,
               "op": "configuration-recovery-null",
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -975,7 +982,7 @@
             ],
             "failed_unit": {
               "MainPID": "0",
-              "InvocationID": "7d131112dbe74d63993cbffe6103aa78",
+              "InvocationID": "18a6cb5446a24a4f80c821a15c24d0af",
               "ActiveState": "failed",
               "Result": "exit-code",
               "NRestarts": "6"
@@ -984,19 +991,19 @@
               {
                 "MESSAGE": "rulemoor.service: Start request repeated too quickly.",
                 "UNIT": "rulemoor.service",
-                "_BOOT_ID": "9dca9a86b0db4438a5bed03937187b49",
-                "__MONOTONIC_TIMESTAMP": "26949544"
+                "_BOOT_ID": "3a919b46a1f141698afb2ca2ce23e255",
+                "__MONOTONIC_TIMESTAMP": "26696935"
               }
             ],
-            "failure_started_monotonic_ns": 20295523633,
-            "failure_observed_monotonic_ns": 26971038303,
-            "boot_before": "9dca9a86-b0db-4438-a5be-d03937187b49",
-            "boot_after": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "failure_started_monotonic_ns": 20092600508,
+            "failure_observed_monotonic_ns": 26720557428,
+            "boot_before": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+            "boot_after": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
             "ready_after_repair": {
               "phase": "ROLLED_BACK",
               "generation": 6,
               "op": "configuration-recovery-null",
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -1109,7 +1116,7 @@
           "phase": "COMMITTED",
           "generation": 0,
           "op": "initial",
-          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
           "current": {
             "default": "accept",
             "rules": [
@@ -1125,7 +1132,7 @@
           "phase": "COMMITTED",
           "generation": 0,
           "op": "initial",
-          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
           "current": {
             "default": "accept",
             "rules": [
@@ -1276,9 +1283,9 @@
           }
         ],
         "listener_identity": {
-          "pid": 1720,
-          "start_ticks": 1179,
-          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+          "pid": 1725,
+          "start_ticks": 1154,
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
         },
         "tcp_probe_before_foreign_drop": {
           "connected": true,
@@ -1286,17 +1293,17 @@
           "listener_before": {
             "poll": null,
             "identity": {
-              "pid": 1720,
-              "start_ticks": 1179,
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+              "pid": 1725,
+              "start_ticks": 1154,
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
             }
           },
           "listener_after": {
             "poll": null,
             "identity": {
-              "pid": 1720,
-              "start_ticks": 1179,
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+              "pid": 1725,
+              "start_ticks": 1154,
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
             }
           }
         },
@@ -1454,17 +1461,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1720,
-                  "start_ticks": 1179,
-                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                  "pid": 1725,
+                  "start_ticks": 1154,
+                  "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1720,
-                  "start_ticks": 1179,
-                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                  "pid": 1725,
+                  "start_ticks": 1154,
+                  "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
                 }
               }
             },
@@ -1474,17 +1481,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1720,
-                  "start_ticks": 1179,
-                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                  "pid": 1725,
+                  "start_ticks": 1154,
+                  "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1720,
-                  "start_ticks": 1179,
-                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                  "pid": 1725,
+                  "start_ticks": 1154,
+                  "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
                 }
               }
             },
@@ -1494,26 +1501,26 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1720,
-                  "start_ticks": 1179,
-                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                  "pid": 1725,
+                  "start_ticks": 1154,
+                  "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1720,
-                  "start_ticks": 1179,
-                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                  "pid": 1725,
+                  "start_ticks": 1154,
+                  "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
                 }
               }
             },
             "plan_clock": {
               "clock": "monotonic_ns",
-              "started_ns": 12227115130,
-              "finished_ns": 12279776755
+              "started_ns": 11994579504,
+              "finished_ns": 12045597421
             },
-            "plan_observed_ms": 52.661625
+            "plan_observed_ms": 51.017917
           },
           {
             "priority": 10,
@@ -1668,17 +1675,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1720,
-                  "start_ticks": 1179,
-                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                  "pid": 1725,
+                  "start_ticks": 1154,
+                  "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1720,
-                  "start_ticks": 1179,
-                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                  "pid": 1725,
+                  "start_ticks": 1154,
+                  "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
                 }
               }
             },
@@ -1688,17 +1695,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1720,
-                  "start_ticks": 1179,
-                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                  "pid": 1725,
+                  "start_ticks": 1154,
+                  "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1720,
-                  "start_ticks": 1179,
-                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                  "pid": 1725,
+                  "start_ticks": 1154,
+                  "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
                 }
               }
             },
@@ -1708,26 +1715,26 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1720,
-                  "start_ticks": 1179,
-                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                  "pid": 1725,
+                  "start_ticks": 1154,
+                  "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1720,
-                  "start_ticks": 1179,
-                  "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+                  "pid": 1725,
+                  "start_ticks": 1154,
+                  "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
                 }
               }
             },
             "plan_clock": {
               "clock": "monotonic_ns",
-              "started_ns": 12577794713,
-              "finished_ns": 12627185588
+              "started_ns": 12339919212,
+              "finished_ns": 12392951004
             },
-            "plan_observed_ms": 49.390875
+            "plan_observed_ms": 53.031792
           }
         ],
         "unsupported_condition": {
@@ -1905,17 +1912,17 @@
           "listener_before": {
             "poll": null,
             "identity": {
-              "pid": 1720,
-              "start_ticks": 1179,
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+              "pid": 1725,
+              "start_ticks": 1154,
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
             }
           },
           "listener_after": {
             "poll": null,
             "identity": {
-              "pid": 1720,
-              "start_ticks": 1179,
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+              "pid": 1725,
+              "start_ticks": 1154,
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
             }
           }
         },
@@ -1925,17 +1932,17 @@
           "listener_before": {
             "poll": null,
             "identity": {
-              "pid": 1720,
-              "start_ticks": 1179,
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+              "pid": 1725,
+              "start_ticks": 1154,
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
             }
           },
           "listener_after": {
             "poll": null,
             "identity": {
-              "pid": 1720,
-              "start_ticks": 1179,
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+              "pid": 1725,
+              "start_ticks": 1154,
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
             }
           }
         },
@@ -1945,17 +1952,17 @@
           "listener_before": {
             "poll": null,
             "identity": {
-              "pid": 1720,
-              "start_ticks": 1179,
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+              "pid": 1725,
+              "start_ticks": 1154,
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
             }
           },
           "listener_after": {
             "poll": null,
             "identity": {
-              "pid": 1720,
-              "start_ticks": 1179,
-              "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+              "pid": 1725,
+              "start_ticks": 1154,
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
             }
           }
         },
@@ -1966,25 +1973,25 @@
           "generation": 1
         },
         "memory": {
-          "agent_rss_bytes": 24256512,
-          "agent_vmhwm_bytes": 24256512,
-          "service_cgroup_memory_current_bytes": 12529664,
+          "agent_rss_bytes": 24182784,
+          "agent_vmhwm_bytes": 24182784,
+          "service_cgroup_memory_current_bytes": 12464128,
           "process_identity": {
-            "pid": 1714,
-            "start_ticks": 1169,
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            "pid": 1718,
+            "start_ticks": 1144,
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
           },
-          "main_pid_after": 1714,
-          "invocation_id": "ec1c021e38394fbd9ccaaf39f270647e",
-          "invocation_id_after": "ec1c021e38394fbd9ccaaf39f270647e",
+          "main_pid_after": 1718,
+          "invocation_id": "fe5e28eb87b24b2eb6031cdeacd254e1",
+          "invocation_id_after": "fe5e28eb87b24b2eb6031cdeacd254e1",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 13095146547,
-          "sample_finished_ns": 13100262422,
+          "sample_started_ns": 12858062463,
+          "sample_finished_ns": 12864961754,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "own_kernel_after_allowed_apply": [
@@ -2060,7 +2067,7 @@
           "phase": "COMMITTED",
           "generation": 1,
           "op": "guard-admitted",
-          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
           "current": {
             "default": "accept",
             "rules": [
@@ -2093,6 +2100,3153 @@
       }
     },
     {
+      "name": "dual_stack",
+      "passed": true,
+      "evidence": {
+        "mode": "fresh-dual-no-migration",
+        "cleanup": {
+          "client_namespace_removed": true,
+          "veth_removed": true,
+          "legacy_state_and_unit_restored": true
+        },
+        "legacy_adoption_exit_code": 1,
+        "legacy_table_after_refused_init": [
+          {
+            "table": {
+              "family": "ip",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "accept"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59991
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          }
+        ],
+        "baseline": {
+          "ipv4": {
+            "default": "drop",
+            "rules": [
+              {
+                "port": 18443,
+                "verdict": "accept"
+              },
+              {
+                "port": 59991,
+                "verdict": "drop"
+              }
+            ]
+          },
+          "ipv6": {
+            "default": "drop",
+            "rules": [
+              {
+                "port": 18443,
+                "verdict": "accept"
+              },
+              {
+                "port": 59991,
+                "verdict": "drop"
+              }
+            ]
+          }
+        },
+        "blocked_candidate": {
+          "ipv4": {
+            "default": "drop",
+            "rules": [
+              {
+                "port": 18443,
+                "verdict": "accept"
+              },
+              {
+                "port": 59992,
+                "verdict": "drop"
+              }
+            ]
+          },
+          "ipv6": {
+            "default": "drop",
+            "rules": []
+          }
+        },
+        "candidate": {
+          "ipv4": {
+            "default": "drop",
+            "rules": [
+              {
+                "port": 18443,
+                "verdict": "accept"
+              },
+              {
+                "port": 59992,
+                "verdict": "drop"
+              }
+            ]
+          },
+          "ipv6": {
+            "default": "drop",
+            "rules": [
+              {
+                "port": 18443,
+                "verdict": "accept"
+              },
+              {
+                "port": 59993,
+                "verdict": "drop"
+              }
+            ]
+          }
+        },
+        "initial": {
+          "ipv4": {
+            "phase": "COMMITTED",
+            "generation": 0,
+            "op": "initial",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+            "current": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "candidate": null
+          },
+          "ipv6": {
+            "phase": "COMMITTED",
+            "generation": 0,
+            "op": "initial",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+            "current": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "candidate": null
+          }
+        },
+        "initial_kernel": [
+          {
+            "table": {
+              "family": "ip",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59991
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          },
+          {
+            "table": {
+              "family": "ip6",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "meta": {
+                        "key": "l4proto"
+                      }
+                    },
+                    "right": "ipv6-icmp"
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59991
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          }
+        ],
+        "atomic_rejection_exit_code": 1,
+        "kernel_after_atomic_rejection": [
+          {
+            "table": {
+              "family": "ip",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59991
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          },
+          {
+            "table": {
+              "family": "ip6",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "meta": {
+                        "key": "l4proto"
+                      }
+                    },
+                    "right": "ipv6-icmp"
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59991
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          }
+        ],
+        "failure": {
+          "pending": {
+            "phase": "AWAITING_CONFIRM",
+            "generation": 1,
+            "op": "dual-v6-blocked",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+            "current": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "baseline": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "candidate": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": []
+              }
+            },
+            "confirmed_families": []
+          },
+          "partial": [
+            {
+              "phase": "AWAITING_CONFIRM",
+              "generation": 1,
+              "op": "dual-v6-blocked",
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+              "current": {
+                "ipv4": {
+                  "default": "drop",
+                  "rules": [
+                    {
+                      "port": 18443,
+                      "verdict": "accept"
+                    },
+                    {
+                      "port": 59991,
+                      "verdict": "drop"
+                    }
+                  ]
+                },
+                "ipv6": {
+                  "default": "drop",
+                  "rules": [
+                    {
+                      "port": 18443,
+                      "verdict": "accept"
+                    },
+                    {
+                      "port": 59991,
+                      "verdict": "drop"
+                    }
+                  ]
+                }
+              },
+              "baseline": {
+                "ipv4": {
+                  "default": "drop",
+                  "rules": [
+                    {
+                      "port": 18443,
+                      "verdict": "accept"
+                    },
+                    {
+                      "port": 59991,
+                      "verdict": "drop"
+                    }
+                  ]
+                },
+                "ipv6": {
+                  "default": "drop",
+                  "rules": [
+                    {
+                      "port": 18443,
+                      "verdict": "accept"
+                    },
+                    {
+                      "port": 59991,
+                      "verdict": "drop"
+                    }
+                  ]
+                }
+              },
+              "candidate": {
+                "ipv4": {
+                  "default": "drop",
+                  "rules": [
+                    {
+                      "port": 18443,
+                      "verdict": "accept"
+                    },
+                    {
+                      "port": 59992,
+                      "verdict": "drop"
+                    }
+                  ]
+                },
+                "ipv6": {
+                  "default": "drop",
+                  "rules": []
+                }
+              },
+              "confirmed_families": [
+                "ipv4"
+              ]
+            },
+            {
+              "phase": "AWAITING_CONFIRM",
+              "generation": 1,
+              "op": "dual-v6-blocked",
+              "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+              "current": {
+                "ipv4": {
+                  "default": "drop",
+                  "rules": [
+                    {
+                      "port": 18443,
+                      "verdict": "accept"
+                    },
+                    {
+                      "port": 59991,
+                      "verdict": "drop"
+                    }
+                  ]
+                },
+                "ipv6": {
+                  "default": "drop",
+                  "rules": [
+                    {
+                      "port": 18443,
+                      "verdict": "accept"
+                    },
+                    {
+                      "port": 59991,
+                      "verdict": "drop"
+                    }
+                  ]
+                }
+              },
+              "baseline": {
+                "ipv4": {
+                  "default": "drop",
+                  "rules": [
+                    {
+                      "port": 18443,
+                      "verdict": "accept"
+                    },
+                    {
+                      "port": 59991,
+                      "verdict": "drop"
+                    }
+                  ]
+                },
+                "ipv6": {
+                  "default": "drop",
+                  "rules": [
+                    {
+                      "port": 18443,
+                      "verdict": "accept"
+                    },
+                    {
+                      "port": 59991,
+                      "verdict": "drop"
+                    }
+                  ]
+                }
+              },
+              "candidate": {
+                "ipv4": {
+                  "default": "drop",
+                  "rules": [
+                    {
+                      "port": 18443,
+                      "verdict": "accept"
+                    },
+                    {
+                      "port": 59992,
+                      "verdict": "drop"
+                    }
+                  ]
+                },
+                "ipv6": {
+                  "default": "drop",
+                  "rules": []
+                }
+              },
+              "confirmed_families": [
+                "ipv4"
+              ]
+            }
+          ],
+          "old_confirmation_status": {
+            "ipv4": 409,
+            "ipv6": 409
+          },
+          "spoof_rejected": true,
+          "ipv6_connect_errno": 11,
+          "deadline": 32.847736762
+        },
+        "pending_kernel": [
+          {
+            "table": {
+              "family": "ip",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59992
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          },
+          {
+            "table": {
+              "family": "ip6",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "meta": {
+                        "key": "l4proto"
+                      }
+                    },
+                    "right": "ipv6-icmp"
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          }
+        ],
+        "restored": {
+          "phase": "ROLLED_BACK",
+          "generation": 1,
+          "op": "dual-v6-blocked",
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+          "current": {
+            "ipv4": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "ipv6": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          "baseline": {
+            "ipv4": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "ipv6": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          "candidate": {
+            "ipv4": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "ipv6": {
+              "default": "drop",
+              "rules": []
+            }
+          },
+          "confirmed_families": [
+            "ipv4"
+          ]
+        },
+        "restored_kernel": [
+          {
+            "table": {
+              "family": "ip",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59991
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          },
+          {
+            "table": {
+              "family": "ip6",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "meta": {
+                        "key": "l4proto"
+                      }
+                    },
+                    "right": "ipv6-icmp"
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59991
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          }
+        ],
+        "fresh_after_rollback": {
+          "ipv4": {
+            "phase": "ROLLED_BACK",
+            "generation": 1,
+            "op": "dual-v6-blocked",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+            "current": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "baseline": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "candidate": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": []
+              }
+            },
+            "confirmed_families": [
+              "ipv4"
+            ]
+          },
+          "ipv6": {
+            "phase": "ROLLED_BACK",
+            "generation": 1,
+            "op": "dual-v6-blocked",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+            "current": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "baseline": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "candidate": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": []
+              }
+            },
+            "confirmed_families": [
+              "ipv4"
+            ]
+          }
+        },
+        "rollback_clock": {
+          "deadline": 32.847736762,
+          "rollback_started_at": 32.863109764,
+          "rollback_completed_at": 32.895181097,
+          "clock": "CLOCK_BOOTTIME",
+          "observed_at": 32.938513181
+        },
+        "same_service_identity_during_timeout": {
+          "pid": 2344,
+          "start_ticks": 2762,
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
+        },
+        "identity_after_timeout": {
+          "pid": 2344,
+          "start_ticks": 2762,
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
+        },
+        "success": {
+          "ipv4_partial": {
+            "phase": "AWAITING_CONFIRM",
+            "generation": 2,
+            "op": "dual-both-success",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+            "current": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "baseline": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "candidate": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59993,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "confirmed_families": [
+              "ipv4"
+            ]
+          },
+          "ipv6_committed": {
+            "phase": "COMMITTED",
+            "generation": 2,
+            "op": "dual-both-success",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+            "current": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59993,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "baseline": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59991,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "candidate": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59993,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "confirmed_families": [
+              "ipv4",
+              "ipv6"
+            ]
+          },
+          "confirmation_clock": {
+            "clock": "monotonic_ns",
+            "started_ns": 33099708639,
+            "partial_ns": 33104336681,
+            "finished_ns": 33108516847
+          },
+          "partial_ms": 4.628042,
+          "commit_ms": 4.180166
+        },
+        "committed_kernel": [
+          {
+            "table": {
+              "family": "ip",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59992
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          },
+          {
+            "table": {
+              "family": "ip6",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "meta": {
+                        "key": "l4proto"
+                      }
+                    },
+                    "right": "ipv6-icmp"
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59993
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          }
+        ],
+        "ipv6_neighbour_observation": "2001:db8:44::2 lladdr a2:52:b1:0b:1c:05 REACHABLE",
+        "memory": {
+          "agent_rss_bytes": 24686592,
+          "agent_vmhwm_bytes": 24686592,
+          "service_cgroup_memory_current_bytes": 12914688,
+          "process_identity": {
+            "pid": 2344,
+            "start_ticks": 2762,
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
+          },
+          "main_pid_after": 2344,
+          "invocation_id": "9f15a3efbb1f4aaba6d8b5d06850c784",
+          "invocation_id_after": "9f15a3efbb1f4aaba6d8b5d06850c784",
+          "process_namespace_inode": 4026532410,
+          "target_namespace_inode": 4026532410,
+          "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
+          "cwd": "/",
+          "python_path_environment_clean": true,
+          "control_group": "/system.slice/rulemoor.service",
+          "sample_started_ns": 33115506764,
+          "sample_finished_ns": 33119958472,
+          "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
+        },
+        "partial_before_kill": {
+          "phase": "AWAITING_CONFIRM",
+          "generation": 3,
+          "op": "dual-partial-crash",
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+          "current": {
+            "ipv4": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "ipv6": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59993,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          "baseline": {
+            "ipv4": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "ipv6": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59993,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          "candidate": {
+            "ipv4": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "ipv6": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          "confirmed_families": [
+            "ipv4"
+          ]
+        },
+        "kernel_before_kill": [
+          {
+            "table": {
+              "family": "ip",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59991
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          },
+          {
+            "table": {
+              "family": "ip6",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "meta": {
+                        "key": "l4proto"
+                      }
+                    },
+                    "right": "ipv6-icmp"
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59991
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          }
+        ],
+        "signal": "SIGKILL",
+        "identity_after_restart": {
+          "pid": 2659,
+          "start_ticks": 3451,
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
+        },
+        "recovered": {
+          "phase": "ROLLED_BACK",
+          "generation": 4,
+          "op": "dual-partial-crash",
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+          "current": {
+            "ipv4": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "ipv6": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59993,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          "baseline": {
+            "ipv4": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59992,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "ipv6": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59993,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          "candidate": {
+            "ipv4": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "ipv6": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59991,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          "confirmed_families": [
+            "ipv4"
+          ]
+        },
+        "recovered_kernel": [
+          {
+            "table": {
+              "family": "ip",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59992
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          },
+          {
+            "table": {
+              "family": "ip6",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "meta": {
+                        "key": "l4proto"
+                      }
+                    },
+                    "right": "ipv6-icmp"
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59993
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          }
+        ],
+        "stale": {
+          "rejected": [
+            "/confirm",
+            "/cancel",
+            "/apply"
+          ],
+          "before": {
+            "phase": "AWAITING_CONFIRM",
+            "generation": 5,
+            "op": "dual-newer",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+            "current": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59993,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "baseline": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59993,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "candidate": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  },
+                  {
+                    "port": 59994,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59993,
+                    "verdict": "drop"
+                  },
+                  {
+                    "port": 59995,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "confirmed_families": []
+          },
+          "after": {
+            "phase": "COMMITTED",
+            "generation": 5,
+            "op": "dual-newer",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+            "current": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  },
+                  {
+                    "port": 59994,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59993,
+                    "verdict": "drop"
+                  },
+                  {
+                    "port": 59995,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "baseline": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59993,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "candidate": {
+              "ipv4": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59992,
+                    "verdict": "drop"
+                  },
+                  {
+                    "port": 59994,
+                    "verdict": "drop"
+                  }
+                ]
+              },
+              "ipv6": {
+                "default": "drop",
+                "rules": [
+                  {
+                    "port": 18443,
+                    "verdict": "accept"
+                  },
+                  {
+                    "port": 59993,
+                    "verdict": "drop"
+                  },
+                  {
+                    "port": 59995,
+                    "verdict": "drop"
+                  }
+                ]
+              }
+            },
+            "confirmed_families": [
+              "ipv4",
+              "ipv6"
+            ]
+          }
+        },
+        "newer": {
+          "ipv4": {
+            "default": "drop",
+            "rules": [
+              {
+                "port": 18443,
+                "verdict": "accept"
+              },
+              {
+                "port": 59992,
+                "verdict": "drop"
+              },
+              {
+                "port": 59994,
+                "verdict": "drop"
+              }
+            ]
+          },
+          "ipv6": {
+            "default": "drop",
+            "rules": [
+              {
+                "port": 18443,
+                "verdict": "accept"
+              },
+              {
+                "port": 59993,
+                "verdict": "drop"
+              },
+              {
+                "port": 59995,
+                "verdict": "drop"
+              }
+            ]
+          }
+        },
+        "kernel_after_stale": [
+          {
+            "table": {
+              "family": "ip",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59992
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59994
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          },
+          {
+            "table": {
+              "family": "ip6",
+              "name": "rulemoor"
+            }
+          },
+          {
+            "chain": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "name": "input",
+              "type": "filter",
+              "hook": "input",
+              "prio": 0,
+              "policy": "drop"
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "in",
+                    "left": {
+                      "ct": {
+                        "key": "state"
+                      }
+                    },
+                    "right": [
+                      "established",
+                      "related"
+                    ]
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "meta": {
+                        "key": "l4proto"
+                      }
+                    },
+                    "right": "ipv6-icmp"
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 18443
+                  }
+                },
+                {
+                  "accept": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59993
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          },
+          {
+            "rule": {
+              "family": "ip6",
+              "table": "rulemoor",
+              "chain": "input",
+              "expr": [
+                {
+                  "match": {
+                    "op": "==",
+                    "left": {
+                      "payload": {
+                        "protocol": "tcp",
+                        "field": "dport"
+                      }
+                    },
+                    "right": 59995
+                  }
+                },
+                {
+                  "drop": null
+                }
+              ]
+            }
+          }
+        ],
+        "foreign_before": [
+          [
+            {
+              "table": {
+                "family": "ip",
+                "name": "rm_dual_foreign"
+              }
+            },
+            {
+              "chain": {
+                "family": "ip",
+                "table": "rm_dual_foreign",
+                "name": "marker"
+              }
+            }
+          ],
+          [
+            {
+              "table": {
+                "family": "ip6",
+                "name": "rm_dual_foreign"
+              }
+            },
+            {
+              "chain": {
+                "family": "ip6",
+                "table": "rm_dual_foreign",
+                "name": "marker"
+              }
+            }
+          ]
+        ],
+        "foreign_after": [
+          [
+            {
+              "table": {
+                "family": "ip",
+                "name": "rm_dual_foreign"
+              }
+            },
+            {
+              "chain": {
+                "family": "ip",
+                "table": "rm_dual_foreign",
+                "name": "marker"
+              }
+            }
+          ],
+          [
+            {
+              "table": {
+                "family": "ip6",
+                "name": "rm_dual_foreign"
+              }
+            },
+            {
+              "chain": {
+                "family": "ip6",
+                "table": "rm_dual_foreign",
+                "name": "marker"
+              }
+            }
+          ]
+        ],
+        "scope": "Static veth peers, installed systemd service; not WAN, routed PMTU, SLAAC, dual boot or power-loss testing"
+      }
+    },
+    {
       "name": "poisoned_journal",
       "passed": true,
       "evidence": {
@@ -2101,8 +5255,8 @@
         "diagnostic_reason": "Unreadable journal; local operator recovery required",
         "original_snapshot_preserved": true,
         "mutations_rejected": true,
-        "invocation_before": "06e905800c6b4bb3950641d410e41115",
-        "invocation_after": "06e905800c6b4bb3950641d410e41115",
+        "invocation_before": "64bbf2fe110d40ffaa4e7933afa8d7dd",
+        "invocation_after": "64bbf2fe110d40ffaa4e7933afa8d7dd",
         "restart_count_before": 0,
         "restart_count_after": 0,
         "kernel_before": [
@@ -2244,25 +5398,25 @@
           }
         ],
         "memory": {
-          "agent_rss_bytes": 23392256,
-          "agent_vmhwm_bytes": 23392256,
-          "service_cgroup_memory_current_bytes": 11292672,
+          "agent_rss_bytes": 23396352,
+          "agent_vmhwm_bytes": 23396352,
+          "service_cgroup_memory_current_bytes": 11284480,
           "process_identity": {
-            "pid": 2288,
-            "start_ticks": 2767,
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            "pid": 2770,
+            "start_ticks": 3547,
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
           },
-          "main_pid_after": 2288,
-          "invocation_id": "06e905800c6b4bb3950641d410e41115",
-          "invocation_id_after": "06e905800c6b4bb3950641d410e41115",
+          "main_pid_after": 2770,
+          "invocation_id": "64bbf2fe110d40ffaa4e7933afa8d7dd",
+          "invocation_id_after": "64bbf2fe110d40ffaa4e7933afa8d7dd",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 30011447471,
-          "sample_finished_ns": 30020852638,
+          "sample_started_ns": 37815121406,
+          "sample_finished_ns": 37824267552,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "fixture_only_reprovision_and_token_rotation": true,
@@ -2296,26 +5450,26 @@
           "Result": "exit-code",
           "ExecMainStatus": "1"
         },
-        "failure_started_monotonic_ns": 30663523847,
+        "failure_started_monotonic_ns": 38396427241,
         "start_limit_receipts": [
           {
             "MESSAGE": "rulemoor.service: Start request repeated too quickly.",
             "UNIT": "rulemoor.service",
-            "_BOOT_ID": "9dca9a86b0db4438a5bed03937187b49",
-            "__MONOTONIC_TIMESTAMP": "36981038"
+            "_BOOT_ID": "3a919b46a1f141698afb2ca2ce23e255",
+            "__MONOTONIC_TIMESTAMP": "44771606"
           }
         ],
         "observation_clock": {
           "clock": "monotonic_ns",
-          "started_ns": 37027511517,
-          "finished_ns": 39238666724
+          "started_ns": 44821983737,
+          "finished_ns": 47034588047
         },
-        "observation_seconds": 2.211155207,
+        "observation_seconds": 2.21260431,
         "journal_before_failure": {
           "phase": "AWAITING_CONFIRM",
           "generation": 1,
           "op": "initial",
-          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
           "current": {
             "default": "accept",
             "rules": [
@@ -2348,7 +5502,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 1,
           "op": "initial",
-          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
           "current": {
             "default": "accept",
             "rules": [
@@ -2525,7 +5679,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 3,
             "op": "after-limit-new",
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
             "current": {
               "default": "accept",
               "rules": [
@@ -2558,7 +5712,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 3,
             "op": "after-limit-new",
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
             "current": {
               "default": "accept",
               "rules": [
@@ -2660,7 +5814,7 @@
             "phase": "COMMITTED",
             "generation": 3,
             "op": "after-limit-new",
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
             "current": {
               "default": "accept",
               "rules": [
@@ -2770,25 +5924,25 @@
           ]
         },
         "memory": {
-          "agent_rss_bytes": 23973888,
-          "agent_vmhwm_bytes": 23973888,
-          "service_cgroup_memory_current_bytes": 12242944,
+          "agent_rss_bytes": 23834624,
+          "agent_vmhwm_bytes": 23834624,
+          "service_cgroup_memory_current_bytes": 12017664,
           "process_identity": {
-            "pid": 2543,
-            "start_ticks": 3925,
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            "pid": 3021,
+            "start_ticks": 4705,
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
           },
-          "main_pid_after": 2543,
-          "invocation_id": "752290f8bbaa45858d873f5e98ad3514",
-          "invocation_id_after": "752290f8bbaa45858d873f5e98ad3514",
+          "main_pid_after": 3021,
+          "invocation_id": "33fc2fef71c046cd86cfe7b0224e0c10",
+          "invocation_id_after": "33fc2fef71c046cd86cfe7b0224e0c10",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 39779246707,
-          "sample_finished_ns": 39783945291,
+          "sample_started_ns": 47593031427,
+          "sample_finished_ns": 47597677376,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "segmentation_fault_tested": false,
@@ -2812,7 +5966,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 7,
             "op": "after-crash-new",
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
             "current": {
               "default": "accept",
               "rules": [
@@ -2845,7 +5999,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 7,
             "op": "after-crash-new",
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
             "current": {
               "default": "accept",
               "rules": [
@@ -2947,7 +6101,7 @@
             "phase": "COMMITTED",
             "generation": 7,
             "op": "after-crash-new",
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
             "current": {
               "default": "accept",
               "rules": [
@@ -3056,33 +6210,33 @@
             "apply"
           ]
         },
-        "kill_to_tls_ready_observed_ms": 1371.074126,
+        "kill_to_tls_ready_observed_ms": 1340.584669,
         "recovery_clock": {
           "clock": "monotonic_ns",
-          "kill_started_ns": 40152737401,
-          "tls_observed_ns": 41523811527,
-          "baseline_verified_ns": 41529121866
+          "kill_started_ns": 47981964637,
+          "tls_observed_ns": 49322549306,
+          "baseline_verified_ns": 49326081206
         },
         "memory": {
-          "agent_rss_bytes": 23859200,
-          "agent_vmhwm_bytes": 23859200,
-          "service_cgroup_memory_current_bytes": 11993088,
+          "agent_rss_bytes": 23912448,
+          "agent_vmhwm_bytes": 23912448,
+          "service_cgroup_memory_current_bytes": 12013568,
           "process_identity": {
-            "pid": 2649,
-            "start_ticks": 4140,
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+            "pid": 3127,
+            "start_ticks": 4923,
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
           },
-          "main_pid_after": 2649,
-          "invocation_id": "ec768127e7e547cfac3f32f68b8feafe",
-          "invocation_id_after": "ec768127e7e547cfac3f32f68b8feafe",
+          "main_pid_after": 3127,
+          "invocation_id": "4e408ed43bc7474285a3eac07bba2da2",
+          "invocation_id_after": "4e408ed43bc7474285a3eac07bba2da2",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 41879042906,
-          "sample_finished_ns": 41883618692,
+          "sample_started_ns": 49623830382,
+          "sample_finished_ns": 49628327240,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "old_generation": 5,
@@ -3234,9 +6388,9 @@
       "evidence": {
         "test_only_fault_override": true,
         "old_executor_identity": {
-          "pid": 2756,
-          "start_ticks": 4242,
-          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49"
+          "pid": 3234,
+          "start_ticks": 5015,
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255"
         },
         "old_executor_retired": true,
         "systemd_cgroup_restart_observed": true,
@@ -3250,7 +6404,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 10,
             "op": "after-held-new",
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
             "current": {
               "default": "accept",
               "rules": [
@@ -3283,7 +6437,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 10,
             "op": "after-held-new",
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
             "current": {
               "default": "accept",
               "rules": [
@@ -3385,7 +6539,7 @@
             "phase": "COMMITTED",
             "generation": 10,
             "op": "after-held-new",
-            "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+            "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
             "current": {
               "default": "accept",
               "rules": [
@@ -3571,7 +6725,7 @@
       "name": "prepare_pending_boot",
       "passed": true,
       "evidence": {
-        "boot_id": "9dca9a86-b0db-4438-a5be-d03937187b49",
+        "boot_id": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
         "journal_pending_after_service_stop": true,
         "candidate_still_installed": true,
         "graceful_rollback_deliberately_bypassed": true,
@@ -3649,7 +6803,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 11,
           "op": "pending-before-boot",
-          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
           "current": {
             "default": "accept",
             "rules": [
@@ -3685,14 +6839,14 @@
       "name": "after_pending_boot",
       "passed": true,
       "evidence": {
-        "boot_id_before": "9dca9a86-b0db-4438-a5be-d03937187b49",
-        "boot_id_after": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31",
+        "boot_id_before": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
+        "boot_id_after": "f1f90f4d-a916-41c1-b736-a4731a591147",
         "pre_agent_table_absent": true,
         "journal_before_agent": {
           "phase": "AWAITING_CONFIRM",
           "generation": 11,
           "op": "pending-before-boot",
-          "boot": "9dca9a86-b0db-4438-a5be-d03937187b49",
+          "boot": "3a919b46-a1f1-4169-8afb-2ca2ce23e255",
           "current": {
             "default": "accept",
             "rules": [
@@ -3731,7 +6885,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 13,
             "op": "post-boot-new",
-            "boot": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31",
+            "boot": "f1f90f4d-a916-41c1-b736-a4731a591147",
             "current": {
               "default": "accept",
               "rules": [
@@ -3764,7 +6918,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 13,
             "op": "post-boot-new",
-            "boot": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31",
+            "boot": "f1f90f4d-a916-41c1-b736-a4731a591147",
             "current": {
               "default": "accept",
               "rules": [
@@ -3866,7 +7020,7 @@
             "phase": "COMMITTED",
             "generation": 13,
             "op": "post-boot-new",
-            "boot": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31",
+            "boot": "f1f90f4d-a916-41c1-b736-a4731a591147",
             "current": {
               "default": "accept",
               "rules": [
@@ -3975,27 +7129,27 @@
             "apply"
           ]
         },
-        "vm_uptime_after_validation_seconds": 6.561610044,
+        "vm_uptime_after_validation_seconds": 6.510808169,
         "memory": {
-          "agent_rss_bytes": 23941120,
-          "agent_vmhwm_bytes": 23941120,
-          "service_cgroup_memory_current_bytes": 12558336,
+          "agent_rss_bytes": 23842816,
+          "agent_vmhwm_bytes": 23842816,
+          "service_cgroup_memory_current_bytes": 12455936,
           "process_identity": {
-            "pid": 509,
-            "start_ticks": 244,
-            "boot": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31"
+            "pid": 508,
+            "start_ticks": 189,
+            "boot": "f1f90f4d-a916-41c1-b736-a4731a591147"
           },
-          "main_pid_after": 509,
-          "invocation_id": "2f767d9206cb45d0939106acfee5e743",
-          "invocation_id_after": "2f767d9206cb45d0939106acfee5e743",
-          "process_namespace_inode": 4026532394,
-          "target_namespace_inode": 4026532394,
+          "main_pid_after": 508,
+          "invocation_id": "ec215cd38a094a1e9a8e809faedffb2a",
+          "invocation_id_after": "ec215cd38a094a1e9a8e809faedffb2a",
+          "process_namespace_inode": 4026532391,
+          "target_namespace_inode": 4026532391,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 6561610544,
-          "sample_finished_ns": 6566497794,
+          "sample_started_ns": 6510808711,
+          "sample_finished_ns": 6515935253,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "old_generation": 11,
@@ -4145,14 +7299,14 @@
       "name": "after_committed_boot",
       "passed": true,
       "evidence": {
-        "boot_id_before": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31",
-        "boot_id_after": "888e7753-10d0-42a0-932f-1094bb9a3576",
+        "boot_id_before": "f1f90f4d-a916-41c1-b736-a4731a591147",
+        "boot_id_after": "c1392ad4-432a-409a-97c4-162aae66f480",
         "pre_agent_table_absent": true,
         "journal_before_agent": {
           "phase": "COMMITTED",
           "generation": 13,
           "op": "post-boot-new",
-          "boot": "d6db8d2c-f08e-41fd-86bf-e2c936a20d31",
+          "boot": "f1f90f4d-a916-41c1-b736-a4731a591147",
           "current": {
             "default": "accept",
             "rules": [
@@ -4186,25 +7340,25 @@
         "old_base_rejected": true,
         "same_boot_foreign_policy_preserved": true,
         "memory": {
-          "agent_rss_bytes": 23273472,
-          "agent_vmhwm_bytes": 23273472,
-          "service_cgroup_memory_current_bytes": 11567104,
+          "agent_rss_bytes": 23277568,
+          "agent_vmhwm_bytes": 23277568,
+          "service_cgroup_memory_current_bytes": 11784192,
           "process_identity": {
-            "pid": 501,
-            "start_ticks": 197,
-            "boot": "888e7753-10d0-42a0-932f-1094bb9a3576"
+            "pid": 504,
+            "start_ticks": 215,
+            "boot": "c1392ad4-432a-409a-97c4-162aae66f480"
           },
-          "main_pid_after": 501,
-          "invocation_id": "6f22f14a9f4e4e539310951837270b07",
-          "invocation_id_after": "6f22f14a9f4e4e539310951837270b07",
+          "main_pid_after": 504,
+          "invocation_id": "a5a16524517a40c59d03a651cbd3cfcd",
+          "invocation_id_after": "a5a16524517a40c59d03a651cbd3cfcd",
           "process_namespace_inode": 4026532394,
           "target_namespace_inode": 4026532394,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 6098218210,
-          "sample_finished_ns": 6103539918,
+          "sample_started_ns": 6026936669,
+          "sample_finished_ns": 6032138461,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "memory_stage": "committed_after_boot_before_foreign_policy_probe",
@@ -4323,19 +7477,19 @@
     }
   ],
   "vm_initial_state": "Stopped",
-  "wheel_sha256": "7738b2df6f3a8650d787810c03346d7dc482f852efe07733298dcce96dd872ce",
+  "wheel_sha256": "09a4f9555795505c0a7f19248d3d2be21181c701c6f0ce748f1b69b379a6217d",
   "pending_vm_restart_clock": {
     "clock": "monotonic_ns",
-    "started_ns": 68554594894333,
-    "finished_ns": 68566225754208
+    "started_ns": 69897638104500,
+    "finished_ns": 69909485443875
   },
-  "pending_vm_restart_control_seconds": 11.630859875,
+  "pending_vm_restart_control_seconds": 11.847339375,
   "committed_vm_restart_clock": {
     "clock": "monotonic_ns",
-    "started_ns": 68566225762791,
-    "finished_ns": 68578014918416
+    "started_ns": 69909485449541,
+    "finished_ns": 69921095793708
   },
-  "committed_vm_restart_control_seconds": 11.789155625,
+  "committed_vm_restart_control_seconds": 11.610344167,
   "source_snapshot_removed": true,
   "vm_final_state": "Stopped",
   "evidence_controls": [
@@ -4457,6 +7611,34 @@
     },
     {
       "name": "configuration-recovery-skipped",
+      "rejected": true
+    },
+    {
+      "name": "dual-v4-masks-v6",
+      "rejected": true
+    },
+    {
+      "name": "dual-wrong-rollback",
+      "rejected": true
+    },
+    {
+      "name": "dual-wrong-transport",
+      "rejected": true
+    },
+    {
+      "name": "dual-foreign-modified",
+      "rejected": true
+    },
+    {
+      "name": "dual-missing-timing",
+      "rejected": true
+    },
+    {
+      "name": "dual-partial-crash-not-restored",
+      "rejected": true
+    },
+    {
+      "name": "dual-missing-cleanup",
       "rejected": true
     }
   ]

@@ -7,17 +7,17 @@ from .evidence import fingerprint
 from .deployment_guest import BASE, NEXT, NEW
 from rulemoor.policy import expected
 
-PHASES = ['setup', 'management_diagnostics', 'poisoned_journal', 'restart_limit', 'crash', 'held_writer', 'prepare_pending_boot', 'after_pending_boot', 'after_committed_boot', 'cleanup']
+PHASES = ['setup', 'management_diagnostics', 'dual_stack', 'poisoned_journal', 'restart_limit', 'crash', 'held_writer', 'prepare_pending_boot', 'after_pending_boot', 'after_committed_boot', 'cleanup']
 
 STAGES = ['vm-initial','vm-start','preflight','guest-prerequisites','wheel-build','snapshot-upload',
-          'guest-setup','guest-management_diagnostics','guest-poisoned_journal','guest-restart_limit','guest-crash','guest-held_writer','guest-prepare_pending_boot',
+          'guest-setup','guest-management_diagnostics','guest-dual_stack','guest-poisoned_journal','guest-restart_limit','guest-crash','guest-held_writer','guest-prepare_pending_boot',
           'pending-vm-stop','pending-vm-start','guest-after_pending_boot',
           'committed-vm-stop','committed-vm-start','guest-after_committed_boot',
           'guest-cleanup','snapshot-remove','vm-final-stop','vm-final']
 CONTROL_NAMES = ['boot-identity','missing-case','stale-kernel','missing-cleanup','timeout','source',
                  'missing-stage','wrong-package-origin','wrong-preboot-journal','stale-pending-generation',
                  'infinite-timing','missing-vm-interval','memory-identity','invalid-memory','poison-kernel-write','restart-still-running','failed-journal-changed','missing-limit-receipt','future-limit-receipt','unrelated-startup-memory','wrong-poison-invocation','guard-admitted','foreign-rule-modified','uncertainty-hidden','old-confirmation-admitted','false-tcp-observation',
-                 'connection-refused','missing-tcp-recovery','changed-tcp-listener','configuration-recovery-skipped']
+                 'connection-refused','missing-tcp-recovery','changed-tcp-listener','configuration-recovery-skipped','dual-v4-masks-v6','dual-wrong-rollback','dual-wrong-transport','dual-foreign-modified','dual-missing-timing','dual-partial-crash-not-restored','dual-missing-cleanup']
 
 
 def positive(value):
@@ -142,6 +142,66 @@ def preflight_evidence(row, boot):
     memory_sample(row['memory']);assert row['memory']['process_identity']['boot']==boot
 
 
+def dual_evidence(row, boot):
+    assert row['mode']=='fresh-dual-no-migration'
+    assert row['cleanup']=={'client_namespace_removed':True,'veth_removed':True,'legacy_state_and_unit_restored':True}
+    assert type(row['legacy_adoption_exit_code']) is int and row['legacy_adoption_exit_code']!=0
+    assert row['legacy_table_after_refused_init']==expected(BASE)
+    baseline,blocked,candidate,newer=(row[k] for k in ('baseline','blocked_candidate','candidate','newer'))
+    assert all(set(p)=={'ipv4','ipv6'} for p in (baseline,blocked,candidate,newer))
+    assert blocked['ipv6']=={'default':'drop','rules':[]}
+    assert row['initial']['ipv4']==row['initial']['ipv6']
+    assert row['initial']['ipv4']['phase']=='COMMITTED' and row['initial']['ipv4']['current']==baseline
+    assert row['initial_kernel']==row['kernel_after_atomic_rejection']==expected(baseline)
+    assert type(row['atomic_rejection_exit_code']) is int and row['atomic_rejection_exit_code']!=0
+    f=row['failure'];pending=f['pending']
+    assert pending['phase']=='AWAITING_CONFIRM' and pending['confirmed_families']==[]
+    assert pending['candidate']==blocked and pending['baseline']==pending['current']==baseline
+    assert f['old_confirmation_status']=={'ipv4':409,'ipv6':409} and f['spoof_rejected'] is True
+    assert type(f['ipv6_connect_errno']) is int and f['ipv6_connect_errno'] in (11,110)
+    assert len(f['partial'])==2 and f['partial'][0]==f['partial'][1]
+    partial=f['partial'][0]
+    assert partial=={**pending,'confirmed_families':['ipv4']} and partial['phase']=='AWAITING_CONFIRM'
+    assert row['pending_kernel']==expected(blocked)
+    restored=row['restored']
+    assert restored['phase']=='ROLLED_BACK' and restored['current']==restored['baseline']==baseline
+    assert restored['op']==pending['op'] and restored['generation']==pending['generation']
+    assert row['restored_kernel']==expected(baseline)
+    assert row['fresh_after_rollback']['ipv4']==row['fresh_after_rollback']['ipv6']==restored
+    c=row['rollback_clock'];assert c['clock']=='CLOCK_BOOTTIME' and c['deadline']==f['deadline']
+    for key in ('deadline','rollback_started_at','rollback_completed_at','observed_at'):positive(c[key])
+    assert c['deadline']<=c['rollback_started_at']<=c['rollback_completed_at']<=c['observed_at']
+    i=row['same_service_identity_during_timeout']
+    assert i==row['identity_after_timeout'] and i['boot']==boot and type(i['pid']) is int and i['pid']>1
+    success=row['success'];first,last=success['ipv4_partial'],success['ipv6_committed']
+    assert first['phase']=='AWAITING_CONFIRM' and first['confirmed_families']==['ipv4']
+    assert last=={**first,'phase':'COMMITTED','confirmed_families':['ipv4','ipv6'],'current':candidate}
+    assert first['candidate']==last['candidate']==candidate and first['baseline']==baseline
+    assert first['generation']>restored['generation'] and row['committed_kernel']==expected(candidate)
+    c=success['confirmation_clock'];assert c['clock']=='monotonic_ns' and type(c['partial_ns']) is int
+    interval({'clock':c['clock'],'started_ns':c['started_ns'],'finished_ns':c['partial_ns']},success['partial_ms']/1000)
+    interval({'clock':c['clock'],'started_ns':c['partial_ns'],'finished_ns':c['finished_ns']},success['commit_ms']/1000)
+    assert '2001:db8:44::2' in row['ipv6_neighbour_observation'] and 'lladdr' in row['ipv6_neighbour_observation']
+    memory_sample(row['memory']);assert row['memory']['process_identity']==i
+    partial=row['partial_before_kill'];recovered=row['recovered']
+    assert partial['phase']=='AWAITING_CONFIRM' and partial['confirmed_families']==['ipv4']
+    assert partial['current']==partial['baseline']==candidate and partial['candidate']==baseline
+    assert row['kernel_before_kill']==expected(baseline) and row['signal']=='SIGKILL'
+    assert recovered['phase']=='ROLLED_BACK' and recovered['current']==candidate
+    assert recovered['op']==partial['op'] and recovered['generation']>partial['generation']
+    assert recovered['boot']==partial['boot']==boot
+    assert row['recovered_kernel']==expected(candidate)
+    assert row['identity_after_restart']!=i and row['identity_after_restart']['boot']==boot
+    stale=row['stale'];assert stale['rejected']==['/confirm','/cancel','/apply']
+    assert stale['before']['phase']=='AWAITING_CONFIRM' and stale['before']['generation']>recovered['generation']
+    assert stale['before']['candidate']==newer and stale['before']['current']==candidate
+    assert stale['after']=={**stale['before'],'phase':'COMMITTED','current':newer,'confirmed_families':['ipv4','ipv6']}
+    assert row['kernel_after_stale']==expected(newer)
+    assert len(row['foreign_before'])==2 and row['foreign_before']==row['foreign_after']
+    for family,raw in zip(('ip','ip6'),row['foreign_before']):
+        assert any(r.get('table',{}).get('name')=='rm_dual_foreign' and r['table']['family']==family for r in raw)
+
+
 def verify(value, source):
     assert value['passed'] is True and value['source'] == source
     assert value['source_sha256'] == fingerprint(source) and not value['source_changed']
@@ -165,6 +225,7 @@ def verify(value, source):
     assert p['Restart'] == 'on-failure' and p['KillMode'] == 'control-group' and p['NoNewPrivileges'] == 'yes'
     assert p['NetworkNamespacePath'] == '/run/netns/rm_deployment'
     preflight_evidence(rows['management_diagnostics'],setup['boot_id'])
+    dual_evidence(rows['dual_stack'],setup['boot_id'])
     poison, limited = rows['poisoned_journal'], rows['restart_limit']
     assert poison['diagnostic_phase']=='DEGRADED' and poison['original_snapshot_preserved'] and poison['mutations_rejected']
     assert poison['invocation_before']==poison['invocation_after']
@@ -279,6 +340,13 @@ def negative_controls(value, source):
         elif name=='missing-tcp-recovery':del by_name['management_diagnostics']['foreign_priority_cases'][0]['tcp_probe_recovered']
         elif name=='changed-tcp-listener':by_name['management_diagnostics']['foreign_priority_cases'][0]['tcp_probe_recovered']['listener_after']['identity']['start_ticks']+=1
         elif name=='configuration-recovery-skipped':by_name['management_diagnostics']['configuration_recovery_cases'][0]['recovered_journal']['phase']='AWAITING_CONFIRM'
+        elif name=='dual-missing-cleanup':by_name['dual_stack']['cleanup']={}
+        elif name=='dual-v4-masks-v6':by_name['dual_stack']['failure']['partial'][0]['phase']='COMMITTED'
+        elif name=='dual-wrong-rollback':by_name['dual_stack']['restored_kernel']=by_name['dual_stack']['pending_kernel']
+        elif name=='dual-wrong-transport':by_name['dual_stack']['success']['ipv4_partial']['confirmed_families']=['ipv6']
+        elif name=='dual-foreign-modified':by_name['dual_stack']['foreign_after']=[]
+        elif name=='dual-missing-timing':del by_name['dual_stack']['success']['confirmation_clock']['partial_ns']
+        elif name=='dual-partial-crash-not-restored':by_name['dual_stack']['recovered']['phase']='COMMITTED'
         elif name=='failed-journal-changed':by_name['restart_limit']['journal_while_failed']['phase']='ROLLED_BACK'
         try:verify(broken,source)
         except (AssertionError,KeyError):rows.append({'name':name,'rejected':True})
@@ -292,6 +360,10 @@ def render(value):
     by_name = {r['name']: r.get('evidence', {}) for r in value.get('cases', []) if r['passed']}
     if 'management_diagnostics' in by_name:
         observations += '<p>Configured management-port denial was rejected before mutation. Earlier/later foreign input drops were diagnosed and tested with real TCP; unsupported conditions remained risk. Foreign rules were unchanged. Old TLS confirmation was rejected; a fresh connection confirmed. These are namespace-local checks, not route/WAN reachability proof. Plan observations include CLI process and namespace overhead.</p>'
+    if 'dual_stack' in by_name:
+        d=by_name['dual_stack'];s=d['success']
+        observations += '<p>Dual-stack static veth peers: repeated IPv4 confirmation could not mask a blocked fresh IPv6 connection; both policies rolled back at the common deadline. Old IPv4/IPv6 TLS and family spoofing were rejected. Fresh IPv4 partial + IPv6 confirmation committed; partial-confirmation SIGKILL restored the prior dual commit. Foreign tables remained unchanged.</p>'
+        observations += f'<p>Single observed dual confirmation round trips: IPv4 partial {s["partial_ms"]:.2f} ms; IPv6 final commit {s["commit_ms"]:.2f} ms. Different state transitions, not a family performance comparison. Includes fresh TLS and durable writes; client-process startup excluded. Static-neighbour discovery observed; routed PMTU, SLAAC, dual-stack VM boot and power loss were not tested.</p>'
     if 'poisoned_journal' in by_name:
         observations += '<p>Malformed snapshot: DEGRADED; original data and kernel policy preserved. Test-only local reprovision is not automatic repair.</p>'
     if 'restart_limit' in by_name:

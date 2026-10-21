@@ -10,7 +10,7 @@ import sqlite3
 import threading
 from contextlib import contextmanager
 from .backend import atomic_json, lock
-from .policy import validate, expected, digest, diff
+from .policy import validate, expected, digest, diff, dual
 from .diagnostics import diagnose, validate_paths
 
 TERMINAL = ('COMMITTED', 'ROLLED_BACK')
@@ -36,7 +36,7 @@ def validate_snapshot(s):
     phases = {'INITIALIZING','PREPARED','APPLYING','AWAITING_CONFIRM','ROLLING_BACK','ROLLED_BACK','COMMITTED','DEGRADED'}
     allowed = {'phase','generation','op','current','baseline','candidate','executor_token','boot','reason',
                'request_hash','candidate_digest','deadline','applied_at','challenge','confirmed_at',
-               'rollback_started_at','rollback_completed_at'}
+               'rollback_started_at','rollback_completed_at','confirmed_families'}
     if not isinstance(s, dict) or not set(s).issubset(allowed) or s.get('phase') not in phases:
         raise ValueError('Invalid journal state shape')
     degraded = s['phase'] == 'DEGRADED'
@@ -81,6 +81,21 @@ def validate_snapshot(s):
             raise ValueError('Candidate digest mismatch')
     if (s['phase']=='AWAITING_CONFIRM' or (s['phase']=='COMMITTED' and not is_initialization)) and not {'applied_at','challenge'}.issubset(s):
         raise ValueError('Incomplete confirmation state')
+    if not degraded and not is_initialization and any(dual(s[k]) != dual(s['current']) for k in ('baseline','candidate')):
+        raise ValueError('Mixed policy modes')
+    if not degraded and not is_initialization and dual(s['current']):
+        if not dual(s['candidate']) or not dual(s['baseline']):
+            raise ValueError('Mixed policy modes')
+        confirmed = s.get('confirmed_families')
+        if (not isinstance(confirmed,list) or any(f not in ('ipv4','ipv6') for f in confirmed)
+                or len(set(confirmed)) != len(confirmed) or confirmed != sorted(confirmed)):
+            raise ValueError('Invalid family confirmations')
+        if s['phase']=='COMMITTED' and confirmed != ['ipv4','ipv6']:
+            raise ValueError('Incomplete dual confirmation')
+        if s['phase']!='COMMITTED' and len(confirmed)==2:
+            raise ValueError('Uncommitted full confirmation')
+    elif not degraded and 'confirmed_families' in s:
+        raise ValueError('Unexpected family confirmations')
     if s['phase'] in {'PREPARED','APPLYING','AWAITING_CONFIRM','ROLLING_BACK','ROLLED_BACK'} and s['current']!=s['baseline']:
         raise ValueError('Baseline/current policy mismatch')
     if s['phase']=='COMMITTED' and s.get('candidate') is not None and s['current']!=s['candidate']:
@@ -215,6 +230,8 @@ class Controller:
                 self._degrade('Provisioning interrupted or prior degraded state; local recovery required')
                 return self.status()
             try:
+                if hasattr(self.backend, 'assert_policy'):
+                    self.backend.assert_policy(self.s['current'])
                 if self.s['phase'] not in TERMINAL:
                     self.backend.retire(self.root, self.s)
                 fd = lock(self.root / 'writer.lock')
@@ -267,6 +284,8 @@ class Controller:
             if self.backend.read() != expected(self.s['current']):
                 self._degrade('Policy drift before planning')
                 raise Conflict('Policy drift')
+            if dual(p) != dual(self.s['current']):
+                raise Conflict('Policy mode cannot change in place')
             self.backend.check(p)
             return {'generation': self.s['generation'], 'candidate_digest': digest(expected(p)),
                     'diff': diff(self.s['current'], p), 'diagnostics':diagnose(p,self.management_paths,self.backend)}
@@ -291,6 +310,8 @@ class Controller:
                 return receipt
             if self.s['phase'] not in TERMINAL or self.s['generation'] != generation:
                 raise Conflict('Unfinished operation or stale base generation')
+            if dual(p) != dual(self.s['current']):
+                raise Conflict('Policy mode cannot change in place')
             diagnostics = diagnose(p,self.management_paths,self.backend)
             diagnostics['context']='before_new_apply'
             if diagnostics['own_policy']['status']=='blocked':
@@ -310,6 +331,8 @@ class Controller:
                           'candidate_digest': digest(expected(p)), 'boot': self.backend.boot(),
                           'deadline': self.backend.clock() + window, 'executor_token': None,
                           'reason': None}
+                if dual(p):
+                    self.s['confirmed_families'] = []
                 # Independent rescue record precedes kernel side effects; never contains credentials.
                 atomic_json(self.root / 'rescue.json', self.s)
                 reserve = os.open(self.root / 'reserve', os.O_CREAT | os.O_WRONLY | os.O_TRUNC, 0o600)
@@ -346,7 +369,7 @@ class Controller:
             if self.management_paths:receipt['diagnostics']=diagnostics
             return receipt
 
-    def confirm(self, op, generation, candidate_digest, challenge, connected_at):
+    def confirm(self, op, generation, candidate_digest, challenge, connected_at, transport_family=None):
         with self.mutex:
             s = self.s
             if (self.closing or s['phase'] != 'AWAITING_CONFIRM' or s['op'] != op or s['generation'] != generation
@@ -359,15 +382,22 @@ class Controller:
                 raise Conflict('Policy drift')
             if self.backend.clock() >= s['deadline']:
                 raise Conflict('Confirmation expired during readback')
+            if dual(s['candidate']) and transport_family not in ('ipv4','ipv6'):
+                raise Conflict('Dual confirmation requires the actual transport family')
             # A disk failure must not expose an unpersisted COMMITTED in-memory decision.
             before = json.loads(json.dumps(self.s))
-            self.s.update(phase='COMMITTED', current=s['candidate'], confirmed_at=self.backend.clock())
+            if dual(s['candidate']):
+                self.s['confirmed_families'] = sorted(set(s['confirmed_families']) | {transport_family})
+            complete = not dual(s['candidate']) or self.s['confirmed_families']==['ipv4','ipv6']
+            if complete:
+                self.s.update(phase='COMMITTED', current=s['candidate'], confirmed_at=self.backend.clock())
             try:
-                self._save('confirmed')
+                self._save('confirmed' if complete else 'family_confirmed')
             except Exception:
                 self.s = before
                 raise
-            self.hook('confirm-committed')
+            if complete:
+                self.hook('confirm-committed')
             return self.status()
 
     def cancel(self, op, generation):

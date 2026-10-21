@@ -20,7 +20,8 @@ stateDiagram-v2
     ROLLED_BACK --> PREPARED
     PREPARED --> APPLYING
     APPLYING --> AWAITING_CONFIRM
-    AWAITING_CONFIRM --> COMMITTED: fresh valid confirmation
+    AWAITING_CONFIRM --> AWAITING_CONFIRM: dual mode, one family confirmed
+    AWAITING_CONFIRM --> COMMITTED: required fresh confirmations
     AWAITING_CONFIRM --> ROLLING_BACK: timeout / cancellation / shutdown
     PREPARED --> ROLLING_BACK: restart
     APPLYING --> ROLLING_BACK: failure / restart
@@ -32,7 +33,7 @@ stateDiagram-v2
 
 Recovery conservatively rolls back unfinished changes; it does not resume their confirmation window. A durable COMMITTED survives a lost HTTP response. A readback must equal the canonical expected policy compiled independently from the submitted schema. Only nft handle/metainfo fields are omitted; policy, expression order and unknown fields remain significant.
 
-Confirmation decisions are serialized with mutations, check CLOCK_BOOTTIME before and after readback, and bind generation, operation, digest and random challenge. TCP acceptance is timestamped before TLS. A post-apply `/proc/net/tcp` snapshot additionally rejects preexisting peers that were queued in the listening socket backlog. This is IPv4-only and intentionally conservative: some legitimate connections opened during application can be rejected and must reconnect.
+Confirmation decisions are serialized with mutations, check CLOCK_BOOTTIME before and after readback, and bind generation, operation, digest and random challenge. TCP acceptance is timestamped before TLS. A post-apply `/proc/net/tcp` snapshot additionally rejects preexisting peers that were queued in the listening socket backlog. For legacy mode this is IPv4-only; dual mode additionally snapshots tcp6. It is intentionally conservative: some legitimate connections opened during application can be rejected and must reconnect.
 
 ## Transport and admission
 
@@ -59,3 +60,7 @@ The actual-service fault uses a missing TLS key, while malformed snapshot handli
 The optional startup configuration declares bounded named IPv4 TCP destination ports at the local input hook. The production Controller evaluates first-match candidate rules for NEW traffic before admitting a new change. A blocked declared port causes a 409 without writing intent or applying policy. Plan and newly admitted apply expose diagnostics; responses do not alter journal schema. Idempotent receipt lookup is labeled separately. Startup recovery/rollback remain governed by their existing known-policy rules.
 
 A bounded read-only `nft -j -s list ruleset` snapshot supplies foreign-chain diagnostics in the same namespace. A small conservative model distinguishes supported input conflicts, uncertainty and unavailable evidence. Other hooks/objects and truncation are explicit; no external rule is changed and no external ownership lock is claimed. Own-policy denial gates apply; foreign results are warnings. New-connection confirmation remains the actual post-apply check. See [scope, budgets and deployment](MANAGEMENT_PREFLIGHT.md).
+
+## Opt-in dual-stack transaction
+
+[Dual mode](DUAL_STACK.md) owns paired ip/ip6 tables in one nft batch, with one journal/generation/deadline and separate durable family confirmations. Its IPv6-only socket excludes mapped IPv4, and confirmation uses the actual transport family. Partial confirmation remains AWAITING_CONFIRM; timeout/restart restores the entire baseline. Existing IPv4 installs are not automatically migrated. Full IPv6 preflight remains unimplemented; ICMPv6 is accepted explicitly in this TCP-focused slice. The old IPv4 architecture sections describe legacy mode.

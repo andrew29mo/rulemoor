@@ -2,14 +2,14 @@
 
 **Confirmed Linux firewall changes, with explicit recovery.**
 
-Rulemoor is an early single-node service for changing a dedicated nftables IPv4 input table. An operator previews a policy, applies it with a confirmation deadline, and confirms through a fresh TLS management connection. Without confirmation, the running agent attempts to restore the preceding policy. After a process crash, it reconciles its durable journal with actual kernel rules before accepting another change. After a boot ID change, it can recreate an absent owned table from the durable confirmed policy or unfinished change’s baseline.
+Rulemoor is an early single-node service for changing dedicated nftables input tables (IPv4 by default, or explicitly enabled IPv4/IPv6 dual mode). An operator previews a policy, applies it with a confirmation deadline, and confirms through fresh TLS management connections. Without confirmation, the running agent attempts to restore the preceding policy. After a process crash, it reconciles its durable journal with actual kernel rules before accepting another change. After a boot ID change, it can recreate an absent owned table from the durable confirmed policy or unfinished change’s baseline.
 
 The practical use case is a remotely managed Linux machine where an incorrect TCP ingress rule could remove the operator's access. Rulemoor provides the change lifecycle, not a general firewall manager or a guarantee that every network failure can be repaired.
 
 ## Scope
 
-- Strict JSON schema: default `accept`/`drop`, up to 32 ordered TCP port rules; established/related traffic is accepted first.
-- Exactly one table, `ip rulemoor`, input hook, priority 0. No arbitrary nft scripts, routing, NAT, IPv6 or multi-device transaction.
+- Strict JSON schema: default `accept`/`drop`, up to 32 ordered TCP port rules per family; established/related traffic is accepted first.
+- Legacy mode owns only `ip rulemoor`; opt-in dual mode owns `ip rulemoor` plus `ip6 rulemoor`, input hook, priority 0. No arbitrary nft scripts, routing, NAT or multi-device transaction. Dual mode always accepts ICMPv6 control traffic and requires both families to confirm. [Dual-stack scope and setup](docs/DUAL_STACK.md).
 - CLI and TLS API with a provisioned certificate and a shared operator bearer token. No plaintext API or certificate-verification bypass in the CLI.
 - Durable intent, bounded operation history, explicit confirmation/cancellation, deadline rollback and process-restart recovery.
 - Bounded persisted-state validation rejects malformed snapshots before process fencing or kernel writes; the original evidence remains intact.
@@ -57,7 +57,7 @@ On a disposable Linux machine or network namespace, provision a private state di
 
 To enable protected-port admission and foreign-rule diagnostics, provision the [management-path configuration](examples/management-paths.json) and add `--management-paths /etc/rulemoor/management-paths.json` to `serve`. Without it the report explicitly says `not_configured`; no path protection is inferred.
 
-Each CLI invocation uses new TLS connections. Confirmation verifies operation ID, generation, candidate digest, challenge, boot ID, deadline and connection freshness. A successful confirmation proves one management path only. An old keepalive or TCP connection queued before application is insufficient.
+Each CLI invocation uses new TLS connections. Confirmation verifies operation ID, generation, candidate digest, challenge, boot ID, deadline and connection freshness. A successful legacy confirmation proves one management path only. In dual mode, a first family confirmation remains pending; only a fresh confirmation from each family commits. This proves the tested paths, not every network route. An old keepalive or TCP connection queued before application is insufficient.
 
 ## Validation and retained results
 
