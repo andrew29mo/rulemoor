@@ -40,6 +40,6 @@ The new actual dual boot trial covers a partially confirmed pending change. A se
 
 [Method and latest measurements](DEPLOYMENT_VALIDATION.md) · [JSON](../reviews/deployment/deployment.json) · [HTML](../reviews/deployment/report.html)
 
-Retained executable source `6165ed1aca054e8ece3a93c7a1e348e540424f1a855ab698129147539d0cb3b7`; native/container run `7b1479d07fdd3012` (102 tests per platform, 29 production mutations); actual-systemd VM run `71eba3fbcb9238fb` (14 groups, 51 evidence controls). VM final state: Stopped. Power-loss tested: false.
+Retained executable source `a0c093c5ee46f8a93d23f7ffb4bcb280c2a0cdc47de8803b6ba5cb9bc77f76ac`; native/container run `ef8a435b0ccead85` (109 tests per platform, 32 production mutations); actual-systemd VM run `9d88cdff84bdc2e6` (15 groups, 57 evidence controls). VM final state: Stopped. Power-loss tested: false.
 
 [Independent follow-up review and corrections](DUAL_RECOVERY_REVIEW.md).

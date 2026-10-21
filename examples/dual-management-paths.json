@@ -1,0 +1,8 @@
+{
+  "paths": [
+    {"name": "rulemoor-api4", "family": "ipv4", "port": 18443},
+    {"name": "rulemoor-api6", "family": "ipv6", "port": 18443},
+    {"name": "ssh4", "family": "ipv4", "port": 22},
+    {"name": "ssh6", "family": "ipv6", "port": 22}
+  ]
+}

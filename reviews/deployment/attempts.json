@@ -151,6 +151,13 @@
     "run_id": "71eba3fbcb9238fb",
     "passed": true,
     "source_sha256": "6165ed1aca054e8ece3a93c7a1e348e540424f1a855ab698129147539d0cb3b7",
-    "note": "Current independent-review corrections: renderer scope and before/after readback wording; 102 tests per platform, 29 production mutations; 14 actual-systemd groups and 51 evidence controls. Full same-source suites rerun, three orderly VM stop/start cycles; no power-loss claim."
+    "note": "Historical independent-review corrections: renderer scope and before/after readback wording; 102 tests per platform, 29 production mutations; 14 actual-systemd groups and 51 evidence controls. Full same-source suites rerun, three orderly VM stop/start cycles; no power-loss claim. Superseded by IPv6 declared-port preflight evidence."
+  },
+  {
+    "attempt": "ipv6-preflight-20261021",
+    "run_id": "9d88cdff84bdc2e6",
+    "passed": true,
+    "source_sha256": "a0c093c5ee46f8a93d23f7ffb4bcb280c2a0cdc47de8803b6ba5cb9bc77f76ac",
+    "note": "Current IPv6 declared-port preflight: 109 tests per platform, 32 production mutations, 15 actual-systemd groups and 57 evidence controls. Independent family diagnostics, foreign-rule preservation and recovery despite admission denial; three existing orderly VM stop/start cycles. Configured-guard VM reboot and power loss remain untested."
   }
 ]

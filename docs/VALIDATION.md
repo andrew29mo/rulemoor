@@ -4,7 +4,7 @@
 
 `python -m tools.unit` runs production schema/compiler/core decisions, real local TLS API/CLI transport checks, and failure/timeout handling of the validation process wrapper. Memory-backend tests deliberately isolate state-machine contracts. They do not establish nft semantics, kernel reachability or native macOS agent performance. OpenSSL is needed to create temporary test certificates, which are deleted with the temporary directory.
 
-`python -m tools.mutations` copies source into isolated temporary directories, changes twenty-nine production decisions and requires an existing assertion to fail for each. Import/syntax failures, timeouts or a bare nonzero exit do not count as caught mutations.
+`python -m tools.mutations` copies source into isolated temporary directories, changes thirty-two production decisions and requires an existing assertion to fail for each. Import/syntax failures, timeouts or a bare nonzero exit do not count as caught mutations.
 
 ## Linux scope
 
@@ -58,7 +58,7 @@ A manual-only GitHub Actions workflow repeats portable contracts on Linux/macOS.
 
 The separate [deployment suite](DEPLOYMENT_VALIDATION.md) installs the production wheel and unit directly in an isolated Linux VM. It verifies systemd automatic restart, cgroup orphan cleanup, TLS readiness, stale operations, missing kernel rules after a changed boot ID, committed-policy restoration and foreign-policy refusal. This is not systemd simulated in a container. It restarts the selected VM three times (two legacy IPv4 cases and one partially confirmed dual deployment) and requires explicit selection of a stopped dedicated profile. It uses a different Linux userspace from the container suite; its memory/timing observations are reported separately. Power-loss recovery is not tested.
 
-The deployment auditor additionally requires the complete VM stage sequence, an isolated installed-package origin/hash probe, unchanged pending journal across the orderly reboot before Agent startup, raw pending/committed stale-request observations and monotonic timing endpoints. Its fifty-one corruption controls include omitted stages, false package origin, rolled-back pre-boot journal, stale generation, infinite/missing intervals and invalid memory identity. Four portable measurement/report regressions reject nonfinite values, inconsistent clocks and missing-duration-as-zero presentation.
+The deployment auditor additionally requires the complete VM stage sequence, an isolated installed-package origin/hash probe, unchanged pending journal across the orderly reboot before Agent startup, raw pending/committed stale-request observations and monotonic timing endpoints. Its fifty-seven corruption controls include omitted stages, false package origin, rolled-back pre-boot journal, stale generation, infinite/missing intervals and invalid memory identity. Four portable measurement/report regressions reject nonfinite values, inconsistent clocks and missing-duration-as-zero presentation.
 
 ## Invalid snapshots and persistent startup failures
 
@@ -87,3 +87,7 @@ The [dual review](DUAL_REVIEW.md) strengthens artifact provenance across process
 ## Dual VM boot and real orphan writer
 
 [Dual recovery](DUAL_RECOVERY.md) adds a third orderly VM stop/start with pre-Agent pending journal readback and two absent tables, then fresh two-family access after baseline restoration. A real held executor is deliberately left outside the unit cgroup; it must survive its original Agent, hold writer.lock, and be retired by the production systemd Agent before a distinct successor. Immediate stale-request readbacks and post-release observations preserve both policies. Four portable methods cover normal-commit partial boot recovery, required retirement/refused admission, real lock observation and one-family artifact mutation. An additional production mutation removes retirement; eight extra evidence-corruption controls challenge the new raw receipts. Power-loss recovery remains untested.
+
+## IPv6 management preflight
+
+[The dual preflight extension](DUAL_PREFLIGHT.md) adds six formal parser/evaluator/Controller tests and a configured dual TLS test. Three production mutations challenge per-family policy selection, inet family matching and omitted IPv6 chains. A fifteenth actual-systemd VM group verifies known IPv6 own-policy denial, ip6/inet foreign drops, unknown source matching, read-only rule preservation, both fresh confirmations and baseline restoration despite guard denial. Six added report controls challenge masking/false certainty, changed foreign rules, connection refusal, omitted restore and one-family commit. The configured scenario uses service restart, not a further configured-guard VM reboot; power loss remains untested.

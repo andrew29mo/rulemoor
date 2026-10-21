@@ -1,97 +1,118 @@
 {
   "schema": 1,
-  "run_id": "7b1479d07fdd3012",
+  "run_id": "ef8a435b0ccead85",
   "passed": true,
-  "source_sha256": "6165ed1aca054e8ece3a93c7a1e348e540424f1a855ab698129147539d0cb3b7",
+  "source_sha256": "a0c093c5ee46f8a93d23f7ffb4bcb280c2a0cdc47de8803b6ba5cb9bc77f76ac",
   "source_changed": false,
   "stages": [
     {
       "name": "native-contracts",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 5.756252457998926
+      "seconds": 5.929926625001826
     },
     {
       "name": "production-mutations",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 6.344491333002225
+      "seconds": 6.422303875006037
     },
     {
       "name": "vm-initial",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.27289054199354723
+      "seconds": 0.19170970800041687
     },
     {
       "name": "vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 17.5007558340003
+      "seconds": 8.206808417002321
     },
     {
       "name": "image-build",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.300587666992215
+      "seconds": 1.7526832919975277
     },
     {
       "name": "image-inspect",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.024974832995212637
+      "seconds": 0.024088250007480383
     },
     {
       "name": "container-create",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.03309104099753313
+      "seconds": 0.03331908299878705
     },
     {
       "name": "container-inspect",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.01749458299309481
+      "seconds": 0.012816833012038842
     },
     {
       "name": "linux-run",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 29.48173312500876
+      "seconds": 30.80286549999437
     },
     {
       "name": "container-state",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.01238345800084062
+      "seconds": 0.011778458007029258
     },
     {
       "name": "export",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.016597833004198037
+      "seconds": 0.017507290991488844
     },
     {
       "name": "container-remove",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.016855416994076222
+      "seconds": 0.017784499999834225
     },
     {
       "name": "vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.366801915995893
+      "seconds": 2.2439808750059456
     },
     {
       "name": "vm-final",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.25815625001268927
+      "seconds": 0.26310770800046157
     }
   ],
   "scope": "Native macOS portable contracts + Colima Linux real kernel",
   "production_mutations": [
+    {
+      "name": "dual-guard-uses-ipv4-policy",
+      "test": "tests.test_dual_diagnostics.DualDiagnosticTests.test_ipv4_allowed_does_not_mask_ipv6_own_block_or_unmanaged_family",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "inet-nfproto-always-ipv4",
+      "test": "tests.test_dual_diagnostics.DualDiagnosticTests.test_ip6_and_inet_nfproto_are_evaluated_per_family",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
+    {
+      "name": "omit-ip6-external-chains",
+      "test": "tests.test_dual_diagnostics.DualDiagnosticTests.test_ip6_and_inet_nfproto_are_evaluated_per_family",
+      "caught_by_assertion": true,
+      "exit_code": 1,
+      "timed_out": false
+    },
     {
       "name": "skip-dual-executor-retirement",
       "test": "tests.test_dual_recovery.DualRecoveryTests.test_inflight_dual_executor_must_retire_before_successor_admission",
@@ -298,7 +319,7 @@
   ],
   "vm_initial_state": "Stopped",
   "image": {
-    "Id": "sha256:1e9e9355bb61eb6d59cbb7ee6dbfc7e7d1b1c5f687c2c7ae6d8ae6896115cdab",
+    "Id": "sha256:6ee695d0389dac80a747f2b371ca691af39b4bde4f0066a067a0aca1b2c6f7ed",
     "Architecture": "arm64",
     "Os": "linux"
   },

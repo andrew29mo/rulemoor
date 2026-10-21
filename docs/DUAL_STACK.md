@@ -57,7 +57,7 @@ There are at most 16 active accepted connections per listener (32 across dual li
 
 ## Preflight boundary
 
-The existing optional management-path preflight and external-conflict evaluator remain **IPv4-only**. For a dual policy they inspect its IPv4 component and explicitly return `ipv6_preflight: not_implemented`, with reachability unverified. Do not interpret an IPv4 allowed/no-observed-conflict result as an IPv6 safety decision. This slice relies on explicit fresh IPv6 confirmation and overall rollback, not on unimplemented IPv6 semantic/topology diagnostics. Other tools' rules are never automatically modified.
+[The optional dual preflight](DUAL_PREFLIGHT.md) now evaluates explicitly declared IPv4/IPv6 local TCP ports and supported ip/ip6/inet input chains. Omitted family retains IPv4 meaning; undeclared IPv6 is not_configured. Per-family blocked/risk/unavailable results cannot be inferred safe from IPv4 success. Address/interface conditions remain uncertain and no route/WAN proof is claimed. Both fresh family confirmations and whole-policy restoration remain mandatory; other tools' rules are never automatically modified.
 
 [Agent-assisted review and evidence corrections](DUAL_REVIEW.md)
 
@@ -71,4 +71,4 @@ The two original orderly VM reboot cases exercise the **legacy IPv4 deployment**
 
 
 
-Retained executable source `6165ed1aca054e8ece3a93c7a1e348e540424f1a855ab698129147539d0cb3b7`; native/container run `7b1479d07fdd3012` (102 tests per platform, 29 production mutations); installed-service run `71eba3fbcb9238fb` (14 groups, 51 report controls). Exact JSON/HTML and all cleanup checks are audited.
+Retained executable source `a0c093c5ee46f8a93d23f7ffb4bcb280c2a0cdc47de8803b6ba5cb9bc77f76ac`; native/container run `ef8a435b0ccead85` (109 tests per platform, 32 production mutations); installed-service run `9d88cdff84bdc2e6` (15 groups, 57 report controls). Exact JSON/HTML and all cleanup checks are audited.

@@ -217,7 +217,7 @@ def main():
     serve.add_argument('--cert', required=True)
     serve.add_argument('--key', required=True)
     serve.add_argument('--token-file', required=True)
-    serve.add_argument('--management-paths', help='Optional bounded JSON configuration of protected local IPv4 TCP ports')
+    serve.add_argument('--management-paths', help='Optional bounded JSON configuration of protected local IPv4/IPv6 TCP ports')
     a = p.parse_args()
     if os.name != 'posix' or not hasattr(time, 'CLOCK_BOOTTIME') or not hasattr(os, 'pidfd_open'):
         p.error('The agent requires Linux CLOCK_BOOTTIME and pidfd support')

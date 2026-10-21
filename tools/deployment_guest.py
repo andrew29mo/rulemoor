@@ -838,6 +838,11 @@ def dual_held_executor():
     return held_executor()
 
 
+def dual_management_diagnostics():
+    from tools.dual_preflight import run
+    return run()
+
+
 def cleanup():
     assert load('ownership') == {'fixture': 'rulemoor-deployment-v1'}
     cmd(['systemctl', 'disable', '--now', UNIT], check=False)
@@ -865,7 +870,7 @@ def cleanup():
 
 
 def main():
-    p = argparse.ArgumentParser(); p.add_argument('phase', choices=['setup','topology','management_diagnostics','dual_stack','poisoned_journal','restart_limit','crash','held_writer','prepare_pending_boot','after_pending_boot','after_committed_boot','prepare_dual_boot','after_dual_boot','dual_held_executor','cleanup'])
+    p = argparse.ArgumentParser(); p.add_argument('phase', choices=['setup','topology','management_diagnostics','dual_stack','poisoned_journal','restart_limit','crash','held_writer','prepare_pending_boot','after_pending_boot','after_committed_boot','prepare_dual_boot','after_dual_boot','dual_held_executor','dual_management_diagnostics','cleanup'])
     a = p.parse_args(); assert os.geteuid() == 0
     result = globals()[a.phase]()
     if result is not None:

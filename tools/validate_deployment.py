@@ -122,7 +122,7 @@ def main():
         phase('after_dual_boot');ended=time.monotonic_ns()
         value['dual_pending_vm_restart_clock']={'clock':'monotonic_ns','started_ns':began,'finished_ns':ended}
         value['dual_pending_vm_restart_control_seconds']=(ended-began)/1e9
-        phase('dual_held_executor')
+        phase('dual_held_executor'); phase('dual_management_diagnostics')
         phase('cleanup'); cleanup_done=True
         value['passed']=True
     except BaseException as exc:

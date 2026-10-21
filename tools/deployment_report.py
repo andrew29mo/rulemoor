@@ -7,19 +7,19 @@ from .evidence import fingerprint
 from .deployment_guest import BASE, NEXT, NEW
 from rulemoor.policy import expected
 
-PHASES = ['setup', 'management_diagnostics', 'dual_stack', 'poisoned_journal', 'restart_limit', 'crash', 'held_writer', 'prepare_pending_boot', 'after_pending_boot', 'after_committed_boot', 'prepare_dual_boot', 'after_dual_boot', 'dual_held_executor', 'cleanup']
+PHASES = ['setup', 'management_diagnostics', 'dual_stack', 'poisoned_journal', 'restart_limit', 'crash', 'held_writer', 'prepare_pending_boot', 'after_pending_boot', 'after_committed_boot', 'prepare_dual_boot', 'after_dual_boot', 'dual_held_executor', 'dual_management_diagnostics', 'cleanup']
 
 STAGES = ['vm-initial','vm-start','preflight','guest-prerequisites','wheel-build','snapshot-upload',
           'guest-setup','guest-management_diagnostics','guest-dual_stack','guest-poisoned_journal','guest-restart_limit','guest-crash','guest-held_writer','guest-prepare_pending_boot',
           'pending-vm-stop','pending-vm-start','guest-after_pending_boot',
           'committed-vm-stop','committed-vm-start','guest-after_committed_boot',
-          'guest-prepare_dual_boot','dual-pending-vm-stop','dual-pending-vm-start','guest-after_dual_boot','guest-dual_held_executor',
+          'guest-prepare_dual_boot','dual-pending-vm-stop','dual-pending-vm-start','guest-after_dual_boot','guest-dual_held_executor','guest-dual_management_diagnostics',
           'guest-cleanup','snapshot-remove','vm-final-stop','vm-final']
 CONTROL_NAMES = ['boot-identity','missing-case','stale-kernel','missing-cleanup','timeout','source',
                  'missing-stage','wrong-package-origin','wrong-preboot-journal','stale-pending-generation',
                  'infinite-timing','missing-vm-interval','memory-identity','invalid-memory','poison-kernel-write','restart-still-running','failed-journal-changed','missing-limit-receipt','future-limit-receipt','unrelated-startup-memory','wrong-poison-invocation','guard-admitted','foreign-rule-modified','uncertainty-hidden','old-confirmation-admitted','false-tcp-observation',
                  'connection-refused','missing-tcp-recovery','changed-tcp-listener','configuration-recovery-skipped','dual-v4-masks-v6','dual-wrong-rollback','dual-wrong-transport','dual-foreign-modified','dual-missing-timing','dual-partial-crash-not-restored','dual-missing-cleanup',
-                 'dual-invalid-restart-identity','dual-failure-wrong-boot','dual-unrelated-success-operation','dual-success-wrong-boot','dual-skipped-generation','dual-stale-kernel-modified','dual-reboot-pre-agent-journal','dual-reboot-missing-family','dual-reboot-fresh-family','dual-reboot-wrong-boot','dual-orphan-did-not-survive','dual-orphan-not-retired','dual-orphan-overwrites-one-family','dual-orphan-missing-release-clock']
+                 'dual-invalid-restart-identity','dual-failure-wrong-boot','dual-unrelated-success-operation','dual-success-wrong-boot','dual-skipped-generation','dual-stale-kernel-modified','dual-reboot-pre-agent-journal','dual-reboot-missing-family','dual-reboot-fresh-family','dual-reboot-wrong-boot','dual-orphan-did-not-survive','dual-orphan-not-retired','dual-orphan-overwrites-one-family','dual-orphan-missing-release-clock','dual-guard-v4-masks-v6','dual-guard-unknown-clear','dual-guard-foreign-write','dual-guard-refused-not-drop','dual-guard-skipped-restore','dual-guard-one-family-commit']
 
 
 def positive(value):
@@ -320,6 +320,69 @@ def dual_orphan_recovery(row, boot, baseline):
         assert len({digest(p[family]) for p in (SUCCESSOR,LATE,FINAL)})==3
 
 
+def dual_management_evidence(row, boot, baseline):
+    from .dual_preflight import PATHS, OPEN
+    from .dual_recovery import FINAL
+    assert row['boot']==boot and row['baseline']==baseline
+    assert row['paths']==PATHS
+    assert row['journal_before_denial']==row['journal_after_denial']==baseline
+    assert row['kernel_before_denial']==row['kernel_after_denial']==expected(FINAL)
+    def family_result(diag, own4, own6, external4=None, external6=None):
+        assert diag['reachability_verified'] is False and diag['fresh_connection_confirmation_required'] is True
+        assert diag['ipv6_preflight']=='configured'
+        for f,own,ext in (('ipv4',own4,external4),('ipv6',own6,external6)):
+            assert diag['family_statuses'][f]['configuration']=='configured'
+            assert diag['family_statuses'][f]['own_policy']==own
+            if ext is not None:assert diag['family_statuses'][f]['external']==ext
+    family_result(row['own_denied'],'allowed','blocked')
+    assert row['own_denied']['own_policy']['status']=='blocked'
+    assert row['admitted']['phase']=='COMMITTED' and row['admitted']['current']==OPEN
+    listener=row['listener_identity'];process_identity(listener,boot)
+    def probes(value, v6):
+        assert set(value['families'])=={'ipv4','ipv6'}
+        for family,connected in (('ipv4',True),('ipv6',v6)):
+            tcp_probe_evidence({**value['families'][family],'listener_before':value['listener_before'],
+                                'listener_after':value['listener_after']},listener,connected)
+    assert [(c['family'],c['priority']) for c in row['foreign_cases']]==[('ip6',-100),('ip6',10),('inet',-100)]
+    for case in row['foreign_cases']:
+        family_result(case['diagnostics'],'allowed','allowed','no_observed_input_conflict','blocked')
+        assert case['diagnostics']['external']['status']=='blocked'
+        assert case['foreign_before']==case['foreign_after_plan']==case['foreign_after_operations']
+        raw=case['foreign_before']
+        chain=next(x['chain'] for x in raw if 'chain' in x)
+        assert chain['family']==case['family'] and chain['table']=='rm_dual_preflight' and chain['hook']=='input' and chain['prio']==case['priority']
+        rule=next(x['rule'] for x in raw if 'rule' in x)
+        assert rule['expr'][-1]=={'drop':None} and any(x.get('match',{}).get('right')==59999 for x in rule['expr'])
+        if case['family']=='inet':assert any(x.get('match',{}).get('left')=={'meta':{'key':'nfproto'}} and x['match']['right']=='ipv6' for x in rule['expr'])
+        probes(case['before'],True);probes(case['blocked'],False);probes(case['recovered'],True)
+        assert case['partial']['phase']=='AWAITING_CONFIRM' and case['partial']['confirmed_families']==['ipv4']
+        interval(case['plan_clock'],case['plan_observed_ms']/1000)
+    unknown=row['unknown']
+    for diag in (unknown['diagnostics'],unknown['apply_diagnostics']):
+        family_result(diag,'allowed','allowed','no_observed_input_conflict','risk')
+        assert diag['external']['status']=='risk'
+    assert unknown['foreign_before']==unknown['foreign_after']
+    assert any(x.get('match',{}).get('left')=={'payload':{'protocol':'ip6','field':'saddr'}} for r in unknown['foreign_before'] if 'rule' in r for x in r['rule']['expr'])
+    probes(unknown['probe'],False);probes(unknown['recovered_probe'],True)
+    assert unknown['partial']['phase']=='AWAITING_CONFIRM' and unknown['partial']['confirmed_families']==['ipv4']
+    confirm=row['confirmations'];assert confirm['old_status']=={'ipv4':409,'ipv6':409}
+    first,last=confirm['partial'],confirm['committed']
+    assert first['phase']=='AWAITING_CONFIRM' and first['confirmed_families']==['ipv4']
+    assert last=={**first,'phase':'COMMITTED','current':OPEN,'confirmed_families':['ipv4','ipv6']}
+    assert [r['mode'] for r in row['recoveries']]==['cancel','deadline','restart']
+    for recovery in row['recoveries']:
+        family_result(recovery['baseline_plan'],'blocked','blocked')
+        pending=recovery['partial'];restored=recovery['restored']
+        assert pending['phase']=='AWAITING_CONFIRM' and pending['confirmed_families']==['ipv4']
+        assert pending['boot']==restored['boot']==boot and pending['current']==pending['baseline']==FINAL and pending['candidate']==OPEN
+        assert recovery['kernel_pending']==expected(OPEN) and recovery['kernel_restored']==expected(FINAL)
+        assert restored['phase']=='ROLLED_BACK' and restored['current']==restored['baseline']==FINAL and restored['op']==pending['op']
+        assert restored['generation']==pending['generation']+(1 if recovery['mode']=='restart' else 0)
+        assert recovery['fresh_tls']=={'ipv4':restored,'ipv6':restored}
+    memory_sample(row['memory']);assert row['memory']['process_identity']['boot']==boot
+    assert row['cleanup']=={'listener_reaped':True,'configuration_removed':True,'foreign_tables_absent':True}
+
+
 def verify(value, source):
     assert value['passed'] is True and value['source'] == source
     assert value['source_sha256'] == fingerprint(source) and not value['source_changed']
@@ -383,6 +446,7 @@ def verify(value, source):
     dual_boot_recovery(rows['prepare_dual_boot'],rows['after_dual_boot'])
     assert rows['prepare_dual_boot']['boot_id']==committed['boot_id_after']
     dual_orphan_recovery(rows['dual_held_executor'],rows['after_dual_boot']['boot_id_after'],rows['after_dual_boot']['successor_committed'])
+    dual_management_evidence(rows['dual_management_diagnostics'],rows['after_dual_boot']['boot_id_after'],rows['dual_held_executor']['successor_committed'])
     durations = {x['name']:x['seconds'] for x in value['stages']}
     for prefix, guest in (('pending','guest-after_pending_boot'),('committed','guest-after_committed_boot'),('dual_pending','guest-after_dual_boot')):
         seconds = value[prefix+'_vm_restart_control_seconds']
@@ -478,6 +542,12 @@ def negative_controls(value, source):
             from .dual_recovery import FINAL, LATE
             by_name['dual_held_executor']['kernel_after_release']=expected({'ipv4':FINAL['ipv4'],'ipv6':LATE['ipv6']})
         elif name=='dual-orphan-missing-release-clock':del by_name['dual_held_executor']['release_clock']
+        elif name=='dual-guard-v4-masks-v6':by_name['dual_management_diagnostics']['own_denied']['family_statuses']['ipv6']['own_policy']='allowed'
+        elif name=='dual-guard-unknown-clear':by_name['dual_management_diagnostics']['unknown']['diagnostics']['family_statuses']['ipv6']['external']='no_observed_input_conflict'
+        elif name=='dual-guard-foreign-write':by_name['dual_management_diagnostics']['foreign_cases'][0]['foreign_after_operations']=[]
+        elif name=='dual-guard-refused-not-drop':by_name['dual_management_diagnostics']['foreign_cases'][0]['blocked']['families']['ipv6']['errno']=111
+        elif name=='dual-guard-skipped-restore':by_name['dual_management_diagnostics']['recoveries'][0]['kernel_restored']=[]
+        elif name=='dual-guard-one-family-commit':by_name['dual_management_diagnostics']['confirmations']['committed']['confirmed_families']=['ipv4']
         elif name=='dual-invalid-restart-identity':
             by_name['dual_stack']['identity_after_restart']={'pid':0,'start_ticks':0,'boot':by_name['setup']['boot_id']}
         elif name=='dual-failure-wrong-boot':
@@ -509,6 +579,8 @@ def render(value):
         d=by_name['dual_stack'];s=d['success']
         observations += '<p>Dual-stack static veth peers: repeated IPv4 confirmation could not mask a blocked fresh IPv6 connection; both policies rolled back at the common deadline. Old IPv4/IPv6 TLS and family spoofing were rejected. Fresh IPv4 partial + IPv6 confirmation committed; partial-confirmation SIGKILL restored the prior dual commit. Foreign tables remained unchanged.</p>'
         observations += f'<p>Single observed dual confirmation round trips: IPv4 partial {s["partial_ms"]:.2f} ms; IPv6 final commit {s["commit_ms"]:.2f} ms. Different state transitions, not a family performance comparison. Includes fresh TLS and durable writes; client-process startup excluded. Static-neighbour discovery observed. This case does not test VM boot; any separate partial-confirmation dual VM boot observation is reported below. Committed-only dual VM boot, routed PMTU, SLAAC and power loss remain untested.</p>'
+    if 'dual_management_diagnostics' in by_name:
+        observations += '<p>Configured IPv4/IPv6 management guard: own IPv6 denial refused before mutation; ip6/inet external drops and unsupported IPv6 address conditions stayed blocked/risk despite IPv4 success. Same-listener TCP success/timeout/success and foreign-rule preservation checked. Fresh confirmations still required both families; cancel, deadline and process restart restored both baseline policies even though new admission would refuse that baseline. Static namespace-local peers, not route/WAN or configured-guard reboot proof.</p>'
     if 'after_dual_boot' in by_name:
         seconds=value.get('dual_pending_vm_restart_control_seconds')
         text=f'{seconds:.2f} s' if seconds is not None else 'not yet observed'

@@ -164,6 +164,26 @@ class DualAPITests(unittest.TestCase):
         code,committed=self.call(self.conn('ipv6'),'/confirm',payload)
         self.assertEqual(code,200);self.assertEqual(committed['phase'],'COMMITTED');self.assertEqual(committed['confirmed_families'],['ipv4','ipv6'])
         self.assertEqual(self.servers[1].socket.getsockopt(socket.IPPROTO_IPV6,socket.IPV6_V6ONLY),1)
+    def test_configured_dual_guard_and_uncertainty_keep_fresh_family_confirmations(self):
+        from tests.test_dual_diagnostics import inventory, dport
+        self.c.management_paths=[{'name':'api4','family':'ipv4','port':self.servers[0].server_port},
+                                 {'name':'api6','family':'ipv6','port':self.servers[1].server_port}]
+        self.c.backend.inspect_ruleset=lambda:inventory(expr=[{'jump':{'target':'unknown'}}])
+        blocked={'ipv4':{'default':'accept','rules':[]},'ipv6':{'default':'drop','rules':[]}}
+        code,denied=self.call(self.conn('ipv4'),'/apply',{'op':'blocked6','generation':0,'policy':blocked,'window':10})
+        self.assertEqual(code,409);self.assertEqual(denied['diagnostics']['family_statuses']['ipv6']['own_policy'],'blocked')
+        self.assertEqual(self.c.status()['generation'],0)
+        candidate={'ipv4':{'default':'accept','rules':[]},'ipv6':{'default':'accept','rules':[]}}
+        old=self.conn('ipv6');self.assertEqual(self.call(old,'/status')[0],200)
+        code,s=self.call(self.conn('ipv4'),'/apply',{'op':'guard-dual','generation':0,'policy':candidate,'window':10})
+        self.assertEqual(code,200);self.assertEqual(s['diagnostics']['family_statuses']['ipv6']['external'],'risk')
+        payload={k:s[k] for k in ('op','generation','candidate_digest','challenge')}
+        self.assertEqual(self.call(old,'/confirm',payload)[0],409)
+        code,partial=self.call(self.conn('ipv4'),'/confirm',payload)
+        self.assertEqual(code,200);self.assertEqual(partial['phase'],'AWAITING_CONFIRM');self.assertEqual(partial['confirmed_families'],['ipv4'])
+        code,committed=self.call(self.conn('ipv6'),'/confirm',payload)
+        self.assertEqual(code,200);self.assertEqual(committed['phase'],'COMMITTED')
+
     def test_cli_family_is_literal_and_cannot_fallback(self):
         for family,url in (('ipv6','https://127.0.0.1'),('ipv4','https://[::1]'),('ipv6','https://localhost')):
             with self.subTest(family=family,url=url),self.assertRaises(ValueError):request(url,str(self.path/'cert'),'x'*64,'/status',family=family)

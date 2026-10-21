@@ -9,6 +9,9 @@ from .evidence import ROOT, manifest, save
 from .process import run
 
 MUTATIONS = [
+    ('rulemoor/diagnostics.py','dual-guard-uses-ipv4-policy', 'selected = p[family] if dual(p)', "selected = p['ipv4'] if dual(p)", 'tests.test_dual_diagnostics.DualDiagnosticTests.test_ipv4_allowed_does_not_mask_ipv6_own_block_or_unmanaged_family'),
+    ('rulemoor/diagnostics.py','inet-nfproto-always-ipv4', "(right == family) if op == '==' else (right != family)", "(right == 'ipv4') if op == '==' else (right != 'ipv4')", 'tests.test_dual_diagnostics.DualDiagnosticTests.test_ip6_and_inet_nfproto_are_evaluated_per_family'),
+    ('rulemoor/diagnostics.py','omit-ip6-external-chains', "family in ('ip', 'ip6', 'inet')", "family in ('ip', 'inet')", 'tests.test_dual_diagnostics.DualDiagnosticTests.test_ip6_and_inet_nfproto_are_evaluated_per_family'),
     ('rulemoor/core.py','skip-dual-executor-retirement', 'self.backend.retire(self.root, self.s)', 'pass', 'tests.test_dual_recovery.DualRecoveryTests.test_inflight_dual_executor_must_retire_before_successor_admission'),
     ('rulemoor/core.py','dual-v4-only-commit', "self.s['confirmed_families']==['ipv4','ipv6']", "bool(self.s['confirmed_families'])", 'tests.test_dual_stack.DualCoreTests.test_ipv4_repetition_cannot_commit_or_extend_deadline'),
     ('rulemoor/core.py','dual-forget-partial-confirmations', "self.s = before", "pass", 'tests.test_dual_stack.DualCoreTests.test_partial_confirmation_failure_is_not_persisted_in_memory'),
