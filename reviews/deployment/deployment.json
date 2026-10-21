@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "run_id": "9d88cdff84bdc2e6",
-  "recorded_at_utc": "2026-10-21T04:27:17.925632+00:00",
+  "run_id": "c6c726cffd12db8e",
+  "recorded_at_utc": "2026-10-21T04:37:53.714001+00:00",
   "passed": true,
   "source": {
     "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
@@ -18,7 +18,7 @@
     "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
     "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
-    "tests/test_deployment_audit.py": "c5d6f42e95a0442a4f202632d8e2523cb07a7222e354c8f2c1e62e6c64124d04",
+    "tests/test_deployment_audit.py": "dfdccf12ac9d5d323accb48b7b6a258e66c00d712e8c1ed567d6a8fbceaa86d2",
     "tests/test_diagnostics.py": "1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7",
     "tests/test_dual_diagnostics.py": "382d39cdba7be498ac883d6784263afa5de2f32dea647a2d4235fb2b139d1952",
     "tests/test_dual_recovery.py": "28ace94c72e6c1453bf8147e9a63dec4f2b57dc49095af0df20b233eff30e49a",
@@ -33,8 +33,8 @@
     "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
     "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
     "tools/deployment_guest.py": "9faa2d0eef78ecc73705f8a37f1437e29129aacba5d8fbc0129c92bb0c4e12d9",
-    "tools/deployment_report.py": "8b9540db9187e681a6f7a432df65e940fd57d24d58faf1152b01698559219eb4",
-    "tools/dual_preflight.py": "e2cef9942388456dd301a04b8bee2530c960221db70622a8dddd5a538f587e97",
+    "tools/deployment_report.py": "28fe603a4a1f9d294cbf43e6504eba10a4124744887195a1d7426f7b9eada8d2",
+    "tools/dual_preflight.py": "1615aa027a83c1675f050b9d1733c1377e08545b1ea51b5238e3f741279d0676",
     "tools/dual_recovery.py": "cf1347783722d3e16d990ca0bd6f1a1e4272cfcc35d2b1ba7837eea66e103e8c",
     "tools/evidence.py": "d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b",
     "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
@@ -51,7 +51,7 @@
     "tools/validate_deployment.py": "a8e03f1563b4660ee1c1acf2a99d38ac66e6a284392f597cc6ad7138094fe067",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "source_sha256": "a0c093c5ee46f8a93d23f7ffb4bcb280c2a0cdc47de8803b6ba5cb9bc77f76ac",
+  "source_sha256": "5d2899bf453b3f6491afb0f7e9ebf52f70cf339035e205705985eb457af973ac",
   "source_changed": false,
   "scope": {
     "execution": "Actual systemd in Colima Linux VM; isolated test network namespace",
@@ -64,181 +64,181 @@
       "name": "vm-initial",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.3836582499934593
+      "seconds": 0.33159387500199955
     },
     {
       "name": "vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 8.641256457995041
+      "seconds": 9.137034375002258
     },
     {
       "name": "preflight",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.32609520900587086
+      "seconds": 0.24145250000583474
     },
     {
       "name": "guest-prerequisites",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.5517313750024186
+      "seconds": 0.5759256250021281
     },
     {
       "name": "wheel-build",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.2004974159935955
+      "seconds": 1.274359375005588
     },
     {
       "name": "snapshot-upload",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.3000718749972293
+      "seconds": 0.2544745420018444
     },
     {
       "name": "guest-setup",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.0454048329993384
+      "seconds": 2.0959509999956936
     },
     {
       "name": "guest-management_diagnostics",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 15.917896834012936
+      "seconds": 15.921881667003618
     },
     {
       "name": "guest-dual_stack",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 8.170963458993356
+      "seconds": 8.238048250001157
     },
     {
       "name": "guest-poisoned_journal",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.8581969590013614
+      "seconds": 2.943235500002629
     },
     {
       "name": "guest-restart_limit",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.547877000004519
+      "seconds": 9.49876800000493
     },
     {
       "name": "guest-crash",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.9160756670025876
+      "seconds": 2.030527249997249
     },
     {
       "name": "guest-held_writer",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 4.386685625009704
+      "seconds": 4.364194250010769
     },
     {
       "name": "guest-prepare_pending_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.6186552089930046
+      "seconds": 0.6017005839967169
     },
     {
       "name": "pending-vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.4958770420053042
+      "seconds": 2.5945277499995427
     },
     {
       "name": "pending-vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.426498499989975
+      "seconds": 9.561502500000643
     },
     {
       "name": "guest-after_pending_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.7061152910027886
+      "seconds": 0.9863654159998987
     },
     {
       "name": "committed-vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.446593499989831
+      "seconds": 2.4152204580022953
     },
     {
       "name": "committed-vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 8.501575041998876
+      "seconds": 9.876541250006994
     },
     {
       "name": "guest-after_committed_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.5895476669975324
+      "seconds": 0.6171997080091387
     },
     {
       "name": "guest-prepare_dual_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 1.1587353340000845
+      "seconds": 1.3408832080021966
     },
     {
       "name": "dual-pending-vm-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.49651145900134
+      "seconds": 2.471406458003912
     },
     {
       "name": "dual-pending-vm-start",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 8.456309834000422
+      "seconds": 9.49289508300717
     },
     {
       "name": "guest-after_dual_boot",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.6831446659925859
+      "seconds": 0.712267625000095
     },
     {
       "name": "guest-dual_held_executor",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.9655244589957874
+      "seconds": 3.1205945420078933
     },
     {
       "name": "guest-dual_management_diagnostics",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 9.230314499989618
+      "seconds": 9.616177250005421
     },
     {
       "name": "guest-cleanup",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.5621448749880074
+      "seconds": 0.4943686250044266
     },
     {
       "name": "snapshot-remove",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.24112600000808015
+      "seconds": 0.24404154199874029
     },
     {
       "name": "vm-final-stop",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 2.5010635419894243
+      "seconds": 2.477882207997027
     },
     {
       "name": "vm-final",
       "exit_code": 0,
       "timed_out": false,
-      "seconds": 0.2647670829901472
+      "seconds": 0.19376583299890626
     }
   ],
   "cases": [
@@ -271,12 +271,12 @@
         "unit_properties": {
           "Restart": "on-failure",
           "RestartUSec": "1s",
-          "MainPID": "1660",
+          "MainPID": "1664",
           "Result": "success",
           "NRestarts": "0",
           "ExecMainStatus": "0",
           "ControlGroup": "/system.slice/rulemoor.service",
-          "MemoryCurrent": "11255808",
+          "MemoryCurrent": "11231232",
           "CapabilityBoundingSet": "cap_kill cap_net_admin",
           "PrivateTmp": "yes",
           "ProtectHome": "yes",
@@ -289,27 +289,27 @@
           "StartLimitIntervalUSec": "1min",
           "StartLimitBurst": "5"
         },
-        "boot_id": "8934c781-4b87-48ab-87b1-053b98b1683c",
+        "boot_id": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
         "memory": {
-          "agent_rss_bytes": 23289856,
-          "agent_vmhwm_bytes": 23289856,
+          "agent_rss_bytes": 23285760,
+          "agent_vmhwm_bytes": 23285760,
           "service_cgroup_memory_current_bytes": 11206656,
           "process_identity": {
-            "pid": 1660,
-            "start_ticks": 1020,
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+            "pid": 1664,
+            "start_ticks": 1083,
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
           },
-          "main_pid_after": 1660,
-          "invocation_id": "0d022599fe0242e6b501612b35bcf8a4",
-          "invocation_id_after": "0d022599fe0242e6b501612b35bcf8a4",
+          "main_pid_after": 1664,
+          "invocation_id": "93fbe8eaa92f48668a824357f8cad279",
+          "invocation_id_after": "93fbe8eaa92f48668a824357f8cad279",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 10310864337,
-          "sample_finished_ns": 10315525003,
+          "sample_started_ns": 10943894712,
+          "sample_finished_ns": 10948447879,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         }
       }
@@ -327,7 +327,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 3,
               "op": "configuration-recovery-missing",
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -426,15 +426,15 @@
               }
             ],
             "unit_before_kill": {
-              "MainPID": "1719",
-              "InvocationID": "6631c6caa89e46ff9c69adc06bf63463",
+              "MainPID": "1723",
+              "InvocationID": "d17faa72e6944d4ea1effc9c0d5a7af8",
               "ActiveState": "active",
               "Result": "success",
               "NRestarts": "0"
             },
             "unit_at_kill": {
-              "MainPID": "1719",
-              "InvocationID": "6631c6caa89e46ff9c69adc06bf63463",
+              "MainPID": "1723",
+              "InvocationID": "d17faa72e6944d4ea1effc9c0d5a7af8",
               "ActiveState": "active",
               "Result": "success",
               "NRestarts": "0"
@@ -443,7 +443,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 3,
               "op": "configuration-recovery-missing",
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -546,7 +546,7 @@
               "phase": "ROLLED_BACK",
               "generation": 4,
               "op": "configuration-recovery-missing",
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -646,7 +646,7 @@
             ],
             "failed_unit": {
               "MainPID": "0",
-              "InvocationID": "254740194fd245a68bbe75e3ede72e74",
+              "InvocationID": "644bdcb3ad4f4b83ae7b60f882a6f4eb",
               "ActiveState": "failed",
               "Result": "exit-code",
               "NRestarts": "6"
@@ -655,19 +655,19 @@
               {
                 "MESSAGE": "rulemoor.service: Start request repeated too quickly.",
                 "UNIT": "rulemoor.service",
-                "_BOOT_ID": "8934c7814b8748ab87b1053b98b1683c",
-                "__MONOTONIC_TIMESTAMP": "19019559"
+                "_BOOT_ID": "2a26cf40fd8c49cdbf15677ccc46aa17",
+                "__MONOTONIC_TIMESTAMP": "19651443"
               }
             ],
-            "failure_started_monotonic_ns": 12386370171,
-            "failure_observed_monotonic_ns": 19044913966,
-            "boot_before": "8934c781-4b87-48ab-87b1-053b98b1683c",
-            "boot_after": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "failure_started_monotonic_ns": 13049603171,
+            "failure_observed_monotonic_ns": 19687384216,
+            "boot_before": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
+            "boot_after": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "ready_after_repair": {
               "phase": "ROLLED_BACK",
               "generation": 4,
               "op": "configuration-recovery-missing",
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -703,7 +703,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 5,
               "op": "configuration-recovery-null",
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -802,15 +802,15 @@
               }
             ],
             "unit_before_kill": {
-              "MainPID": "2024",
-              "InvocationID": "619d9c361a45431b89ea9b043b17d9f1",
+              "MainPID": "2029",
+              "InvocationID": "9f1f61a3ebf7487f9c37f6e2a5c6fcb6",
               "ActiveState": "active",
               "Result": "success",
               "NRestarts": "0"
             },
             "unit_at_kill": {
-              "MainPID": "2024",
-              "InvocationID": "619d9c361a45431b89ea9b043b17d9f1",
+              "MainPID": "2029",
+              "InvocationID": "9f1f61a3ebf7487f9c37f6e2a5c6fcb6",
               "ActiveState": "active",
               "Result": "success",
               "NRestarts": "0"
@@ -819,7 +819,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 5,
               "op": "configuration-recovery-null",
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -922,7 +922,7 @@
               "phase": "ROLLED_BACK",
               "generation": 6,
               "op": "configuration-recovery-null",
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -1022,7 +1022,7 @@
             ],
             "failed_unit": {
               "MainPID": "0",
-              "InvocationID": "a5b3e2b771d64160a5ac8df0cbfcf997",
+              "InvocationID": "50ad75047b9341aaa7600ee0f9b21ba7",
               "ActiveState": "failed",
               "Result": "exit-code",
               "NRestarts": "6"
@@ -1031,19 +1031,19 @@
               {
                 "MESSAGE": "rulemoor.service: Start request repeated too quickly.",
                 "UNIT": "rulemoor.service",
-                "_BOOT_ID": "8934c7814b8748ab87b1053b98b1683c",
-                "__MONOTONIC_TIMESTAMP": "25906563"
+                "_BOOT_ID": "2a26cf40fd8c49cdbf15677ccc46aa17",
+                "__MONOTONIC_TIMESTAMP": "26548688"
               }
             ],
-            "failure_started_monotonic_ns": 19265010008,
-            "failure_observed_monotonic_ns": 25921552386,
-            "boot_before": "8934c781-4b87-48ab-87b1-053b98b1683c",
-            "boot_after": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "failure_started_monotonic_ns": 19917867841,
+            "failure_observed_monotonic_ns": 26562206761,
+            "boot_before": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
+            "boot_after": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "ready_after_repair": {
               "phase": "ROLLED_BACK",
               "generation": 6,
               "op": "configuration-recovery-null",
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
               "current": {
                 "default": "accept",
                 "rules": [
@@ -1186,7 +1186,7 @@
           "phase": "COMMITTED",
           "generation": 0,
           "op": "initial",
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
           "current": {
             "default": "accept",
             "rules": [
@@ -1202,7 +1202,7 @@
           "phase": "COMMITTED",
           "generation": 0,
           "op": "initial",
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
           "current": {
             "default": "accept",
             "rules": [
@@ -1353,9 +1353,9 @@
           }
         ],
         "listener_identity": {
-          "pid": 1725,
-          "start_ticks": 1081,
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+          "pid": 1730,
+          "start_ticks": 1139,
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
         },
         "tcp_probe_before_foreign_drop": {
           "connected": true,
@@ -1363,17 +1363,17 @@
           "listener_before": {
             "poll": null,
             "identity": {
-              "pid": 1725,
-              "start_ticks": 1081,
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+              "pid": 1730,
+              "start_ticks": 1139,
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
             }
           },
           "listener_after": {
             "poll": null,
             "identity": {
-              "pid": 1725,
-              "start_ticks": 1081,
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+              "pid": 1730,
+              "start_ticks": 1139,
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
             }
           }
         },
@@ -1546,17 +1546,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1725,
-                  "start_ticks": 1081,
-                  "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+                  "pid": 1730,
+                  "start_ticks": 1139,
+                  "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1725,
-                  "start_ticks": 1081,
-                  "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+                  "pid": 1730,
+                  "start_ticks": 1139,
+                  "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
                 }
               }
             },
@@ -1566,17 +1566,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1725,
-                  "start_ticks": 1081,
-                  "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+                  "pid": 1730,
+                  "start_ticks": 1139,
+                  "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1725,
-                  "start_ticks": 1081,
-                  "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+                  "pid": 1730,
+                  "start_ticks": 1139,
+                  "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
                 }
               }
             },
@@ -1586,26 +1586,26 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1725,
-                  "start_ticks": 1081,
-                  "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+                  "pid": 1730,
+                  "start_ticks": 1139,
+                  "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1725,
-                  "start_ticks": 1081,
-                  "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+                  "pid": 1730,
+                  "start_ticks": 1139,
+                  "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
                 }
               }
             },
             "plan_clock": {
               "clock": "monotonic_ns",
-              "started_ns": 11280545462,
-              "finished_ns": 11320139046
+              "started_ns": 11873286254,
+              "finished_ns": 11932239837
             },
-            "plan_observed_ms": 39.593584
+            "plan_observed_ms": 58.953583
           },
           {
             "priority": 10,
@@ -1775,17 +1775,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1725,
-                  "start_ticks": 1081,
-                  "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+                  "pid": 1730,
+                  "start_ticks": 1139,
+                  "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1725,
-                  "start_ticks": 1081,
-                  "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+                  "pid": 1730,
+                  "start_ticks": 1139,
+                  "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
                 }
               }
             },
@@ -1795,17 +1795,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1725,
-                  "start_ticks": 1081,
-                  "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+                  "pid": 1730,
+                  "start_ticks": 1139,
+                  "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1725,
-                  "start_ticks": 1081,
-                  "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+                  "pid": 1730,
+                  "start_ticks": 1139,
+                  "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
                 }
               }
             },
@@ -1815,26 +1815,26 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1725,
-                  "start_ticks": 1081,
-                  "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+                  "pid": 1730,
+                  "start_ticks": 1139,
+                  "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1725,
-                  "start_ticks": 1081,
-                  "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+                  "pid": 1730,
+                  "start_ticks": 1139,
+                  "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
                 }
               }
             },
             "plan_clock": {
               "clock": "monotonic_ns",
-              "started_ns": 11621396629,
-              "finished_ns": 11663246296
+              "started_ns": 12232202046,
+              "finished_ns": 12296897421
             },
-            "plan_observed_ms": 41.849667
+            "plan_observed_ms": 64.695375
           }
         ],
         "unsupported_condition": {
@@ -2027,17 +2027,17 @@
           "listener_before": {
             "poll": null,
             "identity": {
-              "pid": 1725,
-              "start_ticks": 1081,
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+              "pid": 1730,
+              "start_ticks": 1139,
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
             }
           },
           "listener_after": {
             "poll": null,
             "identity": {
-              "pid": 1725,
-              "start_ticks": 1081,
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+              "pid": 1730,
+              "start_ticks": 1139,
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
             }
           }
         },
@@ -2047,17 +2047,17 @@
           "listener_before": {
             "poll": null,
             "identity": {
-              "pid": 1725,
-              "start_ticks": 1081,
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+              "pid": 1730,
+              "start_ticks": 1139,
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
             }
           },
           "listener_after": {
             "poll": null,
             "identity": {
-              "pid": 1725,
-              "start_ticks": 1081,
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+              "pid": 1730,
+              "start_ticks": 1139,
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
             }
           }
         },
@@ -2067,17 +2067,17 @@
           "listener_before": {
             "poll": null,
             "identity": {
-              "pid": 1725,
-              "start_ticks": 1081,
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+              "pid": 1730,
+              "start_ticks": 1139,
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
             }
           },
           "listener_after": {
             "poll": null,
             "identity": {
-              "pid": 1725,
-              "start_ticks": 1081,
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+              "pid": 1730,
+              "start_ticks": 1139,
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
             }
           }
         },
@@ -2088,25 +2088,25 @@
           "generation": 1
         },
         "memory": {
-          "agent_rss_bytes": 24281088,
-          "agent_vmhwm_bytes": 24281088,
-          "service_cgroup_memory_current_bytes": 12550144,
+          "agent_rss_bytes": 24178688,
+          "agent_vmhwm_bytes": 24178688,
+          "service_cgroup_memory_current_bytes": 12455936,
           "process_identity": {
-            "pid": 1719,
-            "start_ticks": 1071,
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+            "pid": 1723,
+            "start_ticks": 1130,
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
           },
-          "main_pid_after": 1719,
-          "invocation_id": "6631c6caa89e46ff9c69adc06bf63463",
-          "invocation_id_after": "6631c6caa89e46ff9c69adc06bf63463",
+          "main_pid_after": 1723,
+          "invocation_id": "d17faa72e6944d4ea1effc9c0d5a7af8",
+          "invocation_id_after": "d17faa72e6944d4ea1effc9c0d5a7af8",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 12139022921,
-          "sample_finished_ns": 12144017546,
+          "sample_started_ns": 12786515754,
+          "sample_finished_ns": 12793833421,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "own_kernel_after_allowed_apply": [
@@ -2182,7 +2182,7 @@
           "phase": "COMMITTED",
           "generation": 1,
           "op": "guard-admitted",
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
           "current": {
             "default": "accept",
             "rules": [
@@ -2374,7 +2374,7 @@
             "phase": "COMMITTED",
             "generation": 0,
             "op": "initial",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -2409,7 +2409,7 @@
             "phase": "COMMITTED",
             "generation": 0,
             "op": "initial",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -2861,7 +2861,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 1,
             "op": "dual-v6-blocked",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -2944,7 +2944,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 1,
               "op": "dual-v6-blocked",
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -3028,7 +3028,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 1,
               "op": "dual-v6-blocked",
-              "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+              "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -3115,7 +3115,7 @@
           },
           "spoof_rejected": true,
           "ipv6_connect_errno": 11,
-          "deadline": 32.071623177999996
+          "deadline": 32.791692803000004
         },
         "pending_kernel": [
           {
@@ -3280,7 +3280,7 @@
           "phase": "ROLLED_BACK",
           "generation": 1,
           "op": "dual-v6-blocked",
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -3572,7 +3572,7 @@
             "phase": "ROLLED_BACK",
             "generation": 1,
             "op": "dual-v6-blocked",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3656,7 +3656,7 @@
             "phase": "ROLLED_BACK",
             "generation": 1,
             "op": "dual-v6-blocked",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3738,28 +3738,28 @@
           }
         },
         "rollback_clock": {
-          "deadline": 32.071623177999996,
-          "rollback_started_at": 32.092444264,
-          "rollback_completed_at": 32.124092681,
+          "deadline": 32.791692803000004,
+          "rollback_started_at": 32.845481514,
+          "rollback_completed_at": 32.879374181,
           "clock": "CLOCK_BOOTTIME",
-          "observed_at": 32.160373806
+          "observed_at": 32.915835347
         },
         "same_service_identity_during_timeout": {
-          "pid": 2345,
-          "start_ticks": 2683,
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+          "pid": 2350,
+          "start_ticks": 2754,
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
         },
         "identity_after_timeout": {
-          "pid": 2345,
-          "start_ticks": 2683,
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+          "pid": 2350,
+          "start_ticks": 2754,
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
         },
         "success": {
           "ipv4_partial": {
             "phase": "AWAITING_CONFIRM",
             "generation": 2,
             "op": "dual-both-success",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3852,7 +3852,7 @@
             "phase": "COMMITTED",
             "generation": 2,
             "op": "dual-both-success",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -3944,12 +3944,12 @@
           },
           "confirmation_clock": {
             "clock": "monotonic_ns",
-            "started_ns": 32316129639,
-            "partial_ns": 32320807139,
-            "finished_ns": 32324970056
+            "started_ns": 33084354056,
+            "partial_ns": 33089509014,
+            "finished_ns": 33094196347
           },
-          "partial_ms": 4.6775,
-          "commit_ms": 4.162917
+          "partial_ms": 5.154958,
+          "commit_ms": 4.687333
         },
         "committed_kernel": [
           {
@@ -4158,34 +4158,34 @@
             }
           }
         ],
-        "ipv6_neighbour_observation": "2001:db8:44::2 lladdr f2:5b:81:91:9c:ad REACHABLE",
+        "ipv6_neighbour_observation": "2001:db8:44::2 lladdr 4a:8c:7d:cb:50:15 REACHABLE",
         "memory": {
-          "agent_rss_bytes": 24711168,
-          "agent_vmhwm_bytes": 24711168,
-          "service_cgroup_memory_current_bytes": 12906496,
+          "agent_rss_bytes": 24698880,
+          "agent_vmhwm_bytes": 24698880,
+          "service_cgroup_memory_current_bytes": 12877824,
           "process_identity": {
-            "pid": 2345,
-            "start_ticks": 2683,
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+            "pid": 2350,
+            "start_ticks": 2754,
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
           },
-          "main_pid_after": 2345,
-          "invocation_id": "974082491f724bc7ab2805de3f260f91",
-          "invocation_id_after": "974082491f724bc7ab2805de3f260f91",
+          "main_pid_after": 2350,
+          "invocation_id": "34ecb2664e0947d0aaa80342be77f8b7",
+          "invocation_id_after": "34ecb2664e0947d0aaa80342be77f8b7",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 32332069181,
-          "sample_finished_ns": 32336565514,
+          "sample_started_ns": 33101913556,
+          "sample_finished_ns": 33107539514,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "partial_before_kill": {
           "phase": "AWAITING_CONFIRM",
           "generation": 3,
           "op": "dual-partial-crash",
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -4483,15 +4483,15 @@
         ],
         "signal": "SIGKILL",
         "identity_after_restart": {
-          "pid": 2660,
-          "start_ticks": 3373,
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+          "pid": 2665,
+          "start_ticks": 3447,
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
         },
         "recovered": {
           "phase": "ROLLED_BACK",
           "generation": 4,
           "op": "dual-partial-crash",
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -4797,7 +4797,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 5,
             "op": "dual-newer",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -4896,7 +4896,7 @@
             "phase": "COMMITTED",
             "generation": 5,
             "op": "dual-newer",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -5010,7 +5010,7 @@
                 "phase": "AWAITING_CONFIRM",
                 "generation": 5,
                 "op": "dual-newer",
-                "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+                "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -5109,7 +5109,7 @@
                 "phase": "AWAITING_CONFIRM",
                 "generation": 5,
                 "op": "dual-newer",
-                "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+                "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -5722,7 +5722,7 @@
                 "phase": "AWAITING_CONFIRM",
                 "generation": 5,
                 "op": "dual-newer",
-                "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+                "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -5821,7 +5821,7 @@
                 "phase": "AWAITING_CONFIRM",
                 "generation": 5,
                 "op": "dual-newer",
-                "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+                "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -6434,7 +6434,7 @@
                 "phase": "AWAITING_CONFIRM",
                 "generation": 5,
                 "op": "dual-newer",
-                "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+                "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -6533,7 +6533,7 @@
                 "phase": "AWAITING_CONFIRM",
                 "generation": 5,
                 "op": "dual-newer",
-                "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+                "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -7508,8 +7508,8 @@
         "diagnostic_reason": "Unreadable journal; local operator recovery required",
         "original_snapshot_preserved": true,
         "mutations_rejected": true,
-        "invocation_before": "3a470bbff51747e79e13547688b4855d",
-        "invocation_after": "3a470bbff51747e79e13547688b4855d",
+        "invocation_before": "7627dba9b657467aa74d5e3437ea7021",
+        "invocation_after": "7627dba9b657467aa74d5e3437ea7021",
         "restart_count_before": 0,
         "restart_count_after": 0,
         "kernel_before": [
@@ -7653,23 +7653,23 @@
         "memory": {
           "agent_rss_bytes": 23396352,
           "agent_vmhwm_bytes": 23396352,
-          "service_cgroup_memory_current_bytes": 11288576,
+          "service_cgroup_memory_current_bytes": 11284480,
           "process_identity": {
-            "pid": 2783,
-            "start_ticks": 3474,
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+            "pid": 2787,
+            "start_ticks": 3550,
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
           },
-          "main_pid_after": 2783,
-          "invocation_id": "3a470bbff51747e79e13547688b4855d",
-          "invocation_id_after": "3a470bbff51747e79e13547688b4855d",
+          "main_pid_after": 2787,
+          "invocation_id": "7627dba9b657467aa74d5e3437ea7021",
+          "invocation_id_after": "7627dba9b657467aa74d5e3437ea7021",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 37085053220,
-          "sample_finished_ns": 37094043400,
+          "sample_started_ns": 37838489305,
+          "sample_finished_ns": 37848806636,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "fixture_only_reprovision_and_token_rotation": true,
@@ -7703,26 +7703,26 @@
           "Result": "exit-code",
           "ExecMainStatus": "1"
         },
-        "failure_started_monotonic_ns": 37674272916,
+        "failure_started_monotonic_ns": 38457700322,
         "start_limit_receipts": [
           {
             "MESSAGE": "rulemoor.service: Start request repeated too quickly.",
             "UNIT": "rulemoor.service",
-            "_BOOT_ID": "8934c7814b8748ab87b1053b98b1683c",
-            "__MONOTONIC_TIMESTAMP": "44032681"
+            "_BOOT_ID": "2a26cf40fd8c49cdbf15677ccc46aa17",
+            "__MONOTONIC_TIMESTAMP": "44796096"
           }
         ],
         "observation_clock": {
           "clock": "monotonic_ns",
-          "started_ns": 44067707807,
-          "finished_ns": 46280176039
+          "started_ns": 44832464519,
+          "finished_ns": 47039715427
         },
-        "observation_seconds": 2.212468232,
+        "observation_seconds": 2.207250908,
         "journal_before_failure": {
           "phase": "AWAITING_CONFIRM",
           "generation": 1,
           "op": "initial",
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
           "current": {
             "default": "accept",
             "rules": [
@@ -7755,7 +7755,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 1,
           "op": "initial",
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
           "current": {
             "default": "accept",
             "rules": [
@@ -7932,7 +7932,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 3,
             "op": "after-limit-new",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "default": "accept",
               "rules": [
@@ -7965,7 +7965,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 3,
             "op": "after-limit-new",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "default": "accept",
               "rules": [
@@ -8067,7 +8067,7 @@
             "phase": "COMMITTED",
             "generation": 3,
             "op": "after-limit-new",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "default": "accept",
               "rules": [
@@ -8177,25 +8177,25 @@
           ]
         },
         "memory": {
-          "agent_rss_bytes": 24051712,
-          "agent_vmhwm_bytes": 24051712,
-          "service_cgroup_memory_current_bytes": 12206080,
+          "agent_rss_bytes": 23998464,
+          "agent_vmhwm_bytes": 23998464,
+          "service_cgroup_memory_current_bytes": 12161024,
           "process_identity": {
-            "pid": 3035,
-            "start_ticks": 4630,
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+            "pid": 3039,
+            "start_ticks": 4706,
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
           },
-          "main_pid_after": 3035,
-          "invocation_id": "988badd1fc54470482f200520081f53b",
-          "invocation_id_after": "988badd1fc54470482f200520081f53b",
+          "main_pid_after": 3039,
+          "invocation_id": "445fd37d86ce4ceaad7d0f9ff2ede760",
+          "invocation_id_after": "445fd37d86ce4ceaad7d0f9ff2ede760",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 46860157351,
-          "sample_finished_ns": 46864835369,
+          "sample_started_ns": 47599293190,
+          "sample_finished_ns": 47605625557,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "segmentation_fault_tested": false,
@@ -8219,7 +8219,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 7,
             "op": "after-crash-new",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "default": "accept",
               "rules": [
@@ -8252,7 +8252,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 7,
             "op": "after-crash-new",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "default": "accept",
               "rules": [
@@ -8354,7 +8354,7 @@
             "phase": "COMMITTED",
             "generation": 7,
             "op": "after-crash-new",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "default": "accept",
               "rules": [
@@ -8463,33 +8463,33 @@
             "apply"
           ]
         },
-        "kill_to_tls_ready_observed_ms": 1273.566152,
+        "kill_to_tls_ready_observed_ms": 1295.396903,
         "recovery_clock": {
           "clock": "monotonic_ns",
-          "kill_started_ns": 47226472445,
-          "tls_observed_ns": 48500038597,
-          "baseline_verified_ns": 48503512621
+          "kill_started_ns": 48032887668,
+          "tls_observed_ns": 49328284571,
+          "baseline_verified_ns": 49332018675
         },
         "memory": {
-          "agent_rss_bytes": 23871488,
-          "agent_vmhwm_bytes": 23871488,
-          "service_cgroup_memory_current_bytes": 12038144,
+          "agent_rss_bytes": 23961600,
+          "agent_vmhwm_bytes": 23961600,
+          "service_cgroup_memory_current_bytes": 12111872,
           "process_identity": {
-            "pid": 3140,
-            "start_ticks": 4841,
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+            "pid": 3143,
+            "start_ticks": 4922,
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
           },
-          "main_pid_after": 3140,
-          "invocation_id": "13ca1727ae3f46389b72424e22c2b4ef",
-          "invocation_id_after": "13ca1727ae3f46389b72424e22c2b4ef",
+          "main_pid_after": 3143,
+          "invocation_id": "57ae4725dd9d49c89ceb0d591c938941",
+          "invocation_id_after": "57ae4725dd9d49c89ceb0d591c938941",
           "process_namespace_inode": 4026532410,
           "target_namespace_inode": 4026532410,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 48801284396,
-          "sample_finished_ns": 48805660646,
+          "sample_started_ns": 49658093540,
+          "sample_finished_ns": 49662680710,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "old_generation": 5,
@@ -8641,9 +8641,9 @@
       "evidence": {
         "test_only_fault_override": true,
         "old_executor_identity": {
-          "pid": 3247,
-          "start_ticks": 4933,
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c"
+          "pid": 3251,
+          "start_ticks": 5031,
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17"
         },
         "old_executor_retired": true,
         "systemd_cgroup_restart_observed": true,
@@ -8657,7 +8657,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 10,
             "op": "after-held-new",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "default": "accept",
               "rules": [
@@ -8690,7 +8690,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 10,
             "op": "after-held-new",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "default": "accept",
               "rules": [
@@ -8792,7 +8792,7 @@
             "phase": "COMMITTED",
             "generation": 10,
             "op": "after-held-new",
-            "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+            "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
             "current": {
               "default": "accept",
               "rules": [
@@ -8978,7 +8978,7 @@
       "name": "prepare_pending_boot",
       "passed": true,
       "evidence": {
-        "boot_id": "8934c781-4b87-48ab-87b1-053b98b1683c",
+        "boot_id": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
         "journal_pending_after_service_stop": true,
         "candidate_still_installed": true,
         "graceful_rollback_deliberately_bypassed": true,
@@ -9056,7 +9056,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 11,
           "op": "pending-before-boot",
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
           "current": {
             "default": "accept",
             "rules": [
@@ -9092,14 +9092,14 @@
       "name": "after_pending_boot",
       "passed": true,
       "evidence": {
-        "boot_id_before": "8934c781-4b87-48ab-87b1-053b98b1683c",
-        "boot_id_after": "8bed45d1-ad9a-4c3c-be57-9a153d8aab54",
+        "boot_id_before": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
+        "boot_id_after": "db6c1127-9f67-4a12-9406-595cea258fd3",
         "pre_agent_table_absent": true,
         "journal_before_agent": {
           "phase": "AWAITING_CONFIRM",
           "generation": 11,
           "op": "pending-before-boot",
-          "boot": "8934c781-4b87-48ab-87b1-053b98b1683c",
+          "boot": "2a26cf40-fd8c-49cd-bf15-677ccc46aa17",
           "current": {
             "default": "accept",
             "rules": [
@@ -9138,7 +9138,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 13,
             "op": "post-boot-new",
-            "boot": "8bed45d1-ad9a-4c3c-be57-9a153d8aab54",
+            "boot": "db6c1127-9f67-4a12-9406-595cea258fd3",
             "current": {
               "default": "accept",
               "rules": [
@@ -9171,7 +9171,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 13,
             "op": "post-boot-new",
-            "boot": "8bed45d1-ad9a-4c3c-be57-9a153d8aab54",
+            "boot": "db6c1127-9f67-4a12-9406-595cea258fd3",
             "current": {
               "default": "accept",
               "rules": [
@@ -9273,7 +9273,7 @@
             "phase": "COMMITTED",
             "generation": 13,
             "op": "post-boot-new",
-            "boot": "8bed45d1-ad9a-4c3c-be57-9a153d8aab54",
+            "boot": "db6c1127-9f67-4a12-9406-595cea258fd3",
             "current": {
               "default": "accept",
               "rules": [
@@ -9382,27 +9382,27 @@
             "apply"
           ]
         },
-        "vm_uptime_after_validation_seconds": 7.444740502,
+        "vm_uptime_after_validation_seconds": 7.514618419,
         "memory": {
-          "agent_rss_bytes": 23715840,
-          "agent_vmhwm_bytes": 23715840,
-          "service_cgroup_memory_current_bytes": 12341248,
+          "agent_rss_bytes": 23945216,
+          "agent_vmhwm_bytes": 23945216,
+          "service_cgroup_memory_current_bytes": 12566528,
           "process_identity": {
-            "pid": 501,
-            "start_ticks": 339,
-            "boot": "8bed45d1-ad9a-4c3c-be57-9a153d8aab54"
+            "pid": 502,
+            "start_ticks": 236,
+            "boot": "db6c1127-9f67-4a12-9406-595cea258fd3"
           },
-          "main_pid_after": 501,
-          "invocation_id": "b06d3a38201d4167a721c1fa270cfc8e",
-          "invocation_id_after": "b06d3a38201d4167a721c1fa270cfc8e",
+          "main_pid_after": 502,
+          "invocation_id": "a0a365650b5f47c8bc33cb41f6df244a",
+          "invocation_id_after": "a0a365650b5f47c8bc33cb41f6df244a",
           "process_namespace_inode": 4026532394,
           "target_namespace_inode": 4026532394,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 7444741336,
-          "sample_finished_ns": 7450491836,
+          "sample_started_ns": 7514619086,
+          "sample_finished_ns": 7520255711,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "old_generation": 11,
@@ -9552,14 +9552,14 @@
       "name": "after_committed_boot",
       "passed": true,
       "evidence": {
-        "boot_id_before": "8bed45d1-ad9a-4c3c-be57-9a153d8aab54",
-        "boot_id_after": "1e92f780-a9be-4f87-ad84-c5209ec2095f",
+        "boot_id_before": "db6c1127-9f67-4a12-9406-595cea258fd3",
+        "boot_id_after": "5bc001e1-ba1a-4e27-b295-e2982842d975",
         "pre_agent_table_absent": true,
         "journal_before_agent": {
           "phase": "COMMITTED",
           "generation": 13,
           "op": "post-boot-new",
-          "boot": "8bed45d1-ad9a-4c3c-be57-9a153d8aab54",
+          "boot": "db6c1127-9f67-4a12-9406-595cea258fd3",
           "current": {
             "default": "accept",
             "rules": [
@@ -9593,25 +9593,25 @@
         "old_base_rejected": true,
         "same_boot_foreign_policy_preserved": true,
         "memory": {
-          "agent_rss_bytes": 23293952,
-          "agent_vmhwm_bytes": 23293952,
+          "agent_rss_bytes": 23289856,
+          "agent_vmhwm_bytes": 23289856,
           "service_cgroup_memory_current_bytes": 11579392,
           "process_identity": {
-            "pid": 499,
-            "start_ticks": 205,
-            "boot": "1e92f780-a9be-4f87-ad84-c5209ec2095f"
+            "pid": 502,
+            "start_ticks": 314,
+            "boot": "5bc001e1-ba1a-4e27-b295-e2982842d975"
           },
-          "main_pid_after": 499,
-          "invocation_id": "3f84834f30fc46d6ac5c15ef9ebd6087",
-          "invocation_id_after": "3f84834f30fc46d6ac5c15ef9ebd6087",
+          "main_pid_after": 502,
+          "invocation_id": "4322d83c1f254a0eb58dd61e85942c3a",
+          "invocation_id_after": "4322d83c1f254a0eb58dd61e85942c3a",
           "process_namespace_inode": 4026532394,
           "target_namespace_inode": 4026532394,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 6019869752,
-          "sample_finished_ns": 6024870960,
+          "sample_started_ns": 7231533836,
+          "sample_finished_ns": 7237345086,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "memory_stage": "committed_after_boot_before_foreign_policy_probe",
@@ -9722,12 +9722,12 @@
       "name": "prepare_dual_boot",
       "passed": true,
       "evidence": {
-        "boot_id": "1e92f780-a9be-4f87-ad84-c5209ec2095f",
+        "boot_id": "5bc001e1-ba1a-4e27-b295-e2982842d975",
         "committed_baseline": {
           "phase": "COMMITTED",
           "generation": 1,
           "op": "dual-recovery-baseline",
-          "boot": "1e92f780-a9be-4f87-ad84-c5209ec2095f",
+          "boot": "5bc001e1-ba1a-4e27-b295-e2982842d975",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -10028,7 +10028,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 2,
           "op": "dual-pending-before-boot",
-          "boot": "1e92f780-a9be-4f87-ad84-c5209ec2095f",
+          "boot": "5bc001e1-ba1a-4e27-b295-e2982842d975",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -10121,7 +10121,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 2,
           "op": "dual-pending-before-boot",
-          "boot": "1e92f780-a9be-4f87-ad84-c5209ec2095f",
+          "boot": "5bc001e1-ba1a-4e27-b295-e2982842d975",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -10637,13 +10637,13 @@
       "name": "after_dual_boot",
       "passed": true,
       "evidence": {
-        "boot_id_before": "1e92f780-a9be-4f87-ad84-c5209ec2095f",
-        "boot_id_after": "30a86651-bbe1-4428-b515-9fdb59411923",
+        "boot_id_before": "5bc001e1-ba1a-4e27-b295-e2982842d975",
+        "boot_id_after": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
         "journal_before_agent": {
           "phase": "AWAITING_CONFIRM",
           "generation": 2,
           "op": "dual-pending-before-boot",
-          "boot": "1e92f780-a9be-4f87-ad84-c5209ec2095f",
+          "boot": "5bc001e1-ba1a-4e27-b295-e2982842d975",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -10740,7 +10740,7 @@
           "phase": "ROLLED_BACK",
           "generation": 3,
           "op": "dual-pending-before-boot",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -11041,7 +11041,7 @@
             "phase": "ROLLED_BACK",
             "generation": 3,
             "op": "dual-pending-before-boot",
-            "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+            "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -11134,7 +11134,7 @@
             "phase": "ROLLED_BACK",
             "generation": 3,
             "op": "dual-pending-before-boot",
-            "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+            "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -11228,7 +11228,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 4,
           "op": "dual-after-boot-successor",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -11323,7 +11323,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 4,
               "op": "dual-after-boot-successor",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -11414,7 +11414,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 4,
               "op": "dual-after-boot-successor",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -11923,7 +11923,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 4,
               "op": "dual-after-boot-successor",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -12014,7 +12014,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 4,
               "op": "dual-after-boot-successor",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -12523,7 +12523,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 4,
               "op": "dual-after-boot-successor",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -12614,7 +12614,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 4,
               "op": "dual-after-boot-successor",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -13121,7 +13121,7 @@
           "phase": "COMMITTED",
           "generation": 4,
           "op": "dual-after-boot-successor",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -13419,25 +13419,25 @@
           }
         ],
         "memory": {
-          "agent_rss_bytes": 24006656,
-          "agent_vmhwm_bytes": 24006656,
-          "service_cgroup_memory_current_bytes": 12648448,
+          "agent_rss_bytes": 24084480,
+          "agent_vmhwm_bytes": 24084480,
+          "service_cgroup_memory_current_bytes": 12713984,
           "process_identity": {
-            "pid": 521,
-            "start_ticks": 239,
-            "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+            "pid": 519,
+            "start_ticks": 319,
+            "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
           },
-          "main_pid_after": 521,
-          "invocation_id": "1d490f5f4bed48d5aa4a179684d2c301",
-          "invocation_id_after": "1d490f5f4bed48d5aa4a179684d2c301",
-          "process_namespace_inode": 4026532394,
-          "target_namespace_inode": 4026532394,
+          "main_pid_after": 519,
+          "invocation_id": "cfed1a3cfc0f48fd82007b0785d0f773",
+          "invocation_id_after": "cfed1a3cfc0f48fd82007b0785d0f773",
+          "process_namespace_inode": 4026532390,
+          "target_namespace_inode": 4026532390,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 6429905378,
-          "sample_finished_ns": 6434927878,
+          "sample_started_ns": 7565940295,
+          "sample_finished_ns": 7571444711,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         }
       }
@@ -13450,7 +13450,7 @@
           "phase": "COMMITTED",
           "generation": 4,
           "op": "dual-after-boot-successor",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -13544,7 +13544,7 @@
           "phase": "APPLYING",
           "generation": 5,
           "op": "dual-held-orphan",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -13632,22 +13632,22 @@
           "confirmed_families": []
         },
         "held_agent_identity": {
-          "pid": 1617,
-          "start_ticks": 678,
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+          "pid": 1619,
+          "start_ticks": 802,
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
         },
         "old_executor_identity": {
-          "pid": 1623,
-          "start_ticks": 682,
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+          "pid": 1625,
+          "start_ticks": 806,
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
         },
         "old_executor_cgroup": [
           "0::/user.slice/user-501.slice/session-4.scope"
         ],
         "after_agent_kill_identity": {
-          "pid": 1623,
-          "start_ticks": 682,
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+          "pid": 1625,
+          "start_ticks": 806,
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
         },
         "writer_lock_held_before_recovery": true,
         "kernel_before_recovery": [
@@ -13861,7 +13861,7 @@
           "phase": "ROLLED_BACK",
           "generation": 6,
           "op": "dual-held-orphan",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -14161,7 +14161,7 @@
           "phase": "AWAITING_CONFIRM",
           "generation": 7,
           "op": "dual-after-orphan-new",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -14252,7 +14252,7 @@
           "phase": "COMMITTED",
           "generation": 7,
           "op": "dual-after-orphan-new",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -14350,7 +14350,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -14441,7 +14441,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -14950,7 +14950,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -15041,7 +15041,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -15552,7 +15552,7 @@
               "phase": "COMMITTED",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -15646,7 +15646,7 @@
               "phase": "COMMITTED",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -16158,7 +16158,7 @@
               "phase": "COMMITTED",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -16252,7 +16252,7 @@
               "phase": "COMMITTED",
               "generation": 7,
               "op": "dual-after-orphan-new",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -16762,7 +16762,7 @@
           "phase": "COMMITTED",
           "generation": 7,
           "op": "dual-after-orphan-new",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -16856,7 +16856,7 @@
           "phase": "COMMITTED",
           "generation": 7,
           "op": "dual-after-orphan-new",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -17364,30 +17364,30 @@
         "identity_after_release": null,
         "release_clock": {
           "clock": "monotonic_ns",
-          "started_ns": 7317149503,
-          "finished_ns": 9417667503
+          "started_ns": 8604013795,
+          "finished_ns": 10709232171
         },
-        "release_observation_seconds": 2.100518,
+        "release_observation_seconds": 2.105218376,
         "memory": {
-          "agent_rss_bytes": 24080384,
-          "agent_vmhwm_bytes": 24080384,
-          "service_cgroup_memory_current_bytes": 12177408,
+          "agent_rss_bytes": 24137728,
+          "agent_vmhwm_bytes": 24137728,
+          "service_cgroup_memory_current_bytes": 12251136,
           "process_identity": {
-            "pid": 1627,
-            "start_ticks": 685,
-            "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+            "pid": 1629,
+            "start_ticks": 808,
+            "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
           },
-          "main_pid_after": 1627,
-          "invocation_id": "1eb57b84394d46ca8f552734995790ba",
-          "invocation_id_after": "1eb57b84394d46ca8f552734995790ba",
-          "process_namespace_inode": 4026532394,
-          "target_namespace_inode": 4026532394,
+          "main_pid_after": 1629,
+          "invocation_id": "0295846144954830b27d3f6afac68464",
+          "invocation_id_after": "0295846144954830b27d3f6afac68464",
+          "process_namespace_inode": 4026532390,
+          "target_namespace_inode": 4026532390,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 9423938753,
-          "sample_finished_ns": 9431885586,
+          "sample_started_ns": 10718343921,
+          "sample_finished_ns": 10727934546,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "scope": "Fault-injected installed Controller/executor outside unit; recovery by installed systemd Agent/pidfd fencing; finite late-release observation"
@@ -17397,12 +17397,12 @@
       "name": "dual_management_diagnostics",
       "passed": true,
       "evidence": {
-        "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+        "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
         "baseline": {
           "phase": "COMMITTED",
           "generation": 7,
           "op": "dual-after-orphan-new",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -17592,7 +17592,7 @@
           "phase": "COMMITTED",
           "generation": 7,
           "op": "dual-after-orphan-new",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -17686,7 +17686,7 @@
           "phase": "COMMITTED",
           "generation": 7,
           "op": "dual-after-orphan-new",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -18194,7 +18194,7 @@
           "phase": "COMMITTED",
           "generation": 8,
           "op": "dual-preflight-open",
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
           "current": {
             "ipv4": {
               "default": "drop",
@@ -18529,6 +18529,364 @@
                 }
               }
             ],
+            "foreign_observations": [
+              {
+                "operation": "plan",
+                "before": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "after": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "operation": "apply",
+                "before": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "after": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "operation": "partial_confirm",
+                "before": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "after": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "operation": "cancel",
+                "before": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "after": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
             "before": {
               "families": {
                 "ipv4": {
@@ -18543,17 +18901,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               }
             },
@@ -18571,17 +18929,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               }
             },
@@ -18599,17 +18957,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               }
             },
@@ -18617,7 +18975,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 9,
               "op": "dual-foreign-ip6m100",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -18732,10 +19090,10 @@
             },
             "plan_clock": {
               "clock": "monotonic_ns",
-              "started_ns": 10647034004,
-              "finished_ns": 10708357004
+              "started_ns": 11957126213,
+              "finished_ns": 12013015588
             },
-            "plan_observed_ms": 61.323
+            "plan_observed_ms": 55.889375
           },
           {
             "family": "ip6",
@@ -18965,6 +19323,364 @@
                 }
               }
             ],
+            "foreign_observations": [
+              {
+                "operation": "plan",
+                "before": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": 10,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "after": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": 10,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "operation": "apply",
+                "before": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": 10,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "after": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": 10,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "operation": "partial_confirm",
+                "before": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": 10,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "after": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": 10,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "operation": "cancel",
+                "before": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": 10,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "after": [
+                  {
+                    "table": {
+                      "family": "ip6",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": 10,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "ip6",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
             "before": {
               "families": {
                 "ipv4": {
@@ -18979,17 +19695,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               }
             },
@@ -19007,17 +19723,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               }
             },
@@ -19035,17 +19751,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               }
             },
@@ -19053,7 +19769,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 10,
               "op": "dual-foreign-ip610",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -19168,10 +19884,10 @@
             },
             "plan_clock": {
               "clock": "monotonic_ns",
-              "started_ns": 11242250421,
-              "finished_ns": 11298418087
+              "started_ns": 12605898797,
+              "finished_ns": 12690976339
             },
-            "plan_observed_ms": 56.167666
+            "plan_observed_ms": 85.077542
           },
           {
             "family": "inet",
@@ -19446,6 +20162,452 @@
                 }
               }
             ],
+            "foreign_observations": [
+              {
+                "operation": "plan",
+                "before": [
+                  {
+                    "table": {
+                      "family": "inet",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "meta": {
+                                "key": "nfproto"
+                              }
+                            },
+                            "right": "ipv6"
+                          }
+                        },
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "after": [
+                  {
+                    "table": {
+                      "family": "inet",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "meta": {
+                                "key": "nfproto"
+                              }
+                            },
+                            "right": "ipv6"
+                          }
+                        },
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "operation": "apply",
+                "before": [
+                  {
+                    "table": {
+                      "family": "inet",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "meta": {
+                                "key": "nfproto"
+                              }
+                            },
+                            "right": "ipv6"
+                          }
+                        },
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "after": [
+                  {
+                    "table": {
+                      "family": "inet",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "meta": {
+                                "key": "nfproto"
+                              }
+                            },
+                            "right": "ipv6"
+                          }
+                        },
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "operation": "partial_confirm",
+                "before": [
+                  {
+                    "table": {
+                      "family": "inet",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "meta": {
+                                "key": "nfproto"
+                              }
+                            },
+                            "right": "ipv6"
+                          }
+                        },
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "after": [
+                  {
+                    "table": {
+                      "family": "inet",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "meta": {
+                                "key": "nfproto"
+                              }
+                            },
+                            "right": "ipv6"
+                          }
+                        },
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "operation": "cancel",
+                "before": [
+                  {
+                    "table": {
+                      "family": "inet",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "meta": {
+                                "key": "nfproto"
+                              }
+                            },
+                            "right": "ipv6"
+                          }
+                        },
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "after": [
+                  {
+                    "table": {
+                      "family": "inet",
+                      "name": "rm_dual_preflight"
+                    }
+                  },
+                  {
+                    "chain": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "name": "input",
+                      "type": "filter",
+                      "hook": "input",
+                      "prio": -100,
+                      "policy": "accept"
+                    }
+                  },
+                  {
+                    "rule": {
+                      "family": "inet",
+                      "table": "rm_dual_preflight",
+                      "chain": "input",
+                      "expr": [
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "meta": {
+                                "key": "nfproto"
+                              }
+                            },
+                            "right": "ipv6"
+                          }
+                        },
+                        {
+                          "match": {
+                            "op": "==",
+                            "left": {
+                              "payload": {
+                                "protocol": "tcp",
+                                "field": "dport"
+                              }
+                            },
+                            "right": 59999
+                          }
+                        },
+                        {
+                          "drop": null
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
             "before": {
               "families": {
                 "ipv4": {
@@ -19460,17 +20622,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               }
             },
@@ -19488,17 +20650,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               }
             },
@@ -19516,17 +20678,17 @@
               "listener_before": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               },
               "listener_after": {
                 "poll": null,
                 "identity": {
-                  "pid": 1751,
-                  "start_ticks": 1001,
-                  "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                  "pid": 1753,
+                  "start_ticks": 1133,
+                  "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
                 }
               }
             },
@@ -19534,7 +20696,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 11,
               "op": "dual-foreign-inetm100",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -19649,10 +20811,10 @@
             },
             "plan_clock": {
               "clock": "monotonic_ns",
-              "started_ns": 11833454421,
-              "finished_ns": 11883856713
+              "started_ns": 13308475964,
+              "finished_ns": 13382107381
             },
-            "plan_observed_ms": 50.402292
+            "plan_observed_ms": 73.631417
           }
         ],
         "unknown": {
@@ -19959,6 +21121,460 @@
               }
             }
           ],
+          "foreign_observations": [
+            {
+              "operation": "plan",
+              "before": [
+                {
+                  "table": {
+                    "family": "ip6",
+                    "name": "rm_dual_preflight"
+                  }
+                },
+                {
+                  "chain": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "name": "input",
+                    "type": "filter",
+                    "hook": "input",
+                    "prio": 10,
+                    "policy": "accept"
+                  }
+                },
+                {
+                  "rule": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "chain": "input",
+                    "expr": [
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "ip6",
+                              "field": "saddr"
+                            }
+                          },
+                          "right": "2001:db8:55::1"
+                        }
+                      },
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "tcp",
+                              "field": "dport"
+                            }
+                          },
+                          "right": 59999
+                        }
+                      },
+                      {
+                        "drop": null
+                      }
+                    ]
+                  }
+                }
+              ],
+              "after": [
+                {
+                  "table": {
+                    "family": "ip6",
+                    "name": "rm_dual_preflight"
+                  }
+                },
+                {
+                  "chain": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "name": "input",
+                    "type": "filter",
+                    "hook": "input",
+                    "prio": 10,
+                    "policy": "accept"
+                  }
+                },
+                {
+                  "rule": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "chain": "input",
+                    "expr": [
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "ip6",
+                              "field": "saddr"
+                            }
+                          },
+                          "right": "2001:db8:55::1"
+                        }
+                      },
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "tcp",
+                              "field": "dport"
+                            }
+                          },
+                          "right": 59999
+                        }
+                      },
+                      {
+                        "drop": null
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "operation": "apply",
+              "before": [
+                {
+                  "table": {
+                    "family": "ip6",
+                    "name": "rm_dual_preflight"
+                  }
+                },
+                {
+                  "chain": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "name": "input",
+                    "type": "filter",
+                    "hook": "input",
+                    "prio": 10,
+                    "policy": "accept"
+                  }
+                },
+                {
+                  "rule": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "chain": "input",
+                    "expr": [
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "ip6",
+                              "field": "saddr"
+                            }
+                          },
+                          "right": "2001:db8:55::1"
+                        }
+                      },
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "tcp",
+                              "field": "dport"
+                            }
+                          },
+                          "right": 59999
+                        }
+                      },
+                      {
+                        "drop": null
+                      }
+                    ]
+                  }
+                }
+              ],
+              "after": [
+                {
+                  "table": {
+                    "family": "ip6",
+                    "name": "rm_dual_preflight"
+                  }
+                },
+                {
+                  "chain": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "name": "input",
+                    "type": "filter",
+                    "hook": "input",
+                    "prio": 10,
+                    "policy": "accept"
+                  }
+                },
+                {
+                  "rule": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "chain": "input",
+                    "expr": [
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "ip6",
+                              "field": "saddr"
+                            }
+                          },
+                          "right": "2001:db8:55::1"
+                        }
+                      },
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "tcp",
+                              "field": "dport"
+                            }
+                          },
+                          "right": 59999
+                        }
+                      },
+                      {
+                        "drop": null
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "operation": "partial_confirm",
+              "before": [
+                {
+                  "table": {
+                    "family": "ip6",
+                    "name": "rm_dual_preflight"
+                  }
+                },
+                {
+                  "chain": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "name": "input",
+                    "type": "filter",
+                    "hook": "input",
+                    "prio": 10,
+                    "policy": "accept"
+                  }
+                },
+                {
+                  "rule": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "chain": "input",
+                    "expr": [
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "ip6",
+                              "field": "saddr"
+                            }
+                          },
+                          "right": "2001:db8:55::1"
+                        }
+                      },
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "tcp",
+                              "field": "dport"
+                            }
+                          },
+                          "right": 59999
+                        }
+                      },
+                      {
+                        "drop": null
+                      }
+                    ]
+                  }
+                }
+              ],
+              "after": [
+                {
+                  "table": {
+                    "family": "ip6",
+                    "name": "rm_dual_preflight"
+                  }
+                },
+                {
+                  "chain": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "name": "input",
+                    "type": "filter",
+                    "hook": "input",
+                    "prio": 10,
+                    "policy": "accept"
+                  }
+                },
+                {
+                  "rule": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "chain": "input",
+                    "expr": [
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "ip6",
+                              "field": "saddr"
+                            }
+                          },
+                          "right": "2001:db8:55::1"
+                        }
+                      },
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "tcp",
+                              "field": "dport"
+                            }
+                          },
+                          "right": 59999
+                        }
+                      },
+                      {
+                        "drop": null
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "operation": "cancel",
+              "before": [
+                {
+                  "table": {
+                    "family": "ip6",
+                    "name": "rm_dual_preflight"
+                  }
+                },
+                {
+                  "chain": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "name": "input",
+                    "type": "filter",
+                    "hook": "input",
+                    "prio": 10,
+                    "policy": "accept"
+                  }
+                },
+                {
+                  "rule": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "chain": "input",
+                    "expr": [
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "ip6",
+                              "field": "saddr"
+                            }
+                          },
+                          "right": "2001:db8:55::1"
+                        }
+                      },
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "tcp",
+                              "field": "dport"
+                            }
+                          },
+                          "right": 59999
+                        }
+                      },
+                      {
+                        "drop": null
+                      }
+                    ]
+                  }
+                }
+              ],
+              "after": [
+                {
+                  "table": {
+                    "family": "ip6",
+                    "name": "rm_dual_preflight"
+                  }
+                },
+                {
+                  "chain": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "name": "input",
+                    "type": "filter",
+                    "hook": "input",
+                    "prio": 10,
+                    "policy": "accept"
+                  }
+                },
+                {
+                  "rule": {
+                    "family": "ip6",
+                    "table": "rm_dual_preflight",
+                    "chain": "input",
+                    "expr": [
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "ip6",
+                              "field": "saddr"
+                            }
+                          },
+                          "right": "2001:db8:55::1"
+                        }
+                      },
+                      {
+                        "match": {
+                          "op": "==",
+                          "left": {
+                            "payload": {
+                              "protocol": "tcp",
+                              "field": "dport"
+                            }
+                          },
+                          "right": 59999
+                        }
+                      },
+                      {
+                        "drop": null
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ],
           "probe": {
             "families": {
               "ipv4": {
@@ -19973,17 +21589,17 @@
             "listener_before": {
               "poll": null,
               "identity": {
-                "pid": 1751,
-                "start_ticks": 1001,
-                "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                "pid": 1753,
+                "start_ticks": 1133,
+                "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
               }
             },
             "listener_after": {
               "poll": null,
               "identity": {
-                "pid": 1751,
-                "start_ticks": 1001,
-                "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                "pid": 1753,
+                "start_ticks": 1133,
+                "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
               }
             }
           },
@@ -20001,17 +21617,17 @@
             "listener_before": {
               "poll": null,
               "identity": {
-                "pid": 1751,
-                "start_ticks": 1001,
-                "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                "pid": 1753,
+                "start_ticks": 1133,
+                "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
               }
             },
             "listener_after": {
               "poll": null,
               "identity": {
-                "pid": 1751,
-                "start_ticks": 1001,
-                "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+                "pid": 1753,
+                "start_ticks": 1133,
+                "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
               }
             }
           },
@@ -20019,7 +21635,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 12,
             "op": "dual-unknown",
-            "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+            "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -20142,7 +21758,7 @@
             "phase": "AWAITING_CONFIRM",
             "generation": 13,
             "op": "dual-guard-fresh",
-            "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+            "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -20259,7 +21875,7 @@
             "phase": "COMMITTED",
             "generation": 13,
             "op": "dual-guard-fresh",
-            "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+            "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
             "current": {
               "ipv4": {
                 "default": "drop",
@@ -20374,6 +21990,108 @@
             ]
           }
         },
+        "restoration_baseline": {
+          "phase": "COMMITTED",
+          "generation": 14,
+          "op": "dual-unguarded-baseline",
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
+          "current": {
+            "ipv4": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 60041,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "ipv6": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 60042,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          "baseline": {
+            "ipv4": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59999,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 60041,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "ipv6": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 59999,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 60042,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          "candidate": {
+            "ipv4": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 60041,
+                  "verdict": "drop"
+                }
+              ]
+            },
+            "ipv6": {
+              "default": "drop",
+              "rules": [
+                {
+                  "port": 18443,
+                  "verdict": "accept"
+                },
+                {
+                  "port": 60042,
+                  "verdict": "drop"
+                }
+              ]
+            }
+          },
+          "confirmed_families": [
+            "ipv4",
+            "ipv6"
+          ]
+        },
         "recoveries": [
           {
             "mode": "cancel",
@@ -20455,7 +22173,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 15,
               "op": "dual-guard-restore-cancel",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -20811,7 +22529,7 @@
               "phase": "ROLLED_BACK",
               "generation": 15,
               "op": "dual-guard-restore-cancel",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -21120,7 +22838,7 @@
                 "phase": "ROLLED_BACK",
                 "generation": 15,
                 "op": "dual-guard-restore-cancel",
-                "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+                "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -21221,7 +22939,7 @@
                 "phase": "ROLLED_BACK",
                 "generation": 15,
                 "op": "dual-guard-restore-cancel",
-                "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+                "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -21400,7 +23118,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 16,
               "op": "dual-guard-restore-deadline",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -21756,7 +23474,7 @@
               "phase": "ROLLED_BACK",
               "generation": 16,
               "op": "dual-guard-restore-deadline",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -22065,7 +23783,7 @@
                 "phase": "ROLLED_BACK",
                 "generation": 16,
                 "op": "dual-guard-restore-deadline",
-                "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+                "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -22166,7 +23884,7 @@
                 "phase": "ROLLED_BACK",
                 "generation": 16,
                 "op": "dual-guard-restore-deadline",
-                "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+                "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -22345,7 +24063,7 @@
               "phase": "AWAITING_CONFIRM",
               "generation": 17,
               "op": "dual-guard-restore-restart",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -22701,7 +24419,7 @@
               "phase": "ROLLED_BACK",
               "generation": 18,
               "op": "dual-guard-restore-restart",
-              "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+              "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
               "current": {
                 "ipv4": {
                   "default": "drop",
@@ -23010,7 +24728,7 @@
                 "phase": "ROLLED_BACK",
                 "generation": 18,
                 "op": "dual-guard-restore-restart",
-                "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+                "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -23111,7 +24829,7 @@
                 "phase": "ROLLED_BACK",
                 "generation": 18,
                 "op": "dual-guard-restore-restart",
-                "boot": "30a86651-bbe1-4428-b515-9fdb59411923",
+                "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b",
                 "current": {
                   "ipv4": {
                     "default": "drop",
@@ -23212,30 +24930,30 @@
           }
         ],
         "listener_identity": {
-          "pid": 1751,
-          "start_ticks": 1001,
-          "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+          "pid": 1753,
+          "start_ticks": 1133,
+          "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
         },
         "memory": {
-          "agent_rss_bytes": 23441408,
-          "agent_vmhwm_bytes": 23441408,
-          "service_cgroup_memory_current_bytes": 11399168,
+          "agent_rss_bytes": 23437312,
+          "agent_vmhwm_bytes": 23437312,
+          "service_cgroup_memory_current_bytes": 11407360,
           "process_identity": {
-            "pid": 2358,
-            "start_ticks": 1836,
-            "boot": "30a86651-bbe1-4428-b515-9fdb59411923"
+            "pid": 2390,
+            "start_ticks": 2004,
+            "boot": "3042c801-90f5-4a11-9e5f-fe8cdb85645b"
           },
-          "main_pid_after": 2358,
-          "invocation_id": "8594f93107b44c86a3e6a720018a08c2",
-          "invocation_id_after": "8594f93107b44c86a3e6a720018a08c2",
-          "process_namespace_inode": 4026532394,
-          "target_namespace_inode": 4026532394,
+          "main_pid_after": 2390,
+          "invocation_id": "844ba15683d24592bd2a5a04c6ed6787",
+          "invocation_id_after": "844ba15683d24592bd2a5a04c6ed6787",
+          "process_namespace_inode": 4026532390,
+          "target_namespace_inode": 4026532390,
           "entrypoint": "/opt/rulemoor/venv/bin/rulemoor-agent",
           "cwd": "/",
           "python_path_environment_clean": true,
           "control_group": "/system.slice/rulemoor.service",
-          "sample_started_ns": 18523542299,
-          "sample_finished_ns": 18528782591,
+          "sample_started_ns": 20202793051,
+          "sample_finished_ns": 20208178926,
           "scope": "Linux VM installed daemon; VmHWM excludes nft children/client/VM; cgroup includes service children and charged memory, not VM"
         },
         "cleanup": {
@@ -23258,25 +24976,25 @@
     }
   ],
   "vm_initial_state": "Stopped",
-  "wheel_sha256": "2d8c623dbdba6b41be5780b4d7c73ecd24d9cba8786b1c80b99cfb4a825898d7",
+  "wheel_sha256": "960538f48a6e819dd59eb6ff0e7f3c57b8355bd0768438bf33c2132f7cd0f6b0",
   "pending_vm_restart_clock": {
     "clock": "monotonic_ns",
-    "started_ns": 75635277079000,
-    "finished_ns": 75647957652666
+    "started_ns": 76271731819333,
+    "finished_ns": 76284934844166
   },
-  "pending_vm_restart_control_seconds": 12.680573666,
+  "pending_vm_restart_control_seconds": 13.203024833,
   "committed_vm_restart_clock": {
     "clock": "monotonic_ns",
-    "started_ns": 75647957659916,
-    "finished_ns": 75659547313333
+    "started_ns": 76284934855708,
+    "finished_ns": 76297898749666
   },
-  "committed_vm_restart_control_seconds": 11.589653417,
+  "committed_vm_restart_control_seconds": 12.963893958,
   "dual_pending_vm_restart_clock": {
     "clock": "monotonic_ns",
-    "started_ns": 75660736689541,
-    "finished_ns": 75672433983583
+    "started_ns": 76299272097708,
+    "finished_ns": 76312013041750
   },
-  "dual_pending_vm_restart_control_seconds": 11.697294042,
+  "dual_pending_vm_restart_control_seconds": 12.740944042,
   "source_snapshot_removed": true,
   "vm_final_state": "Stopped",
   "evidence_controls": [
@@ -23506,6 +25224,38 @@
     },
     {
       "name": "dual-guard-one-family-commit",
+      "rejected": true
+    },
+    {
+      "name": "dual-guard-confirm-wrong-boot",
+      "rejected": true
+    },
+    {
+      "name": "dual-guard-partial-unrelated-operation",
+      "rejected": true
+    },
+    {
+      "name": "dual-guard-partial-skipped-generation",
+      "rejected": true
+    },
+    {
+      "name": "dual-guard-partial-wrong-policy",
+      "rejected": true
+    },
+    {
+      "name": "dual-guard-intermediate-foreign-write",
+      "rejected": true
+    },
+    {
+      "name": "dual-guard-unknown-intermediate-write",
+      "rejected": true
+    },
+    {
+      "name": "dual-guard-missing-readback",
+      "rejected": true
+    },
+    {
+      "name": "dual-guard-restore-baseline-unrelated",
       "rejected": true
     }
   ]

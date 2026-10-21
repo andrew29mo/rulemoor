@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "run_id": "ef8a435b0ccead85",
+  "run_id": "1344705fc9496855",
   "passed": true,
   "execution": "Colima Linux VM; real nftables/netns/TLS",
   "source": {
@@ -18,7 +18,7 @@
     "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
     "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
-    "tests/test_deployment_audit.py": "c5d6f42e95a0442a4f202632d8e2523cb07a7222e354c8f2c1e62e6c64124d04",
+    "tests/test_deployment_audit.py": "dfdccf12ac9d5d323accb48b7b6a258e66c00d712e8c1ed567d6a8fbceaa86d2",
     "tests/test_diagnostics.py": "1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7",
     "tests/test_dual_diagnostics.py": "382d39cdba7be498ac883d6784263afa5de2f32dea647a2d4235fb2b139d1952",
     "tests/test_dual_recovery.py": "28ace94c72e6c1453bf8147e9a63dec4f2b57dc49095af0df20b233eff30e49a",
@@ -33,8 +33,8 @@
     "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
     "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
     "tools/deployment_guest.py": "9faa2d0eef78ecc73705f8a37f1437e29129aacba5d8fbc0129c92bb0c4e12d9",
-    "tools/deployment_report.py": "8b9540db9187e681a6f7a432df65e940fd57d24d58faf1152b01698559219eb4",
-    "tools/dual_preflight.py": "e2cef9942388456dd301a04b8bee2530c960221db70622a8dddd5a538f587e97",
+    "tools/deployment_report.py": "28fe603a4a1f9d294cbf43e6504eba10a4124744887195a1d7426f7b9eada8d2",
+    "tools/dual_preflight.py": "1615aa027a83c1675f050b9d1733c1377e08545b1ea51b5238e3f741279d0676",
     "tools/dual_recovery.py": "cf1347783722d3e16d990ca0bd6f1a1e4272cfcc35d2b1ba7837eea66e103e8c",
     "tools/evidence.py": "d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b",
     "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
@@ -51,7 +51,7 @@
     "tools/validate_deployment.py": "a8e03f1563b4660ee1c1acf2a99d38ac66e6a284392f597cc6ad7138094fe067",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "source_sha256": "a0c093c5ee46f8a93d23f7ffb4bcb280c2a0cdc47de8803b6ba5cb9bc77f76ac",
+  "source_sha256": "5d2899bf453b3f6491afb0f7e9ebf52f70cf339035e205705985eb457af973ac",
   "cases": [
     {
       "name": "atomic_batches",
@@ -225,7 +225,7 @@
           }
         ]
       },
-      "seconds": 0.2242763339999989,
+      "seconds": 0.21975841699999954,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -243,12 +243,12 @@
           "old_confirm": 409
         },
         "fresh_blocked_connect_errno": 11,
-        "rollback_start_overdue_ms": 48.868793000000466,
-        "rollback_complete_overdue_ms": 93.35879300000016,
+        "rollback_start_overdue_ms": 18.50887599999851,
+        "rollback_complete_overdue_ms": 69.57991799999874,
         "fresh_access_restored": true,
         "confirmed_survives_deadline": true
       },
-      "seconds": 5.549013961,
+      "seconds": 5.524578044000002,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -499,8 +499,8 @@
           "fencing": {
             "old_executor_identity": {
               "pid": 252,
-              "start_ticks": 2209,
-              "boot": "382bfe4f-ffa0-4cf5-890e-adcd30dfdf03"
+              "start_ticks": 2199,
+              "boot": "bb3210c7-8038-4536-82f1-54ee8c8fe841"
             },
             "old_executor_exited": true,
             "old_candidate": {
@@ -845,7 +845,7 @@
           "unknown_preserved": true
         }
       ],
-      "seconds": 4.812366001999997,
+      "seconds": 4.755120960000003,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -863,7 +863,7 @@
         "durably_confirmed_restart_preserved": true,
         "graceful_shutdown_restored": true
       },
-      "seconds": 3.281204668000001,
+      "seconds": 3.2159736270000003,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -881,7 +881,7 @@
         "confirmed_response_lost": true,
         "committed_survived_restart": true
       },
-      "seconds": 0.715686251000001,
+      "seconds": 0.7261494169999985,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -903,7 +903,7 @@
         "write_limit_bytes": 16842752,
         "test_tmpfs_unmounted": true
       },
-      "seconds": 2.2565270009999985,
+      "seconds": 2.2590064599999984,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -918,13 +918,13 @@
         "expired_connections": 16,
         "rollback_while_all_slots_occupied": true,
         "final_phase": "ROLLED_BACK",
-        "seconds": 6.090007465999999,
+        "seconds": 6.087735716000001,
         "fresh_confirmation_after_slot_recovery": true,
         "baseline_readback_verified": true,
         "connection_lifetime_seconds": 5,
         "header_drip_interval_seconds": 0.1
       },
-      "seconds": 6.5108003409999995,
+      "seconds": 6.515240625999997,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -937,9 +937,9 @@
         "trials": [
           {
             "index": 0,
-            "plan_ms": 11.488761000002512,
-            "apply_ms": 44.62671699999987,
-            "finalize_ms": 33.55930099999682,
+            "plan_ms": 9.845460000001083,
+            "apply_ms": 48.52147799999784,
+            "finalize_ms": 33.67974100000026,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 1,
@@ -964,9 +964,9 @@
           },
           {
             "index": 1,
-            "plan_ms": 11.392175000004556,
-            "apply_ms": 44.70130299999653,
-            "finalize_ms": 3.3553800000021283,
+            "plan_ms": 14.849613000002648,
+            "apply_ms": 55.79868799999588,
+            "finalize_ms": 3.815330000001893,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 2,
@@ -991,9 +991,9 @@
           },
           {
             "index": 2,
-            "plan_ms": 17.72979999999791,
-            "apply_ms": 42.238403999995455,
-            "finalize_ms": 34.48053299999998,
+            "plan_ms": 16.504025000003253,
+            "apply_ms": 52.501866999996594,
+            "finalize_ms": 33.2009430000042,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 3,
@@ -1018,9 +1018,9 @@
           },
           {
             "index": 3,
-            "plan_ms": 11.772060000005524,
-            "apply_ms": 46.09642199999797,
-            "finalize_ms": 3.391047999997454,
+            "plan_ms": 12.692319999999313,
+            "apply_ms": 49.721054000002596,
+            "finalize_ms": 3.8477920000019594,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 4,
@@ -1045,9 +1045,9 @@
           },
           {
             "index": 4,
-            "plan_ms": 10.205728000002523,
-            "apply_ms": 44.90163999999908,
-            "finalize_ms": 33.5962189999961,
+            "plan_ms": 12.088053000006482,
+            "apply_ms": 58.393982999994876,
+            "finalize_ms": 36.606984000002285,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 5,
@@ -1072,9 +1072,9 @@
           },
           {
             "index": 5,
-            "plan_ms": 12.182113000001493,
-            "apply_ms": 44.43396199999938,
-            "finalize_ms": 3.601344999999867,
+            "plan_ms": 11.624382999997351,
+            "apply_ms": 62.03483699999879,
+            "finalize_ms": 4.414971999999295,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 6,
@@ -1099,9 +1099,9 @@
           },
           {
             "index": 6,
-            "plan_ms": 9.850593000003016,
-            "apply_ms": 46.74827299999862,
-            "finalize_ms": 31.95309200000196,
+            "plan_ms": 11.728143000006241,
+            "apply_ms": 45.04013899999393,
+            "finalize_ms": 35.54263000000191,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 7,
@@ -1126,9 +1126,9 @@
           },
           {
             "index": 7,
-            "plan_ms": 10.803576999997233,
-            "apply_ms": 45.499990000003265,
-            "finalize_ms": 3.9607709999955887,
+            "plan_ms": 12.217274000001055,
+            "apply_ms": 44.68502099999938,
+            "finalize_ms": 3.8440410000006864,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 8,
@@ -1153,9 +1153,9 @@
           },
           {
             "index": 8,
-            "plan_ms": 9.33120399999865,
-            "apply_ms": 45.592409000001055,
-            "finalize_ms": 30.69464200000027,
+            "plan_ms": 8.705055999996603,
+            "apply_ms": 46.86169200000023,
+            "finalize_ms": 31.75512900000399,
             "action": "cancel",
             "phase": "ROLLED_BACK",
             "generation": 9,
@@ -1180,9 +1180,9 @@
           },
           {
             "index": 9,
-            "plan_ms": 15.405864000001657,
-            "apply_ms": 46.62360300000046,
-            "finalize_ms": 4.1129000000026394,
+            "plan_ms": 15.985252000000116,
+            "apply_ms": 58.89854800000194,
+            "finalize_ms": 4.072121999996625,
             "action": "confirm",
             "phase": "COMMITTED",
             "generation": 10,
@@ -1208,74 +1208,74 @@
         ],
         "plan": {
           "n": 10,
-          "median_ms": 11.440468000003534,
-          "min_ms": 9.33120399999865,
-          "max_ms": 17.72979999999791,
+          "median_ms": 12.152663500003769,
+          "min_ms": 8.705055999996603,
+          "max_ms": 16.504025000003253,
           "samples_ms": [
-            11.488761000002512,
-            11.392175000004556,
-            17.72979999999791,
-            11.772060000005524,
-            10.205728000002523,
-            12.182113000001493,
-            9.850593000003016,
-            10.803576999997233,
-            9.33120399999865,
-            15.405864000001657
+            9.845460000001083,
+            14.849613000002648,
+            16.504025000003253,
+            12.692319999999313,
+            12.088053000006482,
+            11.624382999997351,
+            11.728143000006241,
+            12.217274000001055,
+            8.705055999996603,
+            15.985252000000116
           ]
         },
         "apply": {
           "n": 10,
-          "median_ms": 45.20081500000117,
-          "min_ms": 42.238403999995455,
-          "max_ms": 46.74827299999862,
+          "median_ms": 51.111460499999595,
+          "min_ms": 44.68502099999938,
+          "max_ms": 62.03483699999879,
           "samples_ms": [
-            44.62671699999987,
-            44.70130299999653,
-            42.238403999995455,
-            46.09642199999797,
-            44.90163999999908,
-            44.43396199999938,
-            46.74827299999862,
-            45.499990000003265,
-            45.592409000001055,
-            46.62360300000046
+            48.52147799999784,
+            55.79868799999588,
+            52.501866999996594,
+            49.721054000002596,
+            58.393982999994876,
+            62.03483699999879,
+            45.04013899999393,
+            44.68502099999938,
+            46.86169200000023,
+            58.89854800000194
           ]
         },
         "confirm": {
           "n": 5,
-          "median_ms": 3.601344999999867,
-          "min_ms": 3.3553800000021283,
-          "max_ms": 4.1129000000026394,
+          "median_ms": 3.8477920000019594,
+          "min_ms": 3.815330000001893,
+          "max_ms": 4.414971999999295,
           "samples_ms": [
-            3.3553800000021283,
-            3.391047999997454,
-            3.601344999999867,
-            3.9607709999955887,
-            4.1129000000026394
+            3.815330000001893,
+            3.8477920000019594,
+            4.414971999999295,
+            3.8440410000006864,
+            4.072121999996625
           ]
         },
         "cancel": {
           "n": 5,
-          "median_ms": 33.55930099999682,
-          "min_ms": 30.69464200000027,
-          "max_ms": 34.48053299999998,
+          "median_ms": 33.67974100000026,
+          "min_ms": 31.75512900000399,
+          "max_ms": 36.606984000002285,
           "samples_ms": [
-            33.55930099999682,
-            34.48053299999998,
-            33.5962189999961,
-            31.95309200000196,
-            30.69464200000027
+            33.67974100000026,
+            33.2009430000042,
+            36.606984000002285,
+            35.54263000000191,
+            31.75512900000399
           ]
         },
         "rss": {
-          "initial_bytes": 23957504,
-          "final_bytes": 24686592,
-          "worker_high_water_bytes": 24686592,
+          "initial_bytes": 23969792,
+          "final_bytes": 24707072,
+          "worker_high_water_bytes": 24772608,
           "scope": "Agent process only; excludes transient nft children, clients and VM; kernel-reported VmHWM"
         },
         "disk": {
-          "logical_bytes": 347880,
+          "logical_bytes": 347881,
           "allocated_bytes": 372736,
           "files": {
             "agent.lock": {
@@ -1290,12 +1290,12 @@
               "logical_bytes": 0,
               "allocated_bytes": 0
             },
-            "batch-42a59bce55c8862e71c0a2d0011a6286.nft": {
-              "logical_bytes": 178,
-              "allocated_bytes": 4096
-            },
             "token": {
               "logical_bytes": 64,
+              "allocated_bytes": 4096
+            },
+            "batch-7793aa9e62cca52408a96e3a264ad086.nft": {
+              "logical_bytes": 178,
               "allocated_bytes": 4096
             },
             "state.sqlite": {
@@ -1303,14 +1303,14 @@
               "allocated_bytes": 86016
             },
             "rescue.json": {
-              "logical_bytes": 589,
+              "logical_bytes": 590,
               "allocated_bytes": 4096
             },
             "cert.pem": {
               "logical_bytes": 1155,
               "allocated_bytes": 4096
             },
-            "executor-42a59bce55c8862e71c0a2d0011a6286.json": {
+            "executor-7793aa9e62cca52408a96e3a264ad086.json": {
               "logical_bytes": 126,
               "allocated_bytes": 4096
             },
@@ -1324,7 +1324,7 @@
         "warmup": "Service readiness only; all 10 operation trials retained",
         "timing_scope": "TLS request/response including connection+handshake, checks, nft and durable journal; one client, loopback-veth path in VM; no baseline speedup claim"
       },
-      "seconds": 0.9589120460000018,
+      "seconds": 1.0355741329999972,
       "post_case_processes": {
         "rm_control": [],
         "rm_target": []
@@ -1334,12 +1334,12 @@
   "unit_stage": {
     "exit_code": 0,
     "timed_out": false,
-    "seconds": 6.012639210000001,
+    "seconds": 5.925353961,
     "passed": true
   },
   "unit": {
     "passed": true,
-    "tests": 109,
+    "tests": 111,
     "test_ids": [
       "test_api.APITests.test_absolute_lifetime_expires_dripping_unauthenticated_connections",
       "test_api.APITests.test_authentication",
@@ -1396,10 +1396,12 @@
       "test_core.RecoveryMetadataTests.test_corrupt_executor_metadata_is_degraded_without_signaling",
       "test_deployment_audit.MeasurementEvidenceTests.test_dual_process_identity_requires_valid_pid_start_and_same_boot",
       "test_deployment_audit.MeasurementEvidenceTests.test_dual_projection_requires_shared_boot_and_valid_generation",
+      "test_deployment_audit.MeasurementEvidenceTests.test_foreign_readbacks_catch_intermediate_change_even_if_final_restored",
       "test_deployment_audit.MeasurementEvidenceTests.test_incomplete_report_does_not_invent_zero_duration",
       "test_deployment_audit.MeasurementEvidenceTests.test_interval_rejects_nonfinite_and_inconsistent_summary",
       "test_deployment_audit.MeasurementEvidenceTests.test_interval_requires_monotonic_integer_endpoints",
       "test_deployment_audit.MeasurementEvidenceTests.test_limit_receipt_must_belong_to_fault_observation_window",
+      "test_deployment_audit.MeasurementEvidenceTests.test_management_receipt_is_bound_to_boot_operation_generation_and_policies",
       "test_deployment_audit.MeasurementEvidenceTests.test_positive_measurement_rejects_boolean_and_nonfinite",
       "test_deployment_audit.MeasurementEvidenceTests.test_tcp_drop_requires_live_same_listener_and_successful_recovery",
       "test_diagnostics.DiagnosticTests.test_configuration_is_strict_bounded_and_copied",
@@ -1454,7 +1456,7 @@
     "failures": 0,
     "errors": 0,
     "skipped": 0,
-    "seconds": 5.919992461,
+    "seconds": 5.846887669,
     "source": {
       "Dockerfile": "3da2d9accf269cd24342af03ade6bc77b586518a4f26ebfb7a7f35280e6136ec",
       "deploy/rulemoor.service": "9a4909688fc618b1971e9d494c130ddbbd782eb76f40cc6081e6f4e6967e7625",
@@ -1470,7 +1472,7 @@
       "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
       "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
-      "tests/test_deployment_audit.py": "c5d6f42e95a0442a4f202632d8e2523cb07a7222e354c8f2c1e62e6c64124d04",
+      "tests/test_deployment_audit.py": "dfdccf12ac9d5d323accb48b7b6a258e66c00d712e8c1ed567d6a8fbceaa86d2",
       "tests/test_diagnostics.py": "1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7",
       "tests/test_dual_diagnostics.py": "382d39cdba7be498ac883d6784263afa5de2f32dea647a2d4235fb2b139d1952",
       "tests/test_dual_recovery.py": "28ace94c72e6c1453bf8147e9a63dec4f2b57dc49095af0df20b233eff30e49a",
@@ -1485,8 +1487,8 @@
       "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
       "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
       "tools/deployment_guest.py": "9faa2d0eef78ecc73705f8a37f1437e29129aacba5d8fbc0129c92bb0c4e12d9",
-      "tools/deployment_report.py": "8b9540db9187e681a6f7a432df65e940fd57d24d58faf1152b01698559219eb4",
-      "tools/dual_preflight.py": "e2cef9942388456dd301a04b8bee2530c960221db70622a8dddd5a538f587e97",
+      "tools/deployment_report.py": "28fe603a4a1f9d294cbf43e6504eba10a4124744887195a1d7426f7b9eada8d2",
+      "tools/dual_preflight.py": "1615aa027a83c1675f050b9d1733c1377e08545b1ea51b5238e3f741279d0676",
       "tools/dual_recovery.py": "cf1347783722d3e16d990ca0bd6f1a1e4272cfcc35d2b1ba7837eea66e103e8c",
       "tools/evidence.py": "d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b",
       "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
@@ -1503,12 +1505,12 @@
       "tools/validate_deployment.py": "a8e03f1563b4660ee1c1acf2a99d38ac66e6a284392f597cc6ad7138094fe067",
       "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
     },
-    "source_sha256": "a0c093c5ee46f8a93d23f7ffb4bcb280c2a0cdc47de8803b6ba5cb9bc77f76ac",
-    "run_id": "ef8a435b0ccead85",
+    "source_sha256": "5d2899bf453b3f6491afb0f7e9ebf52f70cf339035e205705985eb457af973ac",
+    "run_id": "1344705fc9496855",
     "platform": "Linux",
     "architecture": "aarch64",
     "python": "3.12.14",
-    "test_process_peak_rss_bytes": 38780928,
+    "test_process_peak_rss_bytes": 38899712,
     "scope": "Portable production-core contracts with a memory backend; not real nft or network performance"
   },
   "environment": {

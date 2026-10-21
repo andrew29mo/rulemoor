@@ -19,7 +19,7 @@ CONTROL_NAMES = ['boot-identity','missing-case','stale-kernel','missing-cleanup'
                  'missing-stage','wrong-package-origin','wrong-preboot-journal','stale-pending-generation',
                  'infinite-timing','missing-vm-interval','memory-identity','invalid-memory','poison-kernel-write','restart-still-running','failed-journal-changed','missing-limit-receipt','future-limit-receipt','unrelated-startup-memory','wrong-poison-invocation','guard-admitted','foreign-rule-modified','uncertainty-hidden','old-confirmation-admitted','false-tcp-observation',
                  'connection-refused','missing-tcp-recovery','changed-tcp-listener','configuration-recovery-skipped','dual-v4-masks-v6','dual-wrong-rollback','dual-wrong-transport','dual-foreign-modified','dual-missing-timing','dual-partial-crash-not-restored','dual-missing-cleanup',
-                 'dual-invalid-restart-identity','dual-failure-wrong-boot','dual-unrelated-success-operation','dual-success-wrong-boot','dual-skipped-generation','dual-stale-kernel-modified','dual-reboot-pre-agent-journal','dual-reboot-missing-family','dual-reboot-fresh-family','dual-reboot-wrong-boot','dual-orphan-did-not-survive','dual-orphan-not-retired','dual-orphan-overwrites-one-family','dual-orphan-missing-release-clock','dual-guard-v4-masks-v6','dual-guard-unknown-clear','dual-guard-foreign-write','dual-guard-refused-not-drop','dual-guard-skipped-restore','dual-guard-one-family-commit']
+                 'dual-invalid-restart-identity','dual-failure-wrong-boot','dual-unrelated-success-operation','dual-success-wrong-boot','dual-skipped-generation','dual-stale-kernel-modified','dual-reboot-pre-agent-journal','dual-reboot-missing-family','dual-reboot-fresh-family','dual-reboot-wrong-boot','dual-orphan-did-not-survive','dual-orphan-not-retired','dual-orphan-overwrites-one-family','dual-orphan-missing-release-clock','dual-guard-v4-masks-v6','dual-guard-unknown-clear','dual-guard-foreign-write','dual-guard-refused-not-drop','dual-guard-skipped-restore','dual-guard-one-family-commit','dual-guard-confirm-wrong-boot','dual-guard-partial-unrelated-operation','dual-guard-partial-skipped-generation','dual-guard-partial-wrong-policy','dual-guard-intermediate-foreign-write','dual-guard-unknown-intermediate-write','dual-guard-missing-readback','dual-guard-restore-baseline-unrelated']
 
 
 def positive(value):
@@ -320,6 +320,18 @@ def dual_orphan_recovery(row, boot, baseline):
         assert len({digest(p[family]) for p in (SUCCESSOR,LATE,FINAL)})==3
 
 
+def management_projection(state, boot, op, generation, baseline, candidate, phase, confirmed):
+    dual_projection_identity(state,boot)
+    assert state=={'boot':boot,'op':op,'generation':generation,'phase':phase,
+                   'current':candidate if phase=='COMMITTED' else baseline,'baseline':baseline,
+                   'candidate':candidate,'confirmed_families':confirmed}
+
+
+def foreign_observations(rows, baseline):
+    assert [r['operation'] for r in rows]==['plan','apply','partial_confirm','cancel']
+    for row in rows:assert row['before']==row['after']==baseline
+
+
 def dual_management_evidence(row, boot, baseline):
     from .dual_preflight import PATHS, OPEN
     from .dual_recovery import FINAL
@@ -336,7 +348,8 @@ def dual_management_evidence(row, boot, baseline):
             if ext is not None:assert diag['family_statuses'][f]['external']==ext
     family_result(row['own_denied'],'allowed','blocked')
     assert row['own_denied']['own_policy']['status']=='blocked'
-    assert row['admitted']['phase']=='COMMITTED' and row['admitted']['current']==OPEN
+    generation=baseline['generation']+1
+    management_projection(row['admitted'],boot,'dual-preflight-open',generation,FINAL,OPEN,'COMMITTED',['ipv4','ipv6'])
     listener=row['listener_identity'];process_identity(listener,boot)
     def probes(value, v6):
         assert set(value['families'])=={'ipv4','ipv6'}
@@ -348,6 +361,7 @@ def dual_management_evidence(row, boot, baseline):
         family_result(case['diagnostics'],'allowed','allowed','no_observed_input_conflict','blocked')
         assert case['diagnostics']['external']['status']=='blocked'
         assert case['foreign_before']==case['foreign_after_plan']==case['foreign_after_operations']
+        foreign_observations(case['foreign_observations'],case['foreign_before'])
         raw=case['foreign_before']
         chain=next(x['chain'] for x in raw if 'chain' in x)
         assert chain['family']==case['family'] and chain['table']=='rm_dual_preflight' and chain['hook']=='input' and chain['prio']==case['priority']
@@ -355,24 +369,36 @@ def dual_management_evidence(row, boot, baseline):
         assert rule['expr'][-1]=={'drop':None} and any(x.get('match',{}).get('right')==59999 for x in rule['expr'])
         if case['family']=='inet':assert any(x.get('match',{}).get('left')=={'meta':{'key':'nfproto'}} and x['match']['right']=='ipv6' for x in rule['expr'])
         probes(case['before'],True);probes(case['blocked'],False);probes(case['recovered'],True)
-        assert case['partial']['phase']=='AWAITING_CONFIRM' and case['partial']['confirmed_families']==['ipv4']
+        generation+=1
+        op='dual-foreign-'+case['family']+str(case['priority']).replace('-','m')
+        management_projection(case['partial'],boot,op,generation,OPEN,OPEN,'AWAITING_CONFIRM',['ipv4'])
         interval(case['plan_clock'],case['plan_observed_ms']/1000)
     unknown=row['unknown']
     for diag in (unknown['diagnostics'],unknown['apply_diagnostics']):
         family_result(diag,'allowed','allowed','no_observed_input_conflict','risk')
         assert diag['external']['status']=='risk'
     assert unknown['foreign_before']==unknown['foreign_after']
+    foreign_observations(unknown['foreign_observations'],unknown['foreign_before'])
     assert any(x.get('match',{}).get('left')=={'payload':{'protocol':'ip6','field':'saddr'}} for r in unknown['foreign_before'] if 'rule' in r for x in r['rule']['expr'])
     probes(unknown['probe'],False);probes(unknown['recovered_probe'],True)
-    assert unknown['partial']['phase']=='AWAITING_CONFIRM' and unknown['partial']['confirmed_families']==['ipv4']
+    generation+=1
+    management_projection(unknown['partial'],boot,'dual-unknown',generation,OPEN,OPEN,'AWAITING_CONFIRM',['ipv4'])
     confirm=row['confirmations'];assert confirm['old_status']=={'ipv4':409,'ipv6':409}
     first,last=confirm['partial'],confirm['committed']
-    assert first['phase']=='AWAITING_CONFIRM' and first['confirmed_families']==['ipv4']
-    assert last=={**first,'phase':'COMMITTED','current':OPEN,'confirmed_families':['ipv4','ipv6']}
+    generation+=1
+    management_projection(first,boot,'dual-guard-fresh',generation,OPEN,OPEN,'AWAITING_CONFIRM',['ipv4'])
+    management_projection(last,boot,'dual-guard-fresh',generation,OPEN,OPEN,'COMMITTED',['ipv4','ipv6'])
+    generation+=1
+    management_projection(row['restoration_baseline'],boot,'dual-unguarded-baseline',generation,OPEN,FINAL,'COMMITTED',['ipv4','ipv6'])
     assert [r['mode'] for r in row['recoveries']]==['cancel','deadline','restart']
     for recovery in row['recoveries']:
         family_result(recovery['baseline_plan'],'blocked','blocked')
         pending=recovery['partial'];restored=recovery['restored']
+        generation+=1
+        op='dual-guard-restore-'+recovery['mode']
+        management_projection(pending,boot,op,generation,FINAL,OPEN,'AWAITING_CONFIRM',['ipv4'])
+        generation+=1 if recovery['mode']=='restart' else 0
+        management_projection(restored,boot,op,generation,FINAL,OPEN,'ROLLED_BACK',['ipv4'])
         assert pending['phase']=='AWAITING_CONFIRM' and pending['confirmed_families']==['ipv4']
         assert pending['boot']==restored['boot']==boot and pending['current']==pending['baseline']==FINAL and pending['candidate']==OPEN
         assert recovery['kernel_pending']==expected(OPEN) and recovery['kernel_restored']==expected(FINAL)
@@ -548,6 +574,15 @@ def negative_controls(value, source):
         elif name=='dual-guard-refused-not-drop':by_name['dual_management_diagnostics']['foreign_cases'][0]['blocked']['families']['ipv6']['errno']=111
         elif name=='dual-guard-skipped-restore':by_name['dual_management_diagnostics']['recoveries'][0]['kernel_restored']=[]
         elif name=='dual-guard-one-family-commit':by_name['dual_management_diagnostics']['confirmations']['committed']['confirmed_families']=['ipv4']
+        elif name=='dual-guard-confirm-wrong-boot':
+            for k in ('partial','committed'):by_name['dual_management_diagnostics']['confirmations'][k]['boot']='unrelated-boot'
+        elif name=='dual-guard-partial-unrelated-operation':by_name['dual_management_diagnostics']['foreign_cases'][0]['partial']['op']='unrelated-operation'
+        elif name=='dual-guard-partial-skipped-generation':by_name['dual_management_diagnostics']['foreign_cases'][0]['partial']['generation']+=1
+        elif name=='dual-guard-partial-wrong-policy':by_name['dual_management_diagnostics']['unknown']['partial']['candidate']={}
+        elif name=='dual-guard-intermediate-foreign-write':by_name['dual_management_diagnostics']['foreign_cases'][0]['foreign_observations'][1]['after']=[]
+        elif name=='dual-guard-unknown-intermediate-write':by_name['dual_management_diagnostics']['unknown']['foreign_observations'][2]['after']=[]
+        elif name=='dual-guard-missing-readback':by_name['dual_management_diagnostics']['foreign_cases'][0]['foreign_observations'].pop()
+        elif name=='dual-guard-restore-baseline-unrelated':by_name['dual_management_diagnostics']['restoration_baseline']['generation']+=1
         elif name=='dual-invalid-restart-identity':
             by_name['dual_stack']['identity_after_restart']={'pid':0,'start_ticks':0,'boot':by_name['setup']['boot_id']}
         elif name=='dual-failure-wrong-boot':
@@ -580,7 +615,7 @@ def render(value):
         observations += '<p>Dual-stack static veth peers: repeated IPv4 confirmation could not mask a blocked fresh IPv6 connection; both policies rolled back at the common deadline. Old IPv4/IPv6 TLS and family spoofing were rejected. Fresh IPv4 partial + IPv6 confirmation committed; partial-confirmation SIGKILL restored the prior dual commit. Foreign tables remained unchanged.</p>'
         observations += f'<p>Single observed dual confirmation round trips: IPv4 partial {s["partial_ms"]:.2f} ms; IPv6 final commit {s["commit_ms"]:.2f} ms. Different state transitions, not a family performance comparison. Includes fresh TLS and durable writes; client-process startup excluded. Static-neighbour discovery observed. This case does not test VM boot; any separate partial-confirmation dual VM boot observation is reported below. Committed-only dual VM boot, routed PMTU, SLAAC and power loss remain untested.</p>'
     if 'dual_management_diagnostics' in by_name:
-        observations += '<p>Configured IPv4/IPv6 management guard: own IPv6 denial refused before mutation; ip6/inet external drops and unsupported IPv6 address conditions stayed blocked/risk despite IPv4 success. Same-listener TCP success/timeout/success and foreign-rule preservation checked. Fresh confirmations still required both families; cancel, deadline and process restart restored both baseline policies even though new admission would refuse that baseline. Static namespace-local peers, not route/WAN or configured-guard reboot proof.</p>'
+        observations += '<p>Configured IPv4/IPv6 management guard: own IPv6 denial refused before mutation; ip6/inet external drops and unsupported IPv6 address conditions stayed blocked/risk despite IPv4 success. Same-listener TCP success/timeout/success and foreign-rule readbacks immediately around plan, apply, partial confirmation and cancel checked (not continuous monitoring). Receipts are bound to boot/operation/generation and policy. Fresh confirmations still required both families; cancel, deadline and process restart restored both baseline policies even though new admission would refuse that baseline. Static namespace-local peers, not route/WAN or configured-guard reboot proof.</p>'
     if 'after_dual_boot' in by_name:
         seconds=value.get('dual_pending_vm_restart_control_seconds')
         text=f'{seconds:.2f} s' if seconds is not None else 'not yet observed'

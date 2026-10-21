@@ -64,6 +64,11 @@ print(json.dumps(out))
         assert active_family is None
         g.cmd(['ip','netns','exec',g.NS,'nft','-f','-'],input=f'table {family} {table} {{\n chain input {{\n type filter hook input priority {priority}; policy accept;\n {rule}\n }}\n}}\n');active_family=family
     def plan(p):return g.request('/plan',{'policy':p})['diagnostics']
+    def observed(operation, action, observations):
+        before=foreign();value=action();after=foreign()
+        assert before==after
+        observations.append({'operation':operation,'before':before,'after':after})
+        return value
     try:
         baseline=g.project(g.request());before_kernel=d.kernel()
         blocked=copy.deepcopy(OPEN);blocked['ipv6']={'default':'drop','rules':[]}
@@ -78,23 +83,27 @@ print(json.dumps(out))
             install(family,priority,rule);raw=foreign();blocked_probe=probes()
             assert blocked_probe['families']['ipv4']=={'connected':True,'errno':0}
             assert blocked_probe['families']['ipv6']['errno'] in (11,110)
+            raw=foreign()
             began=time.monotonic_ns();diagnostics=plan(OPEN);ended=time.monotonic_ns()
             assert diagnostics['family_statuses']['ipv4']['external']=='no_observed_input_conflict' and diagnostics['family_statuses']['ipv6']['external']=='blocked'
             after_plan=foreign();assert after_plan==raw
-            new=d.apply('dual-foreign-'+family+str(priority).replace('-','m'),OPEN)
-            partial=d.confirm(new,'ipv4');assert partial['phase']=='AWAITING_CONFIRM'
-            g.request('/cancel',{'op':new['op'],'generation':new['generation']});g.ready('ROLLED_BACK')
+            observations=[{'operation':'plan','before':raw,'after':after_plan}]
+            new=observed('apply',lambda:d.apply('dual-foreign-'+family+str(priority).replace('-','m'),OPEN),observations)
+            partial=observed('partial_confirm',lambda:d.confirm(new,'ipv4'),observations);assert partial['phase']=='AWAITING_CONFIRM'
+            observed('cancel',lambda:g.request('/cancel',{'op':new['op'],'generation':new['generation']}),observations);g.ready('ROLLED_BACK')
             after_operations=foreign();assert after_operations==raw and d.kernel()==expected(OPEN)
             remove();recovered_probe=probes();assert all(p['connected'] for p in recovered_probe['families'].values())
             cases.append({'family':family,'priority':priority,'diagnostics':diagnostics,'foreign_before':raw,'foreign_after_plan':after_plan,
-                          'foreign_after_operations':after_operations,'before':before_probe,'blocked':blocked_probe,'recovered':recovered_probe,
+                          'foreign_after_operations':after_operations,'foreign_observations':observations,'before':before_probe,'blocked':blocked_probe,'recovered':recovered_probe,
                           'partial':g.project(partial),'plan_clock':{'clock':'monotonic_ns','started_ns':began,'finished_ns':ended},'plan_observed_ms':(ended-began)/1e6})
         install('ip6',10,'ip6 saddr 2001:db8:55::1 tcp dport 59999 drop')
-        unknown_raw=foreign();unknown=plan(OPEN)
+        unknown_raw=foreign();unknown=plan(OPEN);unknown_after_plan=foreign();assert unknown_raw==unknown_after_plan
         assert unknown['family_statuses']['ipv4']['external']=='no_observed_input_conflict' and unknown['family_statuses']['ipv6']['external']=='risk'
         unknown_probe=probes();assert unknown_probe['families']['ipv6']['errno'] in (11,110)
-        new=d.apply('dual-unknown',OPEN);unknown_receipt=new['diagnostics'];unknown_partial=d.confirm(new,'ipv4')
-        g.request('/cancel',{'op':new['op'],'generation':new['generation']});g.ready('ROLLED_BACK')
+        unknown_observations=[{'operation':'plan','before':unknown_raw,'after':unknown_after_plan}]
+        new=observed('apply',lambda:d.apply('dual-unknown',OPEN),unknown_observations);unknown_receipt=new['diagnostics']
+        unknown_partial=observed('partial_confirm',lambda:d.confirm(new,'ipv4'),unknown_observations)
+        observed('cancel',lambda:g.request('/cancel',{'op':new['op'],'generation':new['generation']}),unknown_observations);g.ready('ROLLED_BACK')
         unknown_after=foreign();assert unknown_raw==unknown_after;remove();unknown_recovered=probes()
         assert all(p['connected'] for p in unknown_recovered['families'].values())
         # With the guard configured, old connections still cannot confirm either family.
@@ -113,7 +122,7 @@ committed=call('ipv6','/confirm',payload(s));assert committed['phase']=='COMMITT
 print(json.dumps({'old_status':statuses,'partial':projection(partial),'committed':projection(committed)}))
 ''',json.dumps(OPEN))
         # Restore a baseline that the currently configured probe guard would reject.
-        drop.unlink();restart();d.commit('dual-unguarded-baseline',d.FINAL)
+        drop.unlink();restart();restoration_baseline=d.commit('dual-unguarded-baseline',d.FINAL)
         drop.write_text('[Service]\nExecStart=\n'+original+' --management-paths /etc/rulemoor/dual-management-paths.json\n');restart()
         recovery=[]
         for mode in ('cancel','deadline','restart'):
@@ -132,8 +141,8 @@ print(json.dumps({'old_status':statuses,'partial':projection(partial),'committed
         return {'boot':boot_id(),'baseline':baseline,'paths':PATHS,'own_denied':denied,'journal_before_denial':before,'journal_after_denial':after,
                 'kernel_before_denial':before_kernel,'kernel_after_denial':after_kernel,'admitted':g.project(admitted),'foreign_cases':cases,
                 'unknown':{'diagnostics':unknown,'apply_diagnostics':unknown_receipt,'foreign_before':unknown_raw,'foreign_after':unknown_after,
-                           'probe':unknown_probe,'recovered_probe':unknown_recovered,'partial':g.project(unknown_partial)},
-                'confirmations':confirmation,'recoveries':recovery,'listener_identity':listener_id,'memory':sample,'cleanup':cleanup}
+                           'foreign_observations':unknown_observations,'probe':unknown_probe,'recovered_probe':unknown_recovered,'partial':g.project(unknown_partial)},
+                'confirmations':confirmation,'restoration_baseline':g.project(restoration_baseline),'recoveries':recovery,'listener_identity':listener_id,'memory':sample,'cleanup':cleanup}
     finally:
         remove()
         if listener.poll() is None:listener.send_signal(signal.SIGTERM)

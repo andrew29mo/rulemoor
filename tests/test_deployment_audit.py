@@ -1,7 +1,7 @@
 """Boundary checks for the production deployment evidence verifier."""
 import copy
 import unittest
-from tools.deployment_report import interval, positive, render, rate_limit_receipts, tcp_drop_cycle, process_identity, dual_projection_identity
+from tools.deployment_report import interval, positive, render, rate_limit_receipts, tcp_drop_cycle, process_identity, dual_projection_identity, management_projection, foreign_observations
 
 
 class MeasurementEvidenceTests(unittest.TestCase):
@@ -83,3 +83,22 @@ class MeasurementEvidenceTests(unittest.TestCase):
         for key,value in (('generation',-1),('generation',True),('generation','1'),('boot','other-boot')):
             bad={**good,key:value}
             with self.subTest(key=key,value=value),self.assertRaises(AssertionError):dual_projection_identity(bad,'fixture-boot')
+
+    def test_management_receipt_is_bound_to_boot_operation_generation_and_policies(self):
+        from tools.dual_preflight import OPEN
+        state={'boot':'test-boot','op':'test-op','generation':3,'phase':'AWAITING_CONFIRM',
+               'current':OPEN,'baseline':OPEN,'candidate':OPEN,'confirmed_families':['ipv4']}
+        def check(s):management_projection(s,'test-boot','test-op',3,OPEN,OPEN,'AWAITING_CONFIRM',['ipv4'])
+        check(state)
+        for key,value in (('boot','other'),('op','other'),('generation',4),('generation',True),('baseline',{}),('candidate',{}),('current',{}),('confirmed_families',['ipv4','ipv6'])):
+            bad=copy.deepcopy(state);bad[key]=value
+            with self.subTest(key=key,value=value),self.assertRaises(AssertionError):check(bad)
+
+    def test_foreign_readbacks_catch_intermediate_change_even_if_final_restored(self):
+        baseline=[{'table':{'family':'ip6','name':'fixture'}}]
+        rows=[{'operation':op,'before':baseline,'after':baseline} for op in ('plan','apply','partial_confirm','cancel')]
+        foreign_observations(rows,baseline)
+        for i in range(len(rows)):
+            bad=copy.deepcopy(rows);bad[i]['after']=[]
+            with self.subTest(operation=rows[i]['operation']),self.assertRaises(AssertionError):foreign_observations(bad,baseline)
+        with self.assertRaises(AssertionError):foreign_observations(rows[:-1],baseline)

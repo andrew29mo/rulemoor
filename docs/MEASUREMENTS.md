@@ -1,25 +1,25 @@
 # Observed MVP measurements
 
-Retained run: `ef8a435b0ccead85`. Executable snapshot: `a0c093c5ee46f8a93d23f7ffb4bcb280c2a0cdc47de8803b6ba5cb9bc77f76ac`.
+Retained run: `1344705fc9496855`. Executable snapshot: `5d2899bf453b3f6491afb0f7e9ebf52f70cf339035e205705985eb457af973ac`.
 
 Environment: Linux 6.8.0-117-generic/aarch64, Python 3.12.14, nftables 1.0.6, inside a Colima VM. Container limits: 2 vCPU, 768 MiB. No native macOS agent-performance claim.
 
 | Operation | Trials | Median ms | Minimum–maximum ms |
 |---|---:|---:|---:|
-| plan | 10 | 11.44 | 9.33–17.73 |
-| apply | 10 | 45.20 | 42.24–46.75 |
-| confirm | 5 | 3.60 | 3.36–4.11 |
-| cancel | 5 | 33.56 | 30.69–34.48 |
+| plan | 10 | 12.15 | 8.71–16.50 |
+| apply | 10 | 51.11 | 44.69–62.03 |
+| confirm | 5 | 3.85 | 3.82–4.41 |
+| cancel | 5 | 33.68 | 31.76–36.61 |
 
 Each timed operation includes a fresh TLS connection, request/response and its relevant kernel checks and FULL-sync journal work. Client Python startup and the status fetch used to prepare each trial are outside the timer. Confirm timing uses the payload returned by apply; it does not include the extra status fetch performed by the interactive CLI confirm subcommand. These are endpoint round trips through the production CLI transport, not complete command-launch timings. One sequential client alternates between two one-rule policies, so every application changes the rule. Five operations are confirmed, five cancelled. Service readiness is the only warmup; every trial is retained. Ten samples are exploratory, not a tail-latency or throughput characterization. No competing-product baseline, speedup or production SLA is claimed.
 
-Agent initial RSS: 22.85 MiB; final RSS and kernel VmHWM: 23.54 MiB / 23.54 MiB. This excludes transient nft children, client processes, container services and the VM. It is not total deployment memory.
+Agent initial RSS: 22.86 MiB; final RSS and kernel VmHWM: 23.56 MiB / 23.62 MiB. This excludes transient nft children, client processes, container services and the VM. It is not total deployment memory.
 
-State directory after ten trials: 347,880 logical bytes, 372,736 allocated bytes (364 KiB). Includes the 256 KiB reserve and test TLS material. It excludes the container image, VM disk and Python installation; it is not a deployment-size claim.
+State directory after ten trials: 347,881 logical bytes, 372,736 allocated bytes (364 KiB). Includes the 256 KiB reserve and test TLS material. It excludes the container image, VM disk and Python installation; it is not a deployment-size claim.
 
-In one management-loss test with a 3-second window, rollback started 48.9 ms after the deadline and rule restoration was verified 93.4 ms after it. A subsequent fresh management request succeeded. Reachability-completion delay was not separately timestamped. These are single-run observations, not recovery-time upper bounds.
+In one management-loss test with a 3-second window, rollback started 18.5 ms after the deadline and rule restoration was verified 69.6 ms after it. A subsequent fresh management request succeeded. Reachability-completion delay was not separately timestamped. These are single-run observations, not recovery-time upper bounds.
 
-Native macOS and Linux each passed 109 tests on the same source snapshot. Thirty-two production mutations and seventeen evidence-corruption controls were rejected. Real-kernel cases additionally cover six crash boundaries, two foreign-policy cases, backlog and response-loss scenarios, real executor timeout and actual bounded-tmpfs ENOSPC. macOS test-process peak RSS is retained for provenance only, and must not be compared to Linux daemon VmHWM.
+Native macOS and Linux each passed 111 tests on the same source snapshot. Thirty-two production mutations and seventeen evidence-corruption controls were rejected. Real-kernel cases additionally cover six crash boundaries, two foreign-policy cases, backlog and response-loss scenarios, real executor timeout and actual bounded-tmpfs ENOSPC. macOS test-process peak RSS is retained for provenance only, and must not be compared to Linux daemon VmHWM.
 
 [Raw records](../reviews/mvp/combined.json) · [HTML report](../reviews/mvp/report.html)
 

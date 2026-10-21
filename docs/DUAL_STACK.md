@@ -71,4 +71,4 @@ The two original orderly VM reboot cases exercise the **legacy IPv4 deployment**
 
 
 
-Retained executable source `a0c093c5ee46f8a93d23f7ffb4bcb280c2a0cdc47de8803b6ba5cb9bc77f76ac`; native/container run `ef8a435b0ccead85` (109 tests per platform, 32 production mutations); installed-service run `9d88cdff84bdc2e6` (15 groups, 57 report controls). Exact JSON/HTML and all cleanup checks are audited.
+Retained executable source `5d2899bf453b3f6491afb0f7e9ebf52f70cf339035e205705985eb457af973ac`; native/container run `1344705fc9496855` (111 tests per platform, 32 production mutations); installed-service run `c6c726cffd12db8e` (15 groups, 65 report controls). Exact JSON/HTML and all cleanup checks are audited.

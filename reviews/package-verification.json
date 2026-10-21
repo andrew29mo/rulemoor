@@ -2,14 +2,14 @@
   "version": "0.1.0",
   "wheel_modules_match_validated_source": true,
   "cli_and_agent_entrypoints_present": true,
-  "source_sha256": "a0c093c5ee46f8a93d23f7ffb4bcb280c2a0cdc47de8803b6ba5cb9bc77f76ac",
+  "source_sha256": "5d2899bf453b3f6491afb0f7e9ebf52f70cf339035e205705985eb457af973ac",
   "license_expression": "MIT",
   "wheel_and_sdist_include_matching_license_and_notices": true,
   "third_party_runtime_requirements": [],
   "artifacts": {
-    "rulemoor-0.1.0-py3-none-any.whl": "1449bbb67caaad50470a7a8735b7256185dcdcd9697bdeb44c66fd5d9ce9a97e",
-    "rulemoor-0.1.0.tar.gz": "9a029111fed3c05f30985ca6226e260d2acc262397b11d977abad4ddcb1ad67c"
+    "rulemoor-0.1.0-py3-none-any.whl": "5349e8afd38212d52821ac61cd625292e6e005a98177fb2f2521d5a07c0d4878",
+    "rulemoor-0.1.0.tar.gz": "bdbcb95b2fc2bcb87e94eaee4f905cbf0c75e80bb0b080fdd6cabb9bc65f129d"
   },
   "distribution_privacy_scan_passed": true,
-  "note": "Rebuilt after IPv6 declared-port preflight and read-only external ip6/inet diagnostics. Production diagnostics and service help, formal tests, actual-systemd fixtures and report checks were updated and validated on the same source. Wheel modules equal validated source; MIT, notices, entrypoints and no third-party Python runtime dependencies checked. Distribution contents scanned for private paths, credential formats and forbidden runtime files. Same-source actual-systemd evidence verifies installed module hashes independently."
+  "note": "Rebuilt after IPv6 preflight evidence review: scenario-bound receipt validation and per-operation foreign-table readbacks. Production runtime modules are unchanged by this review; verifier regressions, VM observation and report controls were extended. Wheel modules equal validated source; MIT, notices, entrypoints and no third-party Python runtime dependencies checked. Distribution contents scanned for private paths, credential formats and forbidden runtime files. Same-source actual-systemd evidence verifies installed module hashes independently."
 }

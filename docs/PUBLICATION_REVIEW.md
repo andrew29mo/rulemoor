@@ -4,7 +4,7 @@ Status: code, tests, documentation and current local evidence reconciled. The ow
 
 ## Current evidence
 
-- Native macOS and Linux each pass **109** production-core/API/tool tests from the same immutable executable snapshot. Portable kernel behavior is represented by a memory backend; actual nftables/network evidence comes from the Linux VM case groups.
+- Native macOS and Linux each pass **111** production-core/API/tool tests from the same immutable executable snapshot. Portable kernel behavior is represented by a memory backend; actual nftables/network evidence comes from the Linux VM case groups.
 - All **eight** real Linux nft/netns/TLS groups pass: atomicity, management connectivity, six crash boundaries/two foreign-policy cases, process recovery, backlog/response loss, storage faults, finite slow clients and measurement.
 - **Twenty-nine** production mutations are caught by assertion failures; **seventeen** malformed or missing-evidence controls are rejected. Optimized validation is refused rather than silently removing assertions.
 - Source fingerprints, individual test IDs, run IDs, raw trials, summary recomputation and exact HTML/JSON consistency are rechecked by `tools.audit_evidence`.
@@ -56,7 +56,7 @@ Local macOS/Linux validation run `97f20111c14d7117` was re-audited against the u
 [Deployment validation](DEPLOYMENT_VALIDATION.md) adds installed-unit, automatic restart and orderly VM boot evidence. The earlier MIT/publication run references above are historical; `reviews/mvp/` now retains the latest same-source portable/container run and `reviews/deployment/` retains the separate actual-systemd VM run. Executable changes receive fresh validation; no abrupt power-loss recovery is claimed.
 
 
-The current dual-stack update passes **109 tests per platform, thirty-two production mutations, seventeen original evidence controls, eight container Linux groups and fifteen actual-systemd deployment groups with fifty-seven additional evidence controls**. Both suites record executable snapshot `a0c093c5ee46f8a93d23f7ffb4bcb280c2a0cdc47de8803b6ba5cb9bc77f76ac`. The deployment run is `9d88cdff84bdc2e6`; the native/container run is `ef8a435b0ccead85`. Failed/superseded deployment attempts remain visible; current cleanup verifies removal and a stopped VM.
+The current dual-stack update passes **111 tests per platform, thirty-two production mutations, seventeen original evidence controls, eight container Linux groups and fifteen actual-systemd deployment groups with sixty-five additional evidence controls**. Both suites record executable snapshot `5d2899bf453b3f6491afb0f7e9ebf52f70cf339035e205705985eb457af973ac`. The deployment run is `c6c726cffd12db8e`; the native/container run is `1344705fc9496855`. Failed/superseded deployment attempts remain visible; current cleanup verifies removal and a stopped VM.
 
 ## Deployment evidence audit
 
@@ -93,3 +93,7 @@ The [dual review](DUAL_REVIEW.md) independently inspected production behavior an
 ## IPv6 declared-port preflight extension
 
 [Dual preflight](DUAL_PREFLIGHT.md) now separates IPv4/IPv6 admission and supported foreign input diagnostics, with bounded read-only inventory. Unknown/unavailable IPv6 is never inferred safe from IPv4. Own denials gate new apply; external results remain warnings and baseline recovery bypasses admission. New formal and configured-service tests preserve both fresh confirmations and foreign rules. Configured-guard VM reboot, full topology, boot-time protection and power-loss recovery are not claimed.
+
+## IPv6 preflight evidence review
+
+[Independent follow-up review](DUAL_PREFLIGHT_REVIEW.md) reproduced two verifier/observation gaps: unrelated partial confirmation receipts could pass, and an intermediate foreign-table change restored by cancellation could evade end-of-sequence checks. Exact receipt-chain binding, an exported normal restoration baseline and per-operation foreign readbacks now challenge these cases. Two formal verifier regressions and eight corruption controls complement full same-source reruns. No production runtime defect was reproduced; the review does not expand the documented deployment guarantees.

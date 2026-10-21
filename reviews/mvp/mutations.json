@@ -241,7 +241,7 @@
     "tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "tests/test_api.py": "b91c376ffac7bea125070623260004ad17022b2399992fc3e5449176311eed8a",
     "tests/test_core.py": "99e4c3b7f816f3c3eb8b0a7aa6fe3a6708504abae9519495211d3957040abdeb",
-    "tests/test_deployment_audit.py": "c5d6f42e95a0442a4f202632d8e2523cb07a7222e354c8f2c1e62e6c64124d04",
+    "tests/test_deployment_audit.py": "dfdccf12ac9d5d323accb48b7b6a258e66c00d712e8c1ed567d6a8fbceaa86d2",
     "tests/test_diagnostics.py": "1d598bf9ee804f9d5d4e0487822b47db1110a4a5629f7eb4facf696c29061af7",
     "tests/test_dual_diagnostics.py": "382d39cdba7be498ac883d6784263afa5de2f32dea647a2d4235fb2b139d1952",
     "tests/test_dual_recovery.py": "28ace94c72e6c1453bf8147e9a63dec4f2b57dc49095af0df20b233eff30e49a",
@@ -256,8 +256,8 @@
     "tools/client_driver.py": "5a3cdda516974c3fa23c9adf3c3dbe4fbaa5bd5b163de07338e2504916e92a44",
     "tools/colima-lock.json": "fa62b8a598a02cae7425fae3b016e820074784197421a0f4c13d2b848167702d",
     "tools/deployment_guest.py": "9faa2d0eef78ecc73705f8a37f1437e29129aacba5d8fbc0129c92bb0c4e12d9",
-    "tools/deployment_report.py": "8b9540db9187e681a6f7a432df65e940fd57d24d58faf1152b01698559219eb4",
-    "tools/dual_preflight.py": "e2cef9942388456dd301a04b8bee2530c960221db70622a8dddd5a538f587e97",
+    "tools/deployment_report.py": "28fe603a4a1f9d294cbf43e6504eba10a4124744887195a1d7426f7b9eada8d2",
+    "tools/dual_preflight.py": "1615aa027a83c1675f050b9d1733c1377e08545b1ea51b5238e3f741279d0676",
     "tools/dual_recovery.py": "cf1347783722d3e16d990ca0bd6f1a1e4272cfcc35d2b1ba7837eea66e103e8c",
     "tools/evidence.py": "d7724bd2d22fc9009e7ca08f1256ff68a6c3f685bee920d6c412b5b3ff56475b",
     "tools/install_colima.py": "70ae4a15fc490fa9175cff77c21eb30fabaea5b2401d5d1a8f20e3b6c7c9b7eb",
@@ -274,5 +274,5 @@
     "tools/validate_deployment.py": "a8e03f1563b4660ee1c1acf2a99d38ac66e6a284392f597cc6ad7138094fe067",
     "tools/validate_local.py": "51dd296170db9f124048dcd16eaf2c7cca1735ccc5b851f73aa09d95e74d45e1"
   },
-  "run_id": "ef8a435b0ccead85"
+  "run_id": "1344705fc9496855"
 }
